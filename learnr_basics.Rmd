@@ -1,0 +1,323 @@
+---
+title: "EpiRHandbook R Basics"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+description: >
+  Learn the basics of working with epi data in R
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(pacman)
+
+pacman::p_install_gh("appliedepi/epirhandbook")   # install the latest version of the Epi R Handbook package
+pacman::p_load(epirhandbook)                      # load the package for use
+get_data("linelist_cleaned.rds", "data/")         # download data
+tutorial_options(exercise.eval = TRUE)            # pre-evaluate exercises
+knitr::opts_chunk$set(error = TRUE)               # set global options, can be overwritten by chunks
+```
+
+
+## Welcome to Epi R Basics
+ 
+In this interactive tutorial, you will learn how to use some basic R functions on epidemiology data, including:
+
+* Getting familiar with data as R objects
+* Piping and pipe operators
+* Key operators and functions
+* Errors and warnings
+
+This tutorial follows the [_R Basics_](https://epirhandbook.com/en/r-basics.html) section of the [_EpiRHandbook_](https://epirhandbook.com/en/). 
+
+### The Setup
+
+To get in some practice of basic R functions, we'll use the `linelist` fictional ebola outbreak data set you met in the EpiRHandbook.
+
+To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis. 
+
+We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [_Suggested Packages_](https://epirhandbook.com/en/suggested-packages-1.html) page. 
+
+```{r eval= FALSE}
+library(tidyverse)              # loads dplyr, ggplot2, and others
+library(pacman)                 # installs and loads packages only if not already in your library
+pacman::p_load(epirhandbook)    # load the EpiRHandbook package for use
+get_data("linelist_cleaned.rds", "data/") # Fictional data used in EpiRHandbook
+```
+
+
+## Data as R objects
+
+### Assigning an object value
+
+As described in the EpiRHandbook, An object exists when you have assigned it a value (see the assignment section below). When it is assigned a value, the object appears in the Environment (see the upper right pane of RStudio). It can then be operated upon, manipulated, changed, and re-defined.
+
+In epidemiology (and particularly field epidemiology), you will most commonly encounter objects that are data frames and vectors. The data we are using is classified as a dataframe.
+
+The cleaned linelist data object would have the name of the file `linelist_cleaned.rds` unless assigned a different name.
+
+We want to give the data a simpler name for easier recall, so we will use the `<-` operator to assign the object name `epidata`. 
+
+See below how the name `epidata` is assigned to the data brought in following the standard order:
+
+**object_name <- value** (or process/calculation that produce a value)
+
+```{r objects}
+epidata <- read_rds("data/linelist_cleaned.rds")   # read in data and assign it a name
+```
+
+We can check that the data has been properly assigned by running the object name `epidata`. 
+
+A more efficient approach for a quick check is to use the `head()` function to produce the first few rows of the data instead of the entire dataset.
+
+```{r headview}
+head(epidata)
+```
+
+### Exercise 1
+
+*Now it's your turn. Here's a simple exercise with an empty code chunk provided for entering the answer.*
+
+Write the R code required to read in the original data object `linelist_cleaned.rds` and call it `linelist`. Then view the first few rows of the new object.
+
+```{r exercise1, exercise=TRUE}
+
+```
+
+```{r exercise1-solution}
+linelist <- read_rds("linelist_cleaned.rds")
+head(linelist)
+```
+
+## Object Classes
+
+All the objects stored in R have a class which tells R how to handle the object. There are many possible classes. While working with epidemiology data sets, object classes will most likely vary the most within columns (or variables).
+
+You can test the class of an object by providing its name to the function `class()`.
+
+### Exercise 2
+
+Enter and run the code to check the class of `linelist`.
+
+```{r exercise2a, exercise=TRUE}
+
+```
+
+```{r exercise2a-solution}
+class(linelist)
+```
+
+Note: you can reference a specific column within a dataset using the `$` notation to separate the name of the dataset and the name of the column.
+It's good practice to do this while getting to know key columns in your data. 
+
+Now, enter the code to check the class of the outcome column in `linelist`.
+
+```{r exercise2b, exercise=TRUE}
+
+```
+
+```{r exercise2b-solution}
+class(linelist$outcome)
+```
+
+While we're at it, why don't we check the class of the temp column?
+
+```{r exercise2c, exercise=TRUE}
+
+```
+
+```{r exercise2c-solution}
+class(linelist$temp)
+```
+
+It's likely at some point you will need to change the class of a column in your dataset, but we will go over that in a later lesson. 
+
+
+## Indexing 
+
+You may need to view parts of objects, also called “indexing”, which is often done using the square brackets `[ ]`. Using `$` on a dataframe to access a column is also a type of indexing, which you used in the previous exercise.
+
+Using square brackets with the `summary()` function is one helpful way to use indexing. See below for examples from the handbook. 
+
+Let's say we want a summary of ebola case temperatures from our data `linelist`:
+
+```{r summary1}
+summary(linelist$temp)      # All of the summary
+```
+
+If we just want to know what the **maximum** temperature of an ebola case from our data is:
+
+```{r summary2}
+summary(linelist$temp)[6]   # The 6th element of the summary of the linelist temperature column 
+```
+
+It can also be done by the element title using double brackets:
+```{r summary3}
+summary(linelist$temp)[["Max."]]   # renders only the value of the maximum temp
+```
+
+Note: Character elements need to be entered with quotations
+
+### Exercise 3
+
+You try. Enter the code to index the median case temperature from `linelist`.
+
+```{r exercise3a, exercise=TRUE}
+
+```
+
+```{r exercise3a-solution}
+summary(linelist$temp)[3]
+```
+
+<div id="exercise3a-hint">
+**Hint:** the median is the third element in the `summary()` output.
+</div>
+
+
+Once you've indexed the median ebola case temperature, enter the same line again below. Except this time use double brackets `[[ ]]` to index. Let's see what changes in the output.
+
+```{r exercise3b, exercise=TRUE}
+
+```
+
+```{r exercise3b-solution}
+summary(linelist$temp)[[3]]
+```
+
+
+Brackets also work on data frames to view specific rows and columns. You can do this using the syntax `dataframe[rows, columns]`.
+
+Below are some examples from the handbook:
+```{r indexing}
+# View values from row 2 and columns 5 through 10 and 18
+linelist[2, c(5:10, 18)] 
+
+# View rows 2 through 20, and specific columns
+linelist[2:20, c("date_onset", "outcome", "age")]
+
+# View rows and columns based on criteria
+# *** Note the dataframe must still be named in the criteria!
+linelist[linelist$age > 25 , c("date_onset", "outcome", "age")]
+
+# Use View() to see the outputs in the RStudio Viewer pane (easier to read) 
+# *** Note the capital "V" in View() function
+View(linelist[2:20, "date_onset"])
+```
+
+How would you index `linelist` to show the age, gender, and hospital columns of cases  below the age of 18? Enter the code based on this criteria.
+
+```{r exercise3c, exercise=TRUE}
+
+```
+
+```{r exercise3c-solution}
+linelist[linelist$age < 18 , c("age", "gender", "hospital")]
+
+
+```
+
+
+## Index with **dplyr**
+
+In the handbook you saw dataframe indexing using the package `dplyr` and its functions:
+* `filter()` with the logical statement `row_number()`for rows,
+* `select()` for columns, and
+* `head()`.
+
+Fill in the blank with the correct code for filtering and indexing your data in the next exercises.
+
+
+View the **first two rows** of linelist using `head()`
+```{r blank1, exercise=TRUE, exercise.blanks=TRUE}
+linelist ____ head(2)
+```
+
+```{r blank1-solution}
+linelist %>% head(2)
+```
+
+
+Show only row 100 of linelist
+```{r blank2, exercise=TRUE, exercise.blanks=TRUE}
+linelist ____ filter(____)
+```
+
+```{r blank2-solution}
+linelist %>% filter(row_number == 100)
+```
+
+
+View only the date_onset, outcome, and age columns of rows 15 to 25.
+```{r blank3, exercise=TRUE, exercise.blanks=TRUE}
+linelist ____ filter(_____ %in% _____) %>% _____(date_onset, outcome, age)
+```
+
+```{r blank3-solution}
+linelist %>% filter(row_number() %in% 15:25) %>% select(date_onset, outcome, age)
+```
+
+Note: For indexing lists, refer back to the handbook for examples and resources. Rememnber that the linelist data you are working with is classified as a dataframe. 
+
+
+## Piping
+
+
+## Missing values
+
+
+##  TEMPLATE Code
+### Exercise with Code
+
+*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+
+Now write a function that adds any two numbers and then call it:
+
+```{r add-function, exercise=TRUE, exercise.lines = 5}
+add <- function() {
+  
+}
+```
+
+## Topic 2
+
+### Exercise with Hint
+
+*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+
+Modify the following code to limit the number of rows printed to 5:
+
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+mtcars
+```
+
+```{r print-limit-hint}
+head(mtcars)
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+
