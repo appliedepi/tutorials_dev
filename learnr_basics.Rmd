@@ -10,13 +10,12 @@ description: >
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
-library(tidyverse)
-library(pacman)
+pacman::p_load(learnr, here, rio, tidyverse)
 
 pacman::p_install_gh("appliedepi/epirhandbook")   # install the latest version of the Epi R Handbook package
 pacman::p_load(epirhandbook)                      # load the package for use
-get_data("linelist_cleaned.rds", "data/")         # download data
+rio::import(here::here("www", "linelist_cleaned.rds"))
+#get_data("linelist_cleaned.rds", "data/")         # download data
 tutorial_options(exercise.eval = TRUE)            # pre-evaluate exercises
 knitr::opts_chunk$set(error = TRUE)               # set global options, can be overwritten by chunks
 ```
@@ -66,7 +65,7 @@ See below how the name `epidata` is assigned to the data brought in following th
 **object_name <- value** (or process/calculation that produce a value)
 
 ```{r objects}
-epidata <- read_rds("data/linelist_cleaned.rds")   # read in data and assign it a name
+epidata <- rio::import(here::here("www", "linelist_cleaned.rds"))   # read in data and assign it a name
 ```
 
 We can check that the data has been properly assigned by running the object name `epidata`. 

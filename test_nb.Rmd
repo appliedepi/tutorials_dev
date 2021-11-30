@@ -1,0 +1,123 @@
+---
+title: "Introduction to R for applied epidemiology"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+description: >
+  Basics of R Syntax
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = TRUE)                    # set global options, can be overwritten by chunks
+pacman::p_load(learnr, here, rio, tidyverse)           # load packages
+linelist <- rio::import(here::here("www", "linelist_cleaned.rds")) # load data
+tutorial_options(exercise.eval = FALSE)                 # pre-evaluate exercises
+```
+
+
+## Welcome to Intro to R for Applied Epidemiology
+ 
+In this interactive tutorial, you will learn the basics of R in the context of tasks common to applied epidemiology:  
+
+* Becoming familiar with typing code "commands"
+* "Importing" a dataset into R to conduct cleaning and other modifications
+* Viewing a dataset in R
+* Reviewing and accessing columns in a dataset
+* Key operators and functions
+* Piping and pipe operators
+* Errors and warnings
+
+
+
+## Install and Load R packages
+
+To get in some practice of basic R functions, we'll use the `linelist` fictional ebola outbreak data set you met in the EpiRHandbook.
+
+To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis. 
+
+We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [_Suggested Packages_](https://epirhandbook.com/en/suggested-packages-1.html) page. 
+
+```{r eval= FALSE}
+pacman::p_load(learnr, here, rio, tidyverse)           # install and load R packages
+```
+
+
+### Import from subfolder
+
+*Now it's your turn. Here's a simple exercise with an empty code chunk provided for entering the answer.*
+
+Write the R code required to read in the original data object `linelist_cleaned.rds` and call it `linelist`. Then view the first few rows of the new object.
+
+```{r exercise2, exercise=TRUE}
+
+```
+
+```{r exercise2-solution}
+linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
+```
+
+Now type code that will print the first 10 lines of data in the `linelist` data frame.  
+
+```{r exercise2-head, exercise = TRUE}
+```
+
+```{r exercise2-head-solution}
+head(linelist)
+```
+
+
+
+## Video
+
+Testing the embed of a video
+
+Watch this video about data cleaning and management
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nxBTDfJ_neE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+## Topic 2
+
+### Exercise with Hint
+
+*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+
+Modify the following code to limit the number of rows printed to 2:
+
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+head(linelist)
+```
+
+```{r print-limit-hint}
+Specify the desired number of rows after a comma
+```
+
+```{r print-limit-solution}
+head(linelist, 2)
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
