@@ -1,5 +1,9 @@
 ---
 title: "Introduction to R for applied epidemiology"
+tutorial:
+    id: "test-tutorial"
+    date: "`r Sys.time()`"
+    version: 1.0
 output: 
   learnr::tutorial:
     progressive: true
@@ -11,13 +15,56 @@ description: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(error = TRUE)                    # set global options, can be overwritten by chunks
-pacman::p_load(learnr, here, rio, tidyverse)           # load packages
+
+pacman::p_load(learnr, here, rio, tidyverse, submitr)  # load packages
+
+#pacman::p_load_gh("dtkaplan/submitr")
 linelist <- rio::import(here::here("www", "linelist_cleaned.rds")) # load data
-tutorial_options(exercise.eval = FALSE)                 # pre-evaluate exercises
+
+
+learnr::tutorial_options(
+  exercise.timelimit = 60, 
+  exercise.checker = gradethis::grade_learnr) 
+    # alternatively, submitr::null_code_checker
+
+
+# event recorder
+# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R
+tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises
+
+new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
+    cat(
+      tutorial_id, 
+      " (v", tutorial_version, "); ",
+      format(Sys.time(), "%Y-%M%-%D %H:%M:%S %Z"), "; ",
+      user_id, "; ",
+      event, "; ",
+      data$label, "; ",
+      data$answers, "; ",
+      data$code, "; ",
+      data$correct, "\n", sep = "",
+      
+      file = here::here("event_records", "test_nb.txt"),
+      append = TRUE)
+}
+
+options(tutorial.event_recorder = new_recorder)
+
+```
+
+```{r}
+submitr::login_controls()
 ```
 
 
-## Welcome to Intro to R for Applied Epidemiology
+<!-- ```{r context="server-start"} -->
+<!--  event_register_handler("section_viewed", function(session, event, data) { -->
+<!--    message("event: section_viewed: ", data$sectionId) -->
+<!--  }) -->
+<!-- ``` -->
+
+
+## Welcome to Intro to R for Applied Epidemiology {#welcome}
  
 In this interactive tutorial, you will learn the basics of R in the context of tasks common to applied epidemiology:  
 
@@ -31,7 +78,7 @@ In this interactive tutorial, you will learn the basics of R in the context of t
 
 
 
-## Install and Load R packages
+## Install and Load R packages {#packages}
 
 To get in some practice of basic R functions, we'll use the `linelist` fictional ebola outbreak data set you met in the EpiRHandbook.
 
@@ -44,13 +91,40 @@ pacman::p_load(learnr, here, rio, tidyverse)           # install and load R pack
 ```
 
 
-### Import from subfolder
+
+
+
+## Import {#import} 
+
+### Import data from root folder {#import-root} 
+Here are some content
+
+
+*Now it's your turn. Here's a simple exercise with an empty code chunk provided for entering the answer.*
+
+Write the R code required to read in the original data object `linelist_cleaned.rds` and call it `linelist`. Then view the first few rows of the new object.
+
+```{r exercise1, exercise=TRUE}
+
+
+```
+
+```{r exercise1-solution}
+linelist <- import("linelist_cleaned.rds")
+```
+
+```{r exercise1-hint}
+Use the function import() from the rio package, and put the full name of the file (including extension) in quotation marks
+```
+
+### Import from subfolder {#import-subfolder}
 
 *Now it's your turn. Here's a simple exercise with an empty code chunk provided for entering the answer.*
 
 Write the R code required to read in the original data object `linelist_cleaned.rds` and call it `linelist`. Then view the first few rows of the new object.
 
 ```{r exercise2, exercise=TRUE}
+
 
 ```
 
@@ -61,6 +135,7 @@ linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
 Now type code that will print the first 10 lines of data in the `linelist` data frame.  
 
 ```{r exercise2-head, exercise = TRUE}
+
 ```
 
 ```{r exercise2-head-solution}
@@ -69,7 +144,7 @@ head(linelist)
 
 
 
-## Video
+## Video {#video}
 
 Testing the embed of a video
 
@@ -79,9 +154,9 @@ Watch this video about data cleaning and management
 
 
 
-## Topic 2
+## Topic 2 {#topic2}
 
-### Exercise with Hint
+### Exercise with Hint {#exercise-head}
 
 *Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
 
@@ -92,14 +167,14 @@ head(linelist)
 ```
 
 ```{r print-limit-hint}
-Specify the desired number of rows after a comma
+hint
 ```
 
 ```{r print-limit-solution}
 head(linelist, 2)
 ```
 
-### Quiz
+### Quiz {#quiz}
 
 *You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
 

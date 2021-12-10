@@ -13,7 +13,7 @@
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="true" />
 
-<title>Introduction to R for applied epidemiology</title>
+<title>Test of gradethis</title>
 
 
 <!-- header-includes START -->
@@ -96,6 +96,7 @@ if (window.hljs) {
 <!-- end tabsets -->
 
 
+<link rel="stylesheet" href="css\font-size.css" type="text/css" />
 
 </head>
 
@@ -108,7 +109,8 @@ if (window.hljs) {
 
 <div class="topics">
 
-<pre class="r"><code>submitr::login_controls()</code></pre>
+<!-- Add JavaScript code for making the exercise code larger -->
+<script language="JavaScript" src="js/exercise-font-size.js"></script>
 <table>
 <tr>
 <td colspan="3">
@@ -143,150 +145,519 @@ ID:
 </td>
 </tr>
 </table>
-<!-- ```{r context="server-start"} -->
-<!--  event_register_handler("section_viewed", function(session, event, data) { -->
-<!--    message("event: section_viewed: ", data$sectionId) -->
-<!--  }) -->
-<!-- ``` -->
-<div id="section-welcome" class="section level2">
-<h2>Welcome to Intro to R for Applied Epidemiology</h2>
-<p>In this interactive tutorial, you will learn the basics of R in the context of tasks common to applied epidemiology:</p>
+<div id="section-introduction-to-r-for-applied-epidemiologists" class="section level2">
+<h2>Introduction to R for Applied Epidemiologists</h2>
+<p><img src="images/moz-banner.png" width="100%" /></p>
+<p>Welcome to the course “Introduction to R for applied epidemiologists”, offered for free by <a href="www.appliedepi.org">Applied Epi</a> - a non-profit organisation that elevates grassroots epidemiology by offering open-source tools, training, and support to frontline public health practitioners.</p>
+<p><img src="images/hex-sidebyside.png" width="100%" /></p>
+<div id="section-other-languages" class="section level4">
+<h4>Other languages</h4>
+<p>This course is available…</p>
+</div>
+<div id="section-offline-online" class="section level4">
+<h4>Offline / Online</h4>
+<p>You can access this tutorial offline by downloading our R package … If viewing offline, you can view the videos by doing …</p>
+</div>
+<div id="section-target-audience" class="section level4">
+<h4>Target Audience</h4>
+<p>This training is designed for …. We expect that you know how to do …</p>
+</div>
+<div id="section-learning-goals" class="section level4">
+<h4>Learning goals</h4>
 <ul>
-<li>Becoming familiar with typing code “commands”</li>
-<li>“Importing” a dataset into R to conduct cleaning and other modifications</li>
-<li>Viewing a dataset in R</li>
-<li>Reviewing and accessing columns in a dataset</li>
-<li>Key operators and functions</li>
-<li>Piping and pipe operators</li>
-<li>Errors and warnings</li>
+<li>Goal 1</li>
+<li>Goal 2</li>
+<li>Goal 3</li>
 </ul>
 </div>
+</div>
 <div id="section-packages" class="section level2">
-<h2>Install and Load R packages</h2>
-<p>To get in some practice of basic R functions, we’ll use the <code>linelist</code> fictional ebola outbreak data set you met in the EpiRHandbook.</p>
-<p>To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis.</p>
-<p>We’ve preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook <a href="https://epirhandbook.com/en/suggested-packages-1.html"><em>Suggested Packages</em></a> page.</p>
-<pre class="r"><code>pacman::p_load(learnr, here, rio, tidyverse)           # install and load R packages</code></pre>
+<h2>Packages</h2>
+<p>In this assignment we’ll work with 3 R packages, let’s load them!</p>
+<div class="tutorial-exercise" data-label="load-package" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>___(rio)
+___(here)
+___(tidyverse)</code></pre>
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<div id="section-import" class="section level2">
-<h2>Import</h2>
-<div id="section-import-root" class="section level3">
-<h3>Import data from root folder</h3>
-<p>Here are some content</p>
-<p><em>Now it’s your turn. Here’s a simple exercise with an empty code chunk provided for entering the answer.</em></p>
-<p>Write the R code required to read in the original data object <code>linelist_cleaned.rds</code> and call it <code>linelist</code>. Then view the first few rows of the new object.</p>
-<div class="tutorial-exercise" data-label="exercise1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<div class="tutorial-exercise-support" data-label="load-package-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>library(rio)
+library(here)
+library(tidyverse)</code></pre>
+</div>
+</div>
+<div id="section-data" class="section level2">
+<h2>Data</h2>
+<p>Now, import the dataset “linelist_cleaned.rds” from the “data” folder.</p>
+<div class="tutorial-exercise" data-label="import-data" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="import-data-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>linelist &lt;- rio::import(&quot;data&quot;, &quot;linelist_cleaned.rds&quot;)</code></pre>
+</div>
+<div id="section-review-data" class="section level3">
+<h3>Review data</h3>
+<p>Now we can review the dataset - press “Run Code” to see the result.</p>
+<div class="tutorial-exercise" data-label="view-data" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>tibble(linelist)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="exercise1-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>linelist &lt;- import(&quot;linelist_cleaned.rds&quot;)</code></pre>
-</div>
-<div class="tutorial-exercise-support" data-label="exercise1-hint" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>Use the function import() from the rio package, and put the full name of the file (including extension) in quotation marks</code></pre>
-</div>
-</div>
-<div id="section-import-subfolder" class="section level3">
-<h3>Import from subfolder</h3>
-<p><em>Now it’s your turn. Here’s a simple exercise with an empty code chunk provided for entering the answer.</em></p>
-<p>Write the R code required to read in the original data object <code>linelist_cleaned.rds</code> and call it <code>linelist</code>. Then view the first few rows of the new object.</p>
-<div class="tutorial-exercise" data-label="exercise2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
-</div>
-<div class="tutorial-exercise-support" data-label="exercise2-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>linelist &lt;- rio::import(here::here(&quot;data&quot;, &quot;linelist_cleaned.rds&quot;))</code></pre>
-</div>
-<p>Now type code that will print the first 10 lines of data in the <code>linelist</code> data frame.</p>
-<div class="tutorial-exercise" data-label="exercise2-head" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
-</div>
-<div class="tutorial-exercise-support" data-label="exercise2-head-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>head(linelist)</code></pre>
-</div>
-</div>
-</div>
-<div id="section-video" class="section level2">
-<h2>Video</h2>
-<p>Testing the embed of a video</p>
-<p>Watch this video about data cleaning and management</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/nxBTDfJ_neE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-</div>
-<div id="section-topic2" class="section level2">
-<h2>Topic 2</h2>
-<div id="section-exercise-head" class="section level3">
-<h3>Exercise with Hint</h3>
-<p><em>Here’s an exercise where the chunk is pre-evaulated via the <code>exercise.eval</code> option (so the user can see the default output we’d like them to customize). We also add a “hint” to the correct solution via the chunk immediate below labeled <code>print-limit-hint</code>.</em></p>
-<p>Modify the following code to limit the number of rows printed to 2:</p>
-<div class="tutorial-exercise" data-label="print-limit" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>head(linelist)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["case_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["generation"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["date_infection"],"name":[3],"type":["date"],"align":["right"]},{"label":["date_onset"],"name":[4],"type":["date"],"align":["right"]},{"label":["date_hospitalisation"],"name":[5],"type":["date"],"align":["right"]},{"label":["date_outcome"],"name":[6],"type":["date"],"align":["right"]},{"label":["outcome"],"name":[7],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[8],"type":["chr"],"align":["left"]},{"label":["age"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["age_unit"],"name":[10],"type":["chr"],"align":["left"]},{"label":["age_years"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["age_cat"],"name":[12],"type":["fct"],"align":["left"]},{"label":["age_cat5"],"name":[13],"type":["fct"],"align":["left"]},{"label":["hospital"],"name":[14],"type":["chr"],"align":["left"]},{"label":["lon"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["lat"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["infector"],"name":[17],"type":["chr"],"align":["left"]},{"label":["source"],"name":[18],"type":["chr"],"align":["left"]},{"label":["wt_kg"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["ht_cm"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["ct_blood"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["fever"],"name":[22],"type":["chr"],"align":["left"]},{"label":["chills"],"name":[23],"type":["chr"],"align":["left"]},{"label":["cough"],"name":[24],"type":["chr"],"align":["left"]},{"label":["aches"],"name":[25],"type":["chr"],"align":["left"]},{"label":["vomit"],"name":[26],"type":["chr"],"align":["left"]},{"label":["temp"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["time_admission"],"name":[28],"type":["chr"],"align":["left"]},{"label":["bmi"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["days_onset_hosp"],"name":[30],"type":["dbl"],"align":["right"]}],"data":[{"1":"5fe599","2":"4","3":"2014-05-08","4":"2014-05-13","5":"2014-05-15","6":"<NA>","7":"NA","8":"m","9":"2","10":"years","11":"2","12":"0-4","13":"0-4","14":"Other","15":"-13.21574","16":"8.468973","17":"f547d6","18":"other","19":"27","20":"48","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"36.8","28":"NA","29":"117.18750","30":"2","_rn_":"1"},{"1":"8689b7","2":"4","3":"<NA>","4":"2014-05-13","5":"2014-05-14","6":"2014-05-18","7":"Recover","8":"f","9":"3","10":"years","11":"3","12":"0-4","13":"0-4","14":"Missing","15":"-13.21523","16":"8.451719","17":"NA","18":"NA","19":"25","20":"59","21":"22","22":"NA","23":"NA","24":"NA","25":"NA","26":"NA","27":"36.9","28":"09:36","29":"71.81844","30":"1","_rn_":"2"},{"1":"11f8ea","2":"2","3":"<NA>","4":"2014-05-16","5":"2014-05-18","6":"2014-05-30","7":"Recover","8":"m","9":"56","10":"years","11":"56","12":"50-69","13":"55-59","14":"St. Mark's Maternity Hospital (SMMH)","15":"-13.21291","16":"8.464817","17":"NA","18":"NA","19":"91","20":"238","21":"21","22":"NA","23":"NA","24":"NA","25":"NA","26":"NA","27":"36.9","28":"16:48","29":"16.06525","30":"2","_rn_":"3"},{"1":"b8812a","2":"3","3":"2014-05-04","4":"2014-05-18","5":"2014-05-20","6":"<NA>","7":"NA","8":"f","9":"18","10":"years","11":"18","12":"15-19","13":"15-19","14":"Port Hospital","15":"-13.23637","16":"8.475476","17":"f90f5f","18":"other","19":"41","20":"135","21":"23","22":"no","23":"no","24":"no","25":"no","26":"no","27":"36.8","28":"11:22","29":"22.49657","30":"2","_rn_":"4"},{"1":"893f25","2":"3","3":"2014-05-18","4":"2014-05-21","5":"2014-05-22","6":"2014-05-29","7":"Recover","8":"m","9":"3","10":"years","11":"3","12":"0-4","13":"0-4","14":"Military Hospital","15":"-13.22286","16":"8.460824","17":"11f8ea","18":"other","19":"36","20":"71","21":"23","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"36.9","28":"12:60","29":"71.41440","30":"1","_rn_":"5"},{"1":"be99c8","2":"3","3":"2014-05-03","4":"2014-05-22","5":"2014-05-23","6":"2014-05-24","7":"Recover","8":"f","9":"16","10":"years","11":"16","12":"15-19","13":"15-19","14":"Port Hospital","15":"-13.22263","16":"8.461831","17":"aec8ec","18":"other","19":"56","20":"116","21":"21","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"37.6","28":"14:13","29":"41.61712","30":"1","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
-</div>
-<div class="tutorial-exercise-support" data-label="print-limit-hint" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>hint</code></pre>
-</div>
-<div class="tutorial-exercise-support" data-label="print-limit-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>head(linelist, 2)</code></pre>
-</div>
-</div>
-<div id="section-quiz" class="section level3">
-<h3>Quiz</h3>
-<p><em>You can include any number of single or multiple choice questions as a quiz. Use the <code>question</code> function to define a question and the <code>quiz</code> function for grouping multiple questions together.</em></p>
-<p>Some questions to verify that you understand the purposes of various base and recommended R packages:</p>
-<pre class="r"><code>quiz(
-  question(&quot;Which package contains functions for installing other R packages?&quot;,
-    answer(&quot;base&quot;),
-    answer(&quot;tools&quot;),
-    answer(&quot;utils&quot;, correct = TRUE),
-    answer(&quot;codetools&quot;)
-  ),
-  question(&quot;Which of the R packages listed below are used to create plots?&quot;,
-    answer(&quot;lattice&quot;, correct = TRUE),
-    answer(&quot;tools&quot;),
-    answer(&quot;stats&quot;),
-    answer(&quot;grid&quot;, correct = TRUE)
-  )
-)</code></pre>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
-<div data-label="quiz-1" class="tutorial-question panel-body">
-<div id="quiz-1-answer_container" class="shiny-html-output"></div>
-<div id="quiz-1-message_container" class="shiny-html-output"></div>
-<div id="quiz-1-action_button_container" class="shiny-html-output"></div>
+<div data-label="quiz-1-1" class="tutorial-question panel-body">
+<div id="quiz-1-1-answer_container" class="shiny-html-output"></div>
+<div id="quiz-1-1-message_container" class="shiny-html-output"></div>
+<div id="quiz-1-1-action_button_container" class="shiny-html-output"></div>
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
 <div class="panel panel-default">
-<div data-label="quiz-2" class="tutorial-question panel-body">
-<div id="quiz-2-answer_container" class="shiny-html-output"></div>
-<div id="quiz-2-message_container" class="shiny-html-output"></div>
-<div id="quiz-2-action_button_container" class="shiny-html-output"></div>
+<div data-label="quiz-1-2" class="tutorial-question panel-body">
+<div id="quiz-1-2-answer_container" class="shiny-html-output"></div>
+<div id="quiz-1-2-message_container" class="shiny-html-output"></div>
+<div id="quiz-1-2-action_button_container" class="shiny-html-output"></div>
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
+</div>
+</div>
+<div id="section-count-cases" class="section level2">
+<h2>Count cases</h2>
+<p>Run a <code>count()</code> command to tabulate the number of cases per hospital, and use <code>arrange()</code> and <code>desc()</code> to order the hospitals in descending order by number of cases.</p>
+<div class="tutorial-exercise" data-label="count-cases" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>linelist %&gt;% 
+  ___(___) %&gt;% 
+  ___(desc(n))</code></pre>
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="count-cases-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>linelist %&gt;% 
+  count(hospital) %&gt;% 
+  arrange(desc(n))</code></pre>
+</div>
+<!-- ## Data -->
+<!-- We have data from Lego sales in 2018 for a sample of customers who bought Legos in the United States. -->
+<!-- The dataset is available as part of the **dsbox** package, and it's called `lego_sales`. -->
+<!-- The codebook for the dataset is as follows: -->
+<!-- | Name                       |  Description -->
+<!-- |:----------------|:-------------------------------- -->
+<!-- | `first_name` | First name of customer -->
+<!-- | `last_name` | Last name of customer -->
+<!-- | `age` | Age of customer -->
+<!-- | `phone_number` | Phone number of customer -->
+<!-- | `set_id` | Set ID of lego set purchased -->
+<!-- | `number` | Item number of lego set purchased -->
+<!-- | `theme` | Theme of lego set purchased -->
+<!-- | `subtheme` | Sub theme of lego set purchased -->
+<!-- | `year` | Year of purchase -->
+<!-- | `name` |  Name of lego set purchased -->
+<!-- | `pieces` | Number of pieces of legos in set purchased -->
+<!-- | `us_price` | Price of set purchase in US Dollars -->
+<!-- | `image_url` | Image URL of lego set purchased -->
+<!-- | `quantity` | Quantity of lego set(s) purchased -->
+<!-- ## Counting frequencies -->
+<!-- ### Most common names -->
+<!-- What are the three most common first names of purchasers? Use the code chunk below to find out! -->
+<!-- ```{r common-names, exercise = TRUE} -->
+<!-- lego_sales %>% -->
+<!--   ___(___) -->
+<!-- ``` -->
+<!-- ```{r common-names-hint-1} -->
+<!-- lego_sales %>% -->
+<!--   count(___, sort = TRUE) -->
+<!-- ``` -->
+<!-- ```{r common-names-solution} -->
+<!-- lego_sales %>% -->
+<!--   count(first_name, sort = TRUE) -->
+<!-- ``` -->
+<!-- ```{r common-names-check} -->
+<!-- grade_this({ -->
+<!--   if(identical(as.character(.result[1,1]), "Jackson")) { -->
+<!--     pass("You have successfully counted names and sorted the counts in descending order.") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Aaron")) {  -->
+<!--     fail("Did you forget to sort the counts in descending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Adoria")) { -->
+<!--     fail("Did you accidentally sort the counts in ascending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Ackah Yensu")) { -->
+<!--     fail("Did you count last names instead of first names?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Brown")) {  -->
+<!--     fail("Did you count last names instead of first names?") -->
+<!--   } -->
+<!--   fail("Not quite. Take a peek at the hint!") -->
+<!-- }) -->
+<!-- ``` -->
+<!-- Now, based on your findings, answer the following question. -->
+<!-- ```{r quiz-names} -->
+<!-- question("What are the three most common names?", -->
+<!--     answer("Michael, Jackson, Jacob"), -->
+<!--     answer("Jackson, Jacob, Joseph", -->
+<!--            correct = TRUE), -->
+<!--     answer("Audrey, Kaitlyn, Joshua"), -->
+<!--     answer("Jacob, Jackson, Audrey"), -->
+<!--     answer("Kaitlyn, Jacob, Lucas"), -->
+<!--     allow_retry = TRUE, -->
+<!--     random_answer_order = TRUE -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ### Most common themes -->
+<!-- What are the four most common themes of lego sets purchased? Use the code chunk below to find out! -->
+<!-- ```{r common-themes, exercise = TRUE} -->
+<!-- lego_sales %>% -->
+<!--   ___(___) -->
+<!-- ``` -->
+<!-- ```{r common-themes-hint-1} -->
+<!-- Look at the previous question for help! -->
+<!-- ``` -->
+<!-- ```{r common-themes-solution} -->
+<!-- lego_sales %>% -->
+<!--   count(theme, sort = TRUE) -->
+<!-- ``` -->
+<!-- ```{r common-themes-check} -->
+<!-- grade_this({ -->
+<!--   if(identical(as.character(.result[1,1]), "Star Wars")) { -->
+<!--     pass("You have counted themes and sorted the counts correctly.") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Advanced Models ")) { -->
+<!--     fail("Did you forget to sort the counts in descending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Classic")) { -->
+<!--     fail("Did you accidentally sort the counts in ascending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Adventure Camp")) { -->
+<!--     fail("Did you count subthemes instead of themes?") -->
+<!--   } -->
+<!--   if(identical(as.numeric(.result[1,2]), 172)) { -->
+<!--     fail("Did you count subthemes instead of themes?") -->
+<!--   } -->
+<!--   fail("Not quite. Take a peek at the hint!") -->
+<!-- }) -->
+<!-- ``` -->
+<!-- Now, based on your findings, answer the following question. -->
+<!-- ```{r quiz-themes} -->
+<!-- question("What are the four most commonly purchased themes?", -->
+<!--     answer("Gear, Duplo, Ninjago, Star Wars"), -->
+<!--     answer("Star Wars, Nexo Knights, Gear, City"), -->
+<!--     answer("Star Wars, Gear, Mixels, Bionicle"), -->
+<!--     answer("Gear, Star Wars, Nexo Knights, Mixels", -->
+<!--            correct = TRUE), -->
+<!--     answer("Nexo Knights, Gear, Duplo, Friends"), -->
+<!--     allow_retry = TRUE, -->
+<!--     random_answer_order = TRUE -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ### Most common subtheme -->
+<!-- Among the most common theme of lego sets purchased, what is the most common subtheme? -->
+<!-- ```{r most-common-subtheme, exercise = TRUE} -->
+<!-- lego_sales %>% -->
+<!--   ___(___) %>% -->
+<!--   ___(___) -->
+<!-- ``` -->
+<!-- ```{r most-common-subtheme-hint-1} -->
+<!-- lego_sales %>% -->
+<!--   filter(___ == ___) %>% -->
+<!--   ___(___) -->
+<!-- ``` -->
+<!-- ```{r most-common-subtheme-hint-2} -->
+<!-- lego_sales %>% -->
+<!--   filter(theme == ___) %>% -->
+<!--   count(___) -->
+<!-- ``` -->
+<!-- ``` {r most-common-subtheme-hint-3} -->
+<!-- Look at the previous question to see what the most common theme is! -->
+<!-- ``` -->
+<!-- ```{r most-common-subtheme-solution} -->
+<!-- lego_sales %>% -->
+<!--   filter(theme == "Star Wars") %>% -->
+<!--   count(subtheme, sort = TRUE) -->
+<!-- ``` -->
+<!-- ```{r most-common-subtheme-check} -->
+<!-- grade_this({ -->
+<!--   if(identical(as.character(.result[1,1]), "The Force Awakens")) { -->
+<!--     pass("You have successfully counted subthemes and sorted the counts in descending order.") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Battlefront")) { -->
+<!--     fail("Did you forget to sort the counts in descending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Ultimate Collector Series")) { -->
+<!--     fail("Did you accidentally sort the counts in ascending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "Star Wars")) {  -->
+<!--     fail("Did you count themes instead of subthemes?") -->
+<!--   } -->
+<!-- fail("Not quite. Take a peek at the hint!") -->
+<!-- }) -->
+<!-- ``` -->
+<!-- Now, based on your findings, answer the following question. -->
+<!-- ```{r quiz-subtheme} -->
+<!-- question("What is the most common subtheme among the most common theme?", -->
+<!--     answer("Buildable Figures"), -->
+<!--     answer("Episode V"), -->
+<!--     answer("The Force Awakens", -->
+<!--            correct = TRUE), -->
+<!--     answer("MicroFighters"), -->
+<!--     answer("Battlefront"), -->
+<!--     allow_retry = TRUE, -->
+<!--     random_answer_order = TRUE -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ## Discretizing variables -->
+<!-- ### Grouping by age -->
+<!-- Create a new variable called `age_group` and group the ages of customers into the following categories: "18 and under", "19 - 25", "26 - 35", "36 - 50", "51 and over". -->
+<!-- ``` {r create-age-group, exercise = TRUE} -->
+<!-- lego_sales <- ___ %>% -->
+<!--   ___(age_group = ___( -->
+<!--     ___ -->
+<!--   )) -->
+<!-- ``` -->
+<!-- ``` {r create-age-group-hint-1} -->
+<!-- Try using mutate() and case_when()! -->
+<!-- ``` -->
+<!-- ``` {r create-age-group-hint-2} -->
+<!-- Do you need some help with logical operators? Remember -->
+<!-- "18 and under" : age <= 18 -->
+<!--      "19 - 25" : age >= 19 & age <= 25 -->
+<!-- etc. -->
+<!-- ``` -->
+<!-- ```{r create-age-group-hint-3} -->
+<!-- lego_sales <- lego_sales %>% -->
+<!--   mutate(age_group = case_when( -->
+<!--     age <= 18             ~ "18 and under", -->
+<!--     ___ -->
+<!--   )) -->
+<!-- ``` -->
+<!-- ``` {r create-age-group-solution} -->
+<!-- lego_sales <- lego_sales %>% -->
+<!--   mutate(age_group = case_when( -->
+<!--     age <= 18 ~ "18 and under", -->
+<!--     age >= 19 & age <= 25 ~ "19 - 25", -->
+<!--     age >= 26 & age <= 35 ~ "26 - 35", -->
+<!--     age >= 36 & age <= 50 ~ "36 - 50", -->
+<!--     age >= 51 ~ "51 and over" -->
+<!--   )) -->
+<!-- ``` -->
+<!-- ```{r create-age-group-check} -->
+<!-- grade_this({ -->
+<!--   if(identical(paste(as.numeric(table(.result[,"age_group"])), collapse = ", "), "30, 129, 183, 216, 62")) { -->
+<!--     pass("You have grouped the ages according to the instructions!") -->
+<!--   } -->
+<!--   fail("Not quite. Review the hints.") -->
+<!-- }) -->
+<!-- ``` -->
+<!-- ### Most common age group -->
+<!-- Count the number of customers in each age group and display the counts in descending order, from most common to least common age group. -->
+<!-- Which age group is the most common? Write code in the chunk below to figure it out! -->
+<!-- ````{r count-ages, exercise = TRUE} -->
+<!-- lego_sales %>% -->
+<!--   ___(___) -->
+<!-- ``` -->
+<!-- ````{r count-ages-solution} -->
+<!-- lego_sales %>% -->
+<!--   count(age_group, sort = TRUE) -->
+<!-- ``` -->
+<!-- ```{r count-ages-check} -->
+<!-- grade_this({ -->
+<!--   if(identical(as.character(.result[1,1]), "36 - 50")) {  -->
+<!--     pass("You have successfully determined the most common age group.") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "18 and under")) { -->
+<!--     fail("Did you forget to arrange the counts in descending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "33")) { -->
+<!--     fail("Did you count individual ages instead of age groups?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "16")) { -->
+<!--     fail("Did you count individual ages instead of age groups?") -->
+<!--   } -->
+<!--   fail("Not quite. Try using the count function!") -->
+<!-- }) -->
+<!-- ``` -->
+<!-- Now, based on your findings, answer the following question: -->
+<!-- ```{r aqe-groups-quiz} -->
+<!-- question("Which age group is the most common in the dataset?", -->
+<!--     answer("18 and under"), -->
+<!--     answer("19 - 25"), -->
+<!--     answer("26 - 35"), -->
+<!--     answer("36 - 50", -->
+<!--            correct = TRUE), -->
+<!--     answer("51 and over"), -->
+<!--     allow_retry = TRUE, -->
+<!--     random_answer_order = TRUE -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ## Grouped summaries  -->
+<!-- ### Quantity of purchases by age -->
+<!-- Which age group has purchased the highest number of lego sets? -->
+<!-- ``` {r sales-by-group, exercise = TRUE} -->
+<!-- lego_sales %>% -->
+<!--   ___(___) %>% -->
+<!--   ___( -->
+<!--     total_n = ___(___) -->
+<!--   ) %>% -->
+<!--   arrange(___) -->
+<!-- ``` -->
+<!-- ``` {r sales-by-group-hint-1} -->
+<!-- lego_sales %>% -->
+<!--   group_by(___) %>% -->
+<!--   summarise( -->
+<!--     total_n = sum(___) -->
+<!--   ) %>% -->
+<!--   arrange(___) -->
+<!-- ``` -->
+<!-- ``` {r sales-by-group-hint-2} -->
+<!-- You need to consider the quantity of purchases. -->
+<!-- ``` -->
+<!-- ``` {r sales-by-group-hint-3} -->
+<!-- lego_sales %>% -->
+<!--   group_by(___) %>% -->
+<!--   summarise( -->
+<!--     total_n = sum(quantity) -->
+<!--   ) %>% -->
+<!--   arrange(desc(___)) -->
+<!-- ``` -->
+<!-- ``` {r sales-by-group-solution} -->
+<!-- lego_sales %>% -->
+<!--   group_by(age_group) %>% -->
+<!--   summarise( -->
+<!--     total_n = sum(quantity) -->
+<!--   ) %>% -->
+<!--   arrange(desc(total_n)) -->
+<!-- ``` -->
+<!-- ```{r sales-by-group-check} -->
+<!-- grade_this({ -->
+<!--   if(identical(as.character(.result[1,1]), "36 - 50")) { -->
+<!--     pass("Your solution is correct!") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "18 and under")) { -->
+<!--     fail("Did you forget to sort the counts in descending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "33")) { -->
+<!--     fail("Did you count individual ages instead of age groups?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "16")) { -->
+<!--     fail("Did you count individual ages instead of age groups?") -->
+<!--   } -->
+<!--   fail("Not quite. Take a peek at the hint!") -->
+<!-- }) -->
+<!-- ``` -->
+<!-- Now, based on your findings, answer the following question: -->
+<!-- ```{r quiz-sales-by-group} -->
+<!-- question("Which age group has purchased the highest number of lego sets?", -->
+<!--     answer("18 and under"), -->
+<!--     answer("19 - 25"), -->
+<!--     answer("26 - 35"), -->
+<!--     answer("36 - 50", -->
+<!--            correct = TRUE), -->
+<!--     answer("51 and over"), -->
+<!--     allow_retry = TRUE -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ### Most generous age group -->
+<!-- Which age group has spent the most money on legos? -->
+<!-- ```{r age-group-money, exercise = TRUE} -->
+<!-- lego_sales %>% -->
+<!--   ___( -->
+<!--     amount_spent = ___ * ___ -->
+<!--   ) %>% -->
+<!--   ___(___) %>% -->
+<!--   ___( -->
+<!--     total_spent = ___(___) -->
+<!--   ) %>% -->
+<!--   arrange(___) -->
+<!-- ``` -->
+<!-- ````{r age-group-money-hint-1} -->
+<!-- You will need to consider quantity of purchases as well as price of lego sets. -->
+<!-- ``` -->
+<!-- ```{r age-group-money-hint-2} -->
+<!-- lego_sales %>% -->
+<!--   mutate( -->
+<!--     amount_spent = ___ * ___ -->
+<!--   ) %>% -->
+<!--   group_by(___) %>% -->
+<!--   summarise( -->
+<!--     total_spent = ___(___) -->
+<!--   ) %>% -->
+<!--   arrange(desc(___)) -->
+<!-- ``` -->
+<!-- ```{r age-group-money-hint-3} -->
+<!-- lego_sales %>% -->
+<!--   mutate( -->
+<!--     amount_spent = us_price * quantity -->
+<!--   ) %>% -->
+<!--   group_by(age_group) %>% -->
+<!--   summarise( -->
+<!--     total_spent = sum(___) -->
+<!--   ) %>% -->
+<!--   arrange(desc(___)) -->
+<!-- ``` -->
+<!-- ```{r age-group-money-solution} -->
+<!-- lego_sales %>% -->
+<!--   mutate( -->
+<!--     amount_spent = us_price * quantity -->
+<!--   ) %>% -->
+<!--   group_by(age_group) %>% -->
+<!--   summarise( -->
+<!--     total_spent = sum(amount_spent) -->
+<!--   ) %>% -->
+<!--   arrange(desc(total_spent)) -->
+<!-- ``` -->
+<!-- ```{r age-group-money-check} -->
+<!-- grade_this({ -->
+<!--   if(identical(as.character(.result[1,1]), "36 - 50")) { -->
+<!--     pass("Your solution is correct!") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "18 and under")) { -->
+<!--     fail("Did you forget to sort the counts in descending order?") -->
+<!--   } -->
+<!--   if(identical(as.character(.result[1,1]), "57")){ -->
+<!--     fail("Did you count individual ages instead of age groups?") -->
+<!--   } -->
+<!--   fail("Not quite. Take a peek at the hint!") -->
+<!-- }) -->
+<!-- ``` -->
+<!-- Now, based on your findings, answer the following question: -->
+<!-- ```{r spend-by-group} -->
+<!-- question("Which age group has spent the most money on lego sets?", -->
+<!--     answer("18 and under"), -->
+<!--     answer("19 - 25"), -->
+<!--     answer("26 - 35"), -->
+<!--     answer("36 - 50", -->
+<!--            correct = TRUE), -->
+<!--     answer("51 and over"), -->
+<!--     allow_retry = TRUE, -->
+<!--     random_answer_order = TRUE -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ## Wrap up -->
+<!-- Congratulations, you have completed tutorial 4!  -->
+<!-- We hope you enjoyed reviewing what we've learned so far! -->
 
 <script type="application/shiny-prerendered" data-context="server-start">
-knitr::opts_chunk$set(error = TRUE)                    # set global options, can be overwritten by chunks
+# load packages ----------------------------------------------------------------
+library(learnr)
+library(gradethis)
+library(tidyverse)
+library(here)
+library(rio)
+library(basket) # not sure if we need this
+library(etude) # helper functions for gradethis
 
-pacman::p_load(learnr, here, rio, tidyverse, submitr)  # load packages
+# set options for exercises and checking ---------------------------------------
+gradethis_setup()
 
-#pacman::p_load_gh("dtkaplan/submitr")
-linelist <- rio::import(here::here("www", "linelist_cleaned.rds")) # load data
-
-
-learnr::tutorial_options(
-  exercise.timelimit = 60, 
-  exercise.checker = gradethis::grade_learnr) 
+learnr::tutorial_options(exercise.timelimit = 60) 
+  #exercise.checker = gradethis::grade_learnr) 
     # alternatively, submitr::null_code_checker
 
 
-# event recorder
+# event recorder ---------------------------------------------------------------
 # see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R
 tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises
+
+vfun <- submitr::make_basic_validator(NULL, "hello") #basket::check_valid
 
 new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
     cat(
@@ -300,16 +671,23 @@ new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
       data$code, "; ",
       data$correct, "\n", sep = "",
       
-      file = here::here("event_records", "test_nb.txt"),
+      file = here::here("event_records", "test_gradethis_nb.txt"),
       append = TRUE)
 }
 
 options(tutorial.event_recorder = new_recorder)
 
+
+# hide non-exercise code chunks ------------------------------------------------
+knitr::opts_chunk$set(echo = FALSE)
+
+
+# data prep --------------------------------------------------------------------
+linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::register_http_handlers(session, metadata = list(id = "test-tutorial", date = "`r Sys.time()`", version = 1))
+learnr:::register_http_handlers(session, metadata = list(id = "gradethis_test", version = 0.1))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -327,256 +705,302 @@ session$onSessionEnded(function() {
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-exercise1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-exercise1-code-editor`)), session)
-output$`tutorial-exercise-exercise1-output` <- renderUI({
-  `tutorial-exercise-exercise1-result`()
+# see https://rdrr.io/github/dtkaplan/submitr/f/vignettes/using.Rmd
+options(tutorial.storage = "none")
+vfun <- submitr::make_basic_validator(NULL, "hello")       #basket::check_valid
+storage_actions <- submitr::record_local("./minimal_submissions.csv")
+submitr::shiny_logic(input, output, session, vfun,
+                     storage_actions)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-load-package-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-load-package-code-editor`)), session)
+output$`tutorial-exercise-load-package-output` <- renderUI({
+  `tutorial-exercise-load-package-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(error = TRUE)                    # set global options, can be overwritten by chunks", 
-"", "pacman::p_load(learnr, here, rio, tidyverse, submitr)  # load packages", 
-"", "#pacman::p_load_gh(\"dtkaplan/submitr\")", "linelist <- rio::import(here::here(\"www\", \"linelist_cleaned.rds\")) # load data", 
-"", "", "learnr::tutorial_options(", "  exercise.timelimit = 60, ", 
-"  exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
-"", "", "# event recorder", "# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+"library(learnr)", "library(gradethis)", "library(tidyverse)", 
+"library(here)", "library(rio)", "library(basket) # not sure if we need this", 
+"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
+"  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
+"", "", "# event recorder ---------------------------------------------------------------", 
+"# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
 "tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises", 
+"", "vfun <- submitr::make_basic_validator(NULL, \"hello\") #basket::check_valid", 
 "", "new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {", 
 "    cat(", "      tutorial_id, ", "      \" (v\", tutorial_version, \"); \",", 
 "      format(Sys.time(), \"%Y-%M%-%D %H:%M:%S %Z\"), \"; \",", 
 "      user_id, \"; \",", "      event, \"; \",", "      data$label, \"; \",", 
 "      data$answers, \"; \",", "      data$code, \"; \",", "      data$correct, \"\\n\", sep = \"\",", 
-"      ", "      file = here::here(\"event_records\", \"test_nb.txt\"),", 
+"      ", "      file = here::here(\"event_records\", \"test_gradethis_nb.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
-""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "exercise1", code = "\n", opts = list(
-        label = "\"exercise1\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure("linelist <- import(\"linelist_cleaned.rds\")", chunk_opts = list(
-        label = "exercise1-solution")), options = list(eval = FALSE, 
+"", "", "# hide non-exercise code chunks ------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))"
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "load-package", code = "___(rio)\n___(here)\n___(tidyverse)", 
+        opts = list(label = "\"load-package\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure("grade_this_code(\"You are correct, the packages you need for this lesson are now loaded!\")", chunk_opts = list(
+        label = "load-package-check")), solution = structure(c("library(rio)", 
+    "library(here)", "library(tidyverse)"), chunk_opts = list(
+        label = "load-package-solution")), options = list(eval = FALSE, 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "test_nb_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "test_nb_files/figure-html/", 
+        cache = 0, cache.path = "test_gradethis_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "test_gradethis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = TRUE, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (...) \n{\n    lifecycle::deprecate_soft(\"0.2.2\", \"grade_learnr()\", \"gradethis_exercise_checker()\")\n    gradethis_exercise_checker(...)\n}", 
+        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        exercise.eval = FALSE, label = "exercise1", exercise = TRUE, 
-        code = c("", ""), out.width.px = 624, out.height.px = 384, 
-        params.src = "exercise1, exercise=TRUE", fig.num = 0L, 
-        exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+        exercise.eval = FALSE, label = "load-package", exercise = TRUE, 
+        code = c("___(rio)", "___(here)", "___(tidyverse)"), 
+        out.width.px = 624, out.height.px = 384, params.src = "load-package, exercise = TRUE", 
+        fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-exercise2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-exercise2-code-editor`)), session)
-output$`tutorial-exercise-exercise2-output` <- renderUI({
-  `tutorial-exercise-exercise2-result`()
+`tutorial-exercise-import-data-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-import-data-code-editor`)), session)
+output$`tutorial-exercise-import-data-output` <- renderUI({
+  `tutorial-exercise-import-data-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(error = TRUE)                    # set global options, can be overwritten by chunks", 
-"", "pacman::p_load(learnr, here, rio, tidyverse, submitr)  # load packages", 
-"", "#pacman::p_load_gh(\"dtkaplan/submitr\")", "linelist <- rio::import(here::here(\"www\", \"linelist_cleaned.rds\")) # load data", 
-"", "", "learnr::tutorial_options(", "  exercise.timelimit = 60, ", 
-"  exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
-"", "", "# event recorder", "# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+"library(learnr)", "library(gradethis)", "library(tidyverse)", 
+"library(here)", "library(rio)", "library(basket) # not sure if we need this", 
+"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
+"  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
+"", "", "# event recorder ---------------------------------------------------------------", 
+"# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
 "tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises", 
+"", "vfun <- submitr::make_basic_validator(NULL, \"hello\") #basket::check_valid", 
 "", "new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {", 
 "    cat(", "      tutorial_id, ", "      \" (v\", tutorial_version, \"); \",", 
 "      format(Sys.time(), \"%Y-%M%-%D %H:%M:%S %Z\"), \"; \",", 
 "      user_id, \"; \",", "      event, \"; \",", "      data$label, \"; \",", 
 "      data$answers, \"; \",", "      data$code, \"; \",", "      data$correct, \"\\n\", sep = \"\",", 
-"      ", "      file = here::here(\"event_records\", \"test_nb.txt\"),", 
+"      ", "      file = here::here(\"event_records\", \"test_gradethis_nb.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
-""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "exercise2", code = "\n", opts = list(
-        label = "\"exercise2\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure("linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", chunk_opts = list(
-        label = "exercise2-solution")), options = list(eval = FALSE, 
+"", "", "# hide non-exercise code chunks ------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))"
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "import-data", code = "", opts = list(
+        label = "\"import-data\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
+    "  # if object is data frame", "  if (is.data.frame(.result)){", 
+    "    pass(\"linelist is a data frame\")", "  }", "  ", "  # default", 
+    "  fail()", "})"), chunk_opts = list(label = "import-data-check")), 
+    solution = structure("linelist <- rio::import(\"data\", \"linelist_cleaned.rds\")", chunk_opts = list(
+        label = "import-data-solution")), options = list(eval = FALSE, 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "test_nb_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "test_nb_files/figure-html/", 
+        cache = 0, cache.path = "test_gradethis_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "test_gradethis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = TRUE, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (...) \n{\n    lifecycle::deprecate_soft(\"0.2.2\", \"grade_learnr()\", \"gradethis_exercise_checker()\")\n    gradethis_exercise_checker(...)\n}", 
+        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        exercise.eval = FALSE, label = "exercise2", exercise = TRUE, 
-        code = c("", ""), out.width.px = 624, out.height.px = 384, 
-        params.src = "exercise2, exercise=TRUE", fig.num = 0L, 
-        exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-exercise2-head-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-exercise2-head-code-editor`)), session)
-output$`tutorial-exercise-exercise2-head-output` <- renderUI({
-  `tutorial-exercise-exercise2-head-result`()
-})
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(error = TRUE)                    # set global options, can be overwritten by chunks", 
-"", "pacman::p_load(learnr, here, rio, tidyverse, submitr)  # load packages", 
-"", "#pacman::p_load_gh(\"dtkaplan/submitr\")", "linelist <- rio::import(here::here(\"www\", \"linelist_cleaned.rds\")) # load data", 
-"", "", "learnr::tutorial_options(", "  exercise.timelimit = 60, ", 
-"  exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
-"", "", "# event recorder", "# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
-"tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises", 
-"", "new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {", 
-"    cat(", "      tutorial_id, ", "      \" (v\", tutorial_version, \"); \",", 
-"      format(Sys.time(), \"%Y-%M%-%D %H:%M:%S %Z\"), \"; \",", 
-"      user_id, \"; \",", "      event, \"; \",", "      data$label, \"; \",", 
-"      data$answers, \"; \",", "      data$code, \"; \",", "      data$correct, \"\\n\", sep = \"\",", 
-"      ", "      file = here::here(\"event_records\", \"test_nb.txt\"),", 
-"      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
-""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "exercise2-head", code = "", opts = list(
-        label = "\"exercise2-head\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure("head(linelist)", chunk_opts = list(
-        label = "exercise2-head-solution")), options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "test_nb_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "test_nb_files/figure-html/", 
-        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
-        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
-        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
-        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
-        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = TRUE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (...) \n{\n    lifecycle::deprecate_soft(\"0.2.2\", \"grade_learnr()\", \"gradethis_exercise_checker()\")\n    gradethis_exercise_checker(...)\n}", 
-        exercise.error.check.code = "gradethis_error_checker()", 
-        exercise.eval = FALSE, label = "exercise2-head", exercise = TRUE, 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "exercise2-head, exercise = TRUE", 
+        exercise.eval = FALSE, label = "import-data", exercise = TRUE, 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "import-data, exercise = TRUE", 
         fig.num = 0L, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-print-limit-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-print-limit-code-editor`)), session)
-output$`tutorial-exercise-print-limit-output` <- renderUI({
-  `tutorial-exercise-print-limit-result`()
+`tutorial-exercise-view-data-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-view-data-code-editor`)), session)
+output$`tutorial-exercise-view-data-output` <- renderUI({
+  `tutorial-exercise-view-data-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(error = TRUE)                    # set global options, can be overwritten by chunks", 
-"", "pacman::p_load(learnr, here, rio, tidyverse, submitr)  # load packages", 
-"", "#pacman::p_load_gh(\"dtkaplan/submitr\")", "linelist <- rio::import(here::here(\"www\", \"linelist_cleaned.rds\")) # load data", 
-"", "", "learnr::tutorial_options(", "  exercise.timelimit = 60, ", 
-"  exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
-"", "", "# event recorder", "# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+"library(learnr)", "library(gradethis)", "library(tidyverse)", 
+"library(here)", "library(rio)", "library(basket) # not sure if we need this", 
+"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
+"  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
+"", "", "# event recorder ---------------------------------------------------------------", 
+"# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
 "tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises", 
+"", "vfun <- submitr::make_basic_validator(NULL, \"hello\") #basket::check_valid", 
 "", "new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {", 
 "    cat(", "      tutorial_id, ", "      \" (v\", tutorial_version, \"); \",", 
 "      format(Sys.time(), \"%Y-%M%-%D %H:%M:%S %Z\"), \"; \",", 
 "      user_id, \"; \",", "      event, \"; \",", "      data$label, \"; \",", 
 "      data$answers, \"; \",", "      data$code, \"; \",", "      data$correct, \"\\n\", sep = \"\",", 
-"      ", "      file = here::here(\"event_records\", \"test_nb.txt\"),", 
+"      ", "      file = here::here(\"event_records\", \"test_gradethis_nb.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
-""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "print-limit", code = "head(linelist)", 
-        opts = list(label = "\"print-limit\"", exercise = "TRUE", 
-            exercise.eval = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = structure("head(linelist, 2)", chunk_opts = list(
-        label = "print-limit-solution")), options = list(eval = TRUE, 
+"", "", "# hide non-exercise code chunks ------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))"
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "view-data", code = "tibble(linelist)", 
+        opts = list(label = "\"view-data\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, options = list(eval = FALSE, 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "test_nb_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "test_nb_files/figure-html/", 
+        cache = 0, cache.path = "test_gradethis_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "test_gradethis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = TRUE, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (...) \n{\n    lifecycle::deprecate_soft(\"0.2.2\", \"grade_learnr()\", \"gradethis_exercise_checker()\")\n    gradethis_exercise_checker(...)\n}", 
+        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        exercise.eval = TRUE, label = "print-limit", exercise = TRUE, 
-        code = "head(linelist)", out.width.px = 624, out.height.px = 384, 
-        params.src = "print-limit, exercise=TRUE, exercise.eval=TRUE", 
-        fig.alt = NULL, fig.num = 0, exercise.df_print = "paged"), 
-    engine = "r"), class = "tutorial_exercise"))
+        exercise.eval = FALSE, label = "view-data", exercise = TRUE, 
+        code = "tibble(linelist)", out.width.px = 624, out.height.px = 384, 
+        params.src = "view-data, exercise = TRUE", fig.num = 0, 
+        exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_82c4188", 
-    option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1-1", question = structure("What class is the column &#39;age&#39;?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_648a17e", 
+    option = "numeric", value = "numeric", label = structure("numeric", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8a3962e", 
-    option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d716768", 
-    option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b50ed8d", 
+    option = "double", value = "double", label = structure("double", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b16e90c", 
-    option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ca2167", 
+    option = "character", value = "character", label = structure("character", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8d9335b", 
+    option = "logical", value = "logical", label = structure("logical", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1c25d0d", 
+    option = "proletariat", value = "proletariat", label = structure("proletariat", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Check the print-out under the column name, between &lt;&gt;", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Check the print-out under the column name, between &lt;&gt;", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz-1-1-answer", question = "quiz-1-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat class is the column &#39;age&#39;?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 1897814673.61626, options = list()), class = c("learnr_radio", 
+"tutorial_question")), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "quiz-1-2", question = structure("Please enter the function to open a dataframe in the viewier, below", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_2904b1d", 
+    option = "view()", value = "view()", label = structure("view()", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Remember that this function begins with a capital letter", html = TRUE, class = c("html", 
+    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
+)), structure(list(id = "lnr_ans_2f7db02", option = "print()", 
+    value = "print()", label = structure("print()", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nope, try View() instead", html = TRUE, class = c("html", 
+    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
+)), structure(list(id = "lnr_ans_d9205cc", option = "View()", 
+    value = "View()", label = structure("View()", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
 "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
 "character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
-    answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 972897829.546959, options = list()), class = c("learnr_radio", 
-"tutorial_question")), session = session)
+    answer = "quiz-1-2-answer", question = "quiz-1-2"), loading = structure("<strong>Loading:<\u002fstrong> \nPlease enter the function to open a dataframe in the viewier, below\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 1135273043.97135, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_ac46715", 
-    option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8caab58", 
-    option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_80c078a", 
-    option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c044783", 
-    option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
-"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
-"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
-"character")), message = NULL, post_message = NULL), ids = list(
-    answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 871340253.094251, options = list()), class = c("learnr_checkbox", 
-"tutorial_question")), session = session)
+`tutorial-exercise-count-cases-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-count-cases-code-editor`)), session)
+output$`tutorial-exercise-count-cases-output` <- renderUI({
+  `tutorial-exercise-count-cases-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+"library(learnr)", "library(gradethis)", "library(tidyverse)", 
+"library(here)", "library(rio)", "library(basket) # not sure if we need this", 
+"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
+"  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
+"", "", "# event recorder ---------------------------------------------------------------", 
+"# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
+"tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises", 
+"", "vfun <- submitr::make_basic_validator(NULL, \"hello\") #basket::check_valid", 
+"", "new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {", 
+"    cat(", "      tutorial_id, ", "      \" (v\", tutorial_version, \"); \",", 
+"      format(Sys.time(), \"%Y-%M%-%D %H:%M:%S %Z\"), \"; \",", 
+"      user_id, \"; \",", "      event, \"; \",", "      data$label, \"; \",", 
+"      data$answers, \"; \",", "      data$code, \"; \",", "      data$correct, \"\\n\", sep = \"\",", 
+"      ", "      file = here::here(\"event_records\", \"test_gradethis_nb.txt\"),", 
+"      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
+"", "", "# hide non-exercise code chunks ------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))"
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "count-cases", code = "linelist %>% \n  ___(___) %>% \n  ___(desc(n))", 
+        opts = list(label = "\"count-cases\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(as.numeric(.result[1,2]), 1762), \"You successfully identified Port Hospital as the facility with the most cases!\"),", 
+    "  fail_if(~ identical(as.numeric(.result[1,2]), 1469), \"No, Did you forget to arrange() and ensure descending order on the column 'n'?\"),", 
+    "  fail_if(~ TRUE)", ")"), chunk_opts = list(label = "count-cases-check")), 
+    solution = structure(c("linelist %>% ", "  count(hospital) %>% ", 
+    "  arrange(desc(n))"), chunk_opts = list(label = "count-cases-solution")), 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "test_gradethis_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "test_gradethis_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        exercise.eval = FALSE, label = "count-cases", exercise = TRUE, 
+        code = c("linelist %>% ", "  ___(___) %>% ", "  ___(desc(n))"
+        ), out.width.px = 624, out.height.px = 384, params.src = "count-cases, exercise = TRUE", 
+        fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
@@ -585,10 +1009,9 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","broom","bslib","cellranger","checkmate","cli","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipsis","evaluate","fansi","fastmap","forcats","foreign","fs","generics","ggplot2","glue","gradethis","graphics","grDevices","grid","gtable","haven","here","hms","htmltools","htmlwidgets","httpuv","httr","jquerylib","jsonlite","knitr","later","learnr","lifecycle","lubridate","magrittr","markdown","methods","mime","modelr","munsell","openxlsx","pacman","pillar","pkgconfig","promises","purrr","R6","Rcpp","readr","readxl","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","stats","stringi","stringr","submitr","tibble","tidyr","tidyselect","tidyverse","tools","tzdb","utf8","utils","vctrs","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.3.0","4.1.0","0.7.10","0.3.1","1.1.0","2.0.0","3.0.1","2.0-2","4.1.0","1.4.2","4.3.2","1.14.2","4.1.0","1.1.1","2.1.1","0.6.29","1.0.7","0.3.2","0.14","0.5.0","1.1.0","0.5.1","0.8-81","1.5.1","0.1.1","3.3.5","1.5.1","0.2.4.9000","4.1.0","4.1.0","4.1.0","0.3.0","2.4.3","1.0.1","1.1.1","0.5.2","1.5.4","1.6.3","1.4.2","0.1.4","1.7.2","1.36","1.3.0","0.10.1.9017","1.0.1","1.8.0","2.0.1","1.1","4.1.0","0.12","0.1.8","0.5.0","4.2.4","0.5.1","1.6.4","2.0.3","1.2.0.1","0.3.4","2.5.1","1.0.7","2.1.1","1.3.1","2.0.1","0.5.29","0.4.12","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","4.1.0","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.1.4","1.1.1","1.3.1","4.1.0","0.2.0","1.2.2","4.1.0","0.3.8","2.4.3","0.28","1.3.3","1.8-4","2.2.1","2.2.0"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipsis","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","iterators","itertools","jquerylib","jsonlite","knitr","later","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.3.0","4.1.0","0.10.11","0.7.10","0.3.1","1.1.0","2.0.0","3.0.1","0.2-18","2.0-2","4.1.0","1.4.2","4.3.2","1.14.2","4.1.0","1.1.1","2.1.1","0.6.29","1.0.7","0.3.2","0.3.0.9001","0.14","0.5.0","2.1.0","1.1.0","0.5.1","1.5.1","0.8-81","1.5.1","0.1.1","1.1.7","0.3.3","3.3.5","2.0.5","0.9.1","1.5.1","0.2.4.9000","4.1.0","0.7.2","4.1.0","4.1.0","2.3","0.3.0","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.3","1.4.2","1.2.9","1.0.13","0.1-3","0.1.4","1.7.2","1.36","1.3.0","0.10.1.9017","1.0.1","1.8.0","2.0.1","1.1","7.3-54","4.1.0","0.12","0.1.8","0.5.0","4.2.4","4.1.0","1.6.4","2.0.3","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.7","2.1.1","1.3.1","2.0.1","0.5.29","0.4.12","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","4.1.0","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.4","1.1.1","1.3.1","4.1.0","1.0.2","0.2.0","1.2.2","4.1.0","0.3.8","0.6.2","0.4.0","2.4.3","0.28","1.3.3","1.8-4","2.2.1","2.2.0"]}]}]}
 </script>
 <!--/html_preserve-->
-</div>
 </div>
 
 </div> <!-- topics -->
@@ -600,7 +1023,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Introduction to R for applied epidemiology</h2>
+<h2 class="title toc-ignore" style="display:none;">Test of gradethis</h2>
 </div>
 <!-- end doc-metadata -->
 

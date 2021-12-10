@@ -1,0 +1,533 @@
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-08-12/10/21 15:08:41 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-08-12/10/21 15:08:41 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-08-12/10/21 15:08:41 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-08-12/10/21 15:08:46 EST; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-08-12/10/21 15:08:46 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-08-12/10/21 15:08:46 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-08-12/10/21 15:08:46 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:04 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:04 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:04 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:17 EST; neale; exercise_submitted; load-package; ; ___(rio)
+___(here)
+___(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:17 EST; neale; exercise_result; load-package; ; ___(rio)
+___(here)
+___(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:25 EST; neale; exercise_submitted; load-package; ; ___(rio)
+___(here)
+___(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:25 EST; neale; exercise_result; load-package; ; ___(rio)
+___(here)
+___(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:41 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-09-12/10/21 15:09:42 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-46-12/10/21 15:46:41 EST; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:16 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:16 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:20 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:20 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:29 EST; neale; exercise_submitted; import-data; ; linelist
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:34 EST; neale; exercise_result; import-data; ; linelist
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:54 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:54 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:57 EST; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:58 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:58 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-48-12/10/21 15:48:58 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:01 EST; neale; exercise_submitted; load-package; ; ___(rio)
+___(here)
+___(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:01 EST; neale; exercise_result; load-package; ; ___(rio)
+___(here)
+___(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:05 EST; neale; exercise_hint; load-package; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:09 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:09 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:13 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:13 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:14 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:14 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:15 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:15 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:37 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:38 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:39 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:40 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:41 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:45 EST; neale; exercise_hint; import-data; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:51 EST; neale; exercise_submitted; import-data; ; linelist
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:52 EST; neale; exercise_result; import-data; ; linelist
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:58 EST; neale; exercise_submitted; import-data; ; linelist <- "abc"
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-49-12/10/21 15:49:58 EST; neale; exercise_result; import-data; ; linelist <- "abc"
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-50-12/10/21 15:50:01 EST; neale; exercise_submitted; import-data; ; linelist <- "abc"
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-50-12/10/21 15:50:01 EST; neale; exercise_result; import-data; ; linelist <- "abc"
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-50-12/10/21 15:50:04 EST; neale; exercise_submitted; import-data; ; linelist <- "abc"
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-50-12/10/21 15:50:04 EST; neale; exercise_result; import-data; ; linelist <- "abc"
+
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:10 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:10 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:12 EST; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:13 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:13 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:13 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:16 EST; neale; exercise_hint; import-data; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:20 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:20 EST; neale; exercise_result; import-data; ; linelist <- rio::import("linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:27 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:28 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:29 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-51-12/10/21 15:51:30 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-52-12/10/21 15:52:22 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data/linelist_cleaned.csv")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-52-12/10/21 15:52:22 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data/linelist_cleaned.csv")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:31 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:31 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:38 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data/linelist_cleaned.csv")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:38 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data/linelist_cleaned.csv")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:46 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:47 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:48 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2021-21-12/10/21 16:21:48 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data/linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-22-12/10/21 16:22:58 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-22-12/10/21 16:22:58 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-22-12/10/21 16:22:58 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 16:23:02 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 16:23:02 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 16:23:02 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 16:23:02 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 16:23:04 EST; neale; exercise_submitted; import-data; ; 
+
+; 
+gradethis_test (v0.1); 2021-23-12/10/21 16:23:04 EST; neale; exercise_result; import-data; ; 
+
+; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:03 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:17 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:17 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:34 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:35 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:35 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:35 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:39 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:40 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:42 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:44 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:45 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:48 EST; neale; exercise_submitted; import-data; ; 
+
+; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:48 EST; neale; exercise_result; import-data; ; 
+
+; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:49 EST; neale; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:53 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:53 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:57 EST; neale; exercise_submitted; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-24-12/10/21 16:24:57 EST; neale; exercise_result; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-34-12/10/21 16:34:07 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-34-12/10/21 16:34:07 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:37 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:37 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:41 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:42 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:42 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:42 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:43 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:47 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-41-12/10/21 16:41:54 EST; neale; exercise_submitted; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:00 EST; neale; exercise_result; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:16 EST; neale; question_submission; quiz-1-1; ; ; FALSE
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:20 EST; neale; reset_question_submission; quiz-1-1; ; ; 
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:22 EST; neale; question_submission; quiz-1-1; ; ; FALSE
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:23 EST; neale; reset_question_submission; quiz-1-1; ; ; 
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:25 EST; neale; question_submission; quiz-1-1; ; ; TRUE
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:35 EST; neale; question_submission; quiz-1-2; ; ; FALSE
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:35 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-42-12/10/21 16:42:35 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-43-12/10/21 16:43:06 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-43-12/10/21 16:43:06 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-43-12/10/21 16:43:48 EST; neale; reset_question_submission; quiz-1-2; ; ; 
+gradethis_test (v0.1); 2021-43-12/10/21 16:43:53 EST; neale; question_submission; quiz-1-2; ; ; FALSE
+gradethis_test (v0.1); 2021-43-12/10/21 16:43:55 EST; neale; reset_question_submission; quiz-1-2; ; ; 
+gradethis_test (v0.1); 2021-43-12/10/21 16:43:58 EST; neale; question_submission; quiz-1-2; ; ; FALSE
+gradethis_test (v0.1); 2021-43-12/10/21 16:43:59 EST; neale; reset_question_submission; quiz-1-2; ; ; 
+gradethis_test (v0.1); 2021-44-12/10/21 16:44:03 EST; neale; question_submission; quiz-1-2; ; ; TRUE
+gradethis_test (v0.1); 2021-53-12/10/21 16:53:46 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:02 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:02 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:08 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:09 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:09 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:09 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:11 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:13 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:16 EST; neale; exercise_submitted; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:22 EST; neale; exercise_result; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:25 EST; neale; question_submission; quiz-1-1; ; ; FALSE
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:30 EST; neale; reset_question_submission; quiz-1-1; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:32 EST; neale; question_submission; quiz-1-1; ; ; FALSE
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:36 EST; neale; question_submission; quiz-1-2; ; ; FALSE
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:36 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:36 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:38 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:43 EST; neale; exercise_hint; count-cases; ; ; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:56 EST; neale; exercise_submitted; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-54-12/10/21 16:54:56 EST; neale; exercise_result; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:22 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:24 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:25 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:27 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:31 EST; neale; exercise_submitted; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:31 EST; neale; exercise_result; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:33 EST; neale; exercise_submitted; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:34 EST; neale; exercise_result; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:34 EST; neale; exercise_submitted; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:34 EST; neale; exercise_result; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:37 EST; neale; exercise_submitted; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-55-12/10/21 16:55:37 EST; neale; exercise_result; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-56-12/10/21 16:56:00 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-56-12/10/21 16:56:00 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:35 EST; neale; exercise_submitted; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:35 EST; neale; exercise_result; count-cases; ; a <- linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))
+a[1,2]; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:38 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:38 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:38 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:38 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:42 EST; neale; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:47 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:48 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:49 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:50 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:52 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-57-12/10/21 16:57:55 EST; neale; exercise_submitted; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:01 EST; neale; exercise_result; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:14 EST; neale; question_submission; quiz-1-1; ; ; TRUE
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:18 EST; neale; question_submission; quiz-1-2; ; ; TRUE
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:18 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:18 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:19 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:29 EST; neale; exercise_hint; count-cases; ; ; 
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:37 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-58-12/10/21 16:58:37 EST; neale; exercise_result; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-02-12/10/21 17:02:49 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-02-12/10/21 17:02:49 EST; neale; exercise_result; count-cases; ; linelist %>% 
+count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-02-12/10/21 17:02:50 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-02-12/10/21 17:02:50 EST; neale; exercise_result; count-cases; ; linelist %>% 
+count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-02-12/10/21 17:02:58 EST; neale; exercise_submitted; count-cases; ; linelist %>% count(hospital) %>% arrange(desc(n)); 
+gradethis_test (v0.1); 2021-02-12/10/21 17:02:59 EST; neale; exercise_result; count-cases; ; linelist %>% count(hospital) %>% arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:08 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+count(hospital) %>% arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:09 EST; neale; exercise_result; count-cases; ; linelist %>% 
+count(hospital) %>% arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:11 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+count(hospital) %>% arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:12 EST; neale; exercise_result; count-cases; ; linelist %>% 
+count(hospital) %>% arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:20 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+count(hospital) %>% 
+arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:21 EST; neale; exercise_result; count-cases; ; linelist %>% 
+count(hospital) %>% 
+arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:26 EST; neale; exercise_submitted; count-cases; ; linelist %>%   
+count(hospital) %>% 
+arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:27 EST; neale; exercise_result; count-cases; ; linelist %>%   
+count(hospital) %>% 
+arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:36 EST; neale; exercise_submitted; count-cases; ; linelist %>%   
+   count(hospital) %>% 
+   arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:37 EST; neale; exercise_result; count-cases; ; linelist %>%   
+   count(hospital) %>% 
+   arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:53 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:54 EST; neale; exercise_result; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-03-12/10/21 17:03:57 EST; neale; exercise_hint; count-cases; ; ; 
+gradethis_test (v0.1); 2021-04-12/10/21 17:04:04 EST; neale; exercise_submitted; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-04-12/10/21 17:04:05 EST; neale; exercise_result; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-19-12/10/21 17:19:37 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-19-12/10/21 17:19:37 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-19-12/10/21 17:19:39 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-19-12/10/21 17:19:45 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-22-12/10/21 17:22:53 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-22-12/10/21 17:22:53 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-22-12/10/21 17:22:56 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-22-12/10/21 17:22:58 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 17:23:17 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 17:23:17 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 17:23:18 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/10/21 17:23:19 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-27-12/10/21 17:27:34 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-27-12/10/21 17:27:34 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-27-12/10/21 17:27:34 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/10/21 17:28:09 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/10/21 17:28:09 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/10/21 17:28:09 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/10/21 17:28:09 EST; neale; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/10/21 17:28:33 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/10/21 17:29:31 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/10/21 17:29:33 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/10/21 17:29:33 EST; neale; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/10/21 17:29:38 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/10/21 17:29:39 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-31-12/10/21 17:31:04 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-31-12/10/21 17:31:13 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-31-12/10/21 17:31:39 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-59-12/10/21 17:59:15 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-04-12/10/21 18:04:51 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-04-12/10/21 18:04:57 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:00 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:00 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:02 EST; neale; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:06 EST; neale; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:18 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:18 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:30 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:31 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:33 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:33 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:39 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:39 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:40 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:40 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:41 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:41 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:41 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:41 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-05-12/10/21 18:05:42 EST; neale; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-06-12/10/21 18:06:03 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-06-12/10/21 18:06:04 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-06-12/10/21 18:06:05 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-06-12/10/21 18:06:06 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-06-12/10/21 18:06:15 EST; neale; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-07-12/10/21 18:07:04 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-07-12/10/21 18:07:18 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-07-12/10/21 18:07:19 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-07-12/10/21 18:07:20 EST; neale; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-07-12/10/21 18:07:21 EST; neale; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-08-12/10/21 18:08:10 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-13-12/10/21 18:13:49 EST; neale; session_start; ; ; ; 

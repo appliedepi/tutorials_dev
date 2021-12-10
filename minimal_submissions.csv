@@ -1,0 +1,61 @@
+"time","id","session_id","event","tutorial","prompt","answer","correct","feedback"
+"Fri Dec 10 5:59:29 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 5:59:41 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 5:59:42 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 5:59:43 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 5:59:50 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 5:59:55 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 5:59:56 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 5:59:57 PM 2021 -0500","Unauthenticated January neale","39058731064","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",FALSE,"<text>:1:13: unexpected input
+1: library(rio)
+                ^"
+"Fri Dec 10 6:08:45 PM 2021 -0500","Neale neale","1072841015","checked-code","load-package checked-code gradethis_test 0.1","None","library(rio)
+library(here)
+library(tidyverse)",TRUE,"<p>You are correct, the packages you need for this lesson are now loaded!</p>
+"
+"Fri Dec 10 6:09:34 PM 2021 -0500","Neale neale","1072841015","checked-code","import-data checked-code gradethis_test 0.1","None","import(here(\"data\", \"linelist_cleaned.rds\"))
+
+",TRUE,"<p>linelist is a data frame</p>
+"
+"Fri Dec 10 6:09:45 PM 2021 -0500","Neale neale","1072841015","checked-code","import-data checked-code gradethis_test 0.1","None","linelist <- import(here(\"data\", \"linelist_cleaned.rds\"))
+
+",TRUE,"<p>linelist is a data frame</p>
+"
+"Fri Dec 10 6:09:59 PM 2021 -0500","Neale neale","1072841015","multiple-choice","quiz-1-1 multiple-choice gradethis_test 0.1","What class is the column &#39;age&#39;?","double",TRUE,"none"
+"Fri Dec 10 6:10:04 PM 2021 -0500","Neale neale","1072841015","multiple-choice","quiz-1-2 multiple-choice gradethis_test 0.1","Please enter the function to open a dataframe in the viewier, below","view()",FALSE,"none"
+"Fri Dec 10 6:10:06 PM 2021 -0500","Neale neale","1072841015","multiple-choice","quiz-1-2 multiple-choice gradethis_test 0.1","Please enter the function to open a dataframe in the viewier, below","none"
+"Fri Dec 10 6:10:10 PM 2021 -0500","Neale neale","1072841015","multiple-choice","quiz-1-2 multiple-choice gradethis_test 0.1","Please enter the function to open a dataframe in the viewier, below","View()",TRUE,"none"
+"Fri Dec 10 6:10:31 PM 2021 -0500","Neale neale","1072841015","checked-code","count-cases checked-code gradethis_test 0.1","None","linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n))",TRUE,"<p>Absolutely fabulous! You successfully identified Port Hospital as the facility with the most cases!</p>
+"

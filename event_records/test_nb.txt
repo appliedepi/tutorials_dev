@@ -1,0 +1,181 @@
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, exercise2, , 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, exercise2-head, , 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, print-limit, , 
+com.example.tutorials.my-first-tutorial (1): neale, section_skipped, , , 
+com.example.tutorials.my-first-tutorial (1): neale, question_submission, quiz-1, , TRUE
+com.example.tutorials.my-first-tutorial (1): neale, question_submission, quiz-2, , FALSE
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, exercise2, , 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_hint, , , 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, exercise2, , 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, exercise2, , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, exercise2, , linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
+
+, 
+com.example.tutorials.my-first-tutorial (1): neale, exercise_submission, exercise2-head, , head(linelist)
+
+, 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_stop, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed_first_time, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed_first_time, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_skipped, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed_first_time, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_skipped, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_skipped, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_skipped, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, section_viewed_first_time, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, question_submission, quiz-1, , , FALSE
+com.example.tutorials.my-first-tutorial (1): neale, question_submission, quiz-2, , , FALSE
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (1): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (11639164292): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (11639164299): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (11639164299): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (11639164305): neale, session_stop, , , , 
+com.example.tutorials.my-first-tutorial (11639164306): neale, session_start, , , , 
+com.example.tutorials.my-first-tutorial (11639164307): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (11639164307): neale, section_viewed_first_time, , , , 
+com.example.tutorials.my-first-tutorial (11639164310): neale, section_skipped, , , , 
+com.example.tutorials.my-first-tutorial (11639164310): neale, section_viewed, , , , 
+com.example.tutorials.my-first-tutorial (11639164310): neale, section_viewed_first_time, , , , 
+com.example.tutorials.my-first-tutorial (11639164312): neale, question_submission, quiz-1, , , TRUE
+com.example.tutorials.my-first-tutorial (11639164314): neale, question_submission, quiz-2, , , FALSE
+test-tutorial (11639164406): neale, session_start, , , , 
+test-tutorial (11639164412): neale, session_stop, , , , 
+test-tutorial (11639164412): neale, session_start, , , , 
+test-tutorial (11639164413): neale, section_viewed, , , , 
+test-tutorial (11639164413): neale, section_viewed_first_time, , , , 
+test-tutorial (11639164415): neale, section_skipped, , , , 
+test-tutorial (11639164415): neale, section_viewed, , , , 
+test-tutorial (11639164415): neale, section_viewed_first_time, , , , 
+test-tutorial (11639164418): neale, question_submission, quiz-1, , , TRUE
+test-tutorial (11639164419): neale, question_submission, quiz-2, , , FALSE
+test-tutorial (v1), 1639164574: neale, session_start, , , , 
+test-tutorial (v1), 1639164574: neale, section_viewed, , , , 
+test-tutorial (v1), 1639164574: neale, section_viewed, , , , 
+test-tutorial (v1), 1639164577: neale, session_stop, , , , 
+test-tutorial (v1), 1639164577: neale, session_start, , , , 
+test-tutorial (v1), 1639164579: neale, section_viewed, , , , 
+test-tutorial (v1), 1639164579: neale, section_viewed_first_time, , , , 
+test-tutorial (v1), 1639164580: neale, section_skipped, , , , 
+test-tutorial (v1), 1639164580: neale, section_viewed, , , , 
+test-tutorial (v1), 1639164580: neale, section_viewed_first_time, , , , 
+test-tutorial (v1), 1639164583: neale, question_submission, quiz-1, , , TRUE
+test-tutorial (v1), 1639164584: neale, question_submission, quiz-2, , , FALSE
+test-tutorial (v1), 1639164585: neale, section_skipped, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, session_start, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, section_viewed, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, section_viewed, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, session_stop, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, session_start, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, section_viewed, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, section_viewed_first_time, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, section_skipped, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, section_viewed, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, section_viewed_first_time, , , , 
+test-tutorial (v1), 2021-30-12/10/21: neale, question_submission, quiz-1, , , FALSE
+test-tutorial (v1), 2021-30-12/10/21: neale, question_submission, quiz-2, , , FALSE
+test-tutorial (v1); 2021-32-12/10/21 14:32:31 EST; neale; session_start; ; ; ; 
+test-tutorial (v1); 2021-32-12/10/21 14:32:31 EST; neale; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-32-12/10/21 14:32:31 EST; neale; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-32-12/10/21 14:32:34 EST; neale; exercise_submitted; print-limit; ; head(linelist)
+
+; 
+test-tutorial (v1); 2021-32-12/10/21 14:32:35 EST; neale; exercise_result; print-limit; ; head(linelist)
+
+; 
+test-tutorial (v1); 2021-33-12/10/21 14:33:08 EST; neale; exercise_hint; print-limit; ; ; 
+test-tutorial (v1); 2021-33-12/10/21 14:33:18 EST; neale; exercise_hint; print-limit; ; ; 
+test-tutorial (v1); 2021-33-12/10/21 14:33:31 EST; neale; exercise_submitted; print-limit; ; my attempt
+; 
+test-tutorial (v1); 2021-33-12/10/21 14:33:31 EST; neale; exercise_result; print-limit; ; my attempt
+; 
+test-tutorial (v1); 2021-33-12/10/21 14:33:48 EST; neale; exercise_submitted; print-limit; ; print("my")
+; 
+test-tutorial (v1); 2021-33-12/10/21 14:33:49 EST; neale; exercise_result; print-limit; ; print("my")
+; 
+test-tutorial (v1); 2021-33-12/10/21 14:33:55 EST; neale; exercise_hint; print-limit; ; ; 
+test-tutorial (v1); 2021-34-12/10/21 14:34:39 EST; neale; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-34-12/10/21 14:34:39 EST; neale; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-34-12/10/21 14:34:39 EST; neale; section_viewed_first_time; ; ; ; 
+test-tutorial (v1); 2021-34-12/10/21 14:34:46 EST; neale; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-34-12/10/21 14:34:46 EST; neale; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-34-12/10/21 14:34:46 EST; neale; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-34-12/10/21 14:34:46 EST; neale; section_viewed_first_time; ; ; ; 
+test-tutorial (v1); 2021-37-12/10/21 14:37:24 EST; neale; exercise_submitted; exercise2; ; rio::import(linelist_cleaned.rds)
+
+; 
+test-tutorial (v1); 2021-37-12/10/21 14:37:24 EST; neale; exercise_result; exercise2; ; rio::import(linelist_cleaned.rds)
+
+; 
+test-tutorial (v1); 2021-37-12/10/21 14:37:31 EST; neale; exercise_submitted; exercise2; ; rio::import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-37-12/10/21 14:37:31 EST; neale; exercise_result; exercise2; ; rio::import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-37-12/10/21 14:37:32 EST; neale; exercise_hint; exercise2; ; ; 
+test-tutorial (v1); 2021-39-12/10/21 14:39:53 EST; neale; session_start; ; ; ; 
+test-tutorial (v1); 2021-40-12/10/21 14:40:18 EST; neale; session_start; ; ; ; 
+test-tutorial (v1); 2021-41-12/10/21 14:41:02 EST; neale; exercise_hint; exercise1; ; ; 
+test-tutorial (v1); 2021-41-12/10/21 14:41:31 EST; neale; exercise_submitted; exercise1; ; import("linelist_cleaned.rd")
+
+; 
+test-tutorial (v1); 2021-41-12/10/21 14:41:31 EST; neale; exercise_result; exercise1; ; import("linelist_cleaned.rd")
+
+; 
+test-tutorial (v1); 2021-41-12/10/21 14:41:43 EST; neale; exercise_submitted; exercise1; ; import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-41-12/10/21 14:41:43 EST; neale; exercise_result; exercise1; ; import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-47-12/10/21 14:47:52 EST; neale; session_start; ; ; ; 
+test-tutorial (v1); 2021-47-12/10/21 14:47:56 EST; neale; session_stop; ; ; ; 
+test-tutorial (v1); 2021-47-12/10/21 14:47:56 EST; neale; session_start; ; ; ; 
+test-tutorial (v1); 2021-47-12/10/21 14:47:59 EST; neale; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-47-12/10/21 14:47:59 EST; neale; section_viewed_first_time; ; ; ; 
+test-tutorial (v1); 2021-48-12/10/21 14:48:09 EST; neale; exercise_hint; exercise1; ; ; 
+test-tutorial (v1); 2021-48-12/10/21 14:48:26 EST; neale; exercise_submitted; exercise1; ; print("my")
+
+; 
+test-tutorial (v1); 2021-48-12/10/21 14:48:27 EST; neale; exercise_result; exercise1; ; print("my")
+
+; 
+test-tutorial (v1); 2021-48-12/10/21 14:48:44 EST; neale; exercise_submitted; exercise1; ; import("linelist.rds")
+
+; 
+test-tutorial (v1); 2021-48-12/10/21 14:48:44 EST; neale; exercise_result; exercise1; ; import("linelist.rds")
+
+; 
+test-tutorial (v1); 2021-49-12/10/21 14:49:05 EST; neale; exercise_submitted; exercise1; ; import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-49-12/10/21 14:49:05 EST; neale; exercise_result; exercise1; ; import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-49-12/10/21 14:49:26 EST; neale; exercise_submitted; exercise1; ; import(here("data/linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-49-12/10/21 14:49:26 EST; neale; exercise_result; exercise1; ; import(here("data/linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-49-12/10/21 14:49:31 EST; neale; exercise_submitted; exercise1; ; import(here("data/linelist_cleaned.rds"))
+
+; 
+test-tutorial (v1); 2021-49-12/10/21 14:49:36 EST; neale; exercise_result; exercise1; ; import(here("data/linelist_cleaned.rds"))
+
+; 
