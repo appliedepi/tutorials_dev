@@ -179,3 +179,68 @@ test-tutorial (v1); 2021-49-12/10/21 14:49:31 EST; neale; exercise_submitted; ex
 test-tutorial (v1); 2021-49-12/10/21 14:49:36 EST; neale; exercise_result; exercise1; ; import(here("data/linelist_cleaned.rds"))
 
 ; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:22 EST; Brian; session_start; ; ; ; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:24 EST; Brian; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:27 EST; Brian; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:30 EST; Brian; exercise_hint; exercise1; ; ; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:46 EST; Brian; exercise_submitted; exercise1; ; linelist  <- import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:47 EST; Brian; exercise_result; exercise1; ; linelist  <- import("linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:47 EST; Brian; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-41-12/31/21 15:41:47 EST; Brian; section_viewed_first_time; ; ; ; 
+test-tutorial (v1); 2021-42-12/31/21 15:42:04 EST; Brian; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-42-12/31/21 15:42:04 EST; Brian; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-42-12/31/21 15:42:04 EST; Brian; section_viewed_first_time; ; ; ; 
+test-tutorial (v1); 2021-42-12/31/21 15:42:07 EST; Brian; exercise_hint; exercise2; ; ; 
+test-tutorial (v1); 2021-42-12/31/21 15:42:22 EST; Brian; exercise_submitted; exercise2-head; ; head(linelist)
+
+; 
+test-tutorial (v1); 2021-42-12/31/21 15:42:23 EST; Brian; exercise_result; exercise2-head; ; head(linelist)
+
+; 
+test-tutorial (v1); 2021-42-12/31/21 15:42:42 EST; Brian; exercise_hint; exercise2; ; ; 
+test-tutorial (v1); 2021-43-12/31/21 15:43:09 EST; Brian; exercise_submitted; exercise2; ; linelist  <- rio::import(here::here("data", "linelist_cleaned.rds"))
+
+; 
+test-tutorial (v1); 2021-43-12/31/21 15:43:09 EST; Brian; exercise_result; exercise2; ; linelist  <- rio::import(here::here("data", "linelist_cleaned.rds"))
+
+; 
+test-tutorial (v1); 2021-43-12/31/21 15:43:15 EST; Brian; exercise_submitted; exercise2; ; linelist  <- rio::import(here::here("data", "linelist_cleaned.rds"))
+
+; 
+test-tutorial (v1); 2021-43-12/31/21 15:43:15 EST; Brian; exercise_result; exercise2; ; linelist  <- rio::import(here::here("data", "linelist_cleaned.rds"))
+
+; 
+test-tutorial (v1); 2021-43-12/31/21 15:43:27 EST; Brian; exercise_submitted; exercise1; ; linelist  <- import("data", "linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-43-12/31/21 15:43:28 EST; Brian; exercise_result; exercise1; ; linelist  <- import("data", "linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:06 EST; Brian; session_start; ; ; ; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:07 EST; Brian; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:07 EST; Brian; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:11 EST; Brian; exercise_submitted; exercise1; ; linelist  <- import("data", "linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:11 EST; Brian; exercise_result; exercise1; ; linelist  <- import("data", "linelist_cleaned.rds")
+
+; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:15 EST; Brian; exercise_submitted; exercise2; ; linelist  <- rio::import(here::here("data", "linelist_cleaned.rds"))
+
+; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:15 EST; Brian; exercise_result; exercise2; ; linelist  <- rio::import(here::here("data", "linelist_cleaned.rds"))
+
+; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:17 EST; Brian; exercise_submitted; exercise2-head; ; head(linelist)
+
+; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:18 EST; Brian; exercise_result; exercise2-head; ; head(linelist)
+
+; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:53 EST; Brian; section_skipped; ; ; ; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:54 EST; Brian; section_viewed; ; ; ; 
+test-tutorial (v1); 2021-06-12/31/21 16:06:54 EST; Brian; section_viewed; ; ; ; 

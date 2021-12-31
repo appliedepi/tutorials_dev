@@ -531,3 +531,283 @@ library(here)
 library(tidyverse); 
 gradethis_test (v0.1); 2021-08-12/10/21 18:08:10 EST; neale; session_start; ; ; ; 
 gradethis_test (v0.1); 2021-13-12/10/21 18:13:49 EST; neale; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-23-12/14/21 00:23:14 EST; Brian; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-24-12/14/21 00:24:46 EST; Brian; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-25-12/14/21 00:25:22 EST; Brian; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/14/21 00:28:51 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/14/21 00:28:58 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/14/21 00:29:08 EST; Brian; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-29-12/14/21 00:29:22 EST; Brian; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-29-12/14/21 00:29:29 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-29-12/14/21 00:29:29 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-30-12/14/21 00:30:15 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-30-12/14/21 00:30:16 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-30-12/14/21 00:30:27 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-30-12/14/21 00:30:28 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-30-12/14/21 00:30:33 EST; Brian; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-30-12/14/21 00:30:44 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-30-12/14/21 00:30:44 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-31-12/14/21 00:31:30 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-31-12/14/21 00:31:36 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-31-12/14/21 00:31:59 EST; Brian; exercise_submitted; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-31-12/14/21 00:31:59 EST; Brian; exercise_result; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-32-12/14/21 00:32:04 EST; Brian; exercise_submitted; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-32-12/14/21 00:32:20 EST; Brian; exercise_result; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-32-12/14/21 00:32:28 EST; Brian; question_submission; quiz-1-1; ; ; FALSE
+gradethis_test (v0.1); 2021-32-12/14/21 00:32:47 EST; Brian; reset_question_submission; quiz-1-1; ; ; 
+gradethis_test (v0.1); 2021-32-12/14/21 00:32:49 EST; Brian; question_submission; quiz-1-1; ; ; TRUE
+gradethis_test (v0.1); 2021-32-12/14/21 00:32:59 EST; Brian; question_submission; quiz-1-2; ; ; TRUE
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:00 EST; Brian; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:00 EST; Brian; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:02 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:28 EST; Brian; exercise_hint; count-cases; ; ; 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:42 EST; Brian; exercise_submitted; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:43 EST; Brian; exercise_result; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:44 EST; Brian; exercise_submitted; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:45 EST; Brian; exercise_result; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-33-12/14/21 00:33:49 EST; Brian; session_stop; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-21-12/31/21 15:21:32 EST; Brian; session_start; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-22-12/31/21 15:22:34 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-22-12/31/21 15:22:42 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:04 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:06 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:10 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:10 EST; Brian; section_viewed; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:10 EST; Brian; section_viewed_first_time; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:10 EST; Brian; section_viewed; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:10 EST; Brian; section_viewed_first_time; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:35 EST; Brian; exercise_submitted; exercise1; ; linelist  <- import("linelist_cleaned.rds")
+
+; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-25-12/31/21 15:25:36 EST; Brian; exercise_result; exercise1; ; linelist  <- import("linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:08 EST; Brian; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:12 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:17 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:19 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:49 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:49 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:52 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-26-12/31/21 15:26:59 EST; Brian; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:18 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:18 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:22 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:23 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:26 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:28 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:28 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-27-12/31/21 15:27:43 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:00 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:00 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:05 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:07 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:08 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:09 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:10 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:16 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:17 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:18 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:21 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:27 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:28 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:42 EST; Brian; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-28-12/31/21 15:28:42 EST; Brian; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:02 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:02 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:04 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:04 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:22 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:23 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:41 EST; Brian; exercise_submitted; import-data; ; linelist  <- import("linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:41 EST; Brian; exercise_result; import-data; ; linelist  <- import("linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:53 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-29-12/31/21 15:29:59 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-31-12/31/21 15:31:48 EST; Brian; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-31-12/31/21 15:31:50 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-31-12/31/21 15:31:55 EST; Brian; exercise_hint; load-package; ; ; 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:01 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:05 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:06 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:08 EST; Brian; exercise_submitted; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:08 EST; Brian; exercise_result; load-package; ; library(rio)
+library(here)
+library(tidyverse); 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:09 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:11 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:16 EST; Brian; exercise_submitted; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-32-12/31/21 15:32:16 EST; Brian; exercise_result; import-data; ; linelist <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-44-12/31/21 15:44:19 EST; Brian; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-44-12/31/21 15:44:22 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-44-12/31/21 15:44:24 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-44-12/31/21 15:44:31 EST; Brian; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-44-12/31/21 15:44:31 EST; Brian; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-44-12/31/21 15:44:38 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-45-12/31/21 15:45:36 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-45-12/31/21 15:45:56 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-45-12/31/21 15:45:56 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:09 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:09 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:12 EST; Brian; exercise_submitted; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:21 EST; Brian; exercise_result; view-data; ; tibble(linelist)
+
+; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:30 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:33 EST; Brian; exercise_hint; count-cases; ; ; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:46 EST; Brian; exercise_submitted; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:46 EST; Brian; exercise_result; count-cases; ; linelist %>% 
+  count(hospital) %>% 
+  arrange(desc(n)); 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:51 EST; Brian; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:51 EST; Brian; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:58 EST; Brian; section_viewed; ; ; ; 
+gradethis_test (v0.1); 2021-48-12/31/21 15:48:58 EST; Brian; section_viewed_first_time; ; ; ; 
+gradethis_test (v0.1); 2021-54-12/31/21 15:54:41 EST; Brian; session_stop; ; ; ; 
+gradethis_test (v0.1); 2021-00-12/31/21 16:00:11 EST; Brian; session_start; ; ; ; 
+gradethis_test (v0.1); 2021-00-12/31/21 16:00:13 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-00-12/31/21 16:00:14 EST; Brian; section_skipped; ; ; ; 
+gradethis_test (v0.1); 2021-00-12/31/21 16:00:16 EST; Brian; exercise_hint; import-data; ; ; 
+gradethis_test (v0.1); 2021-00-12/31/21 16:00:32 EST; Brian; exercise_submitted; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-00-12/31/21 16:00:32 EST; Brian; exercise_result; import-data; ; linelist  <- rio::import("data", "linelist_cleaned.rds")
+
+; 
+gradethis_test (v0.1); 2021-01-12/31/21 16:01:06 EST; Brian; session_stop; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:15 EST; Brian; session_start; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:18 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:19 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:21 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:23 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:23 EST; Brian; section_viewed; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:23 EST; Brian; section_viewed_first_time; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:23 EST; Brian; section_viewed; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:23 EST; Brian; section_viewed_first_time; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-02-12/31/21 16:02:30 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-03-12/31/21 16:03:02 EST; Brian; session_stop; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:02 EST; Brian; session_start; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:09 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:10 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:12 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:13 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:13 EST; Brian; section_viewed; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:13 EST; Brian; section_viewed_first_time; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:13 EST; Brian; section_viewed; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:13 EST; Brian; section_viewed_first_time; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:25 EST; Brian; exercise_submitted; exercise2-head; ; head(linelist)
+
+; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:25 EST; Brian; exercise_result; exercise2-head; ; head(linelist)
+
+; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:31 EST; Brian; exercise_hint; exercise1; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:48 EST; Brian; exercise_submitted; exercise1; ; linelist <- import("linelist_cleaned.rds")
+
+; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:48 EST; Brian; exercise_result; exercise1; ; linelist <- import("linelist_cleaned.rds")
+
+; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-05-12/31/21 16:05:25 EST; Brian; section_skipped; ; ; ; 
+C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-05-12/31/21 16:05:53 EST; Brian; session_stop; ; ; ; 

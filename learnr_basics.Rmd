@@ -9,30 +9,110 @@ description: >
   Learn the basics of working with epi data in R
 ---
 
-```{r setup, include=FALSE}
-pacman::p_load(learnr, here, rio, tidyverse)
+<!-- Add JavaScript code for making the exercise code larger -->
+<script language="JavaScript" src="js/exercise-font-size.js"></script>
 
-pacman::p_install_gh("appliedepi/epirhandbook")   # install the latest version of the Epi R Handbook package
-pacman::p_load(epirhandbook)                      # load the package for use
-rio::import(here::here("www", "linelist_cleaned.rds"))
-#get_data("linelist_cleaned.rds", "data/")         # download data
-tutorial_options(exercise.eval = TRUE)            # pre-evaluate exercises
-knitr::opts_chunk$set(error = TRUE)               # set global options, can be overwritten by chunks
+```{r setup, include=FALSE}
+# load packages ----------------------------------------------------------------
+library(learnr)
+library(gradethis)
+library(tidyverse)
+library(here)
+library(rio)
+library(basket) # not sure if we need this
+library(etude) # helper functions for gradethis
+
+# set options for exercises and checking ---------------------------------------
+gradethis_setup()
+
+learnr::tutorial_options(exercise.timelimit = 60) 
+  #exercise.checker = gradethis::grade_learnr) 
+    # alternatively, submitr::null_code_checker
+
+
+# event recorder ---------------------------------------------------------------
+# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R
+tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises
+
+vfun <- submitr::make_basic_validator(NULL, "hello") #basket::check_valid
+
+new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
+    cat(
+      tutorial_id, 
+      " (v", tutorial_version, "); ",
+      format(Sys.time(), "%Y-%M%-%D %H:%M:%S %Z"), "; ",
+      user_id, "; ",
+      event, "; ",
+      data$label, "; ",
+      data$answers, "; ",
+      data$code, "; ",
+      data$correct, "\n", sep = "",
+      
+      file = here::here("event_records", "test_gradethis_nb.txt"),
+      append = TRUE)
+}
+
+options(tutorial.event_recorder = new_recorder)
+
+
+# hide non-exercise code chunks ------------------------------------------------
+knitr::opts_chunk$set(echo = FALSE)
+
+
+# data prep --------------------------------------------------------------------
+linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
 ```
 
 
-## Welcome to Epi R Basics
- 
-In this interactive tutorial, you will learn how to use some basic R functions on epidemiology data, including:
+```{r}
+submitr::login_controls() # print login and password with "Submit" button.
+```
 
-* Getting familiar with data as R objects
-* Piping and pipe operators
+
+```{r context = "server", echo = FALSE}
+# see https://rdrr.io/github/dtkaplan/submitr/f/vignettes/using.Rmd
+options(tutorial.storage = "none")
+vfun <- submitr::make_basic_validator(NULL, "hello")       #basket::check_valid
+storage_actions <- submitr::record_local("./minimal_submissions.csv")
+submitr::shiny_logic(input, output, session, vfun,
+                     storage_actions)
+```
+
+
+
+
+
+## Introduction to R for Applied Epidemiologists
+
+```{r appliedepi-banner, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "100%", fig.cap = ""}
+knitr::include_graphics("images/moz-banner.png")
+```
+
+Welcome to the course "Introduction to R for applied epidemiologists", offered for free by [Applied Epi](www.appliedepi.org) - a non-profit organisation that elevates grassroots epidemiology by offering open-source tools, training, and support to frontline public health practitioners.  
+
+```{r appliedepi-hexes, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "100%", fig.cap = ""}
+knitr::include_graphics("images/hex-sidebyside.png")
+```
+
+
+
+## Welcome to Intro to R for Applied Epidemiology {#welcome}
+ 
+In this interactive tutorial, you will learn the basics of R in the context of tasks common to applied epidemiology:  
+
+* Becoming familiar with typing code "commands"
+* "Importing" a dataset into R to conduct cleaning and other modifications
+* Viewing a dataset in R
+* Reviewing and accessing columns in a dataset
 * Key operators and functions
+* Piping and pipe operators
 * Errors and warnings
 
 This tutorial follows the [_R Basics_](https://epirhandbook.com/en/r-basics.html) section of the [_EpiRHandbook_](https://epirhandbook.com/en/). 
 
-### The Setup
+
+
+## Install and Load R packages {#packages}
 
 To get in some practice of basic R functions, we'll use the `linelist` fictional ebola outbreak data set you met in the EpiRHandbook.
 
@@ -41,16 +121,14 @@ To use basic functions with public health data, the tidyverse metapackage is ver
 We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [_Suggested Packages_](https://epirhandbook.com/en/suggested-packages-1.html) page. 
 
 ```{r eval= FALSE}
-library(tidyverse)              # loads dplyr, ggplot2, and others
-library(pacman)                 # installs and loads packages only if not already in your library
-pacman::p_load(epirhandbook)    # load the EpiRHandbook package for use
-get_data("linelist_cleaned.rds", "data/") # Fictional data used in EpiRHandbook
+pacman::p_load(learnr, here, rio, tidyverse)           # install and load R packages
 ```
 
 
-## Data as R objects
 
-### Assigning an object value
+## Import {#import} 
+
+### Import data from root folder and assign as object {#import-root} 
 
 As described in the EpiRHandbook, An object exists when you have assigned it a value (see the assignment section below). When it is assigned a value, the object appears in the Environment (see the upper right pane of RStudio). It can then be operated upon, manipulated, changed, and re-defined.
 
@@ -58,38 +136,53 @@ In epidemiology (and particularly field epidemiology), you will most commonly en
 
 The cleaned linelist data object would have the name of the file `linelist_cleaned.rds` unless assigned a different name.
 
-We want to give the data a simpler name for easier recall, so we will use the `<-` operator to assign the object name `epidata`. 
+We want to give the data a simpler name for easier recall, so we will use the `<-` operator to assign the object name `linelist`. 
 
-See below how the name `epidata` is assigned to the data brought in following the standard order:
+See below how the name `linelist` is assigned to the data brought in following the standard order:
 
 **object_name <- value** (or process/calculation that produce a value)
 
 ```{r objects}
-epidata <- rio::import(here::here("www", "linelist_cleaned.rds"))   # read in data and assign it a name
+linelist <- rio::import(here::here("www", "linelist_cleaned.rds"))   # read in data and assign it a name
 ```
 
-We can check that the data has been properly assigned by running the object name `epidata`. 
+We can check that the data has been properly assigned by running the object name `linelist`. 
 
 A more efficient approach for a quick check is to use the `head()` function to produce the first few rows of the data instead of the entire dataset.
 
 ```{r headview}
-head(epidata)
+head(linelist)
 ```
 
 ### Exercise 1
 
 *Now it's your turn. Here's a simple exercise with an empty code chunk provided for entering the answer.*
 
-Write the R code required to read in the original data object `linelist_cleaned.rds` and call it `linelist`. Then view the first few rows of the new object.
+Write the R code required to read in the original data object `linelist_cleaned.rds` and call it `linelist`. 
 
 ```{r exercise1, exercise=TRUE}
 
 ```
 
 ```{r exercise1-solution}
-linelist <- read_rds("linelist_cleaned.rds")
+linelist <- import("linelist_cleaned.rds")
+```
+
+```{r exercise1-hint}
+Use the function import() from the rio package, and put the full name of the file (including extension) in quotation marks
+```
+
+ Now type code that will print the first 10 lines of data in the `linelist` data frame.  
+
+```{r exercise2-head, exercise = TRUE}
+
+```
+
+```{r exercise2-head-solution}
 head(linelist)
 ```
+
+
 
 ## Object Classes
 
