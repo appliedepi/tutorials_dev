@@ -811,3 +811,68 @@ C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-04-12/31/21 16:04:48 EST
 ; 
 C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-05-12/31/21 16:05:25 EST; Brian; section_skipped; ; ; ; 
 C:/Users/Brian/OneDrive/Documents/training (v1.0); 2021-05-12/31/21 16:05:53 EST; Brian; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-31-01/04/22 08:31:56 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:30 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:32 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:41 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:41 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:41 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:41 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:41 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/04/22 08:32:45 EST; neale; exercise_hint; exercise1; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-33-01/04/22 08:33:09 EST; neale; exercise_hint; exercise2-head; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-33-01/04/22 08:33:15 EST; neale; exercise_submitted; exercise1; ; 
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-33-01/04/22 08:33:15 EST; neale; exercise_result; exercise1; ; 
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-33-01/04/22 08:33:23 EST; neale; exercise_submitted; exercise2-head; ; head(linelist)
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-33-01/04/22 08:33:24 EST; neale; exercise_result; exercise2-head; ; head(linelist)
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-05-01/04/22 09:05:58 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-06-01/04/22 09:06:07 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/04/22 09:09:53 EST; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-10-01/04/22 09:10:01 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-10-01/04/22 09:10:13 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-10-01/04/22 09:10:13 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-10-01/04/22 09:10:15 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-10-01/04/22 09:10:15 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-10-01/04/22 09:10:15 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-15-01/04/22 09:15:13 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-23-01/04/22 09:23:56 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-23-01/04/22 09:23:56 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-23-01/04/22 09:23:59 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-23-01/04/22 09:23:59 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:03 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:03 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:05 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:38 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:39 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:45 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:45 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:47 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:48 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:49 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:51 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:52 EST; neale; exercise_hint; exercise3a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:53 EST; neale; exercise_hint; exercise3b; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:55 EST; neale; exercise_hint; exercise3b; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:58 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-24-01/04/22 09:24:58 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-25-01/04/22 09:25:01 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-25-01/04/22 09:25:01 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-25-01/04/22 09:25:05 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-25-01/04/22 09:25:05 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-25-01/04/22 09:25:05 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-26-01/04/22 09:26:25 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-26-01/04/22 09:26:28 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-26-01/04/22 09:26:28 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-26-01/04/22 09:26:28 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-26-01/04/22 09:26:28 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-26-01/04/22 09:26:30 EST; neale; exercise_hint; exercise1; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-29-01/04/22 09:29:54 EST; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-31-01/04/22 09:31:00 EST; neale; session_start; ; ; ; 
