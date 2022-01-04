@@ -59,3 +59,7 @@ library(tidyverse)",TRUE,"<p>You are correct, the packages you need for this les
   count(hospital) %>% 
   arrange(desc(n))",TRUE,"<p>Absolutely fabulous! You successfully identified Port Hospital as the facility with the most cases!</p>
 "
+"Tue Jan 04 9:31:54 AM 2022 -0500","Alex neale","71587523410","checked-code","load-package checked-code C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training 1.0","None","library(rio)
+library(here)
+library(tidyverse)",TRUE,"<p>You are correct, the packages you need for this lesson are now loaded!</p>
+"
