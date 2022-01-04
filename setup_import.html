@@ -144,10 +144,13 @@ ID:
 </td>
 </tr>
 </table>
-<div id="section-welcome" class="section level2">
-<h2>Welcome</h2>
+<div id="section-introduction-to-r-for-applied-epidemiology-and-public-health" class="section level2">
+<h2>Introduction to R for Applied Epidemiology and Public Health</h2>
 <p><img src="images/moz-banner.png" width="100%" /></p>
+<div id="section-welcome" class="section level4">
+<h4>Welcome</h4>
 <p>Welcome to the course “Introduction to R for applied epidemiologists”, offered for free by <a href="www.appliedepi.org">Applied Epi</a> - a non-profit organisation that offers open-source tools, training, and support to frontline public health practitioners.</p>
+</div>
 <div id="section-target-audience" class="section level4">
 <h4>Target Audience</h4>
 <p>This course is designed with the following objectives:</p>
@@ -215,17 +218,39 @@ ID:
   </script>
 </div>
 </div>
+<div id="section-tidy-data" class="section level3">
+<h3>Tidy Data</h3>
+<p>We highly recommend doing our tutorial on Tidy Data in Applied Epidemiology. Collecting, formatting, and preparing your dataset <em>before</em> importing it into R is a critical step!</p>
+<p>LINK</p>
+<p>VIDEO TEASER</p>
+</div>
+</div>
+<div id="section-setup-r-and-rstudio" class="section level2">
+<h2>Setup R and RStudio</h2>
+<div id="section-install-r" class="section level3">
+<h3>Install R</h3>
+<div id="section-r-on-a-usb-drive" class="section level4">
+<h4>R on a USB drive</h4>
+</div>
+</div>
+<div id="section-install-rstudio" class="section level3">
+<h3>Install RStudio</h3>
+</div>
+<div id="section-considerations-for-shared-drives" class="section level3">
+<h3>Considerations for Shared Drives</h3>
+</div>
 </div>
 <div id="section-packages" class="section level2">
 <h2>Install and Load R packages</h2>
+<p>PERHAPS WE JUST HAVE THEM RUN THIS CODE AND EXPLAIN IT LATER? NEED TO INTRODUCE FUNCTIONS FIRST, AND IMPORT() IS A GREAT FUNCTION TO TEACH THAT (BETTER THAN LIBRARY()). OR WE HAVE A FIRST SECTION THAT INTRODUCES FUNCTION LIKE sqrt() or age_pyramid() like in the handbook.</p>
 <p>In order to practice basic R functions, we will use the <code>linelist</code> fictional ebola outbreak data set you met in the EpiRHandbook.</p>
 <p>To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis.</p>
 <p>We’ve preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook <a href="https://epirhandbook.com/en/suggested-packages-1.html"><em>Suggested Packages</em></a> page.</p>
 <p>In this assignment we’ll work with 3 R packages, let’s load them!</p>
 <div class="tutorial-exercise" data-label="load-package" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>___(rio)
-___(here)
-___(tidyverse)</code></pre>
+<pre class="text"><code>___() # load the rio package
+___() # load the here package
+___() # load the tidyverse megapackage</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="load-package-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -233,39 +258,56 @@ ___(tidyverse)</code></pre>
 library(here)
 library(tidyverse)</code></pre>
 </div>
+<div id="section-recommended-packages" class="section level3">
+<h3>Recommended packages</h3>
+<p>See epirhandbook LINK for recommended packages</p>
 </div>
-<div id="section-create-an-r-project" class="section level2">
-<h2>Create an R project</h2>
+</div>
+<div id="section-working-in-an-r-project" class="section level2">
+<h2>Working in an R project</h2>
 <p>Talk about R projects here…</p>
-<p>Create folder “example” and then create an R project in it.</p>
+<p>SHORT VIDEO SUMMARISING TRIAD OF RPROJECTS/HERE/IMPORT</p>
+<div id="section-create-an-r-project" class="section level3">
+<h3>Create an R project</h3>
 <p><img src="images/rprojects/rproject_create1.gif" width="100%" /></p>
-<div id="section-working-in-an-r-project" class="section level3">
-<h3>Working in an R project</h3>
+</div>
+<div id="section-review-your-r-project" class="section level3">
+<h3>Review your R project</h3>
 <p>Now, we can see the new folder that we created (/example), and within this folder is a new “R project” file (example.Rproj).</p>
 <p><img src="images/rprojects/rproject_folder.png" width="50%" /></p>
 <p>**It is important that you conduct all your work and changes within the R project. When you sit down to begin working, remember to open the R project by opening the .Rproj file. This will open an RStudio window.</p>
+</div>
+<div id="section-opening-your-r-project" class="section level3">
+<h3>Opening your R project</h3>
+<p>**It is important that you conduct all your work and changes within the R project. When you sit down to begin working, remember to open the R project by opening the .Rproj file. This will open an RStudio window.</p>
+</div>
+<div id="section-considerations-for-shared-drives-1" class="section level3">
+<h3>Considerations for Shared Drives</h3>
+<p>Reference Epi R Handbook page on shared drives Permissions to install, admin rights Storing R projects in shared drive folders</p>
 </div>
 </div>
 <div id="section-import" class="section level2">
 <h2>Importing data</h2>
 <div id="section-import-root" class="section level3">
-<h3>Save data to the R project “root folder”</h3>
+<h3>Save your data in the R project</h3>
 <p>In order to import data into R, you must tell R where to access the dataset file on your computer (e.g. a specific folder, or on a shared drive).</p>
 <p>This can be surprisingly difficult (e.g. data are stored on shared drives). However, by saving the data <em>within our R project</em> the whole process becomes much easier.</p>
 <p>Below is a screenshot of our R project’s files, as viewed in a typical file explorer. See the dataset <em>linelist_raw.xlsx</em> that is saved in the same folder as the <em>example.Rproj</em> file. This is the “root” folder of the R project, meaning to access this folder from the R project file you do not need to click into any sub-directories (sub-folders).</p>
 <p><img src="images/importing_data/import_folder_raw_root.png" width="50%" /></p>
 </div>
-<div id="section-import-data-into-r" class="section level3">
-<h3>Import data into R</h3>
+<div id="section-import-data-from-the-r-projects-root-folder" class="section level3">
+<h3>2) Import data from the R project’s “root” folder</h3>
 <p>To import a dataset into R, we run a command. This command will use the function <code>import()</code>.</p>
 <pre class="r"><code>import(&quot;linelist_raw.xlsx&quot;)</code></pre>
 <p>If you run this command from RStudio (either in the R console, or from an R script), R will search in the root folder of the R project for the file <em>linelist_raw.xlsx</em>, and will print the dataset into your R console.</p>
 <p>In the next step, we show a slight adjustment to this command that will <em>save</em> the dataset as an object in R, so that you can actually modify and analyse it.</p>
+<p>IMAGE OF DATA IMPORTED BUT NOT SAVED</p>
 </div>
 <div id="section-saving-an-imported-dataset-as-an-r-object" class="section level3">
 <h3>Saving an imported dataset as an R object</h3>
 <p>Most times, you import a dataset into R in order to modify, transform, and analyse it. To achieve this, we must modify the <code>import()</code> command slightly so that the dataset is saved as an R <em>“object”</em>.</p>
 <pre class="r"><code>linelist_raw &lt;- import(&quot;linelist_raw.xlsx&quot;)</code></pre>
+<p>IMAGE OF DATASET SAVED AS R OBJECT</p>
 <p>As described in the EpiRHandbook, an object exists when you have assigned it a value (see the assignment section below). When it is assigned a value, the object appears in the Environment (see the upper right pane of RStudio). It can then be operated upon, manipulated, changed, and re-defined.</p>
 <p>In applied epidemiology), you will most often encounter objects that are data frames and vectors. The data we are using is classified as a data frame.</p>
 <p>The cleaned linelist data object would have the name of the file <code>linelist_cleaned.xlsx</code> unless assigned a different name.</p>
@@ -273,10 +315,10 @@ library(tidyverse)</code></pre>
 <p>See below how the name <code>linelist</code> is assigned to the data brought in following the standard order:</p>
 <p><strong>object_name &lt;- value</strong> (or process/calculation that produce a value)</p>
 </div>
-<div id="section-import-from-a-data-subfolder" class="section level3">
-<h3>Import from a “data” subfolder</h3>
+<div id="section-import-data-from-a-subfolder" class="section level3">
+<h3>Import data from a subfolder</h3>
 <p>Best practices suggest that you organise your R project with sub-folders. Typically, you will create a folder for “data”, in which you will store your datasets.</p>
-<p>To import data from a sub-folder, the <code>import()</code> command must be modified slightly, so that it correctly tells R where to search for this file.</p>
+<p>To import data from a sub-folder, the <code>import()</code> command should be modified so that it correctly tells R where to search for this file. This is done using the here() function.</p>
 <pre class="r"><code>linelist_raw &lt;- import(here(&quot;data&quot;, &quot;linelist_raw.xlsx&quot;))   # import data and save as named object</code></pre>
 <p>A more efficient approach for a quick check is to use the <code>head()</code> function to produce the first few rows of the data instead of the entire dataset.</p>
 <div data-pagedtable="false">
@@ -604,7 +646,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "load-package", code = "___(rio)\n___(here)\n___(tidyverse)", 
+    chunks = list(list(label = "load-package", code = "___() # load the rio package\n___() # load the here package\n___() # load the tidyverse megapackage", 
         opts = list(label = "\"load-package\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = structure("grade_this_code(\"You are correct, the packages you need for this lesson are now loaded!\")", chunk_opts = list(
@@ -614,10 +656,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -629,8 +671,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         exercise.eval = FALSE, label = "load-package", exercise = TRUE, 
-        code = c("___(rio)", "___(here)", "___(tidyverse)"), 
-        out.width.px = 624, out.height.px = 384, params.src = "load-package, exercise = TRUE", 
+        code = c("___() # load the rio package", "___() # load the here package", 
+        "___() # load the tidyverse megapackage"), out.width.px = 624, 
+        out.height.px = 384, params.src = "load-package, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -676,10 +719,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -733,10 +776,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -790,10 +833,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -847,10 +890,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -904,10 +947,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -961,10 +1004,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1018,10 +1061,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1075,10 +1118,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1133,10 +1176,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "learnr_basics_cache/html/", cache.vars = NULL, 
+        cache.path = "setup_import_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1191,10 +1234,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1250,10 +1293,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1309,10 +1352,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "learnr_basics_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        cache = 0, cache.path = "setup_import_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1367,10 +1410,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "learnr_basics_cache/html/", 
+        strip.white = TRUE, cache = 0, cache.path = "setup_import_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        fig.show = "asis", fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1425,10 +1468,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         eval = TRUE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "learnr_basics_cache/html/", 
+        strip.white = TRUE, cache = 0, cache.path = "setup_import_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "learnr_basics_files/figure-html/", 
+        fig.show = "asis", fig.align = "default", fig.path = "setup_import_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1448,16 +1491,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_ea33d55", 
+"character")), answers = list(structure(list(id = "lnr_ans_8370214", 
     option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dbbde12", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6aaa6c6", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a880caf", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a4b3ecc", 
     option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2a5c116", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_586604c", 
     option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1468,22 +1511,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1742294525.68868, options = list()), class = c("learnr_radio", 
+    seed = 813769872.121059, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_e1a2b4b", 
+"character")), answers = list(structure(list(id = "lnr_ans_bb84bd5", 
     option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_22302e", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bf305be", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_18a2557", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c24acfd", 
     option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4487e8a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dcc4442", 
     option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1494,7 +1537,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1370852902.36165, options = list()), class = c("learnr_checkbox", 
+    seed = 667282733.189272, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
