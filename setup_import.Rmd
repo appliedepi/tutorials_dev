@@ -83,6 +83,20 @@ submitr::shiny_logic(input, output, session, vfun,
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Introduction to R for Applied Epidemiology and Public Health
 
 
@@ -137,13 +151,13 @@ This tutorial follows the [_R Basics_](https://epirhandbook.com/en/r-basics.html
 
 #### Data consent
 
-This tutorial is anonymously collecting your entries, for purposes of improvement... by Continuing you consent to this collection and use. 
+This tutorial is anonymously collecting your entries, for purposes of improvement... by continuing you consent to this collection and use. 
 
 
 
 #### Who made this course  
 
-This course is designed by epidemiologists with decades of ground-level experience in outbreak response and local public health work. 
+This course is designed by Applied Epi ... epidemiologists with decades of ground-level experience in outbreak response and local public health work. 
 
 
 ```{r appliedepi-hexes, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
