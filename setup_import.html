@@ -150,6 +150,9 @@ ID:
 <div id="section-welcome" class="section level4">
 <h4>Welcome</h4>
 <p>Welcome to the course “Introduction to R for applied epidemiologists”, offered for free by <a href="www.appliedepi.org">Applied Epi</a> - a non-profit organisation that offers open-source tools, training, and support to frontline public health practitioners.</p>
+<p>This interactive tutorial focuses on <strong>setting up R for the first time, an introduction to basic R coding, and how to import your dataset into R</strong>.</p>
+<p>If you are already comfortable with the above skills, consider taking instead our tutorials for R in applied epidemiology, on [data cleaning], [data visualisation], or [tidy data best practices].</p>
+<p>This tutorial draws from chapters of our free <a href="https://epirhandbook.com/en/">Epidemiologist R handbook</a> such as <a href="https://epirhandbook.com/en/r-basics.html">R Basics</a> and <a href="https://www.epirhandbook.com/en/import-and-export.html">Import and Export</a>. The Epi R Handbook has over 50 chapters, has helped over 110,000 people learn R, and is also available for offline use.</p>
 </div>
 <div id="section-target-audience" class="section level4">
 <h4>Target Audience</h4>
@@ -181,7 +184,6 @@ ID:
 <li>Piping and pipe operators</li>
 <li>Errors and warnings</li>
 </ul>
-<p>This tutorial follows the <a href="https://epirhandbook.com/en/r-basics.html"><em>R Basics</em></a> section of the <a href="https://epirhandbook.com/en/"><em>EpiRHandbook</em></a>.</p>
 </div>
 <div id="section-data-consent" class="section level4">
 <h4>Data consent</h4>
@@ -240,29 +242,6 @@ ID:
 <h3>Considerations for Shared Drives</h3>
 </div>
 </div>
-<div id="section-packages" class="section level2">
-<h2>Install and Load R packages</h2>
-<p>PERHAPS WE JUST HAVE THEM RUN THIS CODE AND EXPLAIN IT LATER? NEED TO INTRODUCE FUNCTIONS FIRST, AND IMPORT() IS A GREAT FUNCTION TO TEACH THAT (BETTER THAN LIBRARY()). OR WE HAVE A FIRST SECTION THAT INTRODUCES FUNCTION LIKE sqrt() or age_pyramid() like in the handbook.</p>
-<p>In order to practice basic R functions, we will use the <code>linelist</code> fictional ebola outbreak data set you met in the EpiRHandbook.</p>
-<p>To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis.</p>
-<p>We’ve preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook <a href="https://epirhandbook.com/en/suggested-packages-1.html"><em>Suggested Packages</em></a> page.</p>
-<p>In this assignment we’ll work with 3 R packages, let’s load them!</p>
-<div class="tutorial-exercise" data-label="load-package" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>___() # load the rio package
-___() # load the here package
-___() # load the tidyverse megapackage</code></pre>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
-</div>
-<div class="tutorial-exercise-support" data-label="load-package-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>library(rio)
-library(here)
-library(tidyverse)</code></pre>
-</div>
-<div id="section-recommended-packages" class="section level3">
-<h3>Recommended packages</h3>
-<p>See epirhandbook LINK for recommended packages</p>
-</div>
-</div>
 <div id="section-working-in-an-r-project" class="section level2">
 <h2>Working in an R project</h2>
 <p>Talk about R projects here…</p>
@@ -285,6 +264,68 @@ library(tidyverse)</code></pre>
 <h3>Considerations for Shared Drives</h3>
 <p>Reference Epi R Handbook page on shared drives Permissions to install, admin rights Storing R projects in shared drive folders</p>
 </div>
+</div>
+<div id="section-what-is-programming" class="section level2">
+<h2>What is programming?</h2>
+<div id="section-what-does-it-mean-that-r-is-a-statistical-programming-language" class="section level3">
+<h3>What does it mean that R is a statistical programming language?</h3>
+</div>
+<div id="section-commands-as-instructions" class="section level3">
+<h3>Commands as instructions</h3>
+</div>
+<div id="section-scripts-are-a-list-of-instructions" class="section level3">
+<h3>Scripts are a list of instructions</h3>
+<div id="section-design-of-a-typical-script-in-public-health" class="section level4">
+<h4>Design of a typical script in public health</h4>
+<p>Header with objective, authors, contact info, date, etc. Load packages Load data Clean data Perform analyses Display results as plots, tables, maps, etc.</p>
+<p>All of the above can be done all in R, and can be transformed into a report via R Markdown.</p>
+</div>
+</div>
+<div id="section-reproducibility" class="section level3">
+<h3>Reproducibility</h3>
+<p>(get quote or video from someone about how reproducibility helped them in collaboration)</p>
+</div>
+<div id="section-collaboration" class="section level3">
+<h3>Collaboration</h3>
+<p>(get quote or video from someone about how reproducibility helped them in collaboration)</p>
+</div>
+<div id="section-compare-to-excel-analysis" class="section level3">
+<h3>Compare to Excel analysis</h3>
+</div>
+<div id="section-r-has-become-more-easy-to-learn" class="section level3">
+<h3>R has become more easy to learn</h3>
+<p>Tidyverse, Epi R Handbook, other materials</p>
+</div>
+</div>
+<div id="section-r-functions" class="section level2">
+<h2>R functions</h2>
+<p>About R functions at very basic level.</p>
+<p>import() or pload()</p>
+<div id="section-packages" class="section level3">
+<h3>Install and Load R packages</h3>
+<p>PERHAPS WE JUST HAVE THEM RUN THIS CODE AND EXPLAIN IT LATER? NEED TO INTRODUCE FUNCTIONS FIRST, AND IMPORT() IS A GREAT FUNCTION TO TEACH THAT (BETTER THAN LIBRARY()). OR WE HAVE A FIRST SECTION THAT INTRODUCES FUNCTION LIKE sqrt() or age_pyramid() like in the handbook.</p>
+<p>In order to practice basic R functions, we will use the <code>linelist</code> fictional ebola outbreak data set you met in the EpiRHandbook.</p>
+<p>To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis.</p>
+<p>We’ve preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook <a href="https://epirhandbook.com/en/suggested-packages-1.html">Suggested Packages</a> page.</p>
+<p>In this assignment we’ll work with 3 R packages, let’s load them!</p>
+<div class="tutorial-exercise" data-label="load-package" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>___() # load the rio package
+___() # load the here package
+___() # load the tidyverse megapackage</code></pre>
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="load-package-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>library(rio)
+library(here)
+library(tidyverse)</code></pre>
+</div>
+</div>
+</div>
+<div id="section-r-packages" class="section level2">
+<h2>R packages</h2>
+<p>Recommended packages</p>
+<p>See epirhandbook LINK for recommended packages</p>
+<p>Masking and use of the <code>::</code> operator</p>
 </div>
 <div id="section-import" class="section level2">
 <h2>Importing data</h2>
@@ -444,8 +485,11 @@ Below are some examples from the handbook:
 </div>
 </div>
 </div>
-<div id="section-index-with-dplyr" class="section level2">
-<h2>Index with <strong>dplyr</strong></h2>
+<div id="section-piping" class="section level2">
+<h2>Piping</h2>
+<p>There are different ways of writing code. One popular methods of writing R code is using “pipes”… Epi R Handbook explanation.</p>
+<div id="section-index-with-dplyr" class="section level3">
+<h3>Index with <strong>dplyr</strong></h3>
 <p>In the handbook you saw dataframe indexing using the package <code>dplyr</code> and its functions: * <code>filter()</code> with the logical statement <code>row_number()</code>for rows, * <code>select()</code> for columns, and * <code>head()</code>.</p>
 <p>Fill in the blank with the correct code for filtering and indexing your data in the next exercises.</p>
 View the <strong>first two rows</strong> of linelist using <code>head()</code>
@@ -472,13 +516,8 @@ View only the date_onset, outcome, and age columns of rows 15 to 25.
 <div class="tutorial-exercise-support" data-label="blank3-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>linelist %&gt;% filter(row_number() %in% 15:25) %&gt;% select(date_onset, outcome, age)</code></pre>
 </div>
-<p>Note: For indexing lists, refer back to the handbook for examples and resources. Rememnber that the linelist data you are working with is classified as a dataframe.</p>
+<p>Note: For indexing lists, refer back to the handbook for examples and resources. Remember that the linelist data you are working with is classified as a dataframe.</p>
 </div>
-<div id="section-piping" class="section level2">
-<h2>Piping</h2>
-</div>
-<div id="section-missing-values" class="section level2">
-<h2>Missing values</h2>
 </div>
 <div id="section-template-code" class="section level2">
 <h2>TEMPLATE Code</h2>
@@ -1491,16 +1530,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a07695d", 
+"character")), answers = list(structure(list(id = "lnr_ans_77f3711", 
     option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bace04d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cdcb0d2", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bd00a3a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b92b4d6", 
     option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_74aa90d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ae05a6c", 
     option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1511,22 +1550,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 253417578.381993, options = list()), class = c("learnr_radio", 
+    seed = 726267776.661805, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_b97538c", 
+"character")), answers = list(structure(list(id = "lnr_ans_9da1676", 
     option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a7b5ffb", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_35e1f2a", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6856e66", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc60bcf", 
     option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_88776b8", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_39a072d", 
     option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1537,7 +1576,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 367107150.829052, options = list()), class = c("learnr_checkbox", 
+    seed = 22167977.4896772, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
