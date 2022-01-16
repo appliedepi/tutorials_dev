@@ -109,6 +109,13 @@ knitr::include_graphics("images/moz-banner.png")
 
 Welcome to the course "Introduction to R for applied epidemiologists", offered for free by [Applied Epi](www.appliedepi.org) - a non-profit organisation that offers open-source tools, training, and support to frontline public health practitioners.  
 
+This interactive tutorial focuses on **setting up R for the first time, an introduction to basic R coding, and how to import your dataset into R**.
+
+If you are already comfortable with the above skills, consider taking instead our tutorials for R in applied epidemiology, on [data cleaning], [data visualisation], or [tidy data best practices].
+
+This tutorial draws from chapters of our free [Epidemiologist R handbook](https://epirhandbook.com/en/) such as [R Basics ](https://epirhandbook.com/en/r-basics.html) and [Import and Export](https://www.epirhandbook.com/en/import-and-export.html). The Epi R Handbook has over 50 chapters, has helped over 110,000 people learn R, and is also available for offline use. 
+
+
 #### Target Audience  
 
 This course is designed with the following objectives: 
@@ -146,7 +153,7 @@ In this tutorial you will:
 * Errors and warnings
 
 
-This tutorial follows the [_R Basics_](https://epirhandbook.com/en/r-basics.html) section of the [_EpiRHandbook_](https://epirhandbook.com/en/). 
+
 
 
 #### Data consent
@@ -218,53 +225,8 @@ VIDEO TEASER
 ### Considerations for Shared Drives
 
 
-
-## Install and Load R packages {#packages}
-
-PERHAPS WE JUST HAVE THEM RUN THIS CODE AND EXPLAIN IT LATER? NEED TO INTRODUCE FUNCTIONS FIRST, AND IMPORT() IS A GREAT FUNCTION TO TEACH THAT (BETTER THAN LIBRARY()). OR WE HAVE A FIRST SECTION THAT INTRODUCES FUNCTION LIKE sqrt() or age_pyramid() like in the handbook.
-
-
-In order to practice basic R functions, we will use the `linelist` fictional ebola outbreak data set you met in the EpiRHandbook.
-
-To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis. 
-
-We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [_Suggested Packages_](https://epirhandbook.com/en/suggested-packages-1.html) page. 
-
-
-In this assignment we'll work with 3 R packages, let's load them!
-
-```{r load-package, exercise = TRUE}
-___() # load the rio package
-___() # load the here package
-___() # load the tidyverse megapackage
-```
-
-```{r load-package-solution}
-library(rio)
-library(here)
-library(tidyverse)
-```
-
-```{r load-package-check}
-grade_this_code("You are correct, the packages you need for this lesson are now loaded!")
-```
-
-
-```{r eval= FALSE}
-pacman::p_load(learnr, here, rio, tidyverse)           # install and load R packages
-```
-
-### Recommended packages
-
-See epirhandbook LINK for recommended packages
-
-
-
-
-
-
 ## Working in an R project
-
+https://www.epirhandbook.com/en/r-projects.html
 Talk about R projects here...
 
 SHORT VIDEO SUMMARISING TRIAD OF RPROJECTS/HERE/IMPORT
@@ -299,6 +261,94 @@ Permissions to install, admin rights
 Storing R projects in shared drive folders
 
 
+
+
+
+
+## What is programming?
+
+### What does it mean that R is a statistical programming language?
+
+### Commands as instructions
+
+### Scripts are a list of instructions
+
+#### Design of a typical script in public health
+
+Header with objective, authors, contact info, date, etc.
+Load packages
+Load data
+Clean data
+Perform analyses
+Display results as plots, tables, maps, etc.
+
+All of the above can be done all in R, and can be transformed into a report via R Markdown.
+
+### Reproducibility
+
+(get quote or video from someone about how reproducibility helped them in collaboration)
+
+### Collaboration
+
+(get quote or video from someone about how reproducibility helped them in collaboration)
+
+### Compare to Excel analysis
+
+### R has become more easy to learn
+
+Tidyverse, Epi R Handbook, other materials
+
+
+## R functions
+
+About R functions at very basic level.
+
+import()
+or
+pload()
+
+### Install and Load R packages {#packages}
+
+PERHAPS WE JUST HAVE THEM RUN THIS CODE AND EXPLAIN IT LATER? NEED TO INTRODUCE FUNCTIONS FIRST, AND IMPORT() IS A GREAT FUNCTION TO TEACH THAT (BETTER THAN LIBRARY()). OR WE HAVE A FIRST SECTION THAT INTRODUCES FUNCTION LIKE sqrt() or age_pyramid() like in the handbook.
+
+
+In order to practice basic R functions, we will use the `linelist` fictional ebola outbreak data set you met in the EpiRHandbook.
+
+To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis. 
+
+We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [Suggested Packages](https://epirhandbook.com/en/suggested-packages-1.html) page. 
+
+
+In this assignment we'll work with 3 R packages, let's load them!
+
+```{r load-package, exercise = TRUE}
+___() # load the rio package
+___() # load the here package
+___() # load the tidyverse megapackage
+```
+
+```{r load-package-solution}
+library(rio)
+library(here)
+library(tidyverse)
+```
+
+```{r load-package-check}
+grade_this_code("You are correct, the packages you need for this lesson are now loaded!")
+```
+
+
+```{r eval= FALSE}
+pacman::p_load(learnr, here, rio, tidyverse)           # install and load R packages
+```
+
+## R packages
+
+Recommended packages
+
+See epirhandbook LINK for recommended packages
+
+Masking and use of the `::` operator
 
 
 
@@ -559,7 +609,14 @@ linelist[linelist$age < 18 , c("age", "gender", "hospital")]
 ```
 
 
-## Index with **dplyr**
+## Piping
+
+There are different ways of writing code. 
+One popular methods of writing R code is using "pipes"... 
+Epi R Handbook explanation.
+
+
+### Index with **dplyr**
 
 In the handbook you saw dataframe indexing using the package `dplyr` and its functions:
 * `filter()` with the logical statement `row_number()`for rows,
@@ -598,16 +655,16 @@ linelist ____ filter(_____ %in% _____) %>% _____(date_onset, outcome, age)
 linelist %>% filter(row_number() %in% 15:25) %>% select(date_onset, outcome, age)
 ```
 
-Note: For indexing lists, refer back to the handbook for examples and resources. Rememnber that the linelist data you are working with is classified as a dataframe. 
+Note: For indexing lists, refer back to the handbook for examples and resources. Remember that the linelist data you are working with is classified as a dataframe. 
+
+## Transition to R
+
+From another statistical language
+https://www.epirhandbook.com/en/transition-to-r.html
 
 
-## Piping
+##  TEMPLATE Exercises
 
-
-## Missing values
-
-
-##  TEMPLATE Code
 ### Exercise with Code
 
 *Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
@@ -619,8 +676,6 @@ add <- function() {
   
 }
 ```
-
-## Topic 2
 
 ### Exercise with Hint
 
