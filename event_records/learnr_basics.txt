@@ -93,3 +93,157 @@ C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Proj
 C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-28-01/04/22 16:28:48 EST; neale; section_viewed; ; ; ; 
 C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-28-01/04/22 16:28:48 EST; neale; section_viewed_first_time; ; ; ; 
 C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-29-01/04/22 16:29:02 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-40-01/04/22 16:40:13 EST; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-06-01/06/22 09:06:50 EST; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-06-01/06/22 09:06:58 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:20 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:20 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:20 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:20 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:20 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:22 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:22 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:22 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:27 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:29 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:29 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:29 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:29 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:29 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:30 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:30 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-07-01/06/22 09:07:30 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:05 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:27 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:27 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:27 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:27 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:27 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:27 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:29 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-08-01/06/22 09:08:34 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:05 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:05 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:05 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:05 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:05 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:14 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:14 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:14 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:16 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:16 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:16 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:17 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:25 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:25 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:25 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:25 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:25 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:34 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:34 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:34 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:40 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:40 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:40 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:51 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:51 EST; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:51 EST; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-09-01/06/22 09:09:54 EST; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:22 +03; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:36 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:36 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:38 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:38 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:38 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:39 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:39 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:40 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:40 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:42 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:42 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:48 +03; neale; exercise_hint; exercise2a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:50 +03; neale; exercise_submitted; exercise2a; ; 
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:50 +03; neale; exercise_result; exercise2a; ; 
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:55 +03; neale; exercise_submitted; exercise2a; ; acos()
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:55 +03; neale; exercise_result; exercise2a; ; acos()
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-00-01/09/22 21:00:59 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-43-01/09/22 22:43:12 +03; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-35-01/12/22 15:35:52 +03; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-37-01/12/22 15:37:54 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-37-01/12/22 15:37:54 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-37-01/12/22 15:37:59 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-37-01/12/22 15:37:59 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:02 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:02 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:03 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:03 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:05 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:05 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:12 +03; neale; exercise_hint; exercise2a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:14 +03; neale; exercise_hint; exercise2a; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:22 +03; neale; exercise_submitted; exercise2a; ; import(linelist)
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:22 +03; neale; exercise_result; exercise2a; ; import(linelist)
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:25 +03; neale; exercise_submitted; exercise2a; ; import(linelist)
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-38-01/12/22 15:38:25 +03; neale; exercise_result; exercise2a; ; import(linelist)
+
+; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-54-01/12/22 15:54:31 +03; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-36-01/14/22 19:36:22 +03; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:00 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:00 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:01 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:01 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:01 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:02 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:02 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:02 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:03 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:03 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:24 +03; neale; exercise_hint; load-package; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:33 +03; neale; exercise_submitted; load-package; ; library() # load the rio package
+___() # load the here package
+___() # load the tidyverse megapackage; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:33 +03; neale; exercise_result; load-package; ; library() # load the rio package
+___() # load the here package
+___() # load the tidyverse megapackage; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:38 +03; neale; exercise_submitted; load-package; ; library() # load the rio package
+___() # load the here package
+___() # load the tidyverse megapackage; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-32-01/14/22 20:32:38 +03; neale; exercise_result; load-package; ; library() # load the rio package
+___() # load the here package
+___() # load the tidyverse megapackage; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-17-01/15/22 09:17:31 +03; neale; session_stop; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:19 +03; neale; session_start; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:43 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:49 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:49 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:49 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:49 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:49 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:51 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:51 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:51 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:53 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:55 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:55 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:55 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:55 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:55 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:57 +03; neale; section_skipped; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:57 +03; neale; section_viewed; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:57 +03; neale; section_viewed_first_time; ; ; ; 
+C:/Users/neale/OneDrive - Neale Batra/Documents/Analytics-LAPTOP-RS5P2IBO/R/Projects/R handbook/training (v1.0); 2022-16-01/16/22 14:16:58 +03; neale; section_skipped; ; ; ; 
