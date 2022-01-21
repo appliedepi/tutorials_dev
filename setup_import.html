@@ -227,6 +227,48 @@ ID:
 <p>VIDEO TEASER</p>
 </div>
 </div>
+<div id="section-why-r" class="section level2">
+<h2>Why R?</h2>
+<p>R is a free, open-source analytical tool, used by many disciplines, that has existed for over 25 years! Although Applied Epi did not invent R, we do believe that R is a perfect vehicle to transform epidemiology to be more more advanced, efficient, standardised, accessible, and equitable.</p>
+<p>Widespread adoption of R can transform epidemiology.</p>
+<p>“A one-stop shop… the epidemiologist greatest companion.” - Epidemiologist, Nigeria CDC</p>
+<p>“It is not easy to weave together so much, so succinctly, and so incredibly clearly.” - Epidemiologist, US CDC (this one might be interpreted to say that R is not easy?)</p>
+<p>“Holy smokes! Boom! I can’t get enough of it!” - WHO African Region Epidemiologist, Brazzaville</p>
+<div id="section-efficiency" class="section level3">
+<h3>Efficiency</h3>
+<p>‘With R I can do anything. What took 10 hours in Excel, I do in less than 1 hour. Also it is easier to detect if there is a mistake.’ For this Haitian epidemiologist, using our free Epi R Handbook to transition routine analyses to R meant more flexibility, confidence, and time for systemic change.</p>
+<p>Implementing R skills into your daily workflow as an epidemiologist will allow you to increase your work capacity and reduce response time to rapidly evolving public health scenarios.</p>
+</div>
+<div id="section-flexibility" class="section level3">
+<h3>Flexibility</h3>
+<p>R can interact with many common data collection tools, websites, and software. You can also automate R in integration with other tools, for example, to produce surveillance reports and email them out.</p>
+<p><img src="images/whyR/interoperability.png" width="50%" /></p>
+</div>
+<div id="section-popularity" class="section level3">
+<h3>Popularity</h3>
+<p>The below graph shows the number of publications citing R, SPSS, SAS, and STATA from 2015 to 2019. As the only free software tool shown here, R is the future of analytic software.</p>
+<p><img src="images/whyR/r_popularity.png" width="50%" /></p>
+</div>
+<div id="section-learning-curve" class="section level3">
+<h3>Learning Curve</h3>
+<p><em>R is achievable</em></p>
+<p>Over its 25 years of existence, R has evolved to become a relatively easy coding language to learn, with the advent of a friendly user interface (RStudio) and code syntax (the tidyverse). Moreover, vibrant support communities of R users, such as R-Ladies, exist all over the world. Its evolution has made R much easier to use in the past 5 years.</p>
+<p>There is an initial learning curve, but the more R you know then the easier it is to advance.</p>
+<p><img src="images/whyR/difficulty_plot-1.png" width="50%" /></p>
+</div>
+<div id="section-user-community" class="section level3">
+<h3>User community</h3>
+<p><em>R is not just a new tool, but a new culture advancing equity</em></p>
+<p>As an open-source language, R gives end-users creative agency and decentralizes innovation. An R user in any part of the world can write code to produce a tool, share it, have it be verified by the community, and watch it be adopted widely. This empowerment of end-users is paramount to a more equitable epidemiological community.</p>
+<p>Likewise, there is robust user support online such as question and answer forums on StackOverflow or R-Bloggers, events facilitated by groups like R-Ladies, and widely used learning resources on Coursera and Youtube.</p>
+<p><img src="images/whyR/user_community.png" width="50%" /></p>
+</div>
+<div id="section-data-visualization" class="section level3">
+<h3>Data visualization</h3>
+<p>One thing R is known for is data visualization. It is capable of producing detailed tables, maps, and epi-curves. With a bit more advanced knowledge you can visualize contact tracing, phylogenetics, and publication-ready plots.</p>
+<p><img src="images/whyR/visualization.png" width="50%" /></p>
+</div>
+</div>
 <div id="section-setup-r-and-rstudio" class="section level2">
 <h2>Setup R and RStudio</h2>
 <div id="section-install-r" class="section level3">
@@ -244,7 +286,7 @@ ID:
 </div>
 <div id="section-working-in-an-r-project" class="section level2">
 <h2>Working in an R project</h2>
-<p>Talk about R projects here…</p>
+<p><a href="https://www.epirhandbook.com/en/r-projects.html" class="uri">https://www.epirhandbook.com/en/r-projects.html</a> Talk about R projects here…</p>
 <p>SHORT VIDEO SUMMARISING TRIAD OF RPROJECTS/HERE/IMPORT</p>
 <div id="section-create-an-r-project" class="section level3">
 <h3>Create an R project</h3>
@@ -519,8 +561,12 @@ View only the date_onset, outcome, and age columns of rows 15 to 25.
 <p>Note: For indexing lists, refer back to the handbook for examples and resources. Remember that the linelist data you are working with is classified as a dataframe.</p>
 </div>
 </div>
-<div id="section-template-code" class="section level2">
-<h2>TEMPLATE Code</h2>
+<div id="section-transition-to-r" class="section level2">
+<h2>Transition to R</h2>
+<p>From another statistical language <a href="https://www.epirhandbook.com/en/transition-to-r.html" class="uri">https://www.epirhandbook.com/en/transition-to-r.html</a></p>
+</div>
+<div id="section-template-exercises" class="section level2">
+<h2>TEMPLATE Exercises</h2>
 <div id="section-exercise-with-code" class="section level3">
 <h3>Exercise with Code</h3>
 <p><em>Here’s an exercise with some prepopulated code as well as <code>exercise.lines = 5</code> to provide a bit more initial room to work.</em></p>
@@ -532,9 +578,6 @@ View only the date_onset, outcome, and age columns of rows 15 to 25.
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 </div>
-</div>
-<div id="section-topic-2" class="section level2">
-<h2>Topic 2</h2>
 <div id="section-exercise-with-hint" class="section level3">
 <h3>Exercise with Hint</h3>
 <p><em>Here’s an exercise where the chunk is pre-evaulated via the <code>exercise.eval</code> option (so the user can see the default output we’d like them to customize). We also add a “hint” to the correct solution via the chunk immediate below labeled <code>print-limit-hint</code>.</em></p>
@@ -1530,16 +1573,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_77f3711", 
+"character")), answers = list(structure(list(id = "lnr_ans_6ff6a17", 
     option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cdcb0d2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3ddbe0c", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b92b4d6", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5e1164e", 
     option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ae05a6c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d49cd18", 
     option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1550,22 +1593,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 726267776.661805, options = list()), class = c("learnr_radio", 
+    seed = 1161486814.95914, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9da1676", 
+"character")), answers = list(structure(list(id = "lnr_ans_ee8025e", 
     option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_35e1f2a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_baf6b29", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc60bcf", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_58bc2df", 
     option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_39a072d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_99ed73d", 
     option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1576,7 +1619,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 22167977.4896772, options = list()), class = c("learnr_checkbox", 
+    seed = 1548672722.77884, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
