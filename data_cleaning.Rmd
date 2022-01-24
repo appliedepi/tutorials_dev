@@ -127,8 +127,8 @@ In this tutorial you will learn and practice:
 
 * Using the pipe operator (`%>%`) to pass the dataset from one cleaning function to another
 * The core **tidyverse** R functions used to reduce, clean, and modify data frames  
-* ...  
-* ...  
+* How to manipulate dates in order to clean and translate between units of time (days/months/years) with the **lubridate** package
+* The use of descriptive analysis and summary statistics with the **janitor** package in order to summarise your data
 
 
 
