@@ -256,8 +256,16 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 
 
 ## Begin pipe chain
-
 What is a pipe chain?
+A pipe chain refers to the use of the "pipe" operator `r %>%` to chain together operations (such as cleaning, reordering and manipulating) for altering a dataset. 
+
+This allows us to load, clean and process data in a single operation. For example, here we load in a dataframe
+
+
+
+
+
+
 Ways to see how the pipe chain works
 
 ### Quiz
