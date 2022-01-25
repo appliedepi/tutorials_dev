@@ -260,7 +260,7 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 What is a pipe chain?
 A pipe chain refers to the use of the "pipe" operator `%>%` to chain together operations (such as cleaning, reordering and manipulating) for altering a dataset. 
 
-This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator `%>%` as telling the computer "and then" between your operational commands. For example, the following code will make use of the **janitor** package to clean the column names (which standardizes capitalization, removes accents and makes sure all names consist of only underscores, numbers and letters) and then display the new names in our console.
+This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator `%>%` as telling the computer "and then" between your operational commands. For example, the following code will make use of the **janitor** package to clean the column names (there will be further explanation on this in the next section) and then display the new names in our console.
 
 ```{r, echo = T, eval = F}
 linelist %>%          #Load the database, and then
@@ -271,6 +271,22 @@ linelist %>%          #Load the database, and then
 The order of this pipeline is important as operations occur sequentially, and so improperly ordered arguments may fail or (potentially more dangerously!) give incorrect values or unwanted outcomes.
 
 ## Clean columns
+
+In R, column names are the header, or top, value of a column and are used as the default value in figures. In other statistical software (such as SAS and STATA) "labels"  co-exist as longer printed versions of shorter column names, and while R can do this, it is not emphasized and for plotting and printing "friendly" column names, we generally adjust their display in the code to create the figure or tables.
+
+As we call column names often, it is helpful to have a "clean" syntax. We suggest that they are:
+- Short
+- No spaces (replace with underscores)
+- No unusual charachters (&, #, <, >, ...)
+- Similar style nomenclature (e.g. all date columns named like **date_**onset, **date_**report, **date_**death, ...)
+
+These are often not what real, raw, data and linelists look like, luckily R has a set of very handy and easy to use tools to clean and standardize column names.
+
+For example, if we look at the example linelist using the `names()` function:
+```{r, echo = T, eval = T}
+names(linelist_raw)
+```
+We can see that there are numerous violations of this clean syntax. We have names with spaces (infection date), different naming patterns for dates (date onset vs infection date) and there must have been a merged header across the last two columns (as the second last column i called "merged_header" and the last "...28" indicating it was assigned a placeholder name (it is the 28th column)). 
 
 What is a column? Why not call it a variable?
 
