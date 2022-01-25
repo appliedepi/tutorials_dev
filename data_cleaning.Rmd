@@ -18,6 +18,7 @@ library(learnr)
 library(gradethis)
 library(tidyverse)
 library(here)
+library(janitor)
 library(rio)
 library(basket) # not sure if we need this
 library(etude) # helper functions for gradethis
@@ -257,19 +258,17 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 
 ## Begin pipe chain
 What is a pipe chain?
-A pipe chain refers to the use of the "pipe" operator `r %>%` to chain together operations (such as cleaning, reordering and manipulating) for altering a dataset. 
+A pipe chain refers to the use of the "pipe" operator `%>%` to chain together operations (such as cleaning, reordering and manipulating) for altering a dataset. 
 
-This allows us to load, clean and process data in a single operation. For example, here we load in a dataframe
+This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator `%>%` as telling the computer "and then" between your operational commands. For example, the following code will make use of the **janitor** package to clean the column names (which standardizes capitalization, removes accents and makes sure all names consist of only underscores, numbers and letters) and then display the new names in our console.
 
+```{r, echo = T, eval = F}
+linelist %>%          #Load the database, and then
+  clean_names() %>%   #Clean the names of the columns, and then
+  names()             #Show the names of the columns
+```
 
-
-
-
-
-Ways to see how the pipe chain works
-
-### Quiz
-
+The order of this pipeline is important as operations occur sequentially, and so improperly ordered arguments may fail or (potentially more dangerously!) give incorrect values or unwanted outcomes.
 
 ## Clean columns
 

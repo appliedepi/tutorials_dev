@@ -261,7 +261,12 @@ ID:
 </div>
 <div id="section-begin-pipe-chain" class="section level2">
 <h2>Begin pipe chain</h2>
-<p>What is a pipe chain? Ways to see how the pipe chain works</p>
+<p>What is a pipe chain? A pipe chain refers to the use of the “pipe” operator <code>%&gt;%</code> to chain together operations (such as cleaning, reordering and manipulating) for altering a dataset.</p>
+<p>This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator <code>%&gt;%</code> as telling the computer “and then” between your operational commands. For example,</p>
+<pre class="r"><code>linelist %&gt;%          #Load the database, and then
+  clean_names() %&gt;%   #Clean the names of the columns, and then
+  names()             #Show the names of the columns</code></pre>
+<p>Ways to see how the pipe chain works</p>
 <div id="section-quiz" class="section level3">
 <h3>Quiz</h3>
 </div>
@@ -644,16 +649,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_18fd02d", 
+"character")), answers = list(structure(list(id = "lnr_ans_d2cb0ec", 
     option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1e849ca", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ea75c5", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_71b09a8", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_adf301b", 
     option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f61c5e9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3f91734", 
     option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -664,22 +669,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 935550704.06435, options = list()), class = c("learnr_radio", 
+    seed = 544985845.246221, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f6fa568", 
+"character")), answers = list(structure(list(id = "lnr_ans_3b0f1dc", 
     option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c333918", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9bcaa6a", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_41f7cbd", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_deb65e2", 
     option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4e4b394", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b594a7a", 
     option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -690,7 +695,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 292468048.863809, options = list()), class = c("learnr_checkbox", 
+    seed = 409164635.809468, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
