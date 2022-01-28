@@ -258,28 +258,65 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 
 ## ggplot basics
 
-### grammer of graphics
+There are a numbe rof visualisation options within the R software but in this tutorial and the handbook we focus on the **ggplot2** package available within the tidyverse. This is the visualisation package of choice for may epidemiologists and other R users as it has a number of benefits over the basic `plot()` function builit in to R.
+**ggplot2**:
+* Is good for fast data exploration (especially with large numbers of parameters)
+* Produces very high quality final outputs which can often be used directly in publications or reports
+* has well structured and consistent inputs, once you learn the basics you can apply the same techniques to many data and plot types
+* Is actively updated and built on with additional packages to extend functionality
 
-## Open the plot
+
+### Grammar of graphics
+Visualising multi-dimensional data *well* is a fine line between art and science. Visualisation is one of the most important parts of a statistical analysis as it allows you to share what you have achieved and, when done correctly, can help to explain complex work and concepts to a wider audience of stakeholders or the general public. Visualisation can also be a key step when getting to grips with new data orwith analyses you are working on.
+
+***VIS OF ANSCOMBES QuARTET OR SIMILAR***
+
+The "grammar of graphics" was first introduced by Leland Wilkinson in the book ["The grammar of Graphics"](***link to springer***) but here relates to the layered grammar of graphics framework which ggplot is based on. 
+
+***pyramid illustration from towards data science is nice here***
+
+***qu on data being the basic building block of all vis***
+
+## Grammar of graphics in action
+***opening a ggplot, the idea of finishing each line with a plus, 
+
 
 ## Map column to aesthetic features
 
+***choose some data columns to plot, open and inspect the data, pick our columns***
+***intro the idea of data= and aes()***
+
+
 ## Add geoms
+***concept of geoms on a new line in the grammar setup***
+***examples of these geoms on our sample data***
+
+***qu where the plus is missing from the code so they need to add one in to join the lines***
+
 
 ## Scales
+***log, axis lims etc.***
+
 
 ### colors
+***premade palettes***
+***add the ggplot colour list maybe? or link it ***
+***hex values***
+
 ### y-axis breaks
 
-## Theme elements
 
+## Theme elements
+***this part could be its own chapter - some basics plus built in themes***
 
 ## Facets
 
 
-## Common epidemiological plots
 
+## Common epidemiological plots
+***egs from book***
 ### Epidemic cuves
+
 ### Bar plots
 #### Horizontal
 #### Labels
@@ -288,6 +325,7 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 ## Order (facets)
 
 ## Labels
+
 ### Dynamic labels
 
 ## Dual axes
@@ -296,6 +334,11 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 ### Pivoting
 
 ## Next steps
+Some good example plots with accompanying code can be found on the [R graph gallery](r-graph-gallery.com) to use for inspiration with your own plotting goals and projects.
+
+Interactive plotting, can use 2 axes, colour, size and 2 facet directions, for more dimensions interactivity or movement are usually the next steps - plotly
+
+
 
 
 ##  TEMPLATE Exercises
