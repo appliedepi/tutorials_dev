@@ -261,6 +261,7 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 
 There are a number of visualisation options within the R software but in this tutorial and the handbook we focus on the **ggplot2** package available within the tidyverse. This is the visualisation package of choice for may epidemiologists and other R users as it has a number of benefits over the basic `plot()` function builit in to R.
 **ggplot2**:
+
 * Is good for fast data exploration (especially with large numbers of parameters)
 * Produces very high quality final outputs which can often be used directly in publications or reports
 * has well structured and consistent inputs, once you learn the basics you can apply the same techniques to many data and plot types
@@ -294,7 +295,7 @@ For a standard plot your order will follow this process:
 ## Grammar of graphics in action
 We will now try applying this layered system to some example data to practice visualising data.
 
-### 1. "Open" the plot
+## 1. "Open" the plot
 The **ggplot2** package is built around the **R** function `ggplot()` which is the first command for any ggplot. 
 Running `ggplot()` in your R console should generate a blank canvas:
 
@@ -310,36 +311,68 @@ ggplot(data = linelist)
 
 If you are familiar with the pipe operator (`%>%`) from our XXXX tutorial, data can also be passed into a ggplot command using a pipe.
 
-### 2. Map data columns with `aes()`
+## 2. Map data columns with `aes()`
 ```{r aes}
 
 
 ```
 
+***need to cover static aesthetics and  then go on to mapped aesthetics***
 
+"Aesthetics" are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the colour, shape and other properties of the plot which depend on columns in your data.
+
+`mapping=aes()` assigns plot aesthetics to columns from your data. Any parameters to be input must be placed *within* the `aes()` command to be interpreted as dependent on the data.
+
+Here we have set the axes X and Y to columns from the data and you can see this represented on the plot area output from `ggplot`. 
+***qu chose a different column to plot and see how the axis labels and values change***
 
 
 ***choose some data columns to plot, open and inspect the data, pick our columns***
 ***intro the idea of data= and aes()***
 
 
-### Add geoms
-***concept of geoms on a new line in the grammar setup***
-***examples of these geoms on our sample data***
 
+
+## Add geoms
+As we have seen above, running our `ggplot()` command with the data attached and X and Y coordinates determined does not give us a completed plot. 
+To do this we need to add geometry with "geom" commands. These all follow a common format of `geom_OPTION()` where OPTION is replaced with a plot type such as `geom_line()` or `geom_bar()` or more general objects to be plotted such as text: `geom_text()` or a horizontal line: `geom_hline()`. A full list of available **ggplot2** geoms can be found in the [ggplot reference document](ggplot2.tidyverse.org/reference/) and many more can be added by loading additional packages.
+Some common "geoms" for epidemiology are listed below:
+
+* Histograms `geom_histogram()`
+* Bar charts `geom_bar()` or `geom_col()` (These are covered later in the tutorial)
+* Box plots `geom_boxplot()`
+* Points (eg. scatter plots) `geom_point()`
+* Line graphs `geom_line()` (points joined in order of the x-axis variable) or `geom_path()` (points joined in the order given in the data)
+* Trend lines `geom_smooth()`
+
+Adding (`+`) `geom_point()` to our previous `ggplot()` call will plot points using the X and Y variables we defined:
+```{r simple plot}
+
+
+```
+
+We can also plot other simple plots with the same data by switching out the `geom_point()` for another geom. Can you spot what is missing from the following `geom_line()` command which is stopping it from plotting as intended?
 ***qu where the plus is missing from the code so they need to add one in to join the lines***
 
 
-### Scales
+
+
+
+***concept of geoms on a new line in the grammar setup***
+***examples of these geoms on our sample data***
+
+
+
+## Scales
 ***log, axis lims etc.***
 
 
-### colors
+## colors
 ***premade palettes***
 ***add the ggplot colour list maybe? or link it ***
 ***hex values***
 
-### y-axis breaks
+## y-axis breaks
 
 
 ## Theme elements

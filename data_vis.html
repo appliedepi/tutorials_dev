@@ -259,7 +259,13 @@ ID:
 </div>
 <div id="section-ggplot-basics" class="section level2">
 <h2>ggplot basics</h2>
-<p>There are a number of visualisation options within the R software but in this tutorial and the handbook we focus on the <strong>ggplot2</strong> package available within the tidyverse. This is the visualisation package of choice for may epidemiologists and other R users as it has a number of benefits over the basic <code>plot()</code> function builit in to R. <strong>ggplot2</strong>: * Is good for fast data exploration (especially with large numbers of parameters) * Produces very high quality final outputs which can often be used directly in publications or reports * has well structured and consistent inputs, once you learn the basics you can apply the same techniques to many data and plot types * Is actively updated and built on with additional packages to extend functionality</p>
+<p>There are a number of visualisation options within the R software but in this tutorial and the handbook we focus on the <strong>ggplot2</strong> package available within the tidyverse. This is the visualisation package of choice for may epidemiologists and other R users as it has a number of benefits over the basic <code>plot()</code> function builit in to R. <strong>ggplot2</strong>:</p>
+<ul>
+<li>Is good for fast data exploration (especially with large numbers of parameters)</li>
+<li>Produces very high quality final outputs which can often be used directly in publications or reports</li>
+<li>has well structured and consistent inputs, once you learn the basics you can apply the same techniques to many data and plot types</li>
+<li>Is actively updated and built on with additional packages to extend functionality</li>
+</ul>
 <div id="section-grammar-of-graphics" class="section level3">
 <h3>Grammar of graphics</h3>
 <p>Visualising multi-dimensional data <em>well</em> is a fine line between art and science. Visualisation is one of the most important parts of a statistical analysis as it allows you to share what you have achieved and, when done correctly, can help to explain complex work and concepts to a wider audience of stakeholders or the general public. Visualisation can also be a key step when getting to grips with new data orwith analyses you are working on.</p>
@@ -281,34 +287,48 @@ ID:
 <div id="section-grammar-of-graphics-in-action" class="section level2">
 <h2>Grammar of graphics in action</h2>
 <p>We will now try applying this layered system to some example data to practice visualising data.</p>
-<div id="section-open-the-plot" class="section level3">
-<h3>1. “Open” the plot</h3>
+</div>
+<div id="section-open-the-plot" class="section level2">
+<h2>1. “Open” the plot</h2>
 <p>The <strong>ggplot2</strong> package is built around the <strong>R</strong> function <code>ggplot()</code> which is the first command for any ggplot. Running <code>ggplot()</code> in your R console should generate a blank canvas:</p>
 <p><img src="data_vis_files/figure-html/ggplot%20empty-1.png" width="624" /></p>
 <p>We assign the dataframe we wish to use with the data parameter of this function:</p>
 <pre class="r"><code>ggplot(data = linelist)</code></pre>
 <p>If you are familiar with the pipe operator (<code>%&gt;%</code>) from our XXXX tutorial, data can also be passed into a ggplot command using a pipe.</p>
 </div>
-<div id="section-map-data-columns-with-aes" class="section level3">
-<h3>2. Map data columns with <code>aes()</code></h3>
+<div id="section-map-data-columns-with-aes" class="section level2">
+<h2>2. Map data columns with <code>aes()</code></h2>
+<p><strong><em>need to cover static aesthetics and then go on to mapped aesthetics</em></strong></p>
+<p>“Aesthetics” are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the colour, shape and other properties of the plot which depend on columns in your data.</p>
+<p><code>mapping=aes()</code> assigns plot aesthetics to columns from your data. Any parameters to be input must be placed <em>within</em> the <code>aes()</code> command to be interpreted as dependent on the data.</p>
+<p>Here we have set the axes X and Y to columns from the data and you can see this represented on the plot area output from <code>ggplot</code>. <strong><em>qu chose a different column to plot and see how the axis labels and values change</em></strong></p>
 <p><strong><em>choose some data columns to plot, open and inspect the data, pick our columns</em></strong> <strong><em>intro the idea of data= and aes()</em></strong></p>
 </div>
-<div id="section-add-geoms" class="section level3">
-<h3>Add geoms</h3>
+<div id="section-add-geoms" class="section level2">
+<h2>Add geoms</h2>
+<p>As we have seen above, running our <code>ggplot()</code> command with the data attached and X and Y coordinates determined does not give us a completed plot. To do this we need to add geometry with “geom” commands. These all follow a common format of <code>geom_OPTION()</code> where OPTION is replaced with a plot type such as <code>geom_line()</code> or <code>geom_bar()</code> or more general objects to be plotted such as text: <code>geom_text()</code> or a horizontal line: <code>geom_hline()</code>. A full list of available <strong>ggplot2</strong> geoms can be found in the <a href="ggplot2.tidyverse.org/reference/">ggplot reference document</a> and many more can be added by loading additional packages. Some common “geoms” for epidemiology are listed below:</p>
+<ul>
+<li>Histograms <code>geom_histogram()</code></li>
+<li>Bar charts <code>geom_bar()</code> or <code>geom_col()</code> (These are covered later in the tutorial)</li>
+<li>Box plots <code>geom_boxplot()</code></li>
+<li>Points (eg. scatter plots) <code>geom_point()</code></li>
+<li>Line graphs <code>geom_line()</code> (points joined in order of the x-axis variable) or <code>geom_path()</code> (points joined in the order given in the data)</li>
+<li>Trend lines <code>geom_smooth()</code></li>
+</ul>
+<p>Adding (<code>+</code>) <code>geom_point()</code> to our previous <code>ggplot()</code> call will plot points using the X and Y variables we defined:</p>
+<p>We can also plot other simple plots with the same data by switching out the <code>geom_point()</code> for another geom. Can you spot what is missing from the following <code>geom_line()</code> command which is stopping it from plotting as intended? <strong><em>qu where the plus is missing from the code so they need to add one in to join the lines</em></strong></p>
 <p><strong><em>concept of geoms on a new line in the grammar setup</em></strong> <strong><em>examples of these geoms on our sample data</em></strong></p>
-<p><strong><em>qu where the plus is missing from the code so they need to add one in to join the lines</em></strong></p>
 </div>
-<div id="section-scales" class="section level3">
-<h3>Scales</h3>
+<div id="section-scales" class="section level2">
+<h2>Scales</h2>
 <p><strong><em>log, axis lims etc.</em></strong></p>
 </div>
-<div id="section-colors" class="section level3">
-<h3>colors</h3>
+<div id="section-colors" class="section level2">
+<h2>colors</h2>
 <p><strong><em>premade palettes</em></strong> <strong><em>add the ggplot colour list maybe? or link it </em></strong> <strong><em>hex values</em></strong></p>
 </div>
-<div id="section-y-axis-breaks" class="section level3">
-<h3>y-axis breaks</h3>
-</div>
+<div id="section-y-axis-breaks" class="section level2">
+<h2>y-axis breaks</h2>
 </div>
 <div id="section-theme-elements" class="section level2">
 <h2>Theme elements</h2>
@@ -670,16 +690,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_7b32b13", 
+"character")), answers = list(structure(list(id = "lnr_ans_93f1471", 
     option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b63fb89", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4773d80", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_882a2cc", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6f37a56", 
     option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d746214", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6ba0dfc", 
     option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -690,22 +710,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 645134271.699586, options = list()), class = c("learnr_radio", 
+    seed = 1837187569.64449, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f175a1c", 
+"character")), answers = list(structure(list(id = "lnr_ans_9e78f17", 
     option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_33d1de", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2528a99", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_28142b0", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fd55683", 
     option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_21db5c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e24b49c", 
     option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -716,7 +736,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 200341150.406709, options = list()), class = c("learnr_checkbox", 
+    seed = 433128979.298309, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
