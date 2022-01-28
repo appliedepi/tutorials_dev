@@ -22,6 +22,7 @@ library(rio)
 library(basket) # not sure if we need this
 library(etude) # helper functions for gradethis
 
+library(submitr) # also needed?
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
 
@@ -302,14 +303,14 @@ ggplot()
 ```
 
 We assign the dataframe we wish to use with the data parameter of this function: 
-```{r ggplot data}
+```{r ggplot data, echo=T, eval=F}
 ggplot(data = linelist)
 ```
 
 
 If you are familiar with the pipe operator (`%>%`) from our XXXX tutorial, data can also be passed into a ggplot command using a pipe.
 
-## 2. Map data columns with `aes()`
+### 2. Map data columns with `aes()`
 ```{r aes}
 
 
@@ -322,14 +323,14 @@ If you are familiar with the pipe operator (`%>%`) from our XXXX tutorial, data 
 ***intro the idea of data= and aes()***
 
 
-## Add geoms
+### Add geoms
 ***concept of geoms on a new line in the grammar setup***
 ***examples of these geoms on our sample data***
 
 ***qu where the plus is missing from the code so they need to add one in to join the lines***
 
 
-## Scales
+### Scales
 ***log, axis lims etc.***
 
 
