@@ -258,7 +258,7 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 
 ## ggplot basics
 
-There are a numbe rof visualisation options within the R software but in this tutorial and the handbook we focus on the **ggplot2** package available within the tidyverse. This is the visualisation package of choice for may epidemiologists and other R users as it has a number of benefits over the basic `plot()` function builit in to R.
+There are a number of visualisation options within the R software but in this tutorial and the handbook we focus on the **ggplot2** package available within the tidyverse. This is the visualisation package of choice for may epidemiologists and other R users as it has a number of benefits over the basic `plot()` function builit in to R.
 **ggplot2**:
 * Is good for fast data exploration (especially with large numbers of parameters)
 * Produces very high quality final outputs which can often be used directly in publications or reports
@@ -277,11 +277,46 @@ The "grammar of graphics" was first introduced by Leland Wilkinson in the book [
 
 ***qu on data being the basic building block of all vis***
 
+In **ggplot2** we build a plot by "adding" commands on top of one another which specify plot layers and design elements.
+For a standard plot your order will follow this process:
+
+1. **"Open" the plot** with the `ggplot()` command and specify the dataset
+2. **"Map" data columns** to "aesthetic" features of the plot such as axes, colour, size, shape fill, transparency etc. 
+3. **Add "geom" layers** to visualise your data in the desired way
+4. **Modify "scales"** such as colour choices, axis breaks
+5. **Add "theme" design elements** to your plot such as axis labels, title, captions, fonts, text sizes, background themes and the orientation of different elemnets
+
+"Adding" layers to your plot is done literally, by ending a ggplot line with the `+` symbol you can indicate that you wish to add further details on the following line. This can be repeated until your complete plot is built. Using this line-by-line syntax allows your code to be more readable, both to you to make changes in the future and to others trying to understand your work.
+
+
+
 ## Grammar of graphics in action
-***opening a ggplot, the idea of finishing each line with a plus, 
+We will now try applying this layered system to some example data to practice visualising data.
+
+### 1. "Open" the plot
+The **ggplot2** package is built around the **R** function `ggplot()` which is the first command for any ggplot. 
+Running `ggplot()` in your R console should generate a blank canvas:
+
+```{r ggplot empty}
+ggplot()
+```
+
+We assign the dataframe we wish to use with the data parameter of this function: 
+```{r ggplot data}
+ggplot(data = linelist)
+```
 
 
-## Map column to aesthetic features
+If you are familiar with the pipe operator (`%>%`) from our XXXX tutorial, data can also be passed into a ggplot command using a pipe.
+
+## 2. Map data columns with `aes()`
+```{r aes}
+
+
+```
+
+
+
 
 ***choose some data columns to plot, open and inspect the data, pick our columns***
 ***intro the idea of data= and aes()***
