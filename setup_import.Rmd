@@ -226,21 +226,15 @@ Widespread adoption of R can transform epidemiology.
 "Holy smokes! Boom! I can't get enough of it!" 
 - WHO African Region Epidemiologist, Brazzaville
 
-### Efficiency
 
-‘With R I can do anything. What took 10 hours in Excel, I do in less than 1 hour. Also it is easier to detect if there is a mistake.’ For this Haitian epidemiologist, using our free Epi R Handbook to transition routine analyses to R meant more flexibility, confidence, and time for systemic change.
+#### IT'S FREE!
 
-Implementing R skills into your daily workflow as an epidemiologist will allow you to increase your work capacity and reduce response time to rapidly evolving public health scenarios.  
+R is free to use! There is a strong ethic in the community of free and open-source material.
 
-### Flexibility
+The accessibility of R is unmatched, open for use to anyone with access to a computer, a bit of wifi (for installation), and motivation to learn.  Most analytic software comparable to R are not free. In fact, they can be quite expensive over time if one has to renew and purchase a license annually. Without cost as a barrier, you can now focus on learning how to use R. You have found the right tutorial. 
 
-R can interact with many common data collection tools, websites, and software. You can also automate R in integration with other tools, for example, to produce surveillance reports and email them out. 
 
-```{r appliedepi-flexibility, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
-knitr::include_graphics("images/whyR/interoperability.png")
-```
-
-### Popularity
+#### Popularity
 
 The below graph shows the number of publications citing R, SPSS, SAS, and STATA from 2015 to 2019. As the only free software tool shown here, R is the future of analytic software. 
 
@@ -248,19 +242,33 @@ The below graph shows the number of publications citing R, SPSS, SAS, and STATA 
 knitr::include_graphics("images/whyR/r_popularity.png")
 ```
 
-### Learning Curve
 
-*R is achievable*
+#### Data visualization
 
-Over its 25 years of existence, R has evolved to become a relatively easy coding language to learn, with the advent of a friendly user interface (RStudio) and code syntax (the tidyverse). Moreover, vibrant support communities of R users, such as R-Ladies, exist all over the world. Its evolution has made R much easier to use in the past 5 years.
+One thing R is known for is data visualization. It is capable of producing detailed tables, maps, and epi-curves. With a bit more advanced knowledge you can visualize contact tracing, phylogenetics, and publication-ready plots. 
 
-There is an initial learning curve, but the more R you know then the easier it is to advance. 
-
-```{r appliedepi-difficulty, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
-knitr::include_graphics("images/whyR/difficulty_plot-1.png")
+```{r appliedepi-viz, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
+knitr::include_graphics("images/whyR/visualization.png")
 ```
 
-### User community
+
+#### Efficiency
+
+‘With R I can do anything. What took 10 hours in Excel, I do in less than 1 hour. Also it is easier to detect if there is a mistake.’ For this Haitian epidemiologist, using our free Epi R Handbook to transition routine analyses to R meant more flexibility, confidence, and time for systemic change.
+
+Implementing R skills into your daily workflow as an epidemiologist will allow you to increase your work capacity and reduce response time to rapidly evolving public health scenarios.  
+
+#### Flexibility
+
+R can interact with many common data collection tools, websites, and software. You can also automate R in integration with other tools, for example, to produce surveillance reports and email them out. 
+
+```{r appliedepi-flexibility, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
+knitr::include_graphics("images/whyR/interoperability.png")
+```
+
+
+
+#### User community
 
 *R is not just a new tool, but a new culture advancing equity*
 
@@ -272,37 +280,42 @@ Likewise, there is robust user support online such as question and answer forums
 knitr::include_graphics("images/whyR/user_community.png")
 ```
 
-### Data visualization
-
-One thing R is known for is data visualization. It is capable of producing detailed tables, maps, and epi-curves. With a bit more advanced knowledge you can visualize contact tracing, phylogenetics, and publication-ready plots. 
-
-```{r appliedepi-viz, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
-knitr::include_graphics("images/whyR/visualization.png")
-```
-
 
 
 
 ## Setup R and RStudio
+There are two main steps to acquiring R: Install R and install R Studio. We will walk you through ways to do this below. You will need internet for the installation. 
 
+For RStudio to work, you must also have R installed on your computer. 
 
 ### Install R
-
-#### R on a USB drive
+Visit this website https://www.r-project.org/ and download the latest version of R suitable for your computer.
 
 ### Install RStudio
+Visit this website https://rstudio.com/products/rstudio/download/ and download the latest free Desktop version of RStudio suitable for your computer.
+
+#### R on a USB drive
+Move the installed R and RStudio application you downloaded onto your USB disc while it is plugged into the computer you downloaded from. You should be able to use R on the devices you plug your USB into in the future.
+
 
 ### Considerations for Shared Drives
-
+??? this section is also below?
 
 ## Working in an R project
-https://www.epirhandbook.com/en/r-projects.html
-Talk about R projects here...
+An R project is a self-contained working environment with folders for data, scripts, outputs, and more. Learning about R Projects will make your work flow portable and efficient.
+
+Read more about R Projects [Here](https://epirhandbook.com/en/r-projects.html).
 
 SHORT VIDEO SUMMARISING TRIAD OF RPROJECTS/HERE/IMPORT
 
 
 ### Create an R project
+
+To create an R project, select “New Project” from the File menu.
+
+* If you want to create a new folder for the project, select “New directory” and indicate where you want it to be created (shown in the example below)
+* If you want to create the project within an existing folder, click “Existing directory” and indicate the folder.
+* If you want to clone a Github repository, select the third option “Version Control” and then “Git”. See the page on [Version control and collaboration with Git and Github ](https://epirhandbook.com/en/version-control-and-collaboration-with-git-and-github.html) for further details.
 
 ```{r rproject-gif, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "100%", fig.cap = ""}
 knitr::include_graphics("images/rprojects/rproject_create1.gif")
