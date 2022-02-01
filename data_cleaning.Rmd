@@ -260,25 +260,55 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 What is a pipe chain?
 A pipe chain refers to the use of the "pipe" operator `%>%` to chain together operations (such as cleaning, reordering and manipulating) for altering a dataset. 
 
-This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator `%>%` as telling the computer "and then" between your operational commands. For example, the following code will make use of the **janitor** package to clean the column names (there will be further explanation on this in the next section) and then display the new names in our console.
+This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator `%>%` as telling the computer "and then" between your operational commands. The order of this pipeline is important as operations occur sequentially, and so improperly ordered arguments may fail or (potentially more dangerously!) give incorrect values or unwanted outcomes.
 
-```{r, echo = T, eval = F}
-linelist %>%          #Load the database, and then
-  clean_names() %>%   #Clean the names of the columns, and then
-  names()             #Show the names of the columns
+Can you connect the following commands from the **janitor** package (`clean_names`, `select(contains("date_"))` and `names()` to clean the dataset `linelist_raw` and display the names of any columns that contain "_date"?
+
+```{r pipe_linelist, exercise = TRUE}
+linelist_raw %>%
+  
 ```
 
-The order of this pipeline is important as operations occur sequentially, and so improperly ordered arguments may fail or (potentially more dangerously!) give incorrect values or unwanted outcomes.
+```{r pipe_linelist-hint}
+linelist_raw %>%
+  clean_names() %>%
+
+```
+
+```{r pipe_linelist-check}
+grade_result(
+  pass_if(~ identical(.result, linelist_raw %>%
+    clean_names() %>%
+    select(contains("date_")) %>%
+    names() ), "You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!")
+)
+```
+
+
+```{r eval = FALSE}
+linelist_raw %>%                              #Define the dataset, and then
+         clean_names() %>%                    #clean the dataset columns, and then
+         select(contains("date_")) %>%        #Select columns where their name contains "date_", and then
+         names()                              #Display the column names
+
+```
+
+
+## Pipe chain
+If the order of cleaning and selecting columns had not been correct, then you would have missed the column "date_onset" as in the raw linelist it was called "date onset". 
+
+This was a very simple example giving you a first taste of pipe operators and cleaning functions, as we progress through the chapter you will gain more familiarity with the functions available and how to use them in increasingly complex examples.
 
 ## Clean columns
 
 In R, column names are the header, or top, value of a column and are used as the default value in figures. In other statistical software (such as SAS and STATA) "labels"  co-exist as longer printed versions of shorter column names, and while R can do this, it is not emphasized and for plotting and printing "friendly" column names, we generally adjust their display in the code to create the figure or tables.
 
 As we call column names often, it is helpful to have a "clean" syntax. We suggest that they are:
-- Short
-- No spaces (replace with underscores)
-- No unusual charachters (&, #, <, >, ...)
-- Similar style nomenclature (e.g. all date columns named like **date_**onset, **date_**report, **date_**death, ...)
+
+*   Short
+*   No spaces (replace with underscores)
+*   No unusual characters (&, #, <, >, ...)
+*   Similar style nomenclature (e.g. all date columns named like **date_**onset, **date_**report, **date_**death, ...)
 
 These are often not what real, raw, data and linelists look like, luckily R has a set of very handy and easy to use tools to clean and standardize column names.
 
@@ -288,13 +318,73 @@ names(linelist_raw)
 ```
 We can see that there are numerous violations of this clean syntax. We have names with spaces (infection date), different naming patterns for dates (date onset vs infection date) and there must have been a merged header across the last two columns (as the second last column i called "merged_header" and the last "...28" indicating it was assigned a placeholder name (it is the 28th column)). 
 
-What is a column? Why not call it a variable?
+Manually changing these column names to the preferred clean syntax would be time consuming, error prone and would need to be repeated everytime new versions of the linelist became available. Luckily, R has some helpful functions to make this process much faster and reproducible.
 
 ### Clean names
-janitor::clean_names()
+
+The first function we will explore in detail is the `clean_names()` function from the **janitor** package. This function does a lot of the hard work of cleaning column names for us. It does this through:
+
+* Converting names to consist of only underscores, numbers and letters
+* Accented characters are transliterated to ASCII (e.g. german o with umlaut becomes “o”, spanish “enye” becomes “n”)
+* Capitalization preference for the new column names can be specified using the case = argument
+* You can specify specific name replacements by providing a vector to the replace = argument (e.g. replace = c(onset = "date_of_onset"))
+
+Here we can see the differences in the column names of the cleaned and uncleaned dataset.
+
+```{r, echo = T, eval = T}
+linelist_raw %>%                              #Define the dataset, and then
+  names()                                     #Display the column names
+
+linelist_raw %>%                              #Define the dataset, and then
+         clean_names() %>%                    #clean the dataset columns, and then
+         names()                              #Display the column names
+
+```
+
+You can see that this has done a lot of the work for us, replacing spaces with "_", and ensuring there are no unusual characters. However, if we want to standardize the entire dataset to the "clean syntax" described previously, we will have to include additional cleaning stages.
+
+For example, if we wanted to use a similar style nomenclature such as **date_**, then we would have to carry out additional steps to the columns "infection_date", "hosp_date", "date_of_outcome".
+
+This manual name cleaning is done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax `r NEW = OLD`. So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
+
+```{r, echo = T, eval = T}
+linelist_raw %>%
+  clean_names() %>%
+         #New name         #Old names
+  rename(date_infection = infection_date,
+         date_hospitalisation = hosp_date,
+         date_outcome = date_of_outcome) %>%
+  names()
+
+```
+
+As you can see, the column names have changed. You can also do this by column position, though this is less encouraged as column positions can easily change between datasets and versions. Here we are updating the names of column 1 and 2 to "id" and "gen"
+
+```{r, echo = T, eval = T}
+linelist_raw %>%
+  clean_names() %>%
+         #New name #Old names
+  rename(id = 1,
+         gen = 2) %>%
+  names()
+```
 
 ### Select columns
-You can also re-name them with select()
+
+Another way of re-naming columns is through the `r select` function. This function subsets your dataset, removing unwanted columns, and additionally allows you to rename the columns you have kept.
+
+```{r, echo = T, eval = T}
+
+linelist_raw %>%
+  select(#New name #Old name
+    date_infection = 'infection date',
+    date_hospitalisation = 'hosp date')
+
+```
+
+As you can see, this has only kept the columns with the original names of `r 'infection date'` and `r 'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within `r ' '` as R does not like spaces.
+
+
 
 ### Quiz
 
