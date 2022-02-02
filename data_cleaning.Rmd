@@ -345,7 +345,7 @@ You can see that this has done a lot of the work for us, replacing spaces with "
 
 For example, if we wanted to use a similar style nomenclature such as **date_**, then we would have to carry out additional steps to the columns "infection_date", "hosp_date", "date_of_outcome".
 
-This manual name cleaning is done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax `r NEW = OLD`. So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
+This manual name cleaning is done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax "NEW -> OLD". So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
 
 ```{r, echo = T, eval = T}
 linelist_raw %>%
@@ -371,7 +371,7 @@ linelist_raw %>%
 
 ### Select columns
 
-Another way of re-naming columns is through the `r select` function. This function subsets your dataset, removing unwanted columns, and additionally allows you to rename the columns you have kept.
+Another way of re-naming columns is through the `select()` function. This function subsets your dataset, removing unwanted columns, and additionally allows you to rename the columns you have kept.
 
 ```{r, echo = T, eval = T}
 
@@ -382,9 +382,9 @@ linelist_raw %>%
 
 ```
 
-As you can see, this has only kept the columns with the original names of `r 'infection date'` and `r 'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within `r ' '` as R does not like spaces in column names.
+As you can see, this has only kept the columns with the original names of `'infection date'` and `'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within `r ' '` as R does not like spaces in column names.
 
-`r select()` does not have to rename, it can also be used to subset a dataset to the columns you are interested in. This can either be done manually, through specifying the columns as in:
+`select()` does not have to rename, it can also be used to subset a dataset to the columns you are interested in. This can either be done manually, through specifying the columns as in:
 
 ```{r, echo = T, eval = T}
 linelist_raw %>%
@@ -397,40 +397,40 @@ Rather than manually typing these out, and especially if we have a cleaned datas
 
 ## Tidyselect helper functions
 
-Tidyselect helper functions are functions that work within **dplyr** functions such as `r select()`, `r across()` or `r summarise()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
+Tidyselect helper functions are functions that work within **dplyr** functions such as `select()`, `across()` or `summarise()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
 
-* `r everything()` - all other columns not mentioned
-* `r last_col()` - the last column
-* `r where()` - applies a function to all columns and selects those which are true
-  * example: `r select(where(is.numeric))`
+* `everything()` - all othecolumns not mentioned
+* `last_col()` - the last column
+* `where()` - applies a function to all columns and selects those which are true
+  * example: `select(where(is.numeric))`
   * This would select all columns where the class is numeric
-* `r contains()` - columns containing a character string
-  * example: `r select(contains("time"))`
-* `r starts_with()` - matches to a specified prefix
-  * example: `r select(starts_with("date_"))`
-* `r ends_with()` - matches to a specified suffix
-  * example: `r select(ends_with("_post"))`
-* `r matches()` - to apply a regular expression (regex)
-  * example: `r select(matches("[pt]al))`
-  * Regular expression (regex) refers to a sequence of characters that specifies a search pattern in text. If you are unfamiliar with regex, then there some aspects may seem non-intuitive, for a good introduction to the use of regex please see https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html.
-* `r num_range()` - a numerical range
-  * example: `r select(num_range("week", 1:5))`
-* `r any_of()` - matches if the column exists, but returns no error if it is not found
-  * example: `r select(any_of(date_onset, date_death, cardiac_arrest))`
+* `contains()` - columns containing a charactestring
+  * example: `select(contains("time"))`
+* `starts_with()` - matches to a specified prefix
+  * example: `select(starts_with("date_"))`
+* `ends_with()` - matches to a specified suffix
+  * example: `select(ends_with("_post"))`
+* `matches()` - to apply a regulaexpression (regex)
+  * example: `select(matches("[pt]al))`
+  * Regulaexpression (regex) refers to a sequence of characters that specifies a search pattern in text. If you are unfamiliawith regex, then there some aspects may seem non-intuitive, foa good introduction to the use of regex please see https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html.
+* `num_range()` - a numerical range
+  * example: `select(num_range("week", 1:5))`
+* `any_of()` - matches if the column exists, but returns no erroif it is not found
+  * example: `select(any_of(date_onset, date_death, cardiac_arrest))`
   
 In addition to these we can use normal operators such as:
 
-* `r c()` - to list several columns
-  * example: `r select(c(date_onset, hosp_date, gender))`
-* `r :` - to select consecutive columns
-  * example: `r select(1:5)`
-* `r !` - for the opposite
-  * example: `r select(!c(date_onset, hosp_date, gender))`
+* `c()` - to list several columns
+  * example: `select(c(date_onset, hosp_date, gender))`
+* `:` - to select consecutive columns
+  * example: `select(1:5)`
+* `!` - fothe opposite
+  * example: `select(!c(date_onset, hosp_date, gender))`
   * This would _not_ select date_onset, hosp_date, gender
-* `r &` - AND
-  * example: `r select(matches("date" & "outcome"))`
-* `r |` - OR
-  * example: `r select(matches("date" | "outcome"))`
+* `&` - AND
+  * example: `select(matches("date" & "outcome"))`
+* `|` - OR
+  * example: `select(matches("date" | "outcome"))`
 
 
 
