@@ -862,3 +862,62 @@ C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/02/22 11:34:32
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/02/22 11:34:34 GMT; ah1114; section_viewed; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/02/22 11:34:34 GMT; ah1114; section_viewed_first_time; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/02/22 11:34:35 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-02/02/22 13:19:18 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-02/02/22 13:19:18 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-02/02/22 13:19:18 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-02/02/22 13:20:55 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-02/02/22 13:20:55 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-02/02/22 13:20:55 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-02/02/22 13:20:55 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-02/02/22 13:20:56 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-02/02/22 13:20:56 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:00 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:00 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:00 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:09 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:16 GMT; ah1114; question_submission; quiz-1; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:20 GMT; ah1114; question_submission; quiz-2; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:21 GMT; ah1114; question_submission; quiz-3; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-21-02/02/22 13:21:30 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:17 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:17 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:17 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:18 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:18 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:21 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:21 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:21 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:23 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:29 GMT; ah1114; exercise_hint; date_symptom_subset; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:37 GMT; ah1114; exercise_submitted; date_symptom_subset; ; linelist_raw %>%
+  clean_names() %>%
+  select(date_infection = infection_date,
+         date_hospitalisation = hosp_date,
+         starts_with("date_"),
+         fever:vomit)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:40 GMT; ah1114; exercise_result; date_symptom_subset; ; linelist_raw %>%
+  clean_names() %>%
+  select(date_infection = infection_date,
+         date_hospitalisation = hosp_date,
+         starts_with("date_"),
+         fever:vomit)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:46 GMT; ah1114; exercise_submitted; date_symptom_subset; ; linelist_raw %>%
+  clean_names() %>%
+  select(date_infection = infection_date,
+         date_hospitalisation = hosp_date,
+         starts_with("date_"),
+         fever:vomit)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-30-02/02/22 13:30:48 GMT; ah1114; exercise_result; date_symptom_subset; ; linelist_raw %>%
+  clean_names() %>%
+  select(date_infection = infection_date,
+         date_hospitalisation = hosp_date,
+         starts_with("date_"),
+         fever:vomit)
+
+; 

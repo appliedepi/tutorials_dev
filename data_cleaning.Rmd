@@ -447,7 +447,7 @@ Tidyselect helper functions are functions that work within **dplyr** functions s
 * `where()` - applies a function to all columns and selects those which are true
   * example: `select(where(is.numeric))`
   * This would select all columns where the class is numeric
-* `contains()` - columns containing a charactestring
+* `contains()` - columns containing a character string
   * example: `select(contains("time"))`
 * `starts_with()` - matches to a specified prefix
   * example: `select(starts_with("date_"))`
@@ -489,6 +489,86 @@ linelist$date_onset <- NULL #Deletes column with base R syntax
 ```
 
 ### Quiz
+```{r quiz}
+quiz(
+  question("Which of these column names follows a clean syntax?",
+    answer("date hospitalisation"),
+    answer("date_of_patient_hospitalisation"),
+    answer("date@hospitalisation"),
+    answer("date_hosp", correct = TRUE)
+  ),
+  question("Why is it useful to follow a similar style nomenclature (all date columns starting *date_*) for column names?",
+    answer("It looks good when you output tables and figures"),
+    answer("It helps us find relevant columns and makes omissions/errors less likely", correct = TRUE),
+    answer("R is very inflexible and only allows certain combinations of words"),
+    answer("It allows us to sort the dataset by alphabetical order")
+  ),
+  question("In which order would you place these functions in order to output only the names of the columns 'date_onset' and 'outcome' from linelist_raw",
+           answer("clean_names(), select(date_onset, outcome), names()", correct = TRUE),
+           answer("select(date_onset, outcome), clean_names(), names()"),
+           answer("clean_names(), select(-c(date_onset, outcome)), names()"),
+           answer("clean_names(), select(date_onset, outcome), head()")
+           )
+)
+```
+
+Can you write a pipe chain that drops the columns from `lon` to `source` from linelist_raw?
+
+```{r drop_lon_to_source, exercise = TRUE}
+
+```
+
+```{r drop_lon_to_source-hint}
+It is good practice to clean your column names, but it is not necessary to in this example. 
+
+Remember, you do not need to specifiy each column name individually that you want to drop between two columns
+```
+
+```{r drop_lon_to_source-check}
+grade_result(
+  pass_if(~ identical(.result, linelist_raw %>%
+         select(-c(lon:source)) ), "Good work, ':' is a useful tool for referencing several concurrent columns.")
+)
+```
+
+```{r eval = FALSE}
+linelist_raw %>%                    #Define the dataset, and then
+         select(-c(lon:source))     #Remove all columns between lon and source
+```
+
+We need to put all columns with a "date" in them into the same nomenclature (*date_*) and then subset linelist_raw to contain these and all symptom columns.
+How would you do this using only `clean_names()` and `select()`?
+
+```{r date_symptom_subset, exercise = TRUE}
+
+```
+
+```{r date_symptom_subset-hint}
+You will have to combine renaming, a tidyselect helper function and a normal operator within select() to efficiently clean and subset
+```
+
+```{r date_symptom_subset-check}
+grade_result(
+  pass_if(~ identical(.result, linelist_raw %>%
+  clean_names() %>%
+  select(date_infection = infection_date,
+         date_hospitalisation = hosp_date,
+         starts_with("date_"),
+         fever:vomit) ), "Combining multiple operations within a select function allows us to efficiently clean, rename and subset data. Nice one.")
+)
+```
+
+```{r eval = FALSE}
+linelist_raw %>%
+  clean_names() %>%
+  select(date_infection = infection_date,
+         date_hospitalisation = hosp_date,
+         starts_with("date_"),
+         fever:vomit)
+```
+
+date_infection = 'infection date',
+    date_hospitalisation = 'hosp date'
 
 
 ## Clean rows
@@ -538,55 +618,5 @@ https://www.epirhandbook.com/en/joining-data.html
 ## Next steps
 
 
-##  TEMPLATE Exercises
-
-### Exercise with Code
-
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
-
-Now write a function that adds any two numbers and then call it:
-
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
-  
-}
-```
-
-### Exercise with Hint
-
-*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
-
-Modify the following code to limit the number of rows printed to 5:
-
-```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
-mtcars
-```
-
-```{r print-limit-hint}
-head(mtcars)
-```
-
-### Quiz
-
-*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
-
-Some questions to verify that you understand the purposes of various base and recommended R packages:
-
-```{r quiz}
-quiz(
-  question("Which package contains functions for installing other R packages?",
-    answer("base"),
-    answer("tools"),
-    answer("utils", correct = TRUE),
-    answer("codetools")
-  ),
-  question("Which of the R packages listed below are used to create plots?",
-    answer("lattice", correct = TRUE),
-    answer("tools"),
-    answer("stats"),
-    answer("grid", correct = TRUE)
-  )
-)
-```
 
 
