@@ -382,7 +382,55 @@ linelist_raw %>%
 
 ```
 
-As you can see, this has only kept the columns with the original names of `r 'infection date'` and `r 'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within `r ' '` as R does not like spaces.
+As you can see, this has only kept the columns with the original names of `r 'infection date'` and `r 'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within `r ' '` as R does not like spaces in column names.
+
+`r select()` does not have to rename, it can also be used to subset a dataset to the columns you are interested in. This can either be done manually, through specifying the columns as in:
+
+```{r, echo = T, eval = T}
+linelist_raw %>%
+  select(case_id, generation, gender)
+```
+
+However, when you have a large dataset with many options to choose from, this can be cumbersome. Sometimes you want to extract columns with a specific prefix/suffix, or where they contain a certain word. 
+
+Rather than manually typing these out, and especially if we have a cleaned dataset adhering to the "clean style" syntax specified previously, we can use "tidyselect" helper functions
+
+## Tidyselect helper functions
+
+Tidyselect helper functions are functions that work within **dplyr** functions such as `r select()`, `r across()` or `r summarise()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
+
+* `r everything()` - all other columns not mentioned
+* `r last_col()` - the last column
+* `r where()` - applies a function to all columns and selects those which are true
+  * example: `r select(where(is.numeric))`
+  * This would select all columns where the class is numeric
+* `r contains()` - columns containing a character string
+  * example: `r select(contains("time"))`
+* `r starts_with()` - matches to a specified prefix
+  * example: `r select(starts_with("date_"))`
+* `r ends_with()` - matches to a specified suffix
+  * example: `r select(ends_with("_post"))`
+* `r matches()` - to apply a regular expression (regex)
+  * example: `r select(matches("[pt]al))`
+  * Regular expression (regex) refers to a sequence of characters that specifies a search pattern in text. If you are unfamiliar with regex, then there some aspects may seem non-intuitive, for a good introduction to the use of regex please see https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html.
+* `r num_range()` - a numerical range
+  * example: `r select(num_range("week", 1:5))`
+* `r any_of()` - matches if the column exists, but returns no error if it is not found
+  * example: `r select(any_of(date_onset, date_death, cardiac_arrest))`
+  
+In addition to these we can use normal operators such as:
+
+* `r c()` - to list several columns
+  * example: `r select(c(date_onset, hosp_date, gender))`
+* `r :` - to select consecutive columns
+  * example: `r select(1:5)`
+* `r !` - for the opposite
+  * example: `r select(!c(date_onset, hosp_date, gender))`
+  * This would _not_ select date_onset, hosp_date, gender
+* `r &` - AND
+  * example: `r select(matches("date" & "outcome"))`
+* `r |` - OR
+  * example: `r select(matches("date" | "outcome"))`
 
 
 
