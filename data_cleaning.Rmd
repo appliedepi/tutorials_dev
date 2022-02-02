@@ -345,7 +345,7 @@ You can see that this has done a lot of the work for us, replacing spaces with "
 
 For example, if we wanted to use a similar style nomenclature such as **date_**, then we would have to carry out additional steps to the columns "infection_date", "hosp_date", "date_of_outcome".
 
-This manual name cleaning is done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax "NEW -> OLD". So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
+This manual name cleaning is done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax `NEW = OLD`. So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
 
 ```{r, echo = T, eval = T}
 linelist_raw %>%
@@ -384,12 +384,55 @@ linelist_raw %>%
 
 As you can see, this has only kept the columns with the original names of `'infection date'` and `'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within `r ' '` as R does not like spaces in column names.
 
-`select()` does not have to rename, it can also be used to subset a dataset to the columns you are interested in. This can either be done manually, through specifying the columns as in:
+`select()` does not have to rename, it can also be used to subset a dataset to the columns you are interested in. This can either be done manually, through specifying the columns:
 
-```{r, echo = T, eval = T}
+```{r, echo = T, eval = F}
 linelist_raw %>%
   select(case_id, generation, gender)
 ```
+
+
+Using what we have learned, can you clean, rename, select and display the first 5 columns using the `head()` in order to recreate the below output?
+
+```{r}
+  linelist_raw %>%                                        #Define the dataset, and then
+         clean_names() %>%                              #clean the dataset columns, and then
+                #New name   Old name
+         rename(date_infection = infection_date,
+                date_outcome = date_of_outcome) %>%     #rename the select columns, and then
+         select(case_id, date_infection, date_outcome) %>%
+         head()
+```
+
+```{r clean_rename_select, exercise = TRUE}
+
+```
+
+```{r clean_rename_select-hint}
+Remember the order of your pipe chain is important.
+```
+
+```{r clean_rename_select-check}
+grade_result(
+  pass_if(~ identical(.result, linelist_raw %>%
+         clean_names() %>%
+         rename(date_infection = infection_date,
+                date_outcome = date_of_outcome) %>%
+         select(case_id, date_infection, date_outcome) %>%
+         head()), "Excellent, you have cleaned the dataset and subset to the columns you want")
+)
+```
+
+```{r eval = FALSE}
+linelist_raw %>%                                        #Define the dataset, and then
+         clean_names() %>%                              #clean the dataset columns, and then
+                #New name   Old name
+         rename(date_infection = infection_date,
+                date_outcome = date_of_outcome) %>%     #rename the select columns, and then
+         select(case_id, date_infection, date_outcome) %>%
+         head()
+```
+
 
 However, when you have a large dataset with many options to choose from, this can be cumbersome. Sometimes you want to extract columns with a specific prefix/suffix, or where they contain a certain word. 
 
@@ -432,7 +475,18 @@ In addition to these we can use normal operators such as:
 * `|` - OR
   * example: `select(matches("date" | "outcome"))`
 
+Select can also be used to remove columns, rather than keep, by putting the minus symbol "-" in front of the column name
 
+```{r, eval = T, echo = T}
+linelist %>%
+  select(-c(date_onset, fever:vomit)) %>% #This will remove date_onset and all columns from fever to vomit
+  names()
+```
+
+You can also remove a column using base R syntax, by defining it as NULL. For example:
+```{r, eval = F, echo = T}
+linelist$date_onset <- NULL #Deletes column with base R syntax
+```
 
 ### Quiz
 
