@@ -308,7 +308,7 @@ As we call column names often, it is helpful to have a "clean" syntax. We sugges
 *   Short
 *   No spaces (replace with underscores)
 *   No unusual characters (&, #, <, >, ...)
-*   Similar style nomenclature (e.g. all date columns named like **date_**onset, **date_**report, **date_**death, ...)
+*   Similar style nomenclature (e.g. all date columns named like "**date_**"onset, "**date_**"report, "**date_**"death, ...)
 
 These are often not what real, raw, data and linelists look like, luckily R has a set of very handy and easy to use tools to clean and standardize column names.
 
@@ -343,9 +343,9 @@ linelist_raw %>%                              #Define the dataset, and then
 
 You can see that this has done a lot of the work for us, replacing spaces with "_", and ensuring there are no unusual characters. However, if we want to standardize the entire dataset to the "clean syntax" described previously, we will have to include additional cleaning stages.
 
-For example, if we wanted to use a similar style nomenclature such as **date_**, then we would have to carry out additional steps to the columns "infection_date", "hosp_date", "date_of_outcome".
+For example, if we wanted to use a similar style nomenclature such as "**date_**", then we would have to carry out additional steps to the columns "infection_date", "hosp_date", "date_of_outcome".
 
-This manual name cleaning is done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax `NEW = OLD`. So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
+This manual name cleaning can be done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax `NEW = OLD`. So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
 
 ```{r, echo = T, eval = T}
 linelist_raw %>%
@@ -371,7 +371,7 @@ linelist_raw %>%
 
 ### Select columns
 
-Another way of re-naming columns is through the `select()` function. This function subsets your dataset, removing unwanted columns, and additionally allows you to rename the columns you have kept.
+Another way of re-naming columns is through the `select()` function. This function subsets your dataset, removing unwanted columns, and allowing you to rename the columns you have kept.
 
 ```{r, echo = T, eval = T}
 
@@ -382,9 +382,9 @@ linelist_raw %>%
 
 ```
 
-As you can see, this has only kept the columns with the original names of `'infection date'` and `'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within `r ' '` as R does not like spaces in column names.
+As you can see, this has subset to the columns with the original names of `'infection date'` and `'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within ' ' as R does not like spaces in column names.
 
-`select()` does not have to rename, it can also be used to subset a dataset to the columns you are interested in. This can either be done manually, through specifying the columns:
+`select()` can be used without renaming in order to subset a dataset to the columns you are interested in.
 
 ```{r, echo = T, eval = F}
 linelist_raw %>%
@@ -392,7 +392,7 @@ linelist_raw %>%
 ```
 
 
-Using what we have learned, can you clean, rename, select and display the first 5 columns using the `head()` in order to recreate the below output?
+Using what we have learned, can you `clean()`, `rename()`, `select()` and `head()` to recreate the output below?
 
 ```{r}
   linelist_raw %>%                                        #Define the dataset, and then
@@ -433,8 +433,7 @@ linelist_raw %>%                                        #Define the dataset, and
          head()
 ```
 
-
-However, when you have a large dataset with many options to choose from, this can be cumbersome. Sometimes you want to extract columns with a specific prefix/suffix, or where they contain a certain word. 
+This gives you an insight into how to clean and subset a dataset, however when you have a large dataset manually specifiying columns can be cumbersome. Sometimes you want to extract columns with a specific prefix/suffix, or when they contain a certain word. 
 
 Rather than manually typing these out, and especially if we have a cleaned dataset adhering to the "clean style" syntax specified previously, we can use "tidyselect" helper functions
 
@@ -497,6 +496,12 @@ quiz(
     answer("date@hospitalisation"),
     answer("date_hosp", correct = TRUE)
   ),
+  question("Which of these functions can be used to rename columns?",
+           answer("rename()", correct = TRUE),
+           answer("clean_names()", correct = TRUE),
+           answer("head()"),
+           answer("select()", correct = TRUE)
+           ),
   question("Why is it useful to follow a similar style nomenclature (all date columns starting *date_*) for column names?",
     answer("It looks good when you output tables and figures"),
     answer("It helps us find relevant columns and makes omissions/errors less likely", correct = TRUE),
@@ -509,6 +514,7 @@ quiz(
            answer("clean_names(), select(-c(date_onset, outcome)), names()"),
            answer("clean_names(), select(date_onset, outcome), head()")
            )
+   
 )
 ```
 
@@ -567,14 +573,113 @@ linelist_raw %>%
          fever:vomit)
 ```
 
-date_infection = 'infection date',
-    date_hospitalisation = 'hosp date'
+## New columns
+
+Creating new columns and transforming existing ones is easily done in R, where we recommend using the **dplyr** package function `mutate()` which uses the syntax `NEW = VALUE/TRANSFORMATION`.
+
+For example, this would create a new column called `new_col` where each row has the value of 10.
+
+```{r eval = F, echo = T}
+linelist %>%
+  mutate(new_col = 10)
+```
+
+You can also reference pre-existing columns to perform calculations. For example, to calculate the Body Mass Index (BMI) we can use the formula BMI = kg/m^2 using the column `ht_cm` and `wt_kg` through:
+```{r eval = T, echo = T}
+linelist %>%
+  mutate(bmi = wt_kg/(ht_cm/100)^2) %>%
+  select(wt_kg, ht_cm, bmi) %>%          #This selects just the wt_kg, ht_cm and bmi columns
+  head()                                 #This displays the top 6 rows to check
+```
+
+We can also create multiple new columns at once, which are separated with a comma and should begin on a new line
+```{r eval = T, echo = T}
+linelist %>%                       
+  mutate(
+    new_var_dup    = case_id,             # new column = duplicate/copy another existing column
+    new_var_static = 7,                   # new column = all values the same
+    new_var_static = new_var_static + 5,  # you can overwrite a column, and it can be a calculation using other variables
+    new_var_paste  = stringr::str_glue("{hospital} on ({date_hospitalisation})") # new column = pasting together values from other columns
+    ) %>% 
+  select(case_id, hospital, date_hospitalisation, contains("new")) %>%
+  head()
+
+```
+
+
+```{r quiz}
+quiz(
+  question("What function can be used to create new columns?",
+    answer("select()"),
+    answer("mutate()", correct = TRUE),
+    answer("rename()"),
+    answer("clean_names()")
+  ))
+```
+
+Can you take what you have learned in the previous chapters and create a new column called `age_months` from `age`, and then subset to only include `age`, `age_months` and `gender`? Note, you should ensure that all values in age are the same unit (specified in `age_unit`), and convert according to this.
+
+```{test_mutate_one, exercise = T}
+linelist %>%
+  mutate(age_months = ifelse(age_unit == "years", age * 12, age)) %>%
+  select(age, age_months, gender)
+```
+
+```{r clean_rename_select-hint}
+You can use the function ifelse() to carry out different operations based on another value. This function is vectorised and so will run through each row of a column and return an answer.
+
+ifelse(age_unit == "years",   #The condition, if the value in the column age_unit DOES equal years then the function will return...
+       age * 12,              #this value, and if the value in column age_unit DOES NOT equal years, then the function will return...
+       age                    #the value in age without manipulation
+)
+
+```
+
+```{r clean_rename_select-check}
+grade_result(
+  pass_if(~ identical(.result, linelist %>%
+  mutate(age_months = ifelse(age_unit == "years", age * 12, age)) %>%
+  select(age, age_months, gender)), "Great, you have created a new column based and learned about the ifelse() function.")
+)
+```
+
+## Converting column class
+
+Columns contain values that are dates, numbers or logical values (TRUE/FALSE) and will only behave if correctly classified. Trying to sum "2" and "1" of class character will return an error, and summing 2 and 1 of class numeric will return 3.
+
+
+
+
+
+### Re-coding
+### Quiz
+
+
+
 
 
 ## Clean rows
 
+Now that we have worked through how to clean and subset columns, we need to learn how to apply similar approaches to rows. There are several reasons why you would want to clean the rows of your dataset such as to remove duplicate entries, rows that contain NA values in all, or a selection, of columns. These allow us to clean the dataset and produce a final cleaned version that is ready for analysis and figure generation.
+
 ### Drop missing values
+
+
 ### Deduplication
+
+The package **dplyr** has the function  `distinct()` which removes duplicated rows in the dataset, by default it considers all columns though this can be adjusted. Here we will ensure that no rows are 100% duplicates of other rows (evaluated across all columns) in the dataset `linelist_raw`. We are comparing the number of rows in the original and de-duplicated 
+
+```{r}
+nrow(linelist_raw)
+
+linelist_raw %>%
+  distinct() %>%
+  nrow()
+```
+As you can see the linelist goes from 6611 rows to 6609 These omitted rows would have been 100% duplicates of other rows.
+
+
+
 Touch upon some of these: https://www.epirhandbook.com/en/de-duplication.html
 ### Filter by logic
 ### Quiz
@@ -582,10 +687,7 @@ Touch upon some of these: https://www.epirhandbook.com/en/de-duplication.html
 
 
 
-## New columns
-### mutate()
-### Re-coding
-### Quiz
+
 
 
 
