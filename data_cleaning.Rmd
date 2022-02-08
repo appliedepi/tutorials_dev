@@ -64,6 +64,11 @@ knitr::opts_chunk$set(echo = FALSE)
 linelist_raw <- rio::import(here::here("data", "linelist_raw.xlsx"))
 linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
 malaria_counts <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
+
+#Incorrectly assign class so we can clean later
+linelist_raw$age <- as.character(linelist_raw$age)
+linelist_raw$`date onset` <- as.character(linelist_raw$`date onset`)
+
 ```
 
 
@@ -488,7 +493,7 @@ linelist$date_onset <- NULL #Deletes column with base R syntax
 ```
 
 ### Quiz
-```{r quiz}
+```{r quiz1}
 quiz(
   question("Which of these column names follows a clean syntax?",
     answer("date hospitalisation"),
@@ -592,6 +597,11 @@ linelist %>%
   head()                                 #This displays the top 6 rows to check
 ```
 
+In base R this would be carried out with
+```{r, echo = T, eval = F}
+linelist$bmi = linelist$wt_kg / (linelist$ht_cm / 100) ^ 2)
+```
+
 We can also create multiple new columns at once, which are separated with a comma and should begin on a new line
 ```{r eval = T, echo = T}
 linelist %>%                       
@@ -607,9 +617,9 @@ linelist %>%
 ```
 
 
-```{r quiz}
+```{r quiz2}
 quiz(
-  question("What function can be used to create new columns?",
+  question("Which function can be used to create new columns?",
     answer("select()"),
     answer("mutate()", correct = TRUE),
     answer("rename()"),
@@ -619,43 +629,124 @@ quiz(
 
 Can you take what you have learned in the previous chapters and create a new column called `age_months` from `age`, and then subset to only include `age`, `age_months` and `gender`? Note, you should ensure that all values in age are the same unit (specified in `age_unit`), and convert according to this.
 
-```{test_mutate_one, exercise = T}
-linelist %>%
-  mutate(age_months = ifelse(age_unit == "years", age * 12, age)) %>%
-  select(age, age_months, gender)
+```{r date_mutate, exercise = TRUE}
+
 ```
 
-```{r clean_rename_select-hint}
-You can use the function ifelse() to carry out different operations based on another value. This function is vectorised and so will run through each row of a column and return an answer.
-
+```{r date_mutate-hint}
+You can use ifelse() to carry out different operations based on another value, this is a vectorised version of the if statement, and so will run through each row of a column and return an answer
 ifelse(age_unit == "years",   #The condition, if the value in the column age_unit DOES equal years then the function will return...
        age * 12,              #this value, and if the value in column age_unit DOES NOT equal years, then the function will return...
        age                    #the value in age without manipulation
 )
-
 ```
 
-```{r clean_rename_select-check}
+```{r date_mutate-check}
 grade_result(
   pass_if(~ identical(.result, linelist %>%
   mutate(age_months = ifelse(age_unit == "years", age * 12, age)) %>%
   select(age, age_months, gender)), "Great, you have created a new column based and learned about the ifelse() function.")
 )
+
 ```
 
 ## Converting column class
 
 Columns contain values that are dates, numbers or logical values (TRUE/FALSE) and will only behave if correctly classified. Trying to sum "2" and "1" of class character will return an error, and summing 2 and 1 of class numeric will return 3.
 
+The class of a column is displayed when we use `skim()` and individually we can check the value of columns with `class()`. For instance,
 
+```{r, echo = T, eval = T}
+class(linelist_raw$age)
+```
 
+we can see that this column has been incorrectly assigned as "character". Can you reassign the value of this column to numeric using `as.numeric()`?
 
+```{r change_class, exercise = T}
 
-### Re-coding
-### Quiz
+```
 
+```{r change_class-check}
+grade_result(
+  pass_if(~ identical(.result, linelist %>%
+  mutate(age = as.numeric(age))), "Good work.")
+)
+```
 
+Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with base R, or `as_factor` from the package **forcats**.
 
+Converting dates is slightly trickier, and it requires careful attention to the format (e.g. "Month/Day/Year" or "Day/Month/Year"). After converting to the class Date, check your data to confirm each value was converted correctly.
+
+## Grouping data
+
+Often your data will be grouped, and so functions such as `mutate()` will behave differently than if the data is not grouped. Additionally, summarising functions such as `mean()`, `min()`, `max()` will calculate by group and not by all the rows.
+
+```{r, eval = T, echo = T}
+# age normalized to mean of ALL rows
+linelist %>% 
+  mutate(age_norm = age / mean(age, na.rm=T))
+
+# age normalized to mean of hospital group
+linelist %>% 
+  group_by(hospital) %>% 
+  mutate(age_norm = age / mean(age, na.rm=T))
+```
+
+## across()
+
+The function across() allows us to apply a function to everything specified within it. Columns are specified using the `.cols =` function, either individually, or with "tidyselect" helper functions. The function to apply to these columns is then specified with `.fns = ` (note the function is specified _without_ parentheses "()").
+
+```{r, eval = T, echo = T}
+linelist %>%
+  mutate(across(.cols = c(temp, ht_cm, wt_kg), .fns = as.character))
+```
+
+```{r quiz3}
+quiz(
+  question("What will this pipe chain do?",
+    answer("Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE"),
+    answer("Check the columns temp, ht_cm and wt_kg to see if they are the character class"),
+    answer("Convert the columns temp, ht_cm and wt_kg to character class and make new columns"),
+    answer("Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", correct = TRUE)
+  ))
+```
+
+Can you update the above function using "tidyselect" helper functions to convert any columns that contain "date" to character?
+
+```{r tidyselect_date_character, exercise = T}
+
+```
+
+```{r tidyselect_date_character-check}
+grade_result(
+  pass_if(~ identical(.result, linelist %>%
+  mutate(across(.cols = contains("date"), .fns = as.character))), "Great work")
+)
+```
+
+## Coalesce
+
+This **dplyr** function allows us to "fill in" missing values with the first available value in an order you specify. For example, you have two vectors, one containing the patient’s village of detection and another containing the patient’s village of residence. You can use coalesce to pick the first non-missing value for each index:
+
+```{r, eval = T, echo = T}
+village_detection <- c("a", "b", NA,  NA)
+village_residence <- c("a", "c", "a", "d")
+
+village <- coalesce(village_detection, village_residence)
+village    # print
+```
+
+This works the same way for a dataset
+
+```{r, eval = T, echo = T}
+linelist %>% 
+  transmute(first_date = coalesce(date_infection, date_onset),#transmute() is the same as mutate(), except it drops everything not specified in the brackets
+            date_infection, 
+            date_onset) %>% 
+  head()
+```
+
+# Recoding
 
 
 ## Clean rows
