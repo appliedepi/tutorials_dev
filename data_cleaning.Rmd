@@ -69,6 +69,13 @@ malaria_counts <- rio::import(here::here("data", "malaria_facility_count_data.rd
 linelist_raw$age <- as.character(linelist_raw$age)
 linelist_raw$`date onset` <- as.character(linelist_raw$`date onset`)
 
+#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later
+set.seed(1)
+take_these <- sample(1:nrow(linelist_raw), 500)
+
+linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32
+
+
 ```
 
 
@@ -243,13 +250,6 @@ pacman::p_load(learnr, here, rio, janitor, tidyverse)
 See this Epi R Handbook LINK for our recommended packages.
 
 
-
-
-
-
-
-
-
 ## Import data {#import} 
 https://www.epirhandbook.com/en/import-and-export.html
 Import that data and save it as "raw" file
@@ -298,13 +298,11 @@ linelist_raw %>%                              #Define the dataset, and then
 
 ```
 
-
-## Pipe chain
 If the order of cleaning and selecting columns had not been correct, then you would have missed the column "date_onset" as in the raw linelist it was called "date onset". 
 
 This was a very simple example giving you a first taste of pipe operators and cleaning functions, as we progress through the chapter you will gain more familiarity with the functions available and how to use them in increasingly complex examples.
 
-## Clean columns
+## Column names
 
 In R, column names are the header, or top, value of a column and are used as the default value in figures. In other statistical software (such as SAS and STATA) "labels"  co-exist as longer printed versions of shorter column names, and while R can do this, it is not emphasized and for plotting and printing "friendly" column names, we generally adjust their display in the code to create the figure or tables.
 
@@ -325,7 +323,7 @@ We can see that there are numerous violations of this clean syntax. We have name
 
 Manually changing these column names to the preferred clean syntax would be time consuming, error prone and would need to be repeated everytime new versions of the linelist became available. Luckily, R has some helpful functions to make this process much faster and reproducible.
 
-### Clean names
+### Automatic cleaning
 
 The first function we will explore in detail is the `clean_names()` function from the **janitor** package. This function does a lot of the hard work of cleaning column names for us. It does this through:
 
@@ -349,6 +347,8 @@ linelist_raw %>%                              #Define the dataset, and then
 You can see that this has done a lot of the work for us, replacing spaces with "_", and ensuring there are no unusual characters. However, if we want to standardize the entire dataset to the "clean syntax" described previously, we will have to include additional cleaning stages.
 
 For example, if we wanted to use a similar style nomenclature such as "**date_**", then we would have to carry out additional steps to the columns "infection_date", "hosp_date", "date_of_outcome".
+
+### Manual name cleaning
 
 This manual name cleaning can be done through the function `rename()` from the **dplyr** package as part of a pipe chain. Here the function follows the syntax `NEW = OLD`. So to clean the linelist, rename the columns previously mentioned and then display the names, we would do the following:
 
@@ -396,7 +396,6 @@ linelist_raw %>%
   select(case_id, generation, gender)
 ```
 
-
 Using what we have learned, can you `clean()`, `rename()`, `select()` and `head()` to recreate the output below?
 
 ```{r}
@@ -442,7 +441,7 @@ This gives you an insight into how to clean and subset a dataset, however when y
 
 Rather than manually typing these out, and especially if we have a cleaned dataset adhering to the "clean style" syntax specified previously, we can use "tidyselect" helper functions
 
-## Tidyselect helper functions
+### Tidyselect helper functions
 
 Tidyselect helper functions are functions that work within **dplyr** functions such as `select()`, `across()` or `summarise()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
 
@@ -578,7 +577,7 @@ linelist_raw %>%
          fever:vomit)
 ```
 
-## New columns
+## Column creation and transformation
 
 Creating new columns and transforming existing ones is easily done in R, where we recommend using the **dplyr** package function `mutate()` which uses the syntax `NEW = VALUE/TRANSFORMATION`.
 
@@ -650,7 +649,7 @@ grade_result(
 
 ```
 
-## Converting column class
+### Converting column class
 
 Columns contain values that are dates, numbers or logical values (TRUE/FALSE) and will only behave if correctly classified. Trying to sum "2" and "1" of class character will return an error, and summing 2 and 1 of class numeric will return 3.
 
@@ -677,7 +676,7 @@ Using the same syntax you can convert columns to character with `as.character()`
 
 Converting dates is slightly trickier, and it requires careful attention to the format (e.g. "Month/Day/Year" or "Day/Month/Year"). After converting to the class Date, check your data to confirm each value was converted correctly.
 
-## Grouping data
+### Grouping data
 
 Often your data will be grouped, and so functions such as `mutate()` will behave differently than if the data is not grouped. Additionally, summarising functions such as `mean()`, `min()`, `max()` will calculate by group and not by all the rows.
 
@@ -692,7 +691,61 @@ linelist %>%
     summarise(mean_age = mean(age, na.rm = T))
 ```
 
-## Cumulative math
+### Transform multiple columns
+
+The function across() allows us to apply a function to everything specified within it. Columns are specified using the `.cols =` function, either individually, or with "tidyselect" helper functions. The function to apply to these columns is then specified with `.fns = ` (note the function is specified _without_ parentheses "()").
+
+```{r, eval = T, echo = T}
+linelist %>%
+  mutate(across(.cols = c(temp, ht_cm, wt_kg), .fns = as.character))
+```
+
+```{r quiz3}
+quiz(
+  question("What will this pipe chain do?",
+    answer("Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE"),
+    answer("Check the columns temp, ht_cm and wt_kg to see if they are the character class"),
+    answer("Convert the columns temp, ht_cm and wt_kg to character class and make new columns"),
+    answer("Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", correct = TRUE)
+  ))
+```
+
+Can you update the above function using "tidyselect" helper functions to convert any columns that contain "date" to character?
+
+```{r tidyselect_date_character, exercise = T}
+
+```
+
+```{r tidyselect_date_character-check}
+grade_result(
+  pass_if(~ identical(.result, linelist %>%
+  mutate(across(.cols = contains("date"), .fns = as.character))), "Great work")
+)
+```
+
+### coalesce()
+
+This **dplyr** function allows us to "fill in" missing values with the first available value in an order you specify. For example, you have two vectors, one containing the patient’s village of detection and another containing the patient’s village of residence. You can use coalesce to pick the first non-missing value for each index:
+
+```{r, eval = T, echo = T}
+village_detection <- c("a", "b", NA,  NA)
+village_residence <- c("a", "c", "a", "d")
+
+village <- coalesce(village_detection, village_residence)
+village    # print
+```
+
+This works the same way for a dataset
+
+```{r, eval = T, echo = T}
+linelist %>% 
+  transmute(first_date = coalesce(date_infection, date_onset),#transmute() is the same as mutate(), except it drops everything not specified in the brackets
+            date_infection, 
+            date_onset) %>% 
+  head()
+```
+
+### Cumulative math
 
 In your datasets, you may want to take cumulative sum/mean/min/max etc values across all the rows in the dataframe. For example, calculating the cumulative sum of cases across an outbreak or per day can give us an idea of how the infection is progressing. To calculate the cumulative sum across the entire outbreak, we would do the following:
 
@@ -725,63 +778,7 @@ grade_result(
 )
 ```
 
-
-## across()
-
-The function across() allows us to apply a function to everything specified within it. Columns are specified using the `.cols =` function, either individually, or with "tidyselect" helper functions. The function to apply to these columns is then specified with `.fns = ` (note the function is specified _without_ parentheses "()").
-
-```{r, eval = T, echo = T}
-linelist %>%
-  mutate(across(.cols = c(temp, ht_cm, wt_kg), .fns = as.character))
-```
-
-```{r quiz3}
-quiz(
-  question("What will this pipe chain do?",
-    answer("Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE"),
-    answer("Check the columns temp, ht_cm and wt_kg to see if they are the character class"),
-    answer("Convert the columns temp, ht_cm and wt_kg to character class and make new columns"),
-    answer("Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", correct = TRUE)
-  ))
-```
-
-Can you update the above function using "tidyselect" helper functions to convert any columns that contain "date" to character?
-
-```{r tidyselect_date_character, exercise = T}
-
-```
-
-```{r tidyselect_date_character-check}
-grade_result(
-  pass_if(~ identical(.result, linelist %>%
-  mutate(across(.cols = contains("date"), .fns = as.character))), "Great work")
-)
-```
-
-## Coalesce
-
-This **dplyr** function allows us to "fill in" missing values with the first available value in an order you specify. For example, you have two vectors, one containing the patient’s village of detection and another containing the patient’s village of residence. You can use coalesce to pick the first non-missing value for each index:
-
-```{r, eval = T, echo = T}
-village_detection <- c("a", "b", NA,  NA)
-village_residence <- c("a", "c", "a", "d")
-
-village <- coalesce(village_detection, village_residence)
-village    # print
-```
-
-This works the same way for a dataset
-
-```{r, eval = T, echo = T}
-linelist %>% 
-  transmute(first_date = coalesce(date_infection, date_onset),#transmute() is the same as mutate(), except it drops everything not specified in the brackets
-            date_infection, 
-            date_onset) %>% 
-  head()
-```
-
-
-## Deduplication
+### Deduplication
 
 The package **dplyr** has the function  `distinct()` which removes duplicated rows in the dataset, by default it considers all columns though this can be adjusted. Here we will ensure that no rows are 100% duplicates of other rows (evaluated across all columns) in the dataset `linelist_raw`. We are comparing the number of rows in the original and de-duplicated 
 
@@ -794,12 +791,12 @@ linelist_raw %>%
 ```
 As you can see the linelist goes from 6611 rows to 6609 These omitted rows would have been 100% duplicates of other rows.
 
-## Quiz
+### Quiz
 
 Now we are going to run through everything we have learned so far in order to convert `linelist_raw` into `linelist`, this will require several steps.
 
 * Cleaning names, both automatically and manually renaming date columns to the clean syntax
-* Removing the columns "row_num", "merged_heder" and "x28"
+* Removing the columns "row_num", "merged_header" and "x28"
 * De-duplicating
 * Adding in the new column "bmi"
 * Converting all date columns to the date class, generation and age to numeric class
@@ -839,6 +836,8 @@ You will occasionally have to re-code values, this can be due to a number of rea
 * To create a new column of categorical values
 * To create a new column of numeric categories (e.g. age categories)
 
+### Specific values
+
 To change values manually we can use the `recode()` function within `mutate()`. For instance, to fix a date that has been incorrectly included we use the following:
 ```{r, echo = F, eval = F}
 linelist %>%                             #Old value     #New value
@@ -870,7 +869,9 @@ table(linelist_updated$hospital, useNA = "always")
 
 ```
 
-We can also re-code based on logical cirteria, you can use `replace()` within `mutate()` and use it with logical conditions in order to specify which rows to change using the following general syntax
+### Simple logic
+
+We can also re-code based on logical criteria, you can use `replace()` within `mutate()` and use it with logical conditions in order to specify which rows to change using the following general syntax
 
 ```{r, eval = F, echo = T}
 mutate(col_to_change = replace(col_to_change, criteria for rows, new value))
@@ -910,23 +911,135 @@ quiz(
     answer("mutate(hospital = ifelse(hospital == 'Unidentified', 'Other', hospital))"),
     answer("mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', 'Identified'))"),
     answer("mutate(hospital = ifelse(Other == 'hospital', 'Unidentified', hospital))")
-  ),
-  question("What will this pipe chain do?",
-    answer(""),
-    answer(""),
-    answer(""),
-    answer("", correct = TRUE)
-  ),
-  question("What will this pipe chain do?",
-    answer(""),
-    answer(""),
-    answer(""),
-    answer("", correct = TRUE)
   ))
 ```
 
+### Complex logic
 
-## Complex logic
+Complex logic takes simple logic to the next level and allows us to input several different criteria. For example, if you are re-coding into several new groups you can use **dplyr**'s `case_when()` function. 
+
+`case_when()` command consists of logical statements and outcomes seperated by a "tilde" `~`. The logic criteria are on the left and the values on the right with statements seperated by commas.
+
+For example, here we utilize the columns `age` and `age_unit` to create a column `age_years`:
+
+```{r, echo = T, eval = F}
+linelist <- linelist %>% 
+  mutate(age_years = case_when(
+            age_unit == "years"  ~ age,       # if age is given in years
+            age_unit == "months" ~ age/12,    # if age is given in months
+            is.na(age_unit)      ~ age,       # if age unit is missing, assume years
+            TRUE                 ~ NA_real_)) # any other circumstance, assign missing
+```
+
+The criteria are applied in the order the `case_when()` statement is written. So if the criteria is met by the first argument (here, `age_unit` == "years"), then the remaining criteria are not tested. It is therefore important to order your arguments correctly, as in when writing a pipe chain `%>%`, from most specific to generic.
+
+Along those lines, in your final statement, place TRUE on the left-side, which will capture any row that did not meet any of the previous criteria. The right-side of this statement could be assigned a value like “check me!” or missing.
+
+DANGER: Values on the right-side must all be the same class - either numeric, character, date, logical, etc. To assign missing (NA), you may need to use special variations of NA such as NA_character_, NA_real_ (for numeric or POSIX), and as.Date(NA). Read more in Working with dates.
+
+Here we want to look at the temperatures of people recorded in the dataset. However, upon first visualization we can see that there is some discordence in the dataset.
+
+```{r, echo = F, eval = T}
+ggplot(data = linelist_raw) +
+    geom_histogram(aes(x = temp), binwidth = 1) +
+  scale_x_continuous(limits = c(30, 110), breaks = seq(30, 110, by = 10)) +
+      labs(x = "Temperature", y = "Count")
+```
+
+Most of the values are located between 35 and 41, as expected if we were recording temperatures in °C, however some values are around 100, and so we can deduce that these have been incorrectly recorded in °F. Using the formula, `°C = (°F − 32) * 5/9`, can you use complex logic to convert values that are above 90 and below 120 to Celcius?
+
+```{r temp_convert_logic, exercise = TRUE}
+linelist %>%
+  mutate()
+```
+
+```{r temp_convert_logic-hint}
+You will need to use case_when and greater than (temp >) and less than (temp <) combined with the and (&)
+```
+
+```{r temp_convert_logic-check}
+grade_result(
+  pass_if(~ identical(.result, linelist %>%
+    mutate(temp = case_when(temp > 90 & temp < 120 ~ (temp - 32) * 5/9,
+                            TRUE ~ temp))), "You've successfully used complex logic, great work.")
+)
+```
+
+### Missing values
+
+Missing values are an ever present facet of dealing with real world data, and it is important to correctly identify and handle them in order to highlight data gaps and adjust our analysis accordingly. There are several inbuilt functions for dealing with missing data, depending on the scenario and the class of data.
+
+To change missing values (`NA`) to a specific value, such as "Missing", we can use the **dplyr** function `replace_na()` with `mutate()`
+
+```{r}
+linelist <- linelist %>% 
+  mutate(hospital = replace_na(hospital, "Missing"))
+```
+
+Factors are R’s way to handle ordered values such as c("First", "Second", "Third") or to set the order that values (e.g. hospitals) appear in tables and plots.
+
+If your data are class Factor and you try to convert NA to “Missing” by using `replace_na()`, you will get this error: invalid factor level, NA generated. You have tried to add “Missing” as a value, when it was not defined as a possible level of the factor, and it was rejected.
+
+The easiest way to solve this is to use the **forcats** function `fct_explicit_na()` which converts a column to class factor, and converts NA values to the character “(Missing)”.
+
+```{r}
+linelist %>% 
+  mutate(hospital = fct_explicit_na(hospital))
+```
+
+To convert a specific value to NA, use **dplyr**’s `na_if()`. The command below performs the opposite operation of `replace_na()`. In the example below, any values of “Missing” in the column hospital are converted to NA.
+
+```{r}
+linelist <- linelist %>% 
+  mutate(hospital = na_if(hospital, "Missing"))
+```
+
+However, `na_if()` cannot be used for logical criteria (e.g. “all values > 99”) - use replace() or `case_when()` for this:
+
+```{r}
+# Convert temperatures above 40 to NA 
+linelist <- linelist %>% 
+  mutate(temp = replace(temp, temp > 40, NA))
+
+# Convert onset dates earlier than 1 Jan 2000 to missing
+linelist <- linelist %>% 
+  mutate(date_onset = replace(date_onset, date_onset > as.Date("2000-01-01"), NA))
+```
+
+### Cleaning dictionary
+
+Use the R package **linelist** and it’s function `clean_variable_spelling()` to clean a data frame with a cleaning dictionary. **linelist** is a package developed by RECON - the R Epidemics Consortium.
+
+1) Create a cleaning dictionary with 3 columns:
+* “from” column (the incorrect value)
+* A “to” column (the correct value)
+* A column specifying the column for the changes to be applied (or “.global” to apply to all columns)
+
+2) Import the dictionary file into R
+`cleaning_dictionary <- import(cleaning_dictionary.csv)`
+
+3) Pass the rawlinelist to `clean_variable_spelling()`, specifiying to `wordlists = ` the cleaning dictionary dataframe. The `spelling_vars` argument can be used to specify which column in the dictionary refers to the columns (3rd by default), or can be set to `NULL` in order to have the dictionary apply to all character and factor columns. Note this function can take a long time to run.
+
+```{r, echo = T, eval = F}
+linelist <- linelist %>% 
+  linelist::clean_variable_spelling(
+    wordlists = cleaning_dict,
+    spelling_vars = "col",        # dict column containing column names, defaults to 3rd column in dict
+  )
+```
+
+## Numerical categories
+
+There are numerous reasons why you may want to categorise numeric values, such as for age groups, lab values etc. R has several ways of doing this.
+
+* `age_categories()`, from the **epikit** package
+* `cut()` from base R
+* `case_when()`
+* quantile breaks with `quantile()` and `ntile()`
+
+
+
+
 
 
 ## Clean rows
