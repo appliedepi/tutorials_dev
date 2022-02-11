@@ -610,8 +610,8 @@ ifelse(age_unit == &quot;years&quot;,   #The condition, if the value in the colu
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x0000000018a0e928&gt;
-## &lt;environment: 0x00000000189a9f78&gt;</code></pre>
+## &lt;bytecode: 0x0000000018e256e8&gt;
+## &lt;environment: 0x0000000018da4bf8&gt;</code></pre>
 <p>Using the same syntax you can convert columns to character with <code>as.character()</code> or to logical operators, <code>as.logical()</code> or to a factor with <code>as.factor()</code> with base R, or <code>as_factor</code> from the package <strong>forcats</strong>.</p>
 <p>Converting dates is slightly trickier, and it requires careful attention to the format (e.g. “Month/Day/Year” or “Day/Month/Year”). After converting to the class Date, check your data to confirm each value was converted correctly.</p>
 </div>
@@ -682,8 +682,8 @@ linelist %&gt;%
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x0000000018a0e928&gt;
-## &lt;environment: 0x000000001aa89aa0&gt;</code></pre>
+## &lt;bytecode: 0x0000000018e256e8&gt;
+## &lt;environment: 0x000000001b64e108&gt;</code></pre>
 </div>
 <div id="section-coalesce" class="section level3">
 <h3>coalesce()</h3>
@@ -886,7 +886,7 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
 <pre class="r"><code>linelist &lt;- linelist %&gt;% 
   linelist::clean_variable_spelling(
     wordlists = cleaning_dict,
-    spelling_vars = &quot;col&quot;,        # dict column containing column names, defaults to 3rd column in dict
+    spelling_vars = &quot;col&quot;,        # dictionary column containing column names
   )</code></pre>
 </div>
 </div>
@@ -899,6 +899,277 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
 <li><code>case_when()</code></li>
 <li>quantile breaks with <code>quantile()</code> and <code>ntile()</code></li>
 </ul>
+<div id="section-age_categories" class="section level3">
+<h3>age_categories()</h3>
+<p>With the <strong>epikit</strong> package, you can use the age_categories() function to easily categorize and label numeric columns (note: this function can be applied to non-age numeric variables too). As a bonus, the output column is automatically an ordered factor.</p>
+<p>Here are the required inputs:</p>
+<ul>
+<li>A numeric vector (column)</li>
+<li>The <code>breakers =</code> argument, provide a numeric vector of break points for new groups.</li>
+</ul>
+<p>For example</p>
+<pre class="r"><code>linelist &lt;- linelist %&gt;% 
+  mutate(
+    age_cat = age_categories(             # create new column
+      age_years,                            # numeric column to make groups from
+      breakers = c(0, 5, 10, 15, 20,        # break points
+                   30, 40, 50, 60, 70)))
+
+# Display the table
+table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##   0-4   5-9 10-14 15-19 20-29 30-39 40-49 50-59 60-69   70+  &lt;NA&gt; 
+##  1095  1095   941   743  1073   528   226    70    25     6    86</code></pre>
+<p>Break values specified are by default the lower bounds, here the categorisation occurs so that the left/lower side is “open” and “inclusive”. . You can adjust how the labels are displayed with <code>separator =</code>, with the default as “-”.</p>
+<p>You may also want to set an upper limit, this will categorise any value above the last breaker as <code>NA</code>. This is doing using <code>ceiling = TRUE</code>.</p>
+<pre class="r"><code>linelist &lt;- linelist %&gt;% 
+  mutate(
+    age_cat = age_categories(             # create new column
+      age_years,                            # numeric column to make groups from
+      breakers = c(0, 5, 10, 15, 20,        # break points
+                   30, 40, 50, 60, 70),
+      ceiling = TRUE))
+
+# Display the table
+table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##   0-4   5-9 10-14 15-19 20-29 30-39 40-49 50-59 60-70  &lt;NA&gt; 
+##  1095  1095   941   743  1073   528   226    70    26    91</code></pre>
+<p>Alternatively, instead of using <code>breakers =</code> you can provide <code>lower =</code>, <code>upper =</code> and <code>by =</code>:</p>
+<pre class="r"><code>linelist &lt;- linelist %&gt;% 
+  mutate(
+    age_cat = age_categories(             # create new column
+      age_years,                            # numeric column to make groups from
+      lower = 0,
+      upper = 70,
+      by = 5))
+
+# Display the table
+table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##   0-4   5-9 10-14 15-19 20-24 25-29 30-34 35-39 40-44 45-49 50-54 55-59 60-64 
+##  1095  1095   941   743   638   435   326   202   133    93    40    30    12 
+## 65-69   70+  &lt;NA&gt; 
+##    13     6    86</code></pre>
+</div>
+<div id="section-cut" class="section level3">
+<h3>cut()</h3>
+<p><code>cut()</code> is a <strong>base</strong> R alternative to <code>age_categories()</code>. The basic syntax is to first provide a numeric culumn to be cut (<code>age_years</code>), and then the <code>breaks =</code> argument which is a numeric vector <code>c()</code> of break points.</p>
+<p>By default, the categorisation occurs so the right/upper side is “open” and “inclusive”, <em>this is the opposite behavior to <code>age_categories()</code> function</em>. You can reverse this behavior, and so align it with the <code>age_categories()</code> function through adding the <code>right = TRUE</code> argument.</p>
+<p>Thus, by default, “0” values are excluded from the lowest group, and categorized as NA! “0” values could be infants coded as age 0 so be careful! To change this, add the argument <code>include.lowest = TRUE</code> so that any “0” values will be included in the lowest group. The automatically-generated label for the lowest category will then be “[A],B]”. Note that if you include the <code>include.lowest = TRUE</code> argument <em>and</em> <code>right = TRUE</code>, the extreme inclusion will now apply to the highest break point value and category, not the lowest.</p>
+<pre><code>## 
+##    [0,5]   (5,10]  (10,15]  (15,20]  (20,30]  (30,50]  (50,70] (70,100] 
+##     1315     1065      930      696     1013      694       84        5 
+##     &lt;NA&gt; 
+##       86</code></pre>
+<p><strong>It is very important to check your work here, do so by cross-tabulating the numeric and category columns</strong></p>
+<pre><code>##                     Categories
+## Numeric Values       [0,5] (5,10] (10,15] (15,20] (20,30] (30,50] (50,70]
+##   0                    122      0       0       0       0       0       0
+##   0.0833333333333333     1      0       0       0       0       0       0
+##   0.25                   1      0       0       0       0       0       0
+##   0.333333333333333      3      0       0       0       0       0       0
+##   0.416666666666667      1      0       0       0       0       0       0
+##   0.5                    4      0       0       0       0       0       0
+##   0.583333333333333      3      0       0       0       0       0       0
+##   0.666666666666667      3      0       0       0       0       0       0
+##   0.75                   2      0       0       0       0       0       0
+##   0.833333333333333      1      0       0       0       0       0       0
+##   0.916666666666667      1      0       0       0       0       0       0
+##   1                    250      0       0       0       0       0       0
+##   1.5                    1      0       0       0       0       0       0
+##   2                    265      0       0       0       0       0       0
+##   3                    224      0       0       0       0       0       0
+##   4                    213      0       0       0       0       0       0
+##   5                    220      0       0       0       0       0       0
+##   6                      0    222       0       0       0       0       0
+##   7                      0    225       0       0       0       0       0
+##   8                      0    209       0       0       0       0       0
+##   9                      0    219       0       0       0       0       0
+##   10                     0    190       0       0       0       0       0
+##   11                     0      0     199       0       0       0       0
+##   12                     0      0     201       0       0       0       0
+##   13                     0      0     172       0       0       0       0
+##   14                     0      0     179       0       0       0       0
+##   15                     0      0     179       0       0       0       0
+##   16                     0      0       0     164       0       0       0
+##   17                     0      0       0     152       0       0       0
+##   18                     0      0       0     132       0       0       0
+##   19                     0      0       0     116       0       0       0
+##   20                     0      0       0     132       0       0       0
+##   21                     0      0       0       0     140       0       0
+##   22                     0      0       0       0     133       0       0
+##   23                     0      0       0       0     110       0       0
+##   24                     0      0       0       0     123       0       0
+##   25                     0      0       0       0      96       0       0
+##   26                     0      0       0       0      85       0       0
+##   27                     0      0       0       0     102       0       0
+##   28                     0      0       0       0      76       0       0
+##   29                     0      0       0       0      76       0       0
+##   30                     0      0       0       0      72       0       0
+##   31                     0      0       0       0       0      59       0
+##   32                     0      0       0       0       0      74       0
+##   33                     0      0       0       0       0      69       0
+##   34                     0      0       0       0       0      52       0
+##   35                     0      0       0       0       0      53       0
+##   36                     0      0       0       0       0      33       0
+##   37                     0      0       0       0       0      41       0
+##   38                     0      0       0       0       0      38       0
+##   39                     0      0       0       0       0      37       0
+##   40                     0      0       0       0       0      30       0
+##   41                     0      0       0       0       0      32       0
+##   42                     0      0       0       0       0      22       0
+##   43                     0      0       0       0       0      27       0
+##   44                     0      0       0       0       0      22       0
+##   45                     0      0       0       0       0      25       0
+##   46                     0      0       0       0       0      23       0
+##   47                     0      0       0       0       0      14       0
+##   48                     0      0       0       0       0      18       0
+##   49                     0      0       0       0       0      13       0
+##   50                     0      0       0       0       0      12       0
+##   51                     0      0       0       0       0       0      12
+##   52                     0      0       0       0       0       0       7
+##   53                     0      0       0       0       0       0       4
+##   54                     0      0       0       0       0       0       5
+##   55                     0      0       0       0       0       0       7
+##   56                     0      0       0       0       0       0       6
+##   57                     0      0       0       0       0       0       8
+##   58                     0      0       0       0       0       0       5
+##   59                     0      0       0       0       0       0       4
+##   60                     0      0       0       0       0       0       4
+##   61                     0      0       0       0       0       0       2
+##   62                     0      0       0       0       0       0       1
+##   63                     0      0       0       0       0       0       4
+##   64                     0      0       0       0       0       0       1
+##   65                     0      0       0       0       0       0       4
+##   66                     0      0       0       0       0       0       3
+##   67                     0      0       0       0       0       0       2
+##   68                     0      0       0       0       0       0       1
+##   69                     0      0       0       0       0       0       3
+##   70                     0      0       0       0       0       0       1
+##   72                     0      0       0       0       0       0       0
+##   73                     0      0       0       0       0       0       0
+##   76                     0      0       0       0       0       0       0
+##   84                     0      0       0       0       0       0       0
+##   &lt;NA&gt;                   0      0       0       0       0       0       0
+##                     Categories
+## Numeric Values       (70,100] &lt;NA&gt;
+##   0                         0    0
+##   0.0833333333333333        0    0
+##   0.25                      0    0
+##   0.333333333333333         0    0
+##   0.416666666666667         0    0
+##   0.5                       0    0
+##   0.583333333333333         0    0
+##   0.666666666666667         0    0
+##   0.75                      0    0
+##   0.833333333333333         0    0
+##   0.916666666666667         0    0
+##   1                         0    0
+##   1.5                       0    0
+##   2                         0    0
+##   3                         0    0
+##   4                         0    0
+##   5                         0    0
+##   6                         0    0
+##   7                         0    0
+##   8                         0    0
+##   9                         0    0
+##   10                        0    0
+##   11                        0    0
+##   12                        0    0
+##   13                        0    0
+##   14                        0    0
+##   15                        0    0
+##   16                        0    0
+##   17                        0    0
+##   18                        0    0
+##   19                        0    0
+##   20                        0    0
+##   21                        0    0
+##   22                        0    0
+##   23                        0    0
+##   24                        0    0
+##   25                        0    0
+##   26                        0    0
+##   27                        0    0
+##   28                        0    0
+##   29                        0    0
+##   30                        0    0
+##   31                        0    0
+##   32                        0    0
+##   33                        0    0
+##   34                        0    0
+##   35                        0    0
+##   36                        0    0
+##   37                        0    0
+##   38                        0    0
+##   39                        0    0
+##   40                        0    0
+##   41                        0    0
+##   42                        0    0
+##   43                        0    0
+##   44                        0    0
+##   45                        0    0
+##   46                        0    0
+##   47                        0    0
+##   48                        0    0
+##   49                        0    0
+##   50                        0    0
+##   51                        0    0
+##   52                        0    0
+##   53                        0    0
+##   54                        0    0
+##   55                        0    0
+##   56                        0    0
+##   57                        0    0
+##   58                        0    0
+##   59                        0    0
+##   60                        0    0
+##   61                        0    0
+##   62                        0    0
+##   63                        0    0
+##   64                        0    0
+##   65                        0    0
+##   66                        0    0
+##   67                        0    0
+##   68                        0    0
+##   69                        0    0
+##   70                        0    0
+##   72                        1    0
+##   73                        2    0
+##   76                        1    0
+##   84                        1    0
+##   &lt;NA&gt;                      0   86</code></pre>
+<p><strong>Re-labeling NA values</strong></p>
+<p>You may want to assign NA values a label such as “Missing”. Because the new column is class Factor (restricted values), you cannot simply mutate it with <code>replace_na()</code>, as this value will be rejected. Instead, use <code>fct_explicit_na()</code> from the <strong>forcats</strong> package, as explained in the Factors page.</p>
+<pre><code>## 
+##         0-4         5-9       10-14       15-19       20-29       30-49 
+##        1095        1095         941         743        1073         754 
+##       50-69      70-100 Missing age        &lt;NA&gt; 
+##          95           6          86           0</code></pre>
+</div>
+<div id="section-quantile-breaks" class="section level3">
+<h3>Quantile breaks</h3>
+<p>Quantiles, or percentiles, typically refer to a value below which a proportion of values fall. For example, the 95th percentile of ages in <code>linelist</code> would be the age below which 95% of the ages fall.</p>
+<p>However in common speech, “quartiles” and “deciles” can also refer to the groups of data as equally divided into 4, or 10 groups (note there will be one more break point than group).</p>
+<p>To get quantile break points, you can use quantile() from the <strong>stats</strong> package from base R. You provide a numeric vector (e.g. a column in a dataset) and vector of numeric probability values ranging from 0 to 1.0. The break points are returned as a numeric vector. Explore the details of the statistical methodologies by entering ?quantile.</p>
+<ul>
+<li>If your input numeric vector has any missing values it is best to set na.rm = TRUE</li>
+<li>Set names = FALSE to get an un-named numeric vector</li>
+</ul>
+<pre><code>##   0%  25%  50%  75%  90%  95% 
+##  0.0  6.0 13.0 23.0 33.9 41.0</code></pre>
+<p>You can use the results of <code>quantile()</code> as break points in <code>age_categories()</code> or <code>cut()</code>. Below we create a new column deciles using <code>cut()</code> where the breaks are defined using <code>quantiles()</code> on age_years. Below, we display the results using <code>tabyl()</code> from janitor so you can see the percentages (see the Descriptive tables page). Note how they are not exactly 10% in each group.</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["deciles"],"name":[1],"type":["fct"],"align":["left"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["percent"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["valid_percent"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"[0,2]","2":"658","3":"0.11175272","4":"0.11340917","_rn_":"1"},{"1":"(2,5]","2":"657","3":"0.11158288","4":"0.11323681","_rn_":"2"},{"1":"(5,7]","2":"447","3":"0.07591712","4":"0.07704240","_rn_":"3"},{"1":"(7,10]","2":"618","3":"0.10495924","4":"0.10651499","_rn_":"4"},{"1":"(10,13]","2":"572","3":"0.09714674","4":"0.09858669","_rn_":"5"},{"1":"(13,17]","2":"674","3":"0.11447011","4":"0.11616684","_rn_":"6"},{"1":"(17,21]","2":"520","3":"0.08831522","4":"0.08962427","_rn_":"7"},{"1":"(21,26]","2":"547","3":"0.09290082","4":"0.09427784","_rn_":"8"},{"1":"(26,33.9]","2":"528","3":"0.08967391","4":"0.09100310","_rn_":"9"},{"1":"(33.9,84]","2":"581","3":"0.09867527","4":"0.10013788","_rn_":"10"},{"1":"NA","2":"86","3":"0.01460598","4":"NA","_rn_":"11"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="section-evenly-sized-groups" class="section level3">
+<h3>Evenly sized groups</h3>
+</div>
 </div>
 <div id="section-clean-rows" class="section level2">
 <h2>Clean rows</h2>
@@ -950,6 +1221,7 @@ library(janitor)
 library(rio)
 library(basket) # not sure if we need this
 library(etude) # helper functions for gradethis
+library(epikit)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -1045,7 +1317,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1110,7 +1383,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1178,7 +1452,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1371,7 +1646,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1438,7 +1714,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1533,7 +1810,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1600,7 +1878,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1699,7 +1978,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1766,7 +2046,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1834,7 +2115,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -1940,7 +2222,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
-"library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
 "gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
 "  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
 "", "", "# event recorder ---------------------------------------------------------------", 
@@ -2002,7 +2285,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipsis","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","iterators","itertools","janitor","jquerylib","jsonlite","knitr","labeling","later","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","snakecase","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.0.4","0.10.11","0.7.12","0.3.1","1.1.0","2.0.0","3.1.1","0.2-18","2.0-2","4.0.4","1.4.2","4.3.2","1.14.0","4.0.4","1.1.2","2.1.1","0.6.29","1.0.7","0.3.2","0.3.0.9001","0.14","1.0.2","2.1.0","1.1.0","0.5.1","1.5.2","0.8-82","1.5.2","0.1.2","1.1.7","0.3.3","3.3.5","2.0.5","0.9.1","1.6.1","0.2.5.9000","4.0.4","0.8.0","4.0.4","4.0.4","2.3","0.3.0","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.2","1.2.11","1.0.14","0.1-3","2.1.0","0.1.4","1.7.3","1.37","0.4.2","1.3.0","0.10.1.9019","1.0.1","1.7.10","2.0.2","1.1","7.3-55","4.0.4","0.12","0.1.8","0.5.0","4.2.5","4.0.4","1.7.0","2.0.3","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.8","2.0.1","1.3.1","2.0.1","0.5.29","1.0.1","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","0.11.0","4.0.4","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.3","1.1.1","1.3.1","4.0.4","1.0.2","0.1.2","1.2.2","4.0.4","0.3.8","0.6.2","0.4.0","2.4.3","0.29","1.3.2","1.8-4","2.2.1","2.2.0"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipsis","epikit","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","iterators","itertools","janitor","jquerylib","jsonlite","knitr","labeling","later","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","snakecase","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.0.4","0.10.11","0.7.12","0.3.1","1.1.0","2.0.0","3.1.1","0.2-18","2.0-2","4.0.4","1.4.2","4.3.2","1.14.0","4.0.4","1.1.2","2.1.1","0.6.29","1.0.7","0.3.2","0.1.2","0.3.0.9001","0.14","1.0.2","2.1.0","1.1.0","0.5.1","1.5.2","0.8-82","1.5.2","0.1.2","1.1.7","0.3.3","3.3.5","2.0.5","0.9.1","1.6.1","0.2.5.9000","4.0.4","0.8.0","4.0.4","4.0.4","2.3","0.3.0","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.2","1.2.11","1.0.14","0.1-3","2.1.0","0.1.4","1.7.3","1.37","0.4.2","1.3.0","0.10.1.9019","1.0.1","1.7.10","2.0.2","1.1","7.3-55","4.0.4","0.12","0.1.8","0.5.0","4.2.5","4.0.4","1.7.0","2.0.3","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.8","2.0.1","1.3.1","2.0.1","0.5.29","1.0.1","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","0.11.0","4.0.4","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.3","1.1.1","1.3.1","4.0.4","1.0.2","0.1.2","1.2.2","4.0.4","0.3.8","0.6.2","0.4.0","2.4.3","0.29","1.3.2","1.8-4","2.2.1","2.2.0"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
