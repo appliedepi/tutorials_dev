@@ -684,13 +684,47 @@ Often your data will be grouped, and so functions such as `mutate()` will behave
 ```{r, eval = T, echo = T}
 # age normalized to mean of ALL rows
 linelist %>% 
-  mutate(age_norm = age / mean(age, na.rm=T))
+    summarise(mean_age = mean(age, na.rm = T))
 
 # age normalized to mean of hospital group
 linelist %>% 
-  group_by(hospital) %>% 
-  mutate(age_norm = age / mean(age, na.rm=T))
+    group_by(hospital) %>% 
+    summarise(mean_age = mean(age, na.rm = T))
 ```
+
+## Cumulative math
+
+In your datasets, you may want to take cumulative sum/mean/min/max etc values across all the rows in the dataframe. For example, calculating the cumulative sum of cases across an outbreak or per day can give us an idea of how the infection is progressing. To calculate the cumulative sum across the entire outbreak, we would do the following:
+
+```{r}
+
+linelist %>%                                 #Begin with the case linelist, and then
+  count(date_onset) %>%                      #count of rows per day, as column 'n' by default, and then
+  mutate(cumulative_cases = cumsum(n)) %>%   #new column, of the cumulative sum at each row, and then
+  head(10)                                   #display the first 10 rows
+
+```
+
+Can you use what you have learned in order to produce a cumulative sum (in a column called cumulative_cases) of the epidemic by healthcare setting from linelist?
+
+```{r cumulative_sum, exercise = TRUE}
+linelist %>% 
+
+```
+
+```{r cumulative_sum-hint}
+Remember to use group_by() 
+
+```
+
+```{r cumulative_sum-check}
+grade_result(
+  pass_if(~ identical(.result, linelist %>% group_by(hospital) %>%
+    count(date_onset) %>%
+    mutate(cumulative_cases = cumsum(n))), "Great, it's hard to see because we have 1629 rows, but you have correctly grouped and cumulatively summed by hospital!")
+)
+```
+
 
 ## across()
 
@@ -746,17 +780,8 @@ linelist %>%
   head()
 ```
 
-# Recoding
 
-
-## Clean rows
-
-Now that we have worked through how to clean and subset columns, we need to learn how to apply similar approaches to rows. There are several reasons why you would want to clean the rows of your dataset such as to remove duplicate entries, rows that contain NA values in all, or a selection, of columns. These allow us to clean the dataset and produce a final cleaned version that is ready for analysis and figure generation.
-
-### Drop missing values
-
-
-### Deduplication
+## Deduplication
 
 The package **dplyr** has the function  `distinct()` which removes duplicated rows in the dataset, by default it considers all columns though this can be adjusted. Here we will ensure that no rows are 100% duplicates of other rows (evaluated across all columns) in the dataset `linelist_raw`. We are comparing the number of rows in the original and de-duplicated 
 
@@ -768,6 +793,148 @@ linelist_raw %>%
   nrow()
 ```
 As you can see the linelist goes from 6611 rows to 6609 These omitted rows would have been 100% duplicates of other rows.
+
+## Quiz
+
+Now we are going to run through everything we have learned so far in order to convert `linelist_raw` into `linelist`, this will require several steps.
+
+* Cleaning names, both automatically and manually renaming date columns to the clean syntax
+* Removing the columns "row_num", "merged_heder" and "x28"
+* De-duplicating
+* Adding in the new column "bmi"
+* Converting all date columns to the date class, generation and age to numeric class
+
+```{r linelist_raw_to_linelist, exercise = TRUE}
+
+
+```
+
+```{r linelist_raw_to_linelist-hint}
+You have already done each of these steps individually (and some together), this is a case of remembering how to use rename(), select(), mutate() and a few other functions.
+
+```
+
+```{r linelist_raw_to_linelist-check}
+grade_result(
+  pass_if(~ identical(.result, linelist_raw %>%
+  janitor::clean_names() %>% 
+  rename(date_infection       = infection_date,
+         date_hospitalisation = hosp_date,
+         date_outcome         = date_of_outcome) %>% 
+  select(-c(row_num, merged_header, x28)) %>% 
+  distinct() %>% 
+  mutate(bmi = wt_kg / (ht_cm/100)^2) %>% 
+  mutate(across(contains("date"), as.Date), 
+         generation = as.numeric(generation),
+         age = as.numeric(age)) ), "You have strung together numerous functions in order to create a clean dataset, you are well on your way to becoming a data cleaning expert.")
+)
+```
+
+## Re-code values
+
+You will occasionally have to re-code values, this can be due to a number of reasons
+
+* To edit one specific value (e.g. one date in the wrong format)
+* To reconcile values not spelled the same
+* To create a new column of categorical values
+* To create a new column of numeric categories (e.g. age categories)
+
+To change values manually we can use the `recode()` function within `mutate()`. For instance, to fix a date that has been incorrectly included we use the following:
+```{r, echo = F, eval = F}
+linelist %>%                             #Old value     #New value
+  mutate(date_onset = recode(date_onset, "2014-14-15" = "2014-04-15"))
+```
+
+Another example of when you would use recode is if you have a column with several different spellings and missing values.
+
+```{r, echo = T, eval = T}
+table(linelist_raw$hospital, useNA = "always")  # print table of all unique values, including missing  
+```
+
+As you can see, we need to do some manual cleaning in order to correct misspellings. 
+
+```{r, echo = T, eval = T}
+linelist_updated <- linelist_raw %>% 
+  mutate(hospital = recode(hospital,
+                     # for reference: OLD = NEW
+                      "Mitylira Hopital"  = "Military Hospital",
+                      "Mitylira Hospital" = "Military Hospital",
+                      "Military Hopital"  = "Military Hospital",
+                      "Port Hopital"      = "Port Hospital",
+                      "Central Hopital"   = "Central Hospital",
+                      "other"             = "Other",
+                      "St. Marks Maternity Hopital (SMMH)" = "St. Mark's Maternity Hospital (SMMH)"
+                      ))
+
+table(linelist_updated$hospital, useNA = "always")
+
+```
+
+We can also re-code based on logical cirteria, you can use `replace()` within `mutate()` and use it with logical conditions in order to specify which rows to change using the following general syntax
+
+```{r, eval = F, echo = T}
+mutate(col_to_change = replace(col_to_change, criteria for rows, new value))
+```
+
+For instance, if you know a row that is identified with a certain id has the wrong value (such as gender), you can correct this using a logical condition. 
+```{r, eval = F, echo = T}
+linelist %>% 
+  mutate(gender = replace(gender, case_id == "2195", "Female"))
+```
+
+This will find the row with the `case_id` of "2195" and change the gender to "Female".
+
+Another useful tool for simple logic is `ifelse()`, `if_else()` and `case_when()`. These "if else" commands are simplified versions of an `if` and `else` programming statement with the general syntax of
+```{r, eval = F, echo = T}
+ifelse(condition, value to return if condition evaluates to TRUE, value to return if condition evaluates to FALSE)
+```
+
+Here we are creating a column `source_known` column where the value of a row is "known" if the row's value in column `source` is _not_ missing. If it _is_ missing then it will be set to "unknown"
+
+```{r, eval = F, echo = T}
+linelist %>% 
+  mutate(source_known = ifelse(!is.na(source), "known", "unknown"))
+```
+
+if_else() is a function from **dplyr** that handles dates. Note that if the "true" value is a date, the "false" value must also qualify a date, hence the use of `NA_real_` instead of `NA`.
+```{r, eval = F, echo = T}
+linelist %>% 
+  mutate(date_death = if_else(outcome == "Death", date_outcome, NA_real_))
+```
+
+###Quiz
+```{r quiz4}
+quiz(
+  question("Which of these simple logical statements would replace 'Other' with 'Unidentified' in the column 'hospital'?",
+    answer("mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', hospital))", correct = TRUE),
+    answer("mutate(hospital = ifelse(hospital == 'Unidentified', 'Other', hospital))"),
+    answer("mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', 'Identified'))"),
+    answer("mutate(hospital = ifelse(Other == 'hospital', 'Unidentified', hospital))")
+  ),
+  question("What will this pipe chain do?",
+    answer(""),
+    answer(""),
+    answer(""),
+    answer("", correct = TRUE)
+  ),
+  question("What will this pipe chain do?",
+    answer(""),
+    answer(""),
+    answer(""),
+    answer("", correct = TRUE)
+  ))
+```
+
+
+## Complex logic
+
+
+## Clean rows
+
+Now that we have worked through how to clean and subset columns, we need to learn how to apply similar approaches to rows. There are several reasons why you would want to clean the rows of your dataset such as to remove duplicate entries, rows that contain NA values in all, or a selection, of columns. These allow us to clean the dataset and produce a final cleaned version that is ready for analysis and figure generation.
+
+### Drop missing values
+
 
 
 
