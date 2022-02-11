@@ -376,6 +376,18 @@ linelist_raw %>%
   names()
 ```
 
+
+```{r quiz0}
+quiz(
+  question("What arguments would you specify to change the column name 'aches' to 'malaise'?",
+    answer("rename(aches = malaise)"),
+    answer("clean_names()"),
+    answer("names(aches = malaise)"),
+    answer("rename(malaise = aches)", correct = TRUE)
+  )
+)
+```
+
 ### Select columns
 
 Another way of re-naming columns is through the `select()` function. This function subsets your dataset, removing unwanted columns, and allowing you to rename the columns you have kept.
@@ -493,7 +505,7 @@ You can also remove a column using base R syntax, by defining it as NULL. For ex
 linelist$date_onset <- NULL #Deletes column with base R syntax
 ```
 
-### Quiz
+###
 ```{r quiz1}
 quiz(
   question("Which of these column names follows a clean syntax?",
@@ -608,13 +620,10 @@ We can also create multiple new columns at once, which are separated with a comm
 linelist %>%                       
   mutate(
     new_var_dup    = case_id,             # new column = duplicate/copy another existing column
-    new_var_static = 7,                   # new column = all values the same
     new_var_static = new_var_static + 5,  # you can overwrite a column, and it can be a calculation using other variables
-    new_var_paste  = stringr::str_glue("{hospital} on ({date_hospitalisation})") # new column = pasting together values from other columns
     ) %>% 
   select(case_id, hospital, date_hospitalisation, contains("new")) %>%
   head()
-
 ```
 
 
@@ -905,7 +914,6 @@ linelist %>%
   mutate(date_death = if_else(outcome == "Death", date_outcome, NA_real_))
 ```
 
-###Quiz
 ```{r quiz4}
 quiz(
   question("Which of these simple logical statements would replace 'Other' with 'Unidentified' in the column 'hospital'?",
@@ -1123,7 +1131,8 @@ table(linelist$age_cat, useNA = "always")
 # Cross tabulation of the numeric and category columns. 
 table("Numeric Values" = linelist$age_years,   # names specified in table for clarity.
       "Categories"     = linelist$age_cat,
-      useNA = "always")                        # don't forget to examine NA values
+      useNA = "always") %>% # don't forget to examine NA values
+  head()
 ```
 
 **Re-labeling NA values**
