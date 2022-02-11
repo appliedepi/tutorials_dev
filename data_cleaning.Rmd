@@ -13,6 +13,7 @@ description: >
 <script language="JavaScript" src="js/exercise-font-size.js"></script>
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 # load packages ----------------------------------------------------------------
 library(learnr)
 library(gradethis)
@@ -22,6 +23,7 @@ library(janitor)
 library(rio)
 library(basket) # not sure if we need this
 library(etude) # helper functions for gradethis
+library(epikit)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -939,7 +941,7 @@ DANGER: Values on the right-side must all be the same class - either numeric, ch
 
 Here we want to look at the temperatures of people recorded in the dataset. However, upon first visualization we can see that there is some discordence in the dataset.
 
-```{r, echo = F, eval = T}
+```{r, echo = F, eval = T, error = FALSE}
 ggplot(data = linelist_raw) +
     geom_histogram(aes(x = temp), binwidth = 1) +
   scale_x_continuous(limits = c(30, 110), breaks = seq(30, 110, by = 10)) +
@@ -1024,7 +1026,7 @@ Use the R package **linelist** and it’s function `clean_variable_spelling()` t
 linelist <- linelist %>% 
   linelist::clean_variable_spelling(
     wordlists = cleaning_dict,
-    spelling_vars = "col",        # dict column containing column names, defaults to 3rd column in dict
+    spelling_vars = "col",        # dictionary column containing column names
   )
 ```
 
@@ -1037,9 +1039,149 @@ There are numerous reasons why you may want to categorise numeric values, such a
 * `case_when()`
 * quantile breaks with `quantile()` and `ntile()`
 
+### age_categories()
 
+With the **epikit** package, you can use the age_categories() function to easily categorize and label numeric columns (note: this function can be applied to non-age numeric variables too). As a bonus, the output column is automatically an ordered factor.
 
+Here are the required inputs:
 
+* A numeric vector (column)
+* The `breakers = ` argument, provide a numeric vector of break points for new groups.
+
+For example
+
+```{r, echo = T, eval = T}
+linelist <- linelist %>% 
+  mutate(
+    age_cat = age_categories(             # create new column
+      age_years,                            # numeric column to make groups from
+      breakers = c(0, 5, 10, 15, 20,        # break points
+                   30, 40, 50, 60, 70)))
+
+# Display the table
+table(linelist$age_cat, useNA = "always")
+```
+
+Break values specified are by default the lower bounds, here the categorisation occurs so that the left/lower side is "open" and "inclusive". . You can adjust how the labels are displayed with `separator = `, with the default as "-". 
+
+You may also want to set an upper limit, this will categorise any value above the last breaker as `NA`. This is doing using `ceiling = TRUE`.
+
+```{r, echo = T, eval = T}
+linelist <- linelist %>% 
+  mutate(
+    age_cat = age_categories(             # create new column
+      age_years,                            # numeric column to make groups from
+      breakers = c(0, 5, 10, 15, 20,        # break points
+                   30, 40, 50, 60, 70),
+      ceiling = TRUE))
+
+# Display the table
+table(linelist$age_cat, useNA = "always")
+```
+
+Alternatively, instead of using `breakers = ` you can provide `lower = `, `upper = ` and `by = `:
+
+```{r, echo = T, eval = T}
+linelist <- linelist %>% 
+  mutate(
+    age_cat = age_categories(             # create new column
+      age_years,                            # numeric column to make groups from
+      lower = 0,
+      upper = 70,
+      by = 5))
+
+# Display the table
+table(linelist$age_cat, useNA = "always")
+```
+
+### cut()
+
+`cut()` is a **base** R alternative to `age_categories()`. The basic syntax is to first provide a numeric culumn to be cut (`age_years`), and then the `breaks = ` argument which is a numeric vector `c()` of break points. 
+
+By default, the categorisation occurs so the right/upper side is "open" and "inclusive", *this is the opposite behavior to `age_categories()` function*. You can reverse this behavior, and so align it with the `age_categories()` function through adding the `right = TRUE` argument.
+
+Thus, by default, “0” values are excluded from the lowest group, and categorized as NA! “0” values could be infants coded as age 0 so be careful! To change this, add the argument `include.lowest = TRUE` so that any “0” values will be included in the lowest group. The automatically-generated label for the lowest category will then be “[A],B]”. Note that if you include the `include.lowest = TRUE` argument *and* `right = TRUE`, the extreme inclusion will now apply to the highest break point value and category, not the lowest.
+
+```{r}
+# Create new variable, by cutting the numeric age variable
+# lower break is excluded but upper break is included in each category
+linelist <- linelist %>% 
+  mutate(
+    age_cat = cut(
+      age_years,
+      breaks = c(0, 5, 10, 15, 20,
+                 30, 50, 70, 100),
+      include.lowest = TRUE         # include 0 in lowest group
+      ))
+
+# tabulate the number of observations per group
+table(linelist$age_cat, useNA = "always")
+```
+
+**It is very important to check your work here, do so by cross-tabulating the numeric and category columns**
+```{r}
+# Cross tabulation of the numeric and category columns. 
+table("Numeric Values" = linelist$age_years,   # names specified in table for clarity.
+      "Categories"     = linelist$age_cat,
+      useNA = "always")                        # don't forget to examine NA values
+```
+
+**Re-labeling NA values**
+
+You may want to assign NA values a label such as “Missing”. Because the new column is class Factor (restricted values), you cannot simply mutate it with `replace_na()`, as this value will be rejected. Instead, use `fct_explicit_na()` from the **forcats** package, as explained in the Factors page.
+
+```{r}
+linelist <- linelist %>% 
+  
+  # cut() creates age_cat, automatically of class Factor      
+  mutate(age_cat = cut(
+    age_years,
+    breaks = c(0, 5, 10, 15, 20, 30, 50, 70, 100),          
+    right = FALSE,
+    include.lowest = TRUE,        
+    labels = c("0-4", "5-9", "10-14", "15-19", "20-29", "30-49", "50-69", "70-100")),
+         
+    # make missing values explicit
+    age_cat = fct_explicit_na(
+      age_cat,
+      na_level = "Missing age")  # you can specify the label
+  )    
+
+# table to view counts
+table(linelist$age_cat, useNA = "always")
+```
+
+### Quantile breaks
+
+Quantiles, or percentiles, typically refer to a value below which a proportion of values fall. For example, the 95th percentile of ages in `linelist` would be the age below which 95% of the ages fall. 
+
+However in common speech, “quartiles” and “deciles” can also refer to the groups of data as equally divided into 4, or 10 groups (note there will be one more break point than group).
+
+To get quantile break points, you can use quantile() from the **stats** package from base R. You provide a numeric vector (e.g. a column in a dataset) and vector of numeric probability values ranging from 0 to 1.0. The break points are returned as a numeric vector. Explore the details of the statistical methodologies by entering ?quantile.
+
+* If your input numeric vector has any missing values it is best to set na.rm = TRUE
+* Set names = FALSE to get an un-named numeric vector
+
+``` {r}
+quantile(linelist$age_years,               # specify numeric vector to work on
+  probs = c(0, .25, .50, .75, .90, .95),   # specify the percentiles you want
+  na.rm = TRUE)                            # ignore missing values 
+```
+
+You can use the results of `quantile()` as break points in `age_categories()` or `cut()`. Below we create a new column deciles using `cut()` where the breaks are defined using `quantiles()` on age_years. Below, we display the results using `tabyl()` from janitor so you can see the percentages (see the Descriptive tables page). Note how they are not exactly 10% in each group.
+
+```{r}
+linelist %>%                                # begin with linelist
+  mutate(deciles = cut(age_years,           # create new column decile as cut() on column age_years
+    breaks = quantile(                      # define cut breaks using quantile()
+      age_years,                               # operate on age_years
+      probs = seq(0, 1, by = 0.1),             # 0.0 to 1.0 by 0.1
+      na.rm = TRUE),                           # ignore missing values
+    include.lowest = TRUE)) %>%             # for cut() include age 0
+  janitor::tabyl(deciles)                   # pipe to table to display
+```
+
+### Evenly sized groups
 
 
 ## Clean rows

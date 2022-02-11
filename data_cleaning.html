@@ -610,8 +610,8 @@ ifelse(age_unit == &quot;years&quot;,   #The condition, if the value in the colu
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x000000001a389fb0&gt;
-## &lt;environment: 0x000000001a38b958&gt;</code></pre>
+## &lt;bytecode: 0x0000000018a0e928&gt;
+## &lt;environment: 0x00000000189a9f78&gt;</code></pre>
 <p>Using the same syntax you can convert columns to character with <code>as.character()</code> or to logical operators, <code>as.logical()</code> or to a factor with <code>as.factor()</code> with base R, or <code>as_factor</code> from the package <strong>forcats</strong>.</p>
 <p>Converting dates is slightly trickier, and it requires careful attention to the format (e.g. “Month/Day/Year” or “Day/Month/Year”). After converting to the class Date, check your data to confirm each value was converted correctly.</p>
 </div>
@@ -682,8 +682,8 @@ linelist %&gt;%
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x000000001a389fb0&gt;
-## &lt;environment: 0x000000001889c188&gt;</code></pre>
+## &lt;bytecode: 0x0000000018a0e928&gt;
+## &lt;environment: 0x000000001aa89aa0&gt;</code></pre>
 </div>
 <div id="section-coalesce" class="section level3">
 <h3>coalesce()</h3>
@@ -842,8 +842,6 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
 <p>Along those lines, in your final statement, place TRUE on the left-side, which will capture any row that did not meet any of the previous criteria. The right-side of this statement could be assigned a value like “check me!” or missing.</p>
 <p>DANGER: Values on the right-side must all be the same class - either numeric, character, date, logical, etc. To assign missing (NA), you may need to use special variations of NA such as NA_character_, NA_real_ (for numeric or POSIX), and as.Date(NA). Read more in Working with dates.</p>
 <p>Here we want to look at the temperatures of people recorded in the dataset. However, upon first visualization we can see that there is some discordence in the dataset.</p>
-<pre><code>## Warning: Removed 158 rows containing non-finite values (stat_bin).</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <p><img src="data_cleaning_files/figure-html/unnamed-chunk-39-1.png" width="624" /></p>
 <p>Most of the values are located between 35 and 41, as expected if we were recording temperatures in °C, however some values are around 100, and so we can deduce that these have been incorrectly recorded in °F. Using the formula, <code>°C = (°F − 32) * 5/9</code>, can you use complex logic to convert values that are above 90 and below 120 to Celcius?</p>
 <div class="tutorial-exercise" data-label="temp_convert_logic" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -942,6 +940,7 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
 <h2>Next steps</h2>
 
 <script type="application/shiny-prerendered" data-context="server-start">
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 # load packages ----------------------------------------------------------------
 library(learnr)
 library(gradethis)
@@ -1042,7 +1041,8 @@ output$`tutorial-exercise-load-package-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1087,8 +1087,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1106,7 +1106,8 @@ output$`tutorial-exercise-pipe_linelist-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1154,8 +1155,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1173,7 +1174,8 @@ output$`tutorial-exercise-clean_rename_select-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1223,8 +1225,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1365,7 +1367,8 @@ output$`tutorial-exercise-drop_lon_to_source-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1412,8 +1415,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1431,7 +1434,8 @@ output$`tutorial-exercise-date_symptom_subset-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1480,8 +1484,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1525,7 +1529,8 @@ output$`tutorial-exercise-date_mutate-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1573,8 +1578,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1591,7 +1596,8 @@ output$`tutorial-exercise-change_class-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1637,8 +1643,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1689,7 +1695,8 @@ output$`tutorial-exercise-tidyselect_date_character-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1736,8 +1743,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1755,7 +1762,8 @@ output$`tutorial-exercise-cumulative_sum-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1803,8 +1811,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1822,7 +1830,8 @@ output$`tutorial-exercise-linelist_raw_to_linelist-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1874,8 +1883,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -1927,7 +1936,8 @@ output$`tutorial-exercise-temp_convert_logic-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load packages ----------------------------------------------------------------", 
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
 "library(learnr)", "library(gradethis)", "library(tidyverse)", 
 "library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
 "library(etude) # helper functions for gradethis", "", "# set options for exercises and checking ---------------------------------------", 
@@ -1975,8 +1985,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
