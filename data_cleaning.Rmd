@@ -1934,15 +1934,80 @@ weekly_counts <- linelist %>%
       from = min(weekly_cases),       # from the minimum date
       to = max(weekly_cases),         # to the maxiumum date
       by = "week"),                   # by weeks
-    fill = list(n = 0))             # fill-in NAs in the n counts column with 0
+    fill = list(n = 0)) %>%             # fill-in NAs in the n counts column with 0
+  head()                            #Display the top 6 entries
+```
+
+```{r quiz5}
+quiz(
+  question("What class does subtracting two dates create?",
+           answer("Character"),
+           answer("Date"),
+           answer("Numeric"),
+           answer("Difftime"), correct = T),
+  question("What does floor_date() do?",
+           answer("Converts a date-time object and rounds it down", correct = T),
+           answer("Converts a date-time object and rounds it up"),
+           answer("Converts a numeric object and rounds it down")))
+```
+
+### Epiweek alternatives
+
+Note that lubridate also has functions `week()`, `epiweek()`, and `isoweek()`, each of which has slightly different start dates and other nuances. Generally speaking though, `floor_date()` should be all that you need. Read the details for these functions by entering ?week into the console.
+
+You might consider using the package **aweek** to set epidemiological weeks. It has the functions `date2week()` and `week2date()` in which you can set the week start day with `week_start = "Monday"`. This package is easiest if you want “week”-style outputs (e.g. “2020-W12”). Another advantage of **aweek** is that when `date2week()` is applied to a date column, the returned column (week format) is automatically of class Factor and includes levels for all weeks in the time span (this avoids the extra step of `complete()` described above). However, **aweek** does not have the functionality to round dates to other time units such as months, years, etc.
+
+## Converting date/time zones
+
+When data is present in different time time zones, it can often be important to standardise this data in a unified time zone. This can present a further challenge, as the time zone component of data must be coded manually in most cases.
+
+In R, each datetime object has a timezone component. By default, all datetime objects will carry the local time zone for the computer being used - this is generally specific to a location rather than a named timezone, as time zones will often change in locations due to daylight savings time. It is not possible to accurately compensate for time zones without a time component of a date, as the event a date column represents cannot be attributed to a specific time, and therefore time shifts measured in hours cannot be reasonably accounted for.
+
+To deal with time zones, there are a number of helper functions in **lubridate** that can be used to change the time zone of a datetime object from the local time zone to a different time zone. Time zones are set by attributing a valid tz database time zone to the datetime object. A list of these can be found here - if the location you are using data from is not on this list, nearby large cities in the time zone are available and serve the same purpose.
+
+https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+```{r}
+# assign the current time to a column
+time_now <- Sys.time()
+time_now
+
+# use with_tz() to assign a new timezone to the column, while CHANGING the clock time
+time_london_real <- with_tz(time_now, "Europe/London")
+
+# use force_tz() to assign a new timezone to the column, while KEEPING the clock time
+time_london_local <- force_tz(time_now, "Europe/London")
+
+# note that as long as the computer that was used to run this code is NOT set to London time,
+# there will be a difference in the times 
+# (the number of hours difference from the computers time zone to london)
+time_london_real - time_london_local
 
 ```
 
+## Lagging and leading calculations
 
+`lead()` and `lag()` are functions from **dplyr** which help find previous (lagged) or subsequent (leading) values in a vector. This is useful when doing calculations of change/difference between time units.
 
+Let’s say you want to calculate the difference in cases between a current week and the previous one. The data are initially provided in weekly counts as shown below. When using lag() or lead() the order of rows in the dataframe is very important! - pay attention to whether your dates/numbers are ascending or descending
 
+First, create a new column containing the value of the previous (lagged) week.
 
+* Control the number of units back/forward with n = (must be a non-negative integer)
+* Use default = to define the value placed in non-existing rows (e.g. the first row for which there is no lagged value). By default this is NA.
+* Use order_by = TRUE if your the rows are not ordered by your reference column
 
+```{r}
+counts <- weekly_counts %>% 
+  mutate(cases_prev_wk = lag(n, n = 1))
+```
+
+```{r}
+counts %>% 
+  mutate(cases_prev_wk = lag(n, n = 1),
+         case_diff = n - cases_prev_wk) %>%
+  head()
+```
 
 
 
