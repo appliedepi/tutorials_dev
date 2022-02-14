@@ -1684,3 +1684,77 @@ C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-28-02/14/22 16:28:12
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-28-02/14/22 16:28:12 GMT; ah1114; section_viewed_first_time; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-28-02/14/22 16:28:12 GMT; ah1114; section_viewed; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-28-02/14/22 16:28:12 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-28-02/14/22 16:28:35 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:53 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:53 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:53 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:56 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:56 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:56 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:56 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/14/22 16:34:56 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-02/14/22 16:35:00 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-02/14/22 16:35:00 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-02/14/22 16:35:01 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-02/14/22 16:35:07 GMT; ah1114; exercise_hint; clean_rename_select; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-02/14/22 16:35:44 GMT; ah1114; exercise_submitted; clean_rename_select; ; linelist_raw[1, ]; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-02/14/22 16:35:46 GMT; ah1114; exercise_result; clean_rename_select; ; linelist_raw[1, ]; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-36-02/14/22 16:36:37 GMT; ah1114; exercise_submitted; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+select(case_id = case_id, infection_date = date_infection,
+date_of_outcome = date_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-36-02/14/22 16:36:37 GMT; ah1114; exercise_result; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+select(case_id = case_id, infection_date = date_infection,
+date_of_outcome = date_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-36-02/14/22 16:36:49 GMT; ah1114; exercise_submitted; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+rename(infection_date = date_infection,
+date_of_outcome = date_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-36-02/14/22 16:36:50 GMT; ah1114; exercise_result; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+rename(infection_date = date_infection,
+date_of_outcome = date_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-37-02/14/22 16:37:22 GMT; ah1114; exercise_submitted; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+rename(date_infection = infection_date,
+date_outcome = date_of_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-37-02/14/22 16:37:26 GMT; ah1114; exercise_result; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+rename(date_infection = infection_date,
+date_outcome = date_of_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-37-02/14/22 16:37:41 GMT; ah1114; exercise_submitted; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+rename(date_infection = infection_date,
+date_outcome = date_of_outcome) %>%
+select(case_id, date_infection, date_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-37-02/14/22 16:37:43 GMT; ah1114; exercise_result; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+rename(date_infection = infection_date,
+date_outcome = date_of_outcome) %>%
+select(case_id, date_infection, date_outcome); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-38-02/14/22 16:38:01 GMT; ah1114; exercise_submitted; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+select(case_id,date_infection = infection_date,
+date_outcome = date_of_outcome) %>%
+
+head(); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-38-02/14/22 16:38:03 GMT; ah1114; exercise_result; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+select(case_id,date_infection = infection_date,
+date_outcome = date_of_outcome) %>%
+
+head(); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-38-02/14/22 16:38:05 GMT; ah1114; exercise_submitted; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+select(case_id,date_infection = infection_date,
+date_outcome = date_of_outcome) %>%
+
+head(); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-38-02/14/22 16:38:07 GMT; ah1114; exercise_result; clean_rename_select; ; linelist_raw %>%
+clean_names() %>%
+select(case_id,date_infection = infection_date,
+date_outcome = date_of_outcome) %>%
+
+head(); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-38-02/14/22 16:38:10 GMT; ah1114; session_stop; ; ; ; 
