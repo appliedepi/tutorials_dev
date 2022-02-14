@@ -1687,9 +1687,6 @@ In this example, the linelist data frame has a column in format “hours:minutes
 * Combine it with the column date_hospitalisation, and then use the function ymd_hm() to convert.
 
 ```{r}
-# packages
-pacman::p_load(tidyverse, lubridate, stringr)
-
 # time_admission is a column in hours:minutes
 linelist <- linelist %>%
   
@@ -1907,7 +1904,19 @@ table(test_format$yearmon)
 
 **lubridate**
 
-We generally recommend using the `floor_date()` function from **lubridate**, with the argument `unit = "week"`. This rounds the date down to the “start” of the week, as defined by the argument `week_start =`. The default week start is 1 (for Mondays) but you can specify any day of the week as the start (e.g. 7 for Sundays). `floor_date()` is versatile and can be used to round down to other time units by setting unit = to “second”, “minute”, “hour”, “day”, “month”, or “year”.
+We generally recommend using the `floor_date()` function from **lubridate**, with the argument `unit = "week"`. This rounds the date down to the “start” of the week, as defined by the argument `week_start =`. The default week start is 1 (for Mondays) but you can specify any day of the week as the start (e.g. 7 for Sundays). `floor_date()` is versatile and can be used to round down to other time units by setting unit = to “second”, “minute”, “hour”, “day”, “month”, or “year".
+
+Which of these uses of `floor_date()` will result in rounding the date to the start of the week as a Thursday?
+
+```{quiz5}
+quiz(
+  question("Which of the following functions would convert 'Jan 5 1997' to the correct Date format?",
+    answer(floor_date(dmy("14/02/2022"), unit = "week", week_start = 1), correct = F),
+    answer(floor_date(dmy("14/02/2022"), unit = "week", week_start = 6), correct = F),
+    answer(floor_date(dmy("14/02/2022"), unit = "week", week_start = 4), correct = T),
+    answer(floor_date(dmy("14/02/2022"), unit = "day", week_start = 4), correct = F),
+  incorrect = "Remember that 1 represents Monday and 7 represents Sunday and that our unit is week"))
+```
 
 The returned value is the start date of the week, in Date class. Date class is useful when plotting the data, as it will be easily recognized and ordered correctly by `ggplot()`.
 
@@ -1953,7 +1962,58 @@ quiz(
 
 ### Epiweek alternatives
 
-Note that lubridate also has functions `week()`, `epiweek()`, and `isoweek()`, each of which has slightly different start dates and other nuances. Generally speaking though, `floor_date()` should be all that you need. Read the details for these functions by entering ?week into the console.
+Note that **lubridate** also has functions `week()`, `epiweek()`, and `isoweek()`, each of which has slightly different start dates and other nuances. Generally speaking though, `floor_date()` should be all that you need. Read the details for these functions by entering ?week into the console.
+
+Now imagine we want to create create a new variable, `week_of_infection`, that has the epiweek of `date_infection`. However, many of these dates are unknown (`NA` values). We had previously calculated the value `time_to_symptoms` by subtracting `date_infection` from `date_onset` and so we can use the median value of this to come up with a crude replacement for the date of infection.
+
+Can you do the following:
+
+1) Create a new column called `estimated_or_recorded` which if the value of `date_infection` is `NA` it will be "estimated" or "recorded" if it is not.
+2) If the column `estimated_or_recorded` has the value "estimated", then we will use subtract the `median(time_to_symptoms)` from `date_onset` to fill in the NA value in a new column `date_infection_updated`
+3) Convert `date_infection_updated` to the epiweek in a new column `week_infection`.
+
+```{r epiweek_convert, exercise = TRUE}
+linelist %>%
+  drop_na(date_onset) %>%
+  mutate(date_infection = ymd(date_infection),
+         date_onset = ymd(date_onset),
+         time_to_symptoms = as.numeric(date_onset - date_infection)) #Add in additonal arguments within this mutate
+```
+
+```{r epiweek_convert-hint}
+You will want to use
+```
+
+```{r epiweek_convert-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r epiweek_convert-solution}
+linelist %>%
+  drop_na(date_onset) %>%
+  mutate(date_infection = ymd(date_infection),
+         date_onset = ymd(date_onset),
+         time_to_symptoms = as.numeric(date_onset - date_infection),
+         estimated_or_recorded = if_else(
+           is.na(date_infection),
+           "estimated",
+           "recorded"),
+         date_infection_updated = if_else(
+           estimated_or_recorded == "estimated",
+           date_onset - days(median(time_to_symptoms, na.rm = T)),
+           date_infection
+         ),
+         week_infection = epiweek(date_infection_updated))
+```
+
+
+
+
 
 You might consider using the package **aweek** to set epidemiological weeks. It has the functions `date2week()` and `week2date()` in which you can set the week start day with `week_start = "Monday"`. This package is easiest if you want “week”-style outputs (e.g. “2020-W12”). Another advantage of **aweek** is that when `date2week()` is applied to a date column, the returned column (week format) is automatically of class Factor and includes levels for all weeks in the time span (this avoids the extra step of `complete()` described above). However, **aweek** does not have the functionality to round dates to other time units such as months, years, etc.
 
