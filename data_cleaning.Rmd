@@ -77,7 +77,6 @@ take_these <- sample(1:nrow(linelist_raw), 500)
 
 linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32
 
-
 ```
 
 
@@ -620,6 +619,7 @@ We can also create multiple new columns at once, which are separated with a comm
 linelist %>%                       
   mutate(
     new_var_dup    = case_id,             # new column = duplicate/copy another existing column
+    new_var_static = 7,                   # you can create static variables that are the same for each row
     new_var_static = new_var_static + 5,  # you can overwrite a column, and it can be a calculation using other variables
     ) %>% 
   select(case_id, hospital, date_hospitalisation, contains("new")) %>%
@@ -670,17 +670,19 @@ The class of a column is displayed when we use `skim()` and individually we can 
 class(linelist_raw$age)
 ```
 
-we can see that this column has been incorrectly assigned as "character". Can you reassign the value of this column to numeric using `as.numeric()`?
+we can see that this column has been incorrectly assigned as "character". Can you reassign the class of this column to numeric using `as.numeric()`?
 
 ```{r change_class, exercise = T}
-
+linelist %>%
+  
 ```
 
 ```{r change_class-check}
 grade_result(
   pass_if(~ identical(.result, linelist %>%
-  mutate(age = as.numeric(age))), "Good work.")
+    mutate(age = as.numeric(age))), "Great, you've got the hang of changing class!")
 )
+
 ```
 
 Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with base R, or `as_factor` from the package **forcats**.
@@ -1004,7 +1006,7 @@ linelist <- linelist %>%
   mutate(hospital = na_if(hospital, "Missing"))
 ```
 
-However, `na_if()` cannot be used for logical criteria (e.g. “all values > 99”) - use replace() or `case_when()` for this:
+However, `na_if()` cannot be used for logical criteria (e.g. “all values > 99”) - use `replace()` or `case_when()` for this:
 
 ```{r}
 # Convert temperatures above 40 to NA 
@@ -1015,6 +1017,28 @@ linelist <- linelist %>%
 linelist <- linelist %>% 
   mutate(date_onset = replace(date_onset, date_onset > as.Date("2000-01-01"), NA))
 ```
+
+We are now going to practice these different methods of replacing NA values. In `linelist` can you do the following:
+
+* Convert NA values in the `age` column to ]"Age not recorded"
+* If values in `bmi` are below 10 or above 40, replace them with NA
+
+```{r NA_practice, exercise = TRUE}
+
+```
+
+```{r NA_practice-hint}
+You will need to use both na_if() and replace(), and a few logical operators ("|", "<", ">")
+```
+
+```{r NA_practice-check}
+grade_result(
+  pass_if(~ identical(.result, linelist %>%
+ mutate(age = na_if(age, "Age not recorded"),
+        bmi = replace(bmi, bmi < 10 | bmi > 40, NA))), "You've successfully recoded NA values and used complex logic.")
+)
+```
+
 
 ### Cleaning dictionary
 
@@ -1102,6 +1126,16 @@ linelist <- linelist %>%
 table(linelist$age_cat, useNA = "always")
 ```
 
+```{r quiz5}
+quiz(
+  question("Which of these age_categories() specifications would create breaks at 0, 25, 50 and 75?",
+    answer("age_categories(age_years, breakers = c(0, 25, 50, 75))", correct = TRUE),
+    answer("age_categories(age_years, lower = 0, upper = 75, by = 5)", correct = TRUE),
+    answer("age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", correct = TRUE),
+    answer("age_categories(age_years, breakers = 25, lower = 0, upper  = 75)")
+  ))
+```
+
 ### cut()
 
 `cut()` is a **base** R alternative to `age_categories()`. The basic syntax is to first provide a numeric culumn to be cut (`age_years`), and then the `breaks = ` argument which is a numeric vector `c()` of break points. 
@@ -1160,6 +1194,43 @@ linelist <- linelist %>%
 table(linelist$age_cat, useNA = "always")
 ```
 
+Can you write some code to create a new column `temp_cat` to convert values in `temp` to the following categories:
+
+* Less than 38 - "No fever"
+* Greater than or equal to 38 & less than 39.4 - "Low grade fever"
+* Greater than or equal to 39.4 - "High grade fever"
+
+set the lower bound to 0, and then display only the columns `temp` and `temp_cat`?
+
+```{r cut_temp, exercise = TRUE}
+
+```
+
+```{r cut_temp-hint}
+You will need to use the function cut() and specify the correct breaks, and remember that cut() occurs on the right side, and age_categories() the left, so if you are using cut() you may also need to include the argument right = FALSE 
+```
+
+```{r cut_temp-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r cut_temp-solution}
+  linelist %>% 
+  mutate(temp_cat = cut(
+    temp,
+    breaks = c(0, 38, 39.4, 45),          
+    right = FALSE,
+    labels = c("No fever", "Low grade fever", "High grade fever"))) %>%
+  select(temp, temp_cat)
+```
+
+
+
 ### Quantile breaks
 
 Quantiles, or percentiles, typically refer to a value below which a proportion of values fall. For example, the 95th percentile of ages in `linelist` would be the age below which 95% of the ages fall. 
@@ -1191,6 +1262,129 @@ linelist %>%                                # begin with linelist
 ```
 
 ### Evenly sized groups
+
+Another tool to make numeric groups is the **dplyr** function `ntile()` which breaks your data into evenly sized groups - *be aware that unlike in `quantile()` the same value could appear in more than one group.* Firstly you provided the numeric vector (the column) and the number of groups with the values in the new column created being the group "numbers" not the range of values themselves (as when you use `cut()`).
+
+```{r, echo = T, eval = T}
+# make groups with ntile()
+ntile_data <- linelist %>% 
+  mutate(even_groups = ntile(age_years, 10))
+
+# make table of counts and proportions by group
+ntile_table <- ntile_data %>% 
+  janitor::tabyl(even_groups)
+  
+# attach min/max values to demonstrate ranges
+ntile_ranges <- ntile_data %>% 
+  group_by(even_groups) %>% 
+  summarise(
+    min = min(age_years, na.rm=T),
+    max = max(age_years, na.rm=T)
+  )
+
+# combine and print - note that values are present in multiple groups
+left_join(ntile_table, ntile_ranges, by = "even_groups")
+
+```
+
+### Add to the pipe chain
+
+Now we'll add some of this to the cleaning pipe chain so you can see how all the steps we have learned so far are coming together to create one cleaning pipeline!
+
+```{r}
+# CLEANING 'PIPE' CHAIN (starts with raw data and pipes it through cleaning steps)
+##################################################################################
+
+# begin cleaning pipe chain
+###########################
+linelist <- linelist_raw %>%
+    
+    # standardize column name syntax
+    janitor::clean_names() %>% 
+    
+    # manually re-name columns
+           # NEW name             # OLD name
+    rename(date_infection       = infection_date,
+           date_hospitalisation = hosp_date,
+           date_outcome         = date_of_outcome) %>% 
+    
+    # remove column
+    select(-c(row_num, merged_header, x28)) %>% 
+  
+    # de-duplicate
+    distinct() %>% 
+
+    # add column
+    mutate(bmi = wt_kg / (ht_cm/100)^2) %>%     
+
+    # convert class of columns
+    mutate(across(contains("date"), as.Date), 
+           generation = as.numeric(generation),
+           age        = as.numeric(age)) %>% 
+    
+    # add column: delay to hospitalisation
+    mutate(days_onset_hosp = as.numeric(date_hospitalisation - date_onset)) %>% 
+    
+    # clean values of hospital column
+    mutate(hospital = recode(hospital,
+                      # OLD = NEW
+                      "Mitylira Hopital"  = "Military Hospital",
+                      "Mitylira Hospital" = "Military Hospital",
+                      "Military Hopital"  = "Military Hospital",
+                      "Port Hopital"      = "Port Hospital",
+                      "Central Hopital"   = "Central Hospital",
+                      "other"             = "Other",
+                      "St. Marks Maternity Hopital (SMMH)" = "St. Mark's Maternity Hospital (SMMH)"
+                      )) %>% 
+    
+    mutate(hospital = replace_na(hospital, "Missing")) %>% 
+
+    # create age_years column (from age and age_unit)
+    mutate(age_years = case_when(
+          age_unit == "years" ~ age,
+          age_unit == "months" ~ age/12,
+          is.na(age_unit) ~ age,
+          TRUE ~ NA_real_)) %>% 
+  
+    # ABOVE ARE UPSTREAM CLEANING STEPS ALREADY DISCUSSED
+    ###################################################   
+    mutate(
+          # age categories: custom
+          age_cat = epikit::age_categories(age_years, breakers = c(0, 5, 10, 15, 20, 30, 50, 70)),
+        
+          # age categories: 0 to 85 by 5s
+          age_cat5 = epikit::age_categories(age_years, breakers = seq(0, 85, 5)))
+```
+
+## Adding rows
+
+Adding rows one-by-one manually is tedious but can be done with `add_row()` from **dplyr**. Remember that each column must contain values of only one class (either character, numeric, logical, etc.). So adding a row requires nuance to maintain this.
+
+```{r}
+linelist <- linelist %>% 
+  add_row(case_id = "abc",
+          generation = 4,
+          date_infection = as.Date("2020-10-10"),
+          .before = 2)
+```
+
+Use `.before` and `.after`. to specify the placement of the row you want to add. `.before = 3` will put the new row before the current 3rd row. The default behavior is to add the row to the end. Columns not specified will be left empty (`NA`).
+
+The new row number may look strange (“…23”) but the row numbers in the pre-existing rows have changed. So if using the command twice, examine/test the insertion carefully.
+
+If a class you provide is off you will see an error like this:
+`Error: Can't combine ..1$infection date <date> and ..2$infection date <character>.`
+
+*(when inserting a row with a date value, remember to wrap the date in the function as.Date() like as.Date("2020-10-10")).*
+
+**Bind rows**
+
+To combine datasets together by binding the rows of one dataframe to the bottom of another data frame, you can use `bind_rows()` from **dplyr**. This is explained in more detail in the page Joining data.
+
+## Filter rows
+
+
+
 
 
 ## Clean rows

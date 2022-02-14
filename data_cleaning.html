@@ -12,7 +12,7 @@
 
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="true" />
-<meta name="learnr-version-prerender" content="0.10.1.9019" />
+<meta name="learnr-version-prerender" content="0.10.1.9018" />
 
 <title>Data cleaning</title>
 
@@ -363,6 +363,15 @@ ID:
 ## [17] &quot;wt_kg&quot;           &quot;ht_cm&quot;           &quot;ct_blood&quot;        &quot;fever&quot;          
 ## [21] &quot;chills&quot;          &quot;cough&quot;           &quot;aches&quot;           &quot;vomit&quot;          
 ## [25] &quot;temp&quot;            &quot;time_admission&quot;  &quot;merged_header&quot;   &quot;x28&quot;</code></pre>
+<p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
+<div class="panel panel-default">
+<div data-label="quiz0-1" class="tutorial-question panel-body">
+<div id="quiz0-1-answer_container" class="shiny-html-output"></div>
+<div id="quiz0-1-message_container" class="shiny-html-output"></div>
+<div id="quiz0-1-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 </div>
 <div id="section-select-columns" class="section level3">
 <h3>Select columns</h3>
@@ -471,8 +480,8 @@ ID:
 <p>You can also remove a column using base R syntax, by defining it as NULL. For example:</p>
 <pre class="r"><code>linelist$date_onset &lt;- NULL #Deletes column with base R syntax</code></pre>
 </div>
-<div id="section-quiz" class="section level3">
-<h3>Quiz</h3>
+<div id="section-section" class="section level3">
+<h3></h3>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
 <div data-label="quiz1-1" class="tutorial-question panel-body">
@@ -546,15 +555,14 @@ Remember, you do not need to specifiy each column name individually that you wan
 <pre class="r"><code>linelist %&gt;%                       
   mutate(
     new_var_dup    = case_id,             # new column = duplicate/copy another existing column
-    new_var_static = 7,                   # new column = all values the same
+    new_var_static = 7,                   # you can create static variables that are the same for each row
     new_var_static = new_var_static + 5,  # you can overwrite a column, and it can be a calculation using other variables
-    new_var_paste  = stringr::str_glue(&quot;{hospital} on ({date_hospitalisation})&quot;) # new column = pasting together values from other columns
     ) %&gt;% 
   select(case_id, hospital, date_hospitalisation, contains(&quot;new&quot;)) %&gt;%
   head()</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["case_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["hospital"],"name":[2],"type":["chr"],"align":["left"]},{"label":["date_hospitalisation"],"name":[3],"type":["date"],"align":["right"]},{"label":["new_var_dup"],"name":[4],"type":["chr"],"align":["left"]},{"label":["new_var_static"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["new_var_paste"],"name":[6],"type":["glue"],"align":["right"]}],"data":[{"1":"5fe599","2":"Other","3":"2014-05-15","4":"5fe599","5":"12","6":"Other on (2014-05-15)","_rn_":"1"},{"1":"8689b7","2":"Missing","3":"2014-05-14","4":"8689b7","5":"12","6":"Missing on (2014-05-14)","_rn_":"2"},{"1":"11f8ea","2":"St. Mark's Maternity Hospital (SMMH)","3":"2014-05-18","4":"11f8ea","5":"12","6":"St. Mark's Maternity Hospital (SMMH) on (2014-05-18)","_rn_":"3"},{"1":"b8812a","2":"Port Hospital","3":"2014-05-20","4":"b8812a","5":"12","6":"Port Hospital on (2014-05-20)","_rn_":"4"},{"1":"893f25","2":"Military Hospital","3":"2014-05-22","4":"893f25","5":"12","6":"Military Hospital on (2014-05-22)","_rn_":"5"},{"1":"be99c8","2":"Port Hospital","3":"2014-05-23","4":"be99c8","5":"12","6":"Port Hospital on (2014-05-23)","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["case_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["hospital"],"name":[2],"type":["chr"],"align":["left"]},{"label":["date_hospitalisation"],"name":[3],"type":["date"],"align":["right"]},{"label":["new_var_dup"],"name":[4],"type":["chr"],"align":["left"]},{"label":["new_var_static"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"5fe599","2":"Other","3":"2014-05-15","4":"5fe599","5":"12","_rn_":"1"},{"1":"8689b7","2":"Missing","3":"2014-05-14","4":"8689b7","5":"12","_rn_":"2"},{"1":"11f8ea","2":"St. Mark's Maternity Hospital (SMMH)","3":"2014-05-18","4":"11f8ea","5":"12","_rn_":"3"},{"1":"b8812a","2":"Port Hospital","3":"2014-05-20","4":"b8812a","5":"12","_rn_":"4"},{"1":"893f25","2":"Military Hospital","3":"2014-05-22","4":"893f25","5":"12","_rn_":"5"},{"1":"be99c8","2":"Port Hospital","3":"2014-05-23","4":"be99c8","5":"12","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
@@ -583,8 +591,9 @@ ifelse(age_unit == &quot;years&quot;,   #The condition, if the value in the colu
 <p>The class of a column is displayed when we use <code>skim()</code> and individually we can check the value of columns with <code>class()</code>. For instance,</p>
 <pre class="r"><code>class(linelist_raw$age)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>we can see that this column has been incorrectly assigned as “character”. Can you reassign the value of this column to numeric using <code>as.numeric()</code>?</p>
+<p>we can see that this column has been incorrectly assigned as “character”. Can you reassign the class of this column to numeric using <code>as.numeric()</code>?</p>
 <div class="tutorial-exercise" data-label="change_class" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>linelist %&gt;%</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <pre><code>## function (check_env) 
@@ -610,8 +619,8 @@ ifelse(age_unit == &quot;years&quot;,   #The condition, if the value in the colu
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x00000000171eda80&gt;
-## &lt;environment: 0x00000000171ef460&gt;</code></pre>
+## &lt;bytecode: 0x0000000014bc6798&gt;
+## &lt;environment: 0x0000000014bc8108&gt;</code></pre>
 <p>Using the same syntax you can convert columns to character with <code>as.character()</code> or to logical operators, <code>as.logical()</code> or to a factor with <code>as.factor()</code> with base R, or <code>as_factor</code> from the package <strong>forcats</strong>.</p>
 <p>Converting dates is slightly trickier, and it requires careful attention to the format (e.g. “Month/Day/Year” or “Day/Month/Year”). After converting to the class Date, check your data to confirm each value was converted correctly.</p>
 </div>
@@ -682,8 +691,8 @@ linelist %&gt;%
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x00000000171eda80&gt;
-## &lt;environment: 0x000000001b6541b8&gt;</code></pre>
+## &lt;bytecode: 0x0000000014bc6798&gt;
+## &lt;environment: 0x0000000016111e38&gt;</code></pre>
 </div>
 <div id="section-coalesce" class="section level3">
 <h3>coalesce()</h3>
@@ -730,7 +739,7 @@ village    # print</code></pre>
 <pre><code>## [1] 6609</code></pre>
 <p>As you can see the linelist goes from 6611 rows to 6609 These omitted rows would have been 100% duplicates of other rows.</p>
 </div>
-<div id="section-quiz-1" class="section level3">
+<div id="section-quiz" class="section level3">
 <h3>Quiz</h3>
 <p>Now we are going to run through everything we have learned so far in order to convert <code>linelist_raw</code> into <code>linelist</code>, this will require several steps.</p>
 <ul>
@@ -817,7 +826,7 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
 <p>if_else() is a function from <strong>dplyr</strong> that handles dates. Note that if the “true” value is a date, the “false” value must also qualify a date, hence the use of <code>NA_real_</code> instead of <code>NA</code>.</p>
 <pre class="r"><code>linelist %&gt;% 
   mutate(date_death = if_else(outcome == &quot;Death&quot;, date_outcome, NA_real_))</code></pre>
-<p>###Quiz <div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
+<p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
 <div data-label="quiz4-1" class="tutorial-question panel-body">
 <div id="quiz4-1-answer_container" class="shiny-html-output"></div>
@@ -866,7 +875,18 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
   </script>
 </div>
 <p>To convert a specific value to NA, use <strong>dplyr</strong>’s <code>na_if()</code>. The command below performs the opposite operation of <code>replace_na()</code>. In the example below, any values of “Missing” in the column hospital are converted to NA.</p>
-<p>However, <code>na_if()</code> cannot be used for logical criteria (e.g. “all values &gt; 99”) - use replace() or <code>case_when()</code> for this:</p>
+<p>However, <code>na_if()</code> cannot be used for logical criteria (e.g. “all values &gt; 99”) - use <code>replace()</code> or <code>case_when()</code> for this:</p>
+<p>We are now going to practice these different methods of replacing NA values. In <code>linelist</code> can you do the following:</p>
+<ul>
+<li>Convert NA values in the <code>age</code> column to ]“Age not recorded”</li>
+<li>If values in <code>bmi</code> are below 10 or above 40, replace them with NA</li>
+</ul>
+<div class="tutorial-exercise" data-label="NA_practice" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="NA_practice-hint" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>You will need to use both na_if() and replace(), and a few logical operators (&quot;|&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;)</code></pre>
+</div>
 </div>
 <div id="section-cleaning-dictionary" class="section level3">
 <h3>Cleaning dictionary</h3>
@@ -951,6 +971,15 @@ table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
 ##  1095  1095   941   743   638   435   326   202   133    93    40    30    12 
 ## 65-69   70+  &lt;NA&gt; 
 ##    13     6    86</code></pre>
+<p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
+<div class="panel panel-default">
+<div data-label="quiz5-1" class="tutorial-question panel-body">
+<div id="quiz5-1-answer_container" class="shiny-html-output"></div>
+<div id="quiz5-1-message_container" class="shiny-html-output"></div>
+<div id="quiz5-1-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 </div>
 <div id="section-cut" class="section level3">
 <h3>cut()</h3>
@@ -971,87 +1000,6 @@ table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
 ##   0.333333333333333      3      0       0       0       0       0       0
 ##   0.416666666666667      1      0       0       0       0       0       0
 ##   0.5                    4      0       0       0       0       0       0
-##   0.583333333333333      3      0       0       0       0       0       0
-##   0.666666666666667      3      0       0       0       0       0       0
-##   0.75                   2      0       0       0       0       0       0
-##   0.833333333333333      1      0       0       0       0       0       0
-##   0.916666666666667      1      0       0       0       0       0       0
-##   1                    250      0       0       0       0       0       0
-##   1.5                    1      0       0       0       0       0       0
-##   2                    265      0       0       0       0       0       0
-##   3                    224      0       0       0       0       0       0
-##   4                    213      0       0       0       0       0       0
-##   5                    220      0       0       0       0       0       0
-##   6                      0    222       0       0       0       0       0
-##   7                      0    225       0       0       0       0       0
-##   8                      0    209       0       0       0       0       0
-##   9                      0    219       0       0       0       0       0
-##   10                     0    190       0       0       0       0       0
-##   11                     0      0     199       0       0       0       0
-##   12                     0      0     201       0       0       0       0
-##   13                     0      0     172       0       0       0       0
-##   14                     0      0     179       0       0       0       0
-##   15                     0      0     179       0       0       0       0
-##   16                     0      0       0     164       0       0       0
-##   17                     0      0       0     152       0       0       0
-##   18                     0      0       0     132       0       0       0
-##   19                     0      0       0     116       0       0       0
-##   20                     0      0       0     132       0       0       0
-##   21                     0      0       0       0     140       0       0
-##   22                     0      0       0       0     133       0       0
-##   23                     0      0       0       0     110       0       0
-##   24                     0      0       0       0     123       0       0
-##   25                     0      0       0       0      96       0       0
-##   26                     0      0       0       0      85       0       0
-##   27                     0      0       0       0     102       0       0
-##   28                     0      0       0       0      76       0       0
-##   29                     0      0       0       0      76       0       0
-##   30                     0      0       0       0      72       0       0
-##   31                     0      0       0       0       0      59       0
-##   32                     0      0       0       0       0      74       0
-##   33                     0      0       0       0       0      69       0
-##   34                     0      0       0       0       0      52       0
-##   35                     0      0       0       0       0      53       0
-##   36                     0      0       0       0       0      33       0
-##   37                     0      0       0       0       0      41       0
-##   38                     0      0       0       0       0      38       0
-##   39                     0      0       0       0       0      37       0
-##   40                     0      0       0       0       0      30       0
-##   41                     0      0       0       0       0      32       0
-##   42                     0      0       0       0       0      22       0
-##   43                     0      0       0       0       0      27       0
-##   44                     0      0       0       0       0      22       0
-##   45                     0      0       0       0       0      25       0
-##   46                     0      0       0       0       0      23       0
-##   47                     0      0       0       0       0      14       0
-##   48                     0      0       0       0       0      18       0
-##   49                     0      0       0       0       0      13       0
-##   50                     0      0       0       0       0      12       0
-##   51                     0      0       0       0       0       0      12
-##   52                     0      0       0       0       0       0       7
-##   53                     0      0       0       0       0       0       4
-##   54                     0      0       0       0       0       0       5
-##   55                     0      0       0       0       0       0       7
-##   56                     0      0       0       0       0       0       6
-##   57                     0      0       0       0       0       0       8
-##   58                     0      0       0       0       0       0       5
-##   59                     0      0       0       0       0       0       4
-##   60                     0      0       0       0       0       0       4
-##   61                     0      0       0       0       0       0       2
-##   62                     0      0       0       0       0       0       1
-##   63                     0      0       0       0       0       0       4
-##   64                     0      0       0       0       0       0       1
-##   65                     0      0       0       0       0       0       4
-##   66                     0      0       0       0       0       0       3
-##   67                     0      0       0       0       0       0       2
-##   68                     0      0       0       0       0       0       1
-##   69                     0      0       0       0       0       0       3
-##   70                     0      0       0       0       0       0       1
-##   72                     0      0       0       0       0       0       0
-##   73                     0      0       0       0       0       0       0
-##   76                     0      0       0       0       0       0       0
-##   84                     0      0       0       0       0       0       0
-##   &lt;NA&gt;                   0      0       0       0       0       0       0
 ##                     Categories
 ## Numeric Values       (70,100] &lt;NA&gt;
 ##   0                         0    0
@@ -1059,88 +1007,7 @@ table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
 ##   0.25                      0    0
 ##   0.333333333333333         0    0
 ##   0.416666666666667         0    0
-##   0.5                       0    0
-##   0.583333333333333         0    0
-##   0.666666666666667         0    0
-##   0.75                      0    0
-##   0.833333333333333         0    0
-##   0.916666666666667         0    0
-##   1                         0    0
-##   1.5                       0    0
-##   2                         0    0
-##   3                         0    0
-##   4                         0    0
-##   5                         0    0
-##   6                         0    0
-##   7                         0    0
-##   8                         0    0
-##   9                         0    0
-##   10                        0    0
-##   11                        0    0
-##   12                        0    0
-##   13                        0    0
-##   14                        0    0
-##   15                        0    0
-##   16                        0    0
-##   17                        0    0
-##   18                        0    0
-##   19                        0    0
-##   20                        0    0
-##   21                        0    0
-##   22                        0    0
-##   23                        0    0
-##   24                        0    0
-##   25                        0    0
-##   26                        0    0
-##   27                        0    0
-##   28                        0    0
-##   29                        0    0
-##   30                        0    0
-##   31                        0    0
-##   32                        0    0
-##   33                        0    0
-##   34                        0    0
-##   35                        0    0
-##   36                        0    0
-##   37                        0    0
-##   38                        0    0
-##   39                        0    0
-##   40                        0    0
-##   41                        0    0
-##   42                        0    0
-##   43                        0    0
-##   44                        0    0
-##   45                        0    0
-##   46                        0    0
-##   47                        0    0
-##   48                        0    0
-##   49                        0    0
-##   50                        0    0
-##   51                        0    0
-##   52                        0    0
-##   53                        0    0
-##   54                        0    0
-##   55                        0    0
-##   56                        0    0
-##   57                        0    0
-##   58                        0    0
-##   59                        0    0
-##   60                        0    0
-##   61                        0    0
-##   62                        0    0
-##   63                        0    0
-##   64                        0    0
-##   65                        0    0
-##   66                        0    0
-##   67                        0    0
-##   68                        0    0
-##   69                        0    0
-##   70                        0    0
-##   72                        1    0
-##   73                        2    0
-##   76                        1    0
-##   84                        1    0
-##   &lt;NA&gt;                      0   86</code></pre>
+##   0.5                       0    0</code></pre>
 <p><strong>Re-labeling NA values</strong></p>
 <p>You may want to assign NA values a label such as “Missing”. Because the new column is class Factor (restricted values), you cannot simply mutate it with <code>replace_na()</code>, as this value will be rejected. Instead, use <code>fct_explicit_na()</code> from the <strong>forcats</strong> package, as explained in the Factors page.</p>
 <pre><code>## 
@@ -1148,6 +1015,28 @@ table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
 ##        1095        1095         941         743        1073         754 
 ##       50-69      70-100 Missing age        &lt;NA&gt; 
 ##          95           6          86           0</code></pre>
+<p>Can you write some code to create a new column <code>temp_cat</code> to convert values in <code>temp</code> to the following categories:</p>
+<ul>
+<li>Less than 38 - “No fever”</li>
+<li>Greater than or equal to 38 &amp; less than 39.4 - “Low grade fever”</li>
+<li>Greater than or equal to 39.4 - “High grade fever”</li>
+</ul>
+<p>set the lower bound to 0, and then display only the columns <code>temp</code> and <code>temp_cat</code>?</p>
+<div class="tutorial-exercise" data-label="cut_temp" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="cut_temp-hint" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>You will need to use the function cut() and specify the correct breaks, and remember that cut() occurs on the right side, and age_categories() the left, so if you are using cut() you may also need to include the argument right = FALSE </code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="cut_temp-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>  linelist %&gt;% 
+  mutate(temp_cat = cut(
+    temp,
+    breaks = c(0, 38, 39.4, 45),          
+    right = FALSE,
+    labels = c(&quot;No fever&quot;, &quot;Low grade fever&quot;, &quot;High grade fever&quot;))) %&gt;%
+  select(temp, temp_cat)</code></pre>
+</div>
 </div>
 <div id="section-quantile-breaks" class="section level3">
 <h3>Quantile breaks</h3>
@@ -1169,7 +1058,48 @@ table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
 </div>
 <div id="section-evenly-sized-groups" class="section level3">
 <h3>Evenly sized groups</h3>
+<p>Another tool to make numeric groups is the <strong>dplyr</strong> function <code>ntile()</code> which breaks your data into evenly sized groups - <em>be aware that unlike in <code>quantile()</code> the same value could appear in more than one group.</em> Firstly you provided the numeric vector (the column) and the number of groups with the values in the new column created being the group “numbers” not the range of values themselves (as when you use <code>cut()</code>).</p>
+<pre class="r"><code># make groups with ntile()
+ntile_data &lt;- linelist %&gt;% 
+  mutate(even_groups = ntile(age_years, 10))
+
+# make table of counts and proportions by group
+ntile_table &lt;- ntile_data %&gt;% 
+  janitor::tabyl(even_groups)
+  
+# attach min/max values to demonstrate ranges
+ntile_ranges &lt;- ntile_data %&gt;% 
+  group_by(even_groups) %&gt;% 
+  summarise(
+    min = min(age_years, na.rm=T),
+    max = max(age_years, na.rm=T)
+  )
+
+# combine and print - note that values are present in multiple groups
+left_join(ntile_table, ntile_ranges, by = &quot;even_groups&quot;)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["even_groups"],"name":[1],"type":["int"],"align":["right"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["percent"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["valid_percent"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["min"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["max"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"581","3":"0.09867527","4":"0.10013788","5":"0","6":"2"},{"1":"2","2":"581","3":"0.09867527","4":"0.10013788","5":"2","6":"5"},{"1":"3","2":"580","3":"0.09850543","4":"0.09996553","5":"5","6":"7"},{"1":"4","2":"580","3":"0.09850543","4":"0.09996553","5":"7","6":"10"},{"1":"5","2":"580","3":"0.09850543","4":"0.09996553","5":"10","6":"13"},{"1":"6","2":"580","3":"0.09850543","4":"0.09996553","5":"13","6":"17"},{"1":"7","2":"580","3":"0.09850543","4":"0.09996553","5":"17","6":"21"},{"1":"8","2":"580","3":"0.09850543","4":"0.09996553","5":"21","6":"26"},{"1":"9","2":"580","3":"0.09850543","4":"0.09996553","5":"26","6":"34"},{"1":"10","2":"580","3":"0.09850543","4":"0.09996553","5":"34","6":"84"},{"1":"NA","2":"86","3":"0.01460598","4":"NA","5":"Inf","6":"-Inf"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
+</div>
+<div id="section-add-to-the-pipe-chain" class="section level3">
+<h3>Add to the pipe chain</h3>
+<p>Now we’ll add some of this to the cleaning pipe chain so you can see how all the steps we have learned so far are coming together to create one cleaning pipeline!</p>
+</div>
+</div>
+<div id="section-adding-rows" class="section level2">
+<h2>Adding rows</h2>
+<p>Adding rows one-by-one manually is tedious but can be done with <code>add_row()</code> from <strong>dplyr</strong>. Remember that each column must contain values of only one class (either character, numeric, logical, etc.). So adding a row requires nuance to maintain this.</p>
+<p>Use <code>.before</code> and <code>.after</code>. to specify the placement of the row you want to add. <code>.before = 3</code> will put the new row before the current 3rd row. The default behavior is to add the row to the end. Columns not specified will be left empty (<code>NA</code>).</p>
+<p>The new row number may look strange (“…23”) but the row numbers in the pre-existing rows have changed. So if using the command twice, examine/test the insertion carefully.</p>
+<p>If a class you provide is off you will see an error like this: <code>Error: Can't combine ..1$infection date &lt;date&gt; and ..2$infection date &lt;character&gt;.</code></p>
+<p><em>(when inserting a row with a date value, remember to wrap the date in the function as.Date() like as.Date(“2020-10-10”)).</em></p>
+<p><strong>Bind rows</strong></p>
+<p>To combine datasets together by binding the rows of one dataframe to the bottom of another data frame, you can use <code>bind_rows()</code> from <strong>dplyr</strong>. This is explained in more detail in the page Joining data.</p>
+</div>
+<div id="section-filter-rows" class="section level2">
+<h2>Filter rows</h2>
 </div>
 <div id="section-clean-rows" class="section level2">
 <h2>Clean rows</h2>
@@ -1195,7 +1125,7 @@ table(linelist$age_cat, useNA = &quot;always&quot;)</code></pre>
 <h3>epiweeks</h3>
 <p>use floor_date() from lubridate #### ISO weeks</p>
 </div>
-<div id="section-quiz-2" class="section level3">
+<div id="section-quiz-1" class="section level3">
 <h3>Quiz</h3>
 </div>
 </div>
@@ -1275,7 +1205,6 @@ take_these <- sample(1:nrow(linelist_raw), 500)
 
 linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32
 
-
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -1342,11 +1271,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "load-package", 
-        code = "pacman::p_load(___)", opts = list(label = "\"load-package\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure("grade_this_code(\"You are correct, the packages you need for this lesson are now loaded!\")", chunk_opts = list(
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "load-package", code = "pacman::p_load(___)", 
+        opts = list(label = "\"load-package\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure("grade_this_code(\"You are correct, the packages you need for this lesson are now loaded!\")", chunk_opts = list(
         label = "load-package-check")), solution = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -1408,13 +1337,13 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "pipe_linelist", 
-        code = "linelist_raw %>%\n  ", opts = list(label = "\"pipe_linelist\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure(c("grade_result(", 
-    "  pass_if(~ identical(.result, linelist_raw %>%", "    clean_names() %>%", 
-    "    select(contains(\"date_\")) %>%", "    names() ), \"You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!\")", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "pipe_linelist", code = "linelist_raw %>%\n  ", 
+        opts = list(label = "\"pipe_linelist\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist_raw %>%", 
+    "    clean_names() %>%", "    select(contains(\"date_\")) %>%", 
+    "    names() ), \"You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!\")", 
     ")"), chunk_opts = list(label = "pipe_linelist-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
@@ -1438,6 +1367,35 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
         code = c("linelist_raw %>%", "  "), out.width.px = 624, 
         out.height.px = 384, params.src = "pipe_linelist, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz0-1", question = structure("What arguments would you specify to change the column name &#39;aches&#39; to &#39;malaise&#39;?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_f12bd23", 
+    option = "rename(aches = malaise)", value = "rename(aches = malaise)", 
+    label = structure("rename(aches = malaise)", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ad04c08", 
+    option = "clean_names()", value = "clean_names()", label = structure("clean_names()", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d7d6b8d", 
+    option = "names(aches = malaise)", value = "names(aches = malaise)", 
+    label = structure("names(aches = malaise)", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5ca518f", 
+    option = "rename(malaise = aches)", value = "rename(malaise = aches)", 
+    label = structure("rename(malaise = aches)", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz0-1-answer", question = "quiz0-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat arguments would you specify to change the column name &#39;aches&#39; to &#39;malaise&#39;?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 842599322.107634, options = list()), class = c("learnr_radio", 
+"tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -1477,14 +1435,13 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "clean_rename_select", 
-        code = "", opts = list(label = "\"clean_rename_select\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure(c("grade_result(", 
-    "  pass_if(~ identical(.result, linelist_raw %>%", "         clean_names() %>%", 
-    "         rename(date_infection = infection_date,", "                date_outcome = date_of_outcome) %>%", 
-    "         select(case_id, date_infection, date_outcome) %>%", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "clean_rename_select", code = "", 
+        opts = list(label = "\"clean_rename_select\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist_raw %>%", 
+    "         clean_names() %>%", "         rename(date_infection = infection_date,", 
+    "                date_outcome = date_of_outcome) %>%", "         select(case_id, date_infection, date_outcome) %>%", 
     "         head()), \"Excellent, you have cleaned the dataset and subset to the columns you want\")", 
     ")"), chunk_opts = list(label = "clean_rename_select-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
@@ -1513,19 +1470,19 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-1", question = structure("Which of these column names follows a clean syntax?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f12bd23", 
+"character")), answers = list(structure(list(id = "lnr_ans_9153f61", 
     option = "date hospitalisation", value = "date hospitalisation", 
     label = structure("date hospitalisation", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ad04c08", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_185be3f", 
     option = "date_of_patient_hospitalisation", value = "date_of_patient_hospitalisation", 
     label = structure("date_of_patient_hospitalisation", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d7d6b8d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_319bd54", 
     option = "date@hospitalisation", value = "date@hospitalisation", 
     label = structure("date@hospitalisation", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5ca518f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_968b84e", 
     option = "date_hosp", value = "date_hosp", label = structure("date_hosp", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1536,22 +1493,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-1-answer", question = "quiz1-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of these column names follows a clean syntax?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 842599322.107634, options = list()), class = c("learnr_radio", 
+    seed = 1613842911.7485, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz1-2", question = structure("Which of these functions can be used to rename columns?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9153f61", 
+"character")), answers = list(structure(list(id = "lnr_ans_de035c7", 
     option = "rename()", value = "rename()", label = structure("rename()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_185be3f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5f2e016", 
     option = "clean_names()", value = "clean_names()", label = structure("clean_names()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_319bd54", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cc7f1c4", 
     option = "head()", value = "head()", label = structure("head()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_968b84e", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_eedb13", 
     option = "select()", value = "select()", label = structure("select()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1562,28 +1519,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-2-answer", question = "quiz1-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of these functions can be used to rename columns?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1613842911.7485, options = list()), class = c("learnr_checkbox", 
+    seed = 1338817990.87656, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-3", question = structure("Why is it useful to follow a similar style nomenclature (all date columns starting <em>date_<\u002fem>) for column names?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_de035c7", 
+"character")), answers = list(structure(list(id = "lnr_ans_5b4cd9f", 
     option = "It looks good when you output tables and figures", 
     value = "It looks good when you output tables and figures", 
     label = structure("It looks good when you output tables and figures", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5f2e016", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_968271f", 
     option = "It helps us find relevant columns and makes omissions/errors less likely", 
     value = "It helps us find relevant columns and makes omissions/errors less likely", 
     label = structure("It helps us find relevant columns and makes omissions/errors less likely", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cc7f1c4", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e9edca5", 
     option = "R is very inflexible and only allows certain combinations of words", 
     value = "R is very inflexible and only allows certain combinations of words", 
     label = structure("R is very inflexible and only allows certain combinations of words", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_eedb13", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_330ea4a", 
     option = "It allows us to sort the dataset by alphabetical order", 
     value = "It allows us to sort the dataset by alphabetical order", 
     label = structure("It allows us to sort the dataset by alphabetical order", html = TRUE, class = c("html", 
@@ -1596,28 +1553,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-3-answer", question = "quiz1-3"), loading = structure("<strong>Loading:<\u002fstrong> \nWhy is it useful to follow a similar style nomenclature (all date columns starting <em>date_<\u002fem>) for column names?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1338817990.87656, options = list()), class = c("learnr_radio", 
+    seed = 792601046.630916, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-4", question = structure("In which order would you place these functions in order to output only the names of the columns &#39;date_onset&#39; and &#39;outcome&#39; from linelist_raw", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_5b4cd9f", 
+"character")), answers = list(structure(list(id = "lnr_ans_abe16a8", 
     option = "clean_names(), select(date_onset, outcome), names()", 
     value = "clean_names(), select(date_onset, outcome), names()", 
     label = structure("clean_names(), select(date_onset, outcome), names()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_968271f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c4a51f0", 
     option = "select(date_onset, outcome), clean_names(), names()", 
     value = "select(date_onset, outcome), clean_names(), names()", 
     label = structure("select(date_onset, outcome), clean_names(), names()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e9edca5", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_85b2102", 
     option = "clean_names(), select(-c(date_onset, outcome)), names()", 
     value = "clean_names(), select(-c(date_onset, outcome)), names()", 
     label = structure("clean_names(), select(-c(date_onset, outcome)), names()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_330ea4a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d3fcb97", 
     option = "clean_names(), select(date_onset, outcome), head()", 
     value = "clean_names(), select(date_onset, outcome), head()", 
     label = structure("clean_names(), select(date_onset, outcome), head()", html = TRUE, class = c("html", 
@@ -1630,7 +1587,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-4-answer", question = "quiz1-4"), loading = structure("<strong>Loading:<\u002fstrong> \nIn which order would you place these functions in order to output only the names of the columns &#39;date_onset&#39; and &#39;outcome&#39; from linelist_raw\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 792601046.630916, options = list()), class = c("learnr_radio", 
+    seed = 1131930458.4729, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1671,12 +1628,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "drop_lon_to_source", 
-        code = "", opts = list(label = "\"drop_lon_to_source\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure(c("grade_result(", 
-    "  pass_if(~ identical(.result, linelist_raw %>%", "         select(-c(lon:source)) ), \"Good work, ':' is a useful tool for referencing several concurrent columns.\")", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "drop_lon_to_source", code = "", 
+        opts = list(label = "\"drop_lon_to_source\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist_raw %>%", 
+    "         select(-c(lon:source)) ), \"Good work, ':' is a useful tool for referencing several concurrent columns.\")", 
     ")"), chunk_opts = list(label = "drop_lon_to_source-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
@@ -1739,14 +1696,14 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "date_symptom_subset", 
-        code = "", opts = list(label = "\"date_symptom_subset\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure(c("grade_result(", 
-    "  pass_if(~ identical(.result, linelist_raw %>%", "  clean_names() %>%", 
-    "  select(date_infection = infection_date,", "         date_hospitalisation = hosp_date,", 
-    "         starts_with(\"date_\"),", "         fever:vomit) ), \"Combining multiple operations within a select function allows us to efficiently clean, rename and subset data. Nice one.\")", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "date_symptom_subset", code = "", 
+        opts = list(label = "\"date_symptom_subset\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist_raw %>%", 
+    "  clean_names() %>%", "  select(date_infection = infection_date,", 
+    "         date_hospitalisation = hosp_date,", "         starts_with(\"date_\"),", 
+    "         fever:vomit) ), \"Combining multiple operations within a select function allows us to efficiently clean, rename and subset data. Nice one.\")", 
     ")"), chunk_opts = list(label = "date_symptom_subset-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
@@ -1774,16 +1731,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz2-1", question = structure("Which function can be used to create new columns?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_abe16a8", 
+"character")), answers = list(structure(list(id = "lnr_ans_8073011", 
     option = "select()", value = "select()", label = structure("select()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c4a51f0", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6b835f2", 
     option = "mutate()", value = "mutate()", label = structure("mutate()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_85b2102", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5cbf949", 
     option = "rename()", value = "rename()", label = structure("rename()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d3fcb97", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1f99098", 
     option = "clean_names()", value = "clean_names()", label = structure("clean_names()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1794,7 +1751,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz2-1-answer", question = "quiz2-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich function can be used to create new columns?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1131930458.4729, options = list()), class = c("learnr_radio", 
+    seed = 640297008.701838, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1835,12 +1792,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "date_mutate", code = "", 
-        opts = list(label = "\"date_mutate\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist %>%", 
-    "  mutate(age_months = ifelse(age_unit == \"years\", age * 12, age)) %>%", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "date_mutate", code = "", opts = list(
+        label = "\"date_mutate\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("grade_result(", 
+    "  pass_if(~ identical(.result, linelist %>%", "  mutate(age_months = ifelse(age_unit == \"years\", age * 12, age)) %>%", 
     "  select(age, age_months, gender)), \"Great, you have created a new column based and learned about the ifelse() function.\")", 
     ")", ""), chunk_opts = list(label = "date_mutate-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
@@ -1903,20 +1859,21 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "change_class", 
-        code = "", opts = list(label = "\"change_class\"", exercise = "T"), 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "change_class", code = "linelist %>%\n  ", 
+        opts = list(label = "\"change_class\"", exercise = "T"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist %>%", 
-    "  mutate(age = as.numeric(age))), \"Good work.\")", ")"), chunk_opts = list(
-        label = "change_class-check")), solution = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "data_cleaning_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_cleaning_files/figure-html/", 
+    "    mutate(age = as.numeric(age))), \"Great, you've got the hang of changing class!\")", 
+    ")", ""), chunk_opts = list(label = "change_class-check")), 
+    solution = NULL, options = list(eval = FALSE, echo = TRUE, 
+        results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
+        prompt = FALSE, comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "data_cleaning_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "data_cleaning_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1928,28 +1885,29 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         exercise.eval = FALSE, label = "change_class", exercise = TRUE, 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "change_class, exercise = T", 
-        fig.num = 0L, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+        code = c("linelist %>%", "  "), out.width.px = 624, out.height.px = 384, 
+        params.src = "change_class, exercise = T", fig.num = 0, 
+        exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz3-1", question = structure("What will this pipe chain do?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_8073011", 
+"character")), answers = list(structure(list(id = "lnr_ans_46d4454", 
     option = "Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE", 
     value = "Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE", 
     label = structure("Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6b835f2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c52d7d2", 
     option = "Check the columns temp, ht_cm and wt_kg to see if they are the character class", 
     value = "Check the columns temp, ht_cm and wt_kg to see if they are the character class", 
     label = structure("Check the columns temp, ht_cm and wt_kg to see if they are the character class", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5cbf949", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c736e3c", 
     option = "Convert the columns temp, ht_cm and wt_kg to character class and make new columns", 
     value = "Convert the columns temp, ht_cm and wt_kg to character class and make new columns", 
     label = structure("Convert the columns temp, ht_cm and wt_kg to character class and make new columns", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1f99098", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_24cf3e5", 
     option = "Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", 
     value = "Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", 
     label = structure("Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", html = TRUE, class = c("html", 
@@ -1962,7 +1920,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz3-1-answer", question = "quiz3-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat will this pipe chain do?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 640297008.701838, options = list()), class = c("learnr_radio", 
+    seed = 1107083977.98447, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2003,9 +1961,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "tidyselect_date_character", 
-        code = "", opts = list(label = "\"tidyselect_date_character\"", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "tidyselect_date_character", code = "", 
+        opts = list(label = "\"tidyselect_date_character\"", 
             exercise = "T"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure(c("grade_result(", 
     "  pass_if(~ identical(.result, linelist %>%", "  mutate(across(.cols = contains(\"date\"), .fns = as.character))), \"Great work\")", 
@@ -2071,12 +2029,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "cumulative_sum", 
-        code = "linelist %>% \n", opts = list(label = "\"cumulative_sum\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure(c("grade_result(", 
-    "  pass_if(~ identical(.result, linelist %>% group_by(hospital) %>%", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "cumulative_sum", code = "linelist %>% \n", 
+        opts = list(label = "\"cumulative_sum\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist %>% group_by(hospital) %>%", 
     "    count(date_onset) %>%", "    mutate(cumulative_cases = cumsum(n))), \"Great, it's hard to see because we have 1629 rows, but you have correctly grouped and cumulatively summed by hospital!\")", 
     ")"), chunk_opts = list(label = "cumulative_sum-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
@@ -2140,14 +2097,13 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "linelist_raw_to_linelist", 
-        code = "\n", opts = list(label = "\"linelist_raw_to_linelist\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure(c("grade_result(", 
-    "  pass_if(~ identical(.result, linelist_raw %>%", "  janitor::clean_names() %>% ", 
-    "  rename(date_infection       = infection_date,", "         date_hospitalisation = hosp_date,", 
-    "         date_outcome         = date_of_outcome) %>% ", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "linelist_raw_to_linelist", code = "\n", 
+        opts = list(label = "\"linelist_raw_to_linelist\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist_raw %>%", 
+    "  janitor::clean_names() %>% ", "  rename(date_infection       = infection_date,", 
+    "         date_hospitalisation = hosp_date,", "         date_outcome         = date_of_outcome) %>% ", 
     "  select(-c(row_num, merged_header, x28)) %>% ", "  distinct() %>% ", 
     "  mutate(bmi = wt_kg / (ht_cm/100)^2) %>% ", "  mutate(across(contains(\"date\"), as.Date), ", 
     "         generation = as.numeric(generation),", "         age = as.numeric(age)) ), \"You have strung together numerous functions in order to create a clean dataset, you are well on your way to becoming a data cleaning expert.\")", 
@@ -2178,22 +2134,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz4-1", question = structure("Which of these simple logical statements would replace &#39;Other&#39; with &#39;Unidentified&#39; in the column &#39;hospital&#39;?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_46d4454", 
+"character")), answers = list(structure(list(id = "lnr_ans_98e4c0a", 
     option = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', hospital))", 
     value = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', hospital))", 
     label = structure("mutate(hospital = ifelse(hospital == &#39;Other&#39;, &#39;Unidentified&#39;, hospital))", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c52d7d2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_817eedb", 
     option = "mutate(hospital = ifelse(hospital == 'Unidentified', 'Other', hospital))", 
     value = "mutate(hospital = ifelse(hospital == 'Unidentified', 'Other', hospital))", 
     label = structure("mutate(hospital = ifelse(hospital == &#39;Unidentified&#39;, &#39;Other&#39;, hospital))", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c736e3c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_62d76cf", 
     option = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', 'Identified'))", 
     value = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', 'Identified'))", 
     label = structure("mutate(hospital = ifelse(hospital == &#39;Other&#39;, &#39;Unidentified&#39;, &#39;Identified&#39;))", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_24cf3e5", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6d14c3e", 
     option = "mutate(hospital = ifelse(Other == 'hospital', 'Unidentified', hospital))", 
     value = "mutate(hospital = ifelse(Other == 'hospital', 'Unidentified', hospital))", 
     label = structure("mutate(hospital = ifelse(Other == &#39;hospital&#39;, &#39;Unidentified&#39;, hospital))", html = TRUE, class = c("html", 
@@ -2206,7 +2162,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz4-1-answer", question = "quiz4-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of these simple logical statements would replace &#39;Other&#39; with &#39;Unidentified&#39; in the column &#39;hospital&#39;?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1107083977.98447, options = list()), class = c("learnr_radio", 
+    seed = 25253837.9882403, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2247,12 +2203,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 "", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
 "set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
 "", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
-"", ""), chunk_opts = list(label = "setup", include = FALSE)), 
-    setup = NULL, chunks = list(list(label = "temp_convert_logic", 
-        code = "linelist %>%\n  mutate()", opts = list(label = "\"temp_convert_logic\"", 
-            exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure(c("grade_result(", 
-    "  pass_if(~ identical(.result, linelist %>%", "    mutate(temp = case_when(temp > 90 & temp < 120 ~ (temp - 32) * 5/9,", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "temp_convert_logic", code = "linelist %>%\n  mutate()", 
+        opts = list(label = "\"temp_convert_logic\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("grade_result(", "  pass_if(~ identical(.result, linelist %>%", 
+    "    mutate(temp = case_when(temp > 90 & temp < 120 ~ (temp - 32) * 5/9,", 
     "                            TRUE ~ temp))), \"You've successfully used complex logic, great work.\")", 
     ")"), chunk_opts = list(label = "temp_convert_logic-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
@@ -2278,14 +2234,186 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
         ), out.width.px = 624, out.height.px = 384, params.src = "temp_convert_logic, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-NA_practice-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-NA_practice-code-editor`)), session)
+output$`tutorial-exercise-NA_practice-output` <- renderUI({
+  `tutorial-exercise-NA_practice-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
+"library(learnr)", "library(gradethis)", "library(tidyverse)", 
+"library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
+"gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
+"  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
+"", "", "# event recorder ---------------------------------------------------------------", 
+"# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
+"tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises", 
+"", "vfun <- submitr::make_basic_validator(NULL, \"hello\") #basket::check_valid", 
+"", "new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {", 
+"    cat(", "      tutorial_id, ", "      \" (v\", tutorial_version, \"); \",", 
+"      format(Sys.time(), \"%Y-%M%-%D %H:%M:%S %Z\"), \"; \",", 
+"      user_id, \"; \",", "      event, \"; \",", "      data$label, \"; \",", 
+"      data$answers, \"; \",", "      data$code, \"; \",", "      data$correct, \"\\n\", sep = \"\",", 
+"      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
+"      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
+"", "", "# hide non-exercise code chunks ------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
+"linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
+"malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
+"", "#Incorrectly assign class so we can clean later", "linelist_raw$age <- as.character(linelist_raw$age)", 
+"linelist_raw$`date onset` <- as.character(linelist_raw$`date onset`)", 
+"", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
+"set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
+"", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "NA_practice", code = "", opts = list(
+        label = "\"NA_practice\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("grade_result(", 
+    "  pass_if(~ identical(.result, linelist %>%", " mutate(age = na_if(age, \"Age not recorded\"),", 
+    "        bmi = replace(bmi, bmi < 10 | bmi > 40, NA))), \"You've successfully recoded NA values and used complex logic.\")", 
+    ")"), chunk_opts = list(label = "NA_practice-check")), solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "data_cleaning_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "data_cleaning_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        exercise.eval = FALSE, label = "NA_practice", exercise = TRUE, 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "NA_practice, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz5-1", question = structure("Which of these age_categories() specifications would create breaks at 0, 25, 50 and 75?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_eb5953b", 
+    option = "age_categories(age_years, breakers = c(0, 25, 50, 75))", 
+    value = "age_categories(age_years, breakers = c(0, 25, 50, 75))", 
+    label = structure("age_categories(age_years, breakers = c(0, 25, 50, 75))", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_145628f", 
+    option = "age_categories(age_years, lower = 0, upper = 75, by = 5)", 
+    value = "age_categories(age_years, lower = 0, upper = 75, by = 5)", 
+    label = structure("age_categories(age_years, lower = 0, upper = 75, by = 5)", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_81e3477", 
+    option = "age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", 
+    value = "age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", 
+    label = structure("age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d1f6c46", 
+    option = "age_categories(age_years, breakers = 25, lower = 0, upper  = 75)", 
+    value = "age_categories(age_years, breakers = 25, lower = 0, upper  = 75)", 
+    label = structure("age_categories(age_years, breakers = 25, lower = 0, upper  = 75)", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz5-1-answer", question = "quiz5-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of these age_categories() specifications would create breaks at 0, 25, 50 and 75?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 1285044374.9016, options = list()), class = c("learnr_checkbox", 
+"tutorial_question")), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-cut_temp-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-cut_temp-code-editor`)), session)
+output$`tutorial-exercise-cut_temp-output` <- renderUI({
+  `tutorial-exercise-cut_temp-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::opts_chunk$set(warning = FALSE, message = FALSE) ", 
+"# load packages ----------------------------------------------------------------", 
+"library(learnr)", "library(gradethis)", "library(tidyverse)", 
+"library(here)", "library(janitor)", "library(rio)", "library(basket) # not sure if we need this", 
+"library(etude) # helper functions for gradethis", "library(epikit)", 
+"", "# set options for exercises and checking ---------------------------------------", 
+"gradethis_setup()", "", "learnr::tutorial_options(exercise.timelimit = 60) ", 
+"  #exercise.checker = gradethis::grade_learnr) ", "    # alternatively, submitr::null_code_checker", 
+"", "", "# event recorder ---------------------------------------------------------------", 
+"# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R", 
+"tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises", 
+"", "vfun <- submitr::make_basic_validator(NULL, \"hello\") #basket::check_valid", 
+"", "new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {", 
+"    cat(", "      tutorial_id, ", "      \" (v\", tutorial_version, \"); \",", 
+"      format(Sys.time(), \"%Y-%M%-%D %H:%M:%S %Z\"), \"; \",", 
+"      user_id, \"; \",", "      event, \"; \",", "      data$label, \"; \",", 
+"      data$answers, \"; \",", "      data$code, \"; \",", "      data$correct, \"\\n\", sep = \"\",", 
+"      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
+"      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
+"", "", "# hide non-exercise code chunks ------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
+"linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
+"malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
+"", "#Incorrectly assign class so we can clean later", "linelist_raw$age <- as.character(linelist_raw$age)", 
+"linelist_raw$`date onset` <- as.character(linelist_raw$`date onset`)", 
+"", "#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later", 
+"set.seed(1)", "take_these <- sample(1:nrow(linelist_raw), 500)", 
+"", "linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32", 
+""), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "cut_temp", code = "", opts = list(
+        label = "\"cut_temp\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("  grade_this({", 
+    "    # Automatically pass if .result equal to .solution", 
+    "    pass_if_equal()", "    # Default to failing grade with feedback", 
+    "    fail()", "  })"), chunk_opts = list(label = "cut_temp-check")), 
+    solution = structure(c("  linelist %>% ", "  mutate(temp_cat = cut(", 
+    "    temp,", "    breaks = c(0, 38, 39.4, 45),          ", 
+    "    right = FALSE,", "    labels = c(\"No fever\", \"Low grade fever\", \"High grade fever\"))) %>%", 
+    "  select(temp, temp_cat)"), chunk_opts = list(label = "cut_temp-solution")), 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "data_cleaning_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "data_cleaning_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        exercise.eval = FALSE, label = "cut_temp", exercise = TRUE, 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "cut_temp, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+</script>
  <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.11"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["i18n"]},{"type":"character","attributes":{},"value":["1.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/i18n"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["i18next.min.js","tutorial-i18n-init.js"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["<script id=\"i18n-cstm-trns\" type=\"application/json\">{\"language\":\"en\",\"resources\":{\"en\":{\"translation\":{\"button\":{\"runcode\":\"Run Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Hint\",\"hint_plural\":\"Hints\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Next Hint\",\"hintprev\":\"Previous Hint\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copy to Clipboard\",\"startover\":\"Start Over\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continue\",\"submitanswer\":\"Submit Answer\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Previous Topic\",\"nexttopic\":\"Next Topic\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Try Again\"},\"text\":{\"startover\":\"Start Over\",\"areyousure\":\"Are you sure you want to start over? (all exercise progress will be reset)\",\"youmustcomplete\":\"You must complete the\",\"exercise\":\"exercise\",\"exercise_plural\":\"exercises\",\"inthissection\":\"in this section before continuing.\",\"code\":\"Code\",\"enginecap\":\"{{engine}} $t(text.code)\",\"quiz\":\"Quiz\",\"blank\":\"blank\",\"blank_plural\":\"blanks\",\"exercisecontainsblank\":\"This exercise contains {{count}} $t(text.blank).\",\"pleasereplaceblank\":\"Please replace {{blank}} with valid code.\",\"unparsable\":\"It looks like this might not be valid R code. R cannot determine how to turn your text into a complete command. You may have forgotten to fill in a blank, to remove an underscore, to include a comma between arguments, or to close an opening <code>&quot;<\\/code>, <code>'<\\/code>, <code>(<\\/code> or <code>{<\\/code> with a matching <code>&quot;<\\/code>, <code>'<\\/code>, <code>)<\\/code> or <code>}<\\/code>.\\n\",\"unparsablequotes\":\"<p>It looks like your R code contains specially formatted quotation marks or &quot;curly&quot; quotes (<code>{{character}}<\\/code>) around character strings, making your code invalid. R requires character values to be contained in straight quotation marks (<code>&quot;<\\/code> or <code>'<\\/code>).<\\/p> {{code}} <p>Don't worry, this is a common source of errors when you copy code from another app that applies its own formatting to text. You can try replacing the code on that line with the following. There may be other places that need to be fixed, too.<\\/p> {{suggestion}}\\n\",\"unparsableunicode\":\"<p>It looks like your R code contains an unexpected special character (<code>{{character}}<\\/code>) that makes your code invalid.<\\/p> {{code}} <p>Sometimes your code may contain a special character that looks like a regular character, especially if you copy and paste the code from another app. Try deleting the special character from your code and retyping it manually.<\\/p>\\n\",\"unparsableunicodesuggestion\":\"<p>It looks like your R code contains an unexpected special character (<code>{{character}}<\\/code>) that makes your code invalid.<\\/p> {{code}} <p>Sometimes your code may contain a special character that looks like a regular character, especially if you copy and paste the code from another app. You can try replacing the code on that line with the following. There may be other places that need to be fixed, too.<\\/p> {{suggestion}}\\n\",\"and\":\"and\",\"or\":\"or\",\"listcomma\":\", \",\"oxfordcomma\":\",\"}}},\"fr\":{\"translation\":{\"button\":{\"runcode\":\"Lancer le Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Indication\",\"hint_plural\":\"Indications\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Indication Suivante\",\"hintprev\":\"Indication Précédente\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copier dans le Presse-papier\",\"startover\":\"Recommencer\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuer\",\"submitanswer\":\"Soumettre\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Chapitre Précédent\",\"nexttopic\":\"Chapitre Suivant\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Réessayer\"},\"text\":{\"startover\":\"Recommencer\",\"areyousure\":\"Êtes-vous certains de vouloir recommencer? (La progression sera remise à zéro)\",\"youmustcomplete\":\"Vous devez d'abord compléter\",\"exercise\":\"l'exercice\",\"exercise_plural\":\"des exercices\",\"inthissection\":\"de cette section avec de continuer.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\",\"and\":\"et\",\"or\":\"ou\",\"oxfordcomma\":\"\"}}},\"es\":{\"translation\":{\"button\":{\"runcode\":\"Ejecutar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Pista\",\"hint_plural\":\"Pistas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Siguiente pista\",\"hintprev\":\"Pista anterior\",\"solution\":\"Solución\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar al portapapeles\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar respuesta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tema anterior\",\"nexttopic\":\"Tema siguiente\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Volver a intentar\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"¿De verdad quieres empezar de nuevo? (todo el progreso del ejercicio se perderá)\",\"youmustcomplete\":\"Debes completar\",\"exercise\":\"el ejercicio\",\"exercise_plural\":\"los ejercicios\",\"inthissection\":\"en esta sección antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Cuestionario\",\"and\":\"y\",\"or\":\"o\",\"oxfordcomma\":\"\"}}},\"pt\":{\"translation\":{\"button\":{\"runcode\":\"Executar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Dica\",\"hint_plural\":\"Dicas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Próxima dica\",\"hintprev\":\"Dica anterior\",\"solution\":\"Solução\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar para a área de transferência\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar resposta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tópico anterior\",\"nexttopic\":\"Próximo tópico\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tentar novamente\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"Tem certeza que deseja começar novamente? (todo o progresso feito será perdido)\",\"youmustcomplete\":\"Você deve completar\",\"exercise\":\"o exercício\",\"exercise_plural\":\"os exercícios\",\"inthissection\":\"nesta seção antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\",\"and\":\"e\",\"or\":\"ou\",\"oxfordcomma\":\"\"}}},\"tr\":{\"translation\":{\"button\":{\"runcode\":\"Çalistirma Kodu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Ipucu\",\"hint_plural\":\"Ipuçlari\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Sonraki Ipucu\",\"hintprev\":\"Önceki Ipucu\",\"solution\":\"Çözüm\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Pano'ya Kopyala\",\"startover\":\"Bastan Baslamak\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Devam et\",\"submitanswer\":\"Cevabi onayla\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Önceki Konu\",\"nexttopic\":\"Sonraki Konu\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tekrar Deneyin\"},\"text\":{\"startover\":\"Bastan Baslamak\",\"areyousure\":\"Bastan baslamak istediginizden emin misiniz? (tüm egzersiz ilerlemesi kaybolacak)\",\"youmustcomplete\":\"Tamamlamalisin\",\"exercise\":\"egzersiz\",\"exercise_plural\":\"egzersizler\",\"inthissection\":\"devam etmeden önce bu bölümde\",\"code\":\"Kod\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Sinav\",\"oxfordcomma\":\"\"}}},\"emo\":{\"translation\":{\"button\":{\"runcode\":\"<U+0001F3C3>\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"<U+0001F4A1>\",\"hint_plural\":\"$t(button.hint)\",\"hinttitle\":\"$t(button.hint)\",\"solution\":\"<U+0001F3AF>\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"<U+0001F4CB>\",\"startover\":\"<U+23EE>\",\"startovertitle\":\"Start Over\",\"continue\":\"<U+2705>\",\"submitanswer\":\"<U+0001F197>\",\"submitanswertitle\":\"Submit Answer\",\"previoustopic\":\"<U+2B05>\",\"nexttopic\":\"<U+27A1>\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"<U+0001F501>\"},\"text\":{\"startover\":\"<U+23EE>\",\"areyousure\":\"<U+0001F914>\",\"youmustcomplete\":\"<U+26A0><U+FE0F> <U+0001F449> <U+0001F9D1><U+200D><U+0001F4BB>\",\"exercise\":\"\",\"exercise_plural\":\"\",\"inthissection\":\"\",\"code\":\"<U+0001F4BB>\",\"enginecap\":\"$t(text.code) {{engine}}\",\"oxfordcomma\":\"\"}}},\"eu\":{\"translation\":{\"button\":{\"runcode\":\"Kodea egikaritu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Laguntza\",\"hint_plural\":\"Laguntza\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Aurreko laguntza\",\"hintprev\":\"Hurrengo laguntza\",\"solution\":\"Ebazpena\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Arbelean kopiatu\",\"startover\":\"Berrabiarazi\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Jarraitu\",\"submitanswer\":\"Erantzuna bidali\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Aurreko atala\",\"nexttopic\":\"Hurrengo atala\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Berriro saiatu\"},\"text\":{\"startover\":\"Berrabiarazi\",\"areyousure\":\"Berriro hasi nahi duzu? (egindako lana galdu egingo da)\",\"youmustcomplete\":\"Aurrera egin baino lehen atal honetako\",\"exercise\":\"ariketa egin behar duzu.\",\"exercise_plural\":\"ariketak egin behar dituzu.\",\"inthissection\":\"\",\"code\":\"Kodea\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Galdetegia\",\"oxfordcomma\":\"\"}}},\"de\":{\"translation\":{\"button\":{\"runcode\":\"Code ausführen\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Tipp\",\"hint_plural\":\"Tipps\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Nächster Tipp\",\"hintprev\":\"Vorheriger Tipp\",\"solution\":\"Lösung\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"In die Zwischenablage kopieren\",\"startover\":\"Neustart\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Weiter\",\"submitanswer\":\"Antwort einreichen\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Vorheriges Kapitel\",\"nexttopic\":\"Nächstes Kapitel\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Nochmal versuchen\"},\"text\":{\"startover\":\"Neustart\",\"areyousure\":\"Bist du sicher, dass du neustarten willst? (der gesamte Lernfortschritt wird gelöscht)\",\"youmustcomplete\":\"Vervollstädinge\",\"exercise\":\"die Übung\",\"exercise_plural\":\"die Übungen\",\"inthissection\":\"in diesem Kapitel, bevor du fortfährst.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\",\"blank\":\"Lücke\",\"blank_plural\":\"Lücken\",\"pleasereplaceblank\":\"Bitte ersetze {{blank}} mit gültigem Code.\",\"unparsable\":\"Dies scheint kein gültiger R Code zu sein. R kann deinen Text nicht in einen gültigen Befehl übersetzen. Du hast vielleicht vergessen, die Lücke zu füllen, einen Unterstrich zu entfernen, ein Komma zwischen Argumente zu setzen oder ein eröffnendes <code>&quot;<\\/code>, <code>'<\\/code>, <code>(<\\/code> oder <code>{<\\/code> mit einem zugehörigen <code>&quot;<\\/code>, <code>'<\\/code>, <code>)<\\/code> oder <code>}<\\/code> zu schließen.\\n\",\"and\":\"und\",\"or\":\"oder\",\"listcomma\":\", \",\"oxfordcomma\":\",\"}}},\"ko\":{\"translation\":{\"button\":{\"runcode\":\"<U+CF54><U+B4DC> <U+C2E4><U+D589>\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"<U+D78C><U+D2B8>\",\"hint_plural\":\"<U+D78C><U+D2B8><U+B4E4>\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"<U+B2E4><U+C74C> <U+D78C><U+D2B8>\",\"hintprev\":\"<U+C774><U+C804> <U+D78C><U+D2B8>\",\"solution\":\"<U+C194><U+B8E8><U+C158>\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"<U+D074><U+B9BD><U+BCF4><U+B4DC><U+C5D0> <U+BCF5><U+C0AC>\",\"startover\":\"<U+C7AC><U+D559><U+C2B5>\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"<U+B2E4><U+C74C> <U+D559><U+C2B5><U+C73C><U+B85C>\",\"submitanswer\":\"<U+C815><U+B2F5> <U+C81C><U+CD9C>\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"<U+C774><U+C804> <U+D1A0><U+D53D>\",\"nexttopic\":\"<U+B2E4><U+C74C> <U+D1A0><U+D53D>\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"<U+C7AC><U+C2DC><U+B3C4>\"},\"text\":{\"startover\":\"<U+C7AC><U+D559><U+C2B5>\",\"areyousure\":\"<U+B2E4><U+C2DC> <U+C2DC><U+C791> <U+D558><U+C2DC><U+ACA0><U+C2B5><U+B2C8><U+AE4C>? (<U+BAA8><U+B4E0> <U+C608><U+C81C><U+C758> <U+C9C4><U+D589> <U+C815><U+BCF4><U+AC00> <U+C7AC><U+C124><U+C815><U+B429><U+B2C8><U+B2E4>)\",\"youmustcomplete\":\"<U+B2F9><U+C2E0><U+C740> <U+C644><U+B8CC><U+D574><U+C57C> <U+D569><U+B2C8><U+B2E4>\",\"exercise\":\"<U+C5F0><U+C2B5><U+BB38><U+C81C>\",\"exercise_plural\":\"<U+C5F0><U+C2B5><U+BB38><U+C81C><U+B4E4>\",\"inthissection\":\"<U+C774> <U+C139><U+C158><U+C744> <U+C2E4><U+D589><U+D558><U+AE30> <U+C804><U+C5D0>\",\"code\":\"<U+CF54><U+B4DC>\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"<U+D034><U+C988>\",\"blank\":\"<U+ACF5><U+BC31>\",\"blank_plural\":\"<U+ACF5><U+BC31><U+B4E4>\",\"exercisecontainsblank\":\"<U+C774> <U+C5F0><U+C2B5><U+BB38><U+C81C><U+C5D0><U+B294> {{count}}<U+AC1C><U+C758> $t(text.blank)<U+C774> <U+D3EC><U+D568><U+B418><U+C5B4> <U+C788><U+C2B5><U+B2C8><U+B2E4>.\",\"pleasereplaceblank\":\"{{blank}}<U+B97C> <U+C720><U+D6A8><U+D55C> <U+CF54><U+B4DC><U+B85C> <U+BC14><U+AFB8><U+C2ED><U+C2DC><U+C624>.\",\"unparsable\":\"<U+C774><U+AC83><U+C740> <U+C720><U+D6A8><U+D55C> R <U+CF54><U+B4DC><U+AC00> <U+C544><U+B2D0> <U+C218> <U+C788><U+C2B5><U+B2C8><U+B2E4>. R<U+C740> <U+D14D><U+C2A4><U+D2B8><U+B97C> <U+C644><U+C804><U+D55C> <U+BA85><U+B839><U+C73C><U+B85C> <U+BCC0><U+D658><U+D558><U+B294> <U+BC29><U+BC95><U+C744> <U+ACB0><U+C815><U+D560> <U+C218> <U+C5C6><U+C2B5><U+B2C8><U+B2E4>. <U+B2F9><U+C2E0><U+C740> <U+ACF5><U+BC31><U+C774><U+B098> <U+BC11><U+C904><U+C744> <U+B300><U+CCB4><U+D558><U+C5EC> <U+CC44><U+C6B0><U+AE30>, <U+C778><U+C218><U+B97C> <U+CEF4><U+B9C8><U+B85C> <U+AD6C><U+BD84><U+D558><U+AE30>, <U+B610><U+B294> <code>&quot;<\\/code>, <code>'<\\/code>, <code>(<\\/code> , <code>{<\\/code><U+B85C> <U+C2DC><U+C791><U+D558><U+B294> <U+AD6C><U+BB38><U+C744> <U+B2EB><U+B294> <code>&quot;<\\/code>, <code>'<\\/code>, <code>)<\\/code>, <code>}<\\/code><U+C744> <U+C78A><U+C5C8><U+C744> <U+C218><U+B3C4> <U+C788><U+C2B5><U+B2C8><U+B2E4>.\\n\",\"and\":\"<U+ADF8><U+B9AC><U+ACE0>\",\"or\":\"<U+D639><U+C740>\",\"listcomma\":\", \",\"oxfordcomma\":\"\"}}}}}<\/script>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1.9019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9019"]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.11"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["i18n"]},{"type":"character","attributes":{},"value":["1.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/i18n"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["i18next.min.js","tutorial-i18n-init.js"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["<script id=\"i18n-cstm-trns\" type=\"application/json\">{\"language\":\"en\",\"resources\":{\"en\":{\"translation\":{\"button\":{\"runcode\":\"Run Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Hint\",\"hint_plural\":\"Hints\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Next Hint\",\"hintprev\":\"Previous Hint\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copy to Clipboard\",\"startover\":\"Start Over\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continue\",\"submitanswer\":\"Submit Answer\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Previous Topic\",\"nexttopic\":\"Next Topic\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Try Again\"},\"text\":{\"startover\":\"Start Over\",\"areyousure\":\"Are you sure you want to start over? (all exercise progress will be reset)\",\"youmustcomplete\":\"You must complete the\",\"exercise\":\"exercise\",\"exercise_plural\":\"exercises\",\"inthissection\":\"in this section before continuing.\",\"code\":\"Code\",\"enginecap\":\"{{engine}} $t(text.code)\",\"quiz\":\"Quiz\",\"blank\":\"blank\",\"blank_plural\":\"blanks\",\"exercisecontainsblank\":\"This exercise contains {{count}} $t(text.blank).\",\"pleasereplaceblank\":\"Please replace {{blank}} with valid code.\",\"unparsable\":\"It looks like this might not be valid R code. R cannot determine how to turn your text into a complete command. You may have forgotten to fill in a blank, to remove an underscore, to include a comma between arguments, or to close an opening <code>&quot;<\\/code>, <code>'<\\/code>, <code>(<\\/code> or <code>{<\\/code> with a matching <code>&quot;<\\/code>, <code>'<\\/code>, <code>)<\\/code> or <code>}<\\/code>.\\n\",\"and\":\"and\",\"or\":\"or\",\"listcomma\":\", \",\"oxfordcomma\":\",\"}}},\"fr\":{\"translation\":{\"button\":{\"runcode\":\"Lancer le Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Indication\",\"hint_plural\":\"Indications\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Indication Suivante\",\"hintprev\":\"Indication Précédente\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copier dans le Presse-papier\",\"startover\":\"Recommencer\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuer\",\"submitanswer\":\"Soumettre\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Chapitre Précédent\",\"nexttopic\":\"Chapitre Suivant\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Réessayer\"},\"text\":{\"startover\":\"Recommencer\",\"areyousure\":\"Êtes-vous certains de vouloir recommencer? (La progression sera remise à zéro)\",\"youmustcomplete\":\"Vous devez d'abord compléter\",\"exercise\":\"l'exercice\",\"exercise_plural\":\"des exercices\",\"inthissection\":\"de cette section avec de continuer.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\",\"and\":\"et\",\"or\":\"ou\",\"oxfordcomma\":\"\"}}},\"es\":{\"translation\":{\"button\":{\"runcode\":\"Ejecutar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Pista\",\"hint_plural\":\"Pistas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Siguiente pista\",\"hintprev\":\"Pista anterior\",\"solution\":\"Solución\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar al portapapeles\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar respuesta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tema anterior\",\"nexttopic\":\"Tema siguiente\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Volver a intentar\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"¿De verdad quieres empezar de nuevo? (todo el progreso del ejercicio se perderá)\",\"youmustcomplete\":\"Debes completar\",\"exercise\":\"el ejercicio\",\"exercise_plural\":\"los ejercicios\",\"inthissection\":\"en esta sección antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Cuestionario\",\"and\":\"y\",\"or\":\"o\",\"oxfordcomma\":\"\"}}},\"pt\":{\"translation\":{\"button\":{\"runcode\":\"Executar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Dica\",\"hint_plural\":\"Dicas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Próxima dica\",\"hintprev\":\"Dica anterior\",\"solution\":\"Solução\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar para a área de transferência\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar resposta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tópico anterior\",\"nexttopic\":\"Próximo tópico\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tentar novamente\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"Tem certeza que deseja começar novamente? (todo o progresso feito será perdido)\",\"youmustcomplete\":\"Você deve completar\",\"exercise\":\"o exercício\",\"exercise_plural\":\"os exercícios\",\"inthissection\":\"nesta seção antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\",\"and\":\"e\",\"or\":\"ou\",\"oxfordcomma\":\"\"}}},\"tr\":{\"translation\":{\"button\":{\"runcode\":\"Çalistirma Kodu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Ipucu\",\"hint_plural\":\"Ipuçlari\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Sonraki Ipucu\",\"hintprev\":\"Önceki Ipucu\",\"solution\":\"Çözüm\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Pano'ya Kopyala\",\"startover\":\"Bastan Baslamak\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Devam et\",\"submitanswer\":\"Cevabi onayla\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Önceki Konu\",\"nexttopic\":\"Sonraki Konu\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tekrar Deneyin\"},\"text\":{\"startover\":\"Bastan Baslamak\",\"areyousure\":\"Bastan baslamak istediginizden emin misiniz? (tüm egzersiz ilerlemesi kaybolacak)\",\"youmustcomplete\":\"Tamamlamalisin\",\"exercise\":\"egzersiz\",\"exercise_plural\":\"egzersizler\",\"inthissection\":\"devam etmeden önce bu bölümde\",\"code\":\"Kod\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Sinav\",\"oxfordcomma\":\"\"}}},\"emo\":{\"translation\":{\"button\":{\"runcode\":\"<U+0001F3C3>\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"<U+0001F4A1>\",\"hint_plural\":\"$t(button.hint)\",\"hinttitle\":\"$t(button.hint)\",\"solution\":\"<U+0001F3AF>\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"<U+0001F4CB>\",\"startover\":\"<U+23EE>\",\"startovertitle\":\"Start Over\",\"continue\":\"<U+2705>\",\"submitanswer\":\"<U+0001F197>\",\"submitanswertitle\":\"Submit Answer\",\"previoustopic\":\"<U+2B05>\",\"nexttopic\":\"<U+27A1>\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"<U+0001F501>\"},\"text\":{\"startover\":\"<U+23EE>\",\"areyousure\":\"<U+0001F914>\",\"youmustcomplete\":\"<U+26A0><U+FE0F> <U+0001F449> <U+0001F9D1><U+200D><U+0001F4BB>\",\"exercise\":\"\",\"exercise_plural\":\"\",\"inthissection\":\"\",\"code\":\"<U+0001F4BB>\",\"enginecap\":\"$t(text.code) {{engine}}\",\"oxfordcomma\":\"\"}}},\"eu\":{\"translation\":{\"button\":{\"runcode\":\"Kodea egikaritu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Laguntza\",\"hint_plural\":\"Laguntza\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Aurreko laguntza\",\"hintprev\":\"Hurrengo laguntza\",\"solution\":\"Ebazpena\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Arbelean kopiatu\",\"startover\":\"Berrabiarazi\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Jarraitu\",\"submitanswer\":\"Erantzuna bidali\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Aurreko atala\",\"nexttopic\":\"Hurrengo atala\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Berriro saiatu\"},\"text\":{\"startover\":\"Berrabiarazi\",\"areyousure\":\"Berriro hasi nahi duzu? (egindako lana galdu egingo da)\",\"youmustcomplete\":\"Aurrera egin baino lehen atal honetako\",\"exercise\":\"ariketa egin behar duzu.\",\"exercise_plural\":\"ariketak egin behar dituzu.\",\"inthissection\":\"\",\"code\":\"Kodea\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Galdetegia\",\"oxfordcomma\":\"\"}}},\"de\":{\"translation\":{\"button\":{\"runcode\":\"Code ausführen\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Tipp\",\"hint_plural\":\"Tipps\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Nächster Tipp\",\"hintprev\":\"Vorheriger Tipp\",\"solution\":\"Lösung\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"In die Zwischenablage kopieren\",\"startover\":\"Neustart\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Weiter\",\"submitanswer\":\"Antwort einreichen\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Vorheriges Kapitel\",\"nexttopic\":\"Nächstes Kapitel\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Nochmal versuchen\"},\"text\":{\"startover\":\"Neustart\",\"areyousure\":\"Bist du sicher, dass du neustarten willst? (der gesamte Lernfortschritt wird gelöscht)\",\"youmustcomplete\":\"Vervollstädinge\",\"exercise\":\"die Übung\",\"exercise_plural\":\"die Übungen\",\"inthissection\":\"in diesem Kapitel, bevor du fortfährst.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\",\"blank\":\"Lücke\",\"blank_plural\":\"Lücken\",\"pleasereplaceblank\":\"Bitte ersetze {{blank}} mit gültigem Code.\",\"unparsable\":\"Dies scheint kein gültiger R Code zu sein. R kann deinen Text nicht in einen gültigen Befehl übersetzen. Du hast vielleicht vergessen, die Lücke zu füllen, einen Unterstrich zu entfernen, ein Komma zwischen Argumente zu setzen oder ein eröffnendes <code>&quot;<\\/code>, <code>'<\\/code>, <code>(<\\/code> oder <code>{<\\/code> mit einem zugehörigen <code>&quot;<\\/code>, <code>'<\\/code>, <code>)<\\/code> oder <code>}<\\/code> zu schließen.\\n\",\"and\":\"und\",\"or\":\"oder\",\"listcomma\":\", \",\"oxfordcomma\":\",\"}}},\"ko\":{\"translation\":{\"button\":{\"runcode\":\"<U+CF54><U+B4DC> <U+C2E4><U+D589>\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"<U+D78C><U+D2B8>\",\"hint_plural\":\"<U+D78C><U+D2B8><U+B4E4>\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"<U+B2E4><U+C74C> <U+D78C><U+D2B8>\",\"hintprev\":\"<U+C774><U+C804> <U+D78C><U+D2B8>\",\"solution\":\"<U+C194><U+B8E8><U+C158>\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"<U+D074><U+B9BD><U+BCF4><U+B4DC><U+C5D0> <U+BCF5><U+C0AC>\",\"startover\":\"<U+C7AC><U+D559><U+C2B5>\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"<U+B2E4><U+C74C> <U+D559><U+C2B5><U+C73C><U+B85C>\",\"submitanswer\":\"<U+C815><U+B2F5> <U+C81C><U+CD9C>\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"<U+C774><U+C804> <U+D1A0><U+D53D>\",\"nexttopic\":\"<U+B2E4><U+C74C> <U+D1A0><U+D53D>\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"<U+C7AC><U+C2DC><U+B3C4>\"},\"text\":{\"startover\":\"<U+C7AC><U+D559><U+C2B5>\",\"areyousure\":\"<U+B2E4><U+C2DC> <U+C2DC><U+C791> <U+D558><U+C2DC><U+ACA0><U+C2B5><U+B2C8><U+AE4C>? (<U+BAA8><U+B4E0> <U+C608><U+C81C><U+C758> <U+C9C4><U+D589> <U+C815><U+BCF4><U+AC00> <U+C7AC><U+C124><U+C815><U+B429><U+B2C8><U+B2E4>)\",\"youmustcomplete\":\"<U+B2F9><U+C2E0><U+C740> <U+C644><U+B8CC><U+D574><U+C57C> <U+D569><U+B2C8><U+B2E4>\",\"exercise\":\"<U+C5F0><U+C2B5><U+BB38><U+C81C>\",\"exercise_plural\":\"<U+C5F0><U+C2B5><U+BB38><U+C81C><U+B4E4>\",\"inthissection\":\"<U+C774> <U+C139><U+C158><U+C744> <U+C2E4><U+D589><U+D558><U+AE30> <U+C804><U+C5D0>\",\"code\":\"<U+CF54><U+B4DC>\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"<U+D034><U+C988>\",\"blank\":\"<U+ACF5><U+BC31>\",\"blank_plural\":\"<U+ACF5><U+BC31><U+B4E4>\",\"exercisecontainsblank\":\"<U+C774> <U+C5F0><U+C2B5><U+BB38><U+C81C><U+C5D0><U+B294> {{count}}<U+AC1C><U+C758> $t(text.blank)<U+C774> <U+D3EC><U+D568><U+B418><U+C5B4> <U+C788><U+C2B5><U+B2C8><U+B2E4>.\",\"pleasereplaceblank\":\"{{blank}}<U+B97C> <U+C720><U+D6A8><U+D55C> <U+CF54><U+B4DC><U+B85C> <U+BC14><U+AFB8><U+C2ED><U+C2DC><U+C624>.\",\"unparsable\":\"<U+C774><U+AC83><U+C740> <U+C720><U+D6A8><U+D55C> R <U+CF54><U+B4DC><U+AC00> <U+C544><U+B2D0> <U+C218> <U+C788><U+C2B5><U+B2C8><U+B2E4>. R<U+C740> <U+D14D><U+C2A4><U+D2B8><U+B97C> <U+C644><U+C804><U+D55C> <U+BA85><U+B839><U+C73C><U+B85C> <U+BCC0><U+D658><U+D558><U+B294> <U+BC29><U+BC95><U+C744> <U+ACB0><U+C815><U+D560> <U+C218> <U+C5C6><U+C2B5><U+B2C8><U+B2E4>. <U+B2F9><U+C2E0><U+C740> <U+ACF5><U+BC31><U+C774><U+B098> <U+BC11><U+C904><U+C744> <U+B300><U+CCB4><U+D558><U+C5EC> <U+CC44><U+C6B0><U+AE30>, <U+C778><U+C218><U+B97C> <U+CEF4><U+B9C8><U+B85C> <U+AD6C><U+BD84><U+D558><U+AE30>, <U+B610><U+B294> <code>&quot;<\\/code>, <code>'<\\/code>, <code>(<\\/code> , <code>{<\\/code><U+B85C> <U+C2DC><U+C791><U+D558><U+B294> <U+AD6C><U+BB38><U+C744> <U+B2EB><U+B294> <code>&quot;<\\/code>, <code>'<\\/code>, <code>)<\\/code>, <code>}<\\/code><U+C744> <U+C78A><U+C5C8><U+C744> <U+C218><U+B3C4> <U+C788><U+C2B5><U+B2C8><U+B2E4>.\\n\",\"and\":\"<U+ADF8><U+B9AC><U+ACE0>\",\"or\":\"<U+D639><U+C740>\",\"listcomma\":\", \",\"oxfordcomma\":\"\"}}}}}<\/script>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1.9018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9018"]}]}]}
 </script>
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipsis","epikit","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","iterators","itertools","janitor","jquerylib","jsonlite","knitr","labeling","later","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","snakecase","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.0.4","0.10.11","0.7.12","0.3.1","1.1.0","2.0.0","3.1.1","0.2-18","2.0-2","4.0.4","1.4.2","4.3.2","1.14.0","4.0.4","1.1.2","2.1.1","0.6.29","1.0.7","0.3.2","0.1.2","0.3.0.9001","0.14","1.0.2","2.1.0","1.1.0","0.5.1","1.5.2","0.8-82","1.5.2","0.1.2","1.1.7","0.3.3","3.3.5","2.0.5","0.9.1","1.6.1","0.2.5.9000","4.0.4","0.8.0","4.0.4","4.0.4","2.3","0.3.0","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.2","1.2.11","1.0.14","0.1-3","2.1.0","0.1.4","1.7.3","1.37","0.4.2","1.3.0","0.10.1.9019","1.0.1","1.7.10","2.0.2","1.1","7.3-55","4.0.4","0.12","0.1.8","0.5.0","4.2.5","4.0.4","1.7.0","2.0.3","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.8","2.0.1","1.3.1","2.0.1","0.5.29","1.0.1","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","0.11.0","4.0.4","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.3","1.1.1","1.3.1","4.0.4","1.0.2","0.1.2","1.2.2","4.0.4","0.3.8","0.6.2","0.4.0","2.4.3","0.29","1.3.2","1.8-4","2.2.1","2.2.0"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipsis","epikit","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","iterators","itertools","janitor","jquerylib","jsonlite","knitr","labeling","later","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","snakecase","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.0.4","0.10.11","0.7.10","0.3.1","1.1.0","2.0.0","3.1.1","0.2-18","2.0-2","4.0.4","1.4.2","4.3.2","1.14.2","4.0.4","1.1.1","2.1.1","0.6.29","1.0.7","0.3.2","0.1.2","0.3.0.9001","0.14","0.5.0","2.1.0","1.1.0","0.5.1","1.5.1","0.8-81","1.5.2","0.1.1","1.1.7","0.3.3","3.3.5","2.0.5","0.9.1","1.6.0","0.2.4.9000","4.0.4","0.7.2","4.0.4","4.0.4","2.3","0.3.0","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.3","1.4.2","1.2.9","1.0.13","0.1-3","2.1.0","0.1.4","1.7.2","1.37","0.4.2","1.3.0","0.10.1.9018","1.0.1","1.8.0","2.0.1","1.1","7.3-54","4.0.4","0.12","0.1.8","0.5.0","4.2.4","4.0.4","1.6.4","2.0.3","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.7","2.1.1","1.3.1","2.0.1","0.5.29","0.4.12","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","0.11.0","4.0.4","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.4","1.1.1","1.3.1","4.0.4","1.0.2","0.2.0","1.2.2","4.0.4","0.3.8","0.6.2","0.4.0","2.4.3","0.28","1.3.3","1.8-4","2.2.1","2.2.0"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
