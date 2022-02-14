@@ -24,6 +24,8 @@ library(rio)
 library(basket) # not sure if we need this
 library(etude) # helper functions for gradethis
 library(epikit)
+library(linelist)
+library(lubridate)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -1461,7 +1463,7 @@ and this can also be done in base R
 
 ```{r}
 # dataframe <- dataframe[row conditions, column conditions] (blank means keep all)
-linelist <- linelist[!is.na(case_id), ]
+linelist <- linelist[!is.na(linelist$case_id), ]
 ```
 
 ## Row-wise calculations
@@ -1497,7 +1499,7 @@ linelist %>%
   select(latest_date, contains("date"))  # for display
 ```
 
-### Arrange and sort
+## Arrange and sort
 
 The **dplyr** function `arrange()` allows us to sort or order rows by column values. List the columns in the order they should be sorted on, and specify `.by_group = TRUE` if you want the sorting to occur by any groupings in the data.
 
@@ -1513,53 +1515,433 @@ linelist %>%
    select(case_id, hospital, date_onset)
 ```
 
-## Clean rows
-
-Now that we have worked through how to clean and subset columns, we need to learn how to apply similar approaches to rows. There are several reasons why you would want to clean the rows of your dataset such as to remove duplicate entries, rows that contain NA values in all, or a selection, of columns. These allow us to clean the dataset and produce a final cleaned version that is ready for analysis and figure generation.
-
-### Drop missing values
-
-
-
-
-Touch upon some of these: https://www.epirhandbook.com/en/de-duplication.html
-### Filter by logic
-### Quiz
-
-
-
-
-
-
-
-
-
 ## Dates
-See Epi R Handbook chapter on working with dates
-https://www.epirhandbook.com/en/working-with-dates.html
+
+Working with dates in R requires more attention than any other object class.  Below, we offer some tools and example to make this process less painful. Luckily, dates can be wrangled easily with practice, and with a set of helpful packages such as lubridate.
+
+Upon import of raw data, R often interprets dates as character objects - this means they cannot be used for general date operations such as making time series and calculating time intervals. To make matters more difficult, there are many ways a date can be formatted and you must help R know which part of a date represents what (month, day, hour, etc.).
+
+Dates in R are their own class of object - the Date class. It should be noted that there is also a class that stores objects with date and time. Date time objects are formally referred to as `POSIXt`, `POSIXct`, and/or `POSIXlt` classes (the difference isn’t important). These objects are informally referred to as datetime classes.
+
+* It is important to make R recognize when a column contains dates.
+* Dates are an object class and can be tricky to work with.
+* Here we present several ways to convert date columns to Date class.
+
+## Current date
+
+To get the current "system" date you using `Sys.Date()`, and to get the time, `Sys.time()`. Alternatively you can return the date with `today()` and the time with `now()` from the **lubridate** package.
+
+## Converting to a date
+
+After importing a dataset into R, date column values may look like "1989/12/30", "05/06/2014" or "13 Jan 2020". In all these cases, R is likely still treating these as character values. *R must be told that these are dates, and the format that the dates are in (which is Day, Month and Year).* 
+
+By default, the values of class Date are displayed as YYYY-MM-DD, later in this section we will discuss how tho change these.
+
+### Base R
+
+`as.Date()` is the base R function to convert an object or column to class Date. This requires:
+
+* You specifiy the existing format of the raw character date
+* If used on a character column all values must have the same exact format (if this is not the case try `guess_dates()` from the **linelist** package)
+
+*First*, check the class of your column with `class()` from base R.
+*Second*, within the `as.Date()` function, use the `format = ` argument to tell R the current format of the character date.
+
+```{r, echo = T, eval = F}
+# Convert to class date
+linelist <- linelist %>% 
+  mutate(date_onset = as.Date(date_onset, format = "%d/%m/%Y"))
+```
+
+Most of the strptime abbreviations are listed below. You can see the complete list by running ?strptime.
+
+%d = Day number of month (5, 17, 28, etc.)
+%j = Day number of the year (Julian day 001-366)
+%a = Abbreviated weekday (Mon, Tue, Wed, etc.)
+%A = Full weekday (Monday, Tuesday, etc.) %w = Weekday number (0-6, Sunday is 0)
+%u = Weekday number (1-7, Monday is 1)
+%W = Week number (00-53, Monday is week start)
+%U = Week number (01-53, Sunday is week start)
+%m = Month number (e.g. 01, 02, 03, 04)
+%b = Abbreviated month (Jan, Feb, etc.)
+%B = Full month (January, February, etc.)
+%y = 2-digit year (e.g. 89)
+%Y = 4-digit year (e.g. 1989)
+%h = hours (24-hr clock)
+%m = minutes
+%s = seconds %z = offset from GMT
+%Z = Time zone (character)
+
+*Remember that you need to also get the date separator (/, -, space etc) correct in order to convert your dates*
+
+### lubridate
+
+The **lubridate** package makes handling dates and times a lot easier than using base R, and is recommended whenever you are working with dates
+
+**lubridate* has several helper functions designed to convert character objects to dates in a more intuitive and lenient way. These functions are specific to the rough date format, but allow for a variety of separators, and synonyms for dates (e.g. 01 vs Jan vs January) - they are named after abbreviations of date formats.
+
+The `ymd()` function converts date values supplied as year, month, day.
+`r ymd("2020-10-11)`
+`r ymd("20201011)`
+The `mdy()` does the same but in the order of month, day, year.
+`r mdy("Oct 11 20")`
+and the `dmy()` in the format as day, month , year
+`r dmy("11 October 2020")`
+
+Within a pipe chain, it may look like this
+
+```{r}
+linelist <- linelist %>%
+  mutate(date_onset = lubridate::dmy(date_onset))
+```
+
+You can then check the conversion has applied correctly by using `class()`.
+
+Note that the above functions work best with 4-digit years. 2-digit years can produce unexpected results, as lubridate attempts to guess the century.
+
+To convert a 2-digit year into a 4-digit year (all in the same century) you can convert to class character and then combine the existing digits with a pre-fix using str_glue() from the **stringr** package (see Characters and strings). Then convert to date.
+
+```{r}
+two_digit_years <- c("15", "15", "16", "17")
+str_glue("20{two_digit_years}")
+```
+
+How would you use to convert all columns that containe `date_` to a year, month, day Date class?
+
+```{r date_first, exercise = TRUE}
+
+```
+
+```{r date_first-hint}
+A more compact way of doing this would be to use a tidyselect helper function such as across(). See earlier exercises where we converted columns to as.Character().
+```
+
+```{r date_first-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r date_first-solution}
+linelist %>%
+  mutate(across(.cols = contains("date_"), .fns = lubridate::ymd))
+```
+
+### Combine columns
+
+You can use the **lubridate** functions `make_date()` and `make_datetime()` to combine multiple numeric columns in one date column. For example, if you have the numeric columns `onset_day`, `onset_month` and `onset_year` in the dataframe `linelist`
+
+```{r}
+linelist <- linelist %>% 
+  mutate(onset_date = make_date(year = onset_year, month = onset_month, day = onset_day))
+```
+
+## Excel dates
+
+In the background, most software store dates as numbers. R stores dates from an origin of 1st January, 1970. Thus, if you run `as.numeric(as.Date("1970-01-01))` you will get `0`. 
+
+Microsoft Excel stores dates with an origin of either December 30, 1899 (Windows) or January 1, 1904 (Mac), depending on your operating system. See this Microsoft guidance for more information.
+
+Excel dates often import into R as these numeric values instead of as characters. If the dataset you imported from Excel shows dates as numbers or characters like “41369”… use `as.Date()` (or **lubridate**’s `as_date()` function) to convert, but instead of supplying a “format” as above, supply the Excel origin date to the argument `origin =.`
+
+This will not work if the Excel date is stored in R as a character type, so be sure to ensure the number is class Numeric!
+
+NOTE: You should provide the origin date in R’s default date format (“YYYY-MM-DD”).
+
+```{r}
+# An example of providing the Excel 'origin date' when converting Excel number dates
+data_cleaned <- data %>% 
+  mutate(date_onset = as.numeric(date_onset)) %>%   # ensure class is numeric
+  mutate(date_onset = as.Date(date_onset, origin = "1899-12-30")) # convert to date using Excel origin
+```
+
+## Messy dates
+
+Often dates are in a variety of different formats, the function `guess_dates()` from the **linelist** package attempts to read these and convert them to a standard format.
+
+For example `guess_dates()` would see a vector of the following character dates “03 Jan 2018”, “07/03/1982”, and “08/20/85” and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.
+
+```{r}
+linelist::guess_dates(c("03 Jan 2018",
+                        "07/03/1982",
+                        "08/20/85"))
+```
+
+## Working with the date-time class
+
+Converting columns to the date-time class follows a similar format to the date class with **lubridate** functions, only with `_h` (only hours supplied), `_hm` (hours and minutes supplied), or `_hms` (hours, minutes, and seconds supplied) appended to the end (e.g. `dmy_hms()`).
+
+`r ymd_h("2020-01-01 16hrs")`
+`r ymd_h("2020-01-01 4PM")`
+`r dmy_hm("01 January 2020 16:20")`
+`r mdy_hms("01 January 2020, 16:20:40")`
+
+When working with a data frame, time and date columns can be combined to create a datetime column using `str_glue()` from **stringr** package and an appropriate **lubridate** function.
+
+In this example, the linelist data frame has a column in format “hours:minutes”. To convert this to a datetime we follow a few steps:
+
+* Create a “clean” time of admission column with missing values filled-in with the column median. We do this because lubridate won’t operate on missing values. 
+* Combine it with the column date_hospitalisation, and then use the function ymd_hm() to convert.
+
+```{r}
+# packages
+pacman::p_load(tidyverse, lubridate, stringr)
+
+# time_admission is a column in hours:minutes
+linelist <- linelist %>%
+  
+  # when time of admission is not given, assign the median admission time
+  mutate(
+    time_admission_clean = ifelse(
+      is.na(time_admission),         # if time is missing
+      median(time_admission),        # assign the median
+      time_admission                 # if not missing keep as is
+  )) %>%
+  
+    # use str_glue() to combine date and time columns to create one character column
+    # and then use ymd_hm() to convert it to datetime
+  mutate(
+    date_time_of_admission = str_glue("{date_hospitalisation} {time_admission_clean}") %>% 
+      ymd_hm()
+  )
+```
+
+### Convert times alone
+
+If your data only contains character time (hours, minutes, seconds), you can convert and manipulate these as times using `strptime()` from base R. For example, to get the difference between these two times:
+
+```{r}
+# raw character times
+time1 <- "13:45" 
+time2 <- "15:20"
+
+# Times converted to a datetime class
+time1_clean <- strptime(time1, format = "%H:%M")
+time2_clean <- strptime(time2, format = "%H:%M")
+
+# Difference is of class "difftime" by default, here converted to numeric hours 
+as.numeric(time2_clean - time1_clean)   # difference in hours
+```
+
+### Extract time
+
+You can extract the elements of a time with `hour()`, `minute()` and `second()` from **lubridate**.
+
+Here is an example of extracting the hour, and then classifing by part of the day. We begin with the column `time_admission`, which is class Character in format “HH:MM”. First, the `strptime()` is used as described above to convert the characters to datetime class. Then, the hour is extracted with `hour()`, returning a number from 0-24. Finally, a column time_period is created using logic with `case_when()` to classify rows into Morning/Afternoon/Evening/Night based on their hour of admission.
+
+```{r}
+linelist <- linelist %>%
+  mutate(hour_admit = hour(strptime(time_admission, format = "%H:%M"))) %>%
+  mutate(time_period = case_when(
+    hour_admit > 06 & hour_admit < 12 ~ "Morning",
+    hour_admit >= 12 & hour_admit < 17 ~ "Afternoon",
+    hour_admit >= 17 & hour_admit < 21 ~ "Evening",
+    hour_admit >=21 | hour_admit <= 6 ~ "Night"))
+```
+
+### Practice
+
+```{r quiz5}
+quiz(
+  question("Which of the following functions would convert 'Jan 5 1997' to the correct Date format?",
+    answer(mdy('Jan 5 1997'), correct = T),
+    answer(guess_dates('Jan 5 1997'), correct = T),
+    answer(as.Date('Jan 5 1997', format = "%b %d %Y"), correct = T),
+  correct = "Yes, all of these work to convert your date! However, there is a lot more to specify in the base R function as.Date()"),
+  question("Which of the following functions be used to convert a column that has the format year, month, day, hour, minute?",
+    answer(ymd_hm(), correct = T),
+    answer(ymd_hms(), correct = F),
+    answer(mdy_hm(), correct = F),
+  correct = "Correct, good work"))
+```
+
+We want to estimate the time from infection to onset. In order to do this, can you convert the columns `date_infection` and `date_onset` to Date objects, and then subtract `date_infection` from `date_onset` to create a new column, `time_to_symptoms`, and display only this column?
+
+```{r date_convert_subtract, exercise = TRUE}
+
+```
+
+```{r date_convert_subtract-hint}
+After converting the values from character class to Date, you can simply subtract the columns within mutate
+```
+
+```{r date_convert_subtract-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r date_convert_subtract-solution}
+linelist <- linelist %>%
+  mutate(date_infection = ymd(date_infection),
+         date_onset = ymd(date_onset),
+         time_to_symptoms = date_onset - date_infection) %>%
+  select(time_to_symptoms)
+```
+
+## Working with dates
+
+Once converted you can extract aspects such as the year, month, day, weekday, week etc.
+
+`r month(Sys.Date())`
+`r day(Sys.Date())`
+`r wday(Sys.Date())`
+
+You can also extract time components from a datetime object or column. This can be useful if you want to view the distribution of admission times.
+
+`r hour(Sys.time())`
+`r minute(Sys.time())`
+`r second(Sys.time())`
+
+### Date math
+
+Date math is simple once you have converted the dates, to add on a certain number of days, weeks, months or years you can use the functions `days()`, `weeks()`, `months()`, `years()`.
+
+`r Sys.Date() + days(3)`
+`r Sys.Date() + months(3)`
+`r Sys.Date() + years(3)`
+
+and again the same for adding on time
+
+`r Sys.time() + hours(3)`
+`r Sys.time() + minutes(3)`
+`r Sys.time() + seconds(3)`
+
+### Date intervals
+
+The differences between dates can be calculated by
+
+* Ensuring both dates are of class dates
+* Use subtraction to return the difftime difference between two dates
+* If necessary, convert to numeric class to perform subsequent calculations
+
+```{r}
+output <- example_date - ymd("2020-02-20")
+output    # print
+```
+```{r}
+class(output)
+```
+
+To do subsequent operations on a “difftime”, convert it to numeric with `as.numeric()`.
+
+This can all be brought together to work with data - for example:
+
+```{r}
+linelist_delay <- linelist %>%
+  
+  # convert date of onset from character to date objects by specifying ymd format
+  mutate(date_onset = ymd(date_onset),
+         date_hospitalisation = ymd(date_hospitalisation)) %>%
+  
+  # filter out all cases without onset in march
+  filter(month(date_onset) == 3) %>%
+    
+  # find the difference in days between onset and hospitalisation
+  mutate(days_onset_to_hosp = date_hospitalisation - date_onset)
+
+# calculate the median number of days to hospitalisation for all cases where data are available
+median(linelist_delay$days_onset_to_hosp, na.rm = T)
+```
+
+## Date display
+
+Once dates are the correct class, you often want them to display differently, for example to display as “Monday 05 January” instead of “2018-01-05”. You may also want to adjust the display in order to then group rows by the date elements displayed - for example to group by month-year.
+
+### `format()`
+
+Adjust date display with the base R function format(). This function accepts a character string (in quotes) specifying the desired output format in the “%” strptime abbreviations (the same syntax as used in as.Date()). Below are most of the common abbreviations.
+
+%d = Day number of month (5, 17, 28, etc.)
+%j = Day number of the year (Julian day 001-366)
+%a = Abbreviated weekday (Mon, Tue, Wed, etc.)
+%A = Full weekday (Monday, Tuesday, etc.)
+%w = Weekday number (0-6, Sunday is 0)
+%u = Weekday number (1-7, Monday is 1)
+%W = Week number (00-53, Monday is week start)
+%U = Week number (01-53, Sunday is week start)
+%m = Month number (e.g. 01, 02, 03, 04)
+%b = Abbreviated month (Jan, Feb, etc.)
+%B = Full month (January, February, etc.)
+%y = 2-digit year (e.g. 89)
+%Y = 4-digit year (e.g. 1989)
+%h = hours (24-hr clock)
+%m = minutes
+%s = seconds
+%z = offset from GMT
+%Z = Time zone (character)
+
+### Month-Year
+
+To convert a Date column to Month-year format, we suggest you use the function `as.yearmon()` from the **zoo** package. This converts the date to class “yearmon” and retains the proper ordering. In contrast, using `format(column, "%Y %B")` will convert to class Character and will order the values alphabetically (incorrectly).
+
+Below, a new column `yearmonth` is created from the column date_onset, using the `as.yearmon()` function. The default (correct) ordering of the resulting values are shown in the table.
+
+```{r}
+# create new column 
+test_zoo <- linelist %>% 
+     mutate(yearmonth = zoo::as.yearmon(date_onset))
+
+# print table
+table(test_zoo$yearmon)
+```
+
+In contrast, you can see how only using `format()` does achieve the desired display format, but not the correct ordering.
+
+```{r}
+# create new column
+test_format <- linelist %>% 
+     mutate(yearmonth = format(date_onset, "%b %Y"))
+
+# print table
+table(test_format$yearmon)
+```
+
+## Epidemiological weeks
+
+**lubridate**
+
+We generally recommend using the `floor_date()` function from **lubridate**, with the argument `unit = "week"`. This rounds the date down to the “start” of the week, as defined by the argument `week_start =`. The default week start is 1 (for Mondays) but you can specify any day of the week as the start (e.g. 7 for Sundays). `floor_date()` is versatile and can be used to round down to other time units by setting unit = to “second”, “minute”, “hour”, “day”, “month”, or “year”.
+
+The returned value is the start date of the week, in Date class. Date class is useful when plotting the data, as it will be easily recognized and ordered correctly by `ggplot()`.
+
+If you are only interested in adjusting dates to display by week in a plot, see the section in this page on Date display. For example when plotting an epicurve you can format the date display by providing the desired `strptime` “%” nomenclature. For example, use “%Y-%W” or “%Y-%U” to return the year and week number (given Monday or Sunday week start, respectively).
+
+### Weekly counts
+
+For example, to work out the weekly cases we carry out the following operations:
+
+1. Create a new ‘week’ column with `mutate()`, using `floor_date()` with `unit = "week"`
+2. Get counts of rows (cases) per week with `count()`; filter out any cases with missing date
+3. Finish with `complete()` from **tidyr** to ensure that all weeks appear in the data - even those with no rows/cases. By default the count values for any “new” rows are NA, but you can make them 0 with the `fill = argument`, which expects a named list (below, `n` is the name of the counts column).
+
+```{r}
+# Make aggregated dataset of weekly case counts
+weekly_counts <- linelist %>% 
+  drop_na(date_onset) %>%             # remove cases missing onset date
+  mutate(weekly_cases = floor_date(   # make new column, week of onset
+    date_onset,
+    unit = "week")) %>%            
+  count(weekly_cases) %>%           # group data by week and count rows per group (creates column 'n')
+  tidyr::complete(                  # ensure all weeks are present, even those with no cases reported
+    weekly_cases = seq.Date(          # re-define the "weekly_cases" column as a complete sequence,
+      from = min(weekly_cases),       # from the minimum date
+      to = max(weekly_cases),         # to the maxiumum date
+      by = "week"),                   # by weeks
+    fill = list(n = 0))             # fill-in NAs in the n counts column with 0
+
+```
 
 
-### Convert to date
-#### Character to date
-#### Excel to date
-
-### epiweeks
-use floor_date() from lubridate
-#### ISO weeks
-
-### Quiz
 
 
-## Pivots
-See Epi R Handbook page on Pivoting
-https://www.epirhandbook.com/en/pivoting-data.html
-### Quiz
 
-## Joins
-https://www.epirhandbook.com/en/joining-data.html
-### Quiz
-
-## Next steps
 
 
 
