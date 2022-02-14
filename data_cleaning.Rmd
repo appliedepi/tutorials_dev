@@ -1229,8 +1229,6 @@ You will need to use the function cut() and specify the correct breaks, and reme
   select(temp, temp_cat)
 ```
 
-
-
 ### Quantile breaks
 
 Quantiles, or percentiles, typically refer to a value below which a proportion of values fall. For example, the 95th percentile of ages in `linelist` would be the age below which 95% of the ages fall. 
@@ -1383,9 +1381,137 @@ To combine datasets together by binding the rows of one dataframe to the bottom 
 
 ## Filter rows
 
+A typical cleaning step after cleaning columns and recoding values is to filter the dataset to specific rows with the **dplyr** function `filter()`.
+
+### Simple filter
+
+The simplest way of filtering, is to use a logical condition ("==", "!=", ">", "<", etc), so that only rows where the logical statement is `TRUE` are kept. For example here, we are only keeping rows where the gender is equal to "f".
+
+```{r}
+nrow(linelist)
+
+linelist %>% 
+  filter(gender == "f") %>%
+  nrow()
+```
+
+From the reduction in rows you can see that we have subset the dataset.
+
+### Filter out missing values
+
+A common use of filtering is to remove rows that have missing values. This can either be done for any missing values in _any_ column, by not specifiying any arguments in the **tidyr** function `drop_na()`, or specific columns by including them within `drop_na()`.
+
+```{r}
+linelist %>% 
+  drop_na(case_id, age_years)  # drop rows with missing values for case_id or age_years
+```
+
+Can you now write a pipe chain to filter out any rows with a `bmi` of more than 20, and then drop any rows that have NA values in any column between fever and vomit, and then show the first 6 rows with `head()`?
+
+```{r filter_row_first, exercise = TRUE}
+
+```
+
+```{r filter_row_first-hint}
+Remember to use logical operators, and that you can specify a group of consective columns with ":".
+```
+
+```{r filter_row_first-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r filter_row_first-solution}
+  linelist %>% 
+  filter(bmi < 20) %>%
+  drop_na(fever:vomit) %>%
+  head()
+```
+
+### Filter by row number
+
+You can also filter by row number, this is done using the **dplyr** function `row_number()`. Here you will often use the operator `%in%` to specify all numbers within a supplied vector. For instance
+
+```{r}
+# View first 100 rows
+linelist %>% head(100)     # or use tail() to see the n last rows
+
+# Show row 5 only
+linelist %>% filter(row_number() == 5)
+
+# View rows 2 through 20, and three specific columns
+linelist %>% filter(row_number() %in% 2:20) %>% select(date_onset, outcome, age)
+```
 
 
+### Standalone
 
+You can also use the filter function as part of a standalone command (not part of a pipe chain), as in all other **dplyr** functions the first argument must be the dataset itself. Here we show how to remove `NA` values:
+
+```{r}
+# dataframe <- filter(dataframe, condition(s) for rows to keep)
+linelist <- filter(linelist, !is.na(case_id)) 
+```
+
+and this can also be done in base R
+
+```{r}
+# dataframe <- dataframe[row conditions, column conditions] (blank means keep all)
+linelist <- linelist[!is.na(case_id), ]
+```
+
+## Row-wise calculations
+
+We may want to perform a calculation within a row, and to do so we can use `rowwise()` from **dplyr**. 
+
+For example, this code applies `rowwise()` and then creates a new column that sums the number of the specified symptom columns that have value “yes”, for each row in the linelist. The columns are specified within sum() by name within a vector `c()`. `rowwise()` is essentially a special kind of `group_by()`, so it is best to use `ungroup()` when you are done.
+
+```{r}
+linelist %>%
+  rowwise() %>%
+  mutate(num_symptoms = sum(c(fever, chills, cough, aches, vomit) == "yes")) %>% 
+  ungroup() %>% 
+  select(fever, chills, cough, aches, vomit, num_symptoms) # for display
+
+```
+
+As you specify the column to evaluate, you may want to use the “tidyselect” helper functions.
+
+For example, the following code:
+
+* Applies `rowwise()` so the following operation (`sum()`) is applied within each row (not summing entire columns)
+* Creates new column num_NA_dates, defined for each row as the number of columns (with name containing “date”) for which `is.na()` evaluated to TRUE (they are missing data).
+* `ungroup()` to remove the effects of `rowwise()` for subsequent steps
+
+You could also provide other functions, such as max() to get the latest or most recent date for each row:
+
+```{r}
+linelist %>%
+  rowwise() %>%
+  mutate(latest_date = max(c_across(contains("date")), na.rm=T)) %>% 
+  ungroup() %>% 
+  select(latest_date, contains("date"))  # for display
+```
+
+### Arrange and sort
+
+The **dplyr** function `arrange()` allows us to sort or order rows by column values. List the columns in the order they should be sorted on, and specify `.by_group = TRUE` if you want the sorting to occur by any groupings in the data.
+
+By default the column will be sorted in "ascending" order, but you can change this to "descending" by wrapping it with `desc()`.
+
+Sorting data with `arrange()` is particularly useful when making Tables for presentation, using `slice()` to take the “top” rows per group, or setting factor level order by order of appearance.
+
+For example, to sort the our linelist rows by hospital, then by `date_onset` in descending order, we would use:
+
+```{r}
+linelist %>% 
+   arrange(hospital, desc(date_onset)) %>%
+   select(case_id, hospital, date_onset)
+```
 
 ## Clean rows
 
