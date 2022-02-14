@@ -1581,8 +1581,8 @@ The **lubridate** package makes handling dates and times a lot easier than using
 **lubridate* has several helper functions designed to convert character objects to dates in a more intuitive and lenient way. These functions are specific to the rough date format, but allow for a variety of separators, and synonyms for dates (e.g. 01 vs Jan vs January) - they are named after abbreviations of date formats.
 
 The `ymd()` function converts date values supplied as year, month, day.
-`r ymd("2020-10-11)`
-`r ymd("20201011)`
+`r ymd("2020-10-11")`
+`r ymd("20201011")`
 The `mdy()` does the same but in the order of month, day, year.
 `r mdy("Oct 11 20")`
 and the `dmy()` in the format as day, month , year
@@ -1592,7 +1592,7 @@ Within a pipe chain, it may look like this
 
 ```{r}
 linelist <- linelist %>%
-  mutate(date_onset = lubridate::dmy(date_onset))
+  mutate(date_onset = lubridate::ymd(date_onset))
 ```
 
 You can then check the conversion has applied correctly by using `class()`.
@@ -1636,7 +1636,7 @@ You can use the **lubridate** functions `make_date()` and `make_datetime()` to c
 
 ```{r}
 linelist <- linelist %>% 
-  mutate(onset_date = make_date(year = onset_year, month = onset_month, day = onset_day))
+  mutate(onset_date = make_date(year = year(date_onset), month = month(date_onset), day = day(date_onset)))
 ```
 
 ## Excel dates
@@ -1653,7 +1653,7 @@ NOTE: You should provide the origin date in R’s default date format (“YYYY-M
 
 ```{r}
 # An example of providing the Excel 'origin date' when converting Excel number dates
-data_cleaned <- data %>% 
+data_cleaned <- linelist %>% 
   mutate(date_onset = as.numeric(date_onset)) %>%   # ensure class is numeric
   mutate(date_onset = as.Date(date_onset, origin = "1899-12-30")) # convert to date using Excel origin
 ```
@@ -1741,7 +1741,7 @@ linelist <- linelist %>%
 
 ### Practice
 
-```{r quiz5}
+```{r quiz6}
 quiz(
   question("Which of the following functions would convert 'Jan 5 1997' to the correct Date format?",
     answer(mdy('Jan 5 1997'), correct = T),
@@ -1819,9 +1819,10 @@ The differences between dates can be calculated by
 * If necessary, convert to numeric class to perform subsequent calculations
 
 ```{r}
-output <- example_date - ymd("2020-02-20")
+output <- Sys.Date() - ymd("2020-02-20")
 output    # print
 ```
+
 ```{r}
 class(output)
 ```
@@ -1908,7 +1909,7 @@ We generally recommend using the `floor_date()` function from **lubridate**, wit
 
 Which of these uses of `floor_date()` will result in rounding the date to the start of the week as a Thursday?
 
-```{quiz5}
+```{quiz7}
 quiz(
   question("Which of the following functions would convert 'Jan 5 1997' to the correct Date format?",
     answer(floor_date(dmy("14/02/2022"), unit = "week", week_start = 1), correct = F),
@@ -1947,17 +1948,18 @@ weekly_counts <- linelist %>%
   head()                            #Display the top 6 entries
 ```
 
-```{r quiz5}
+```{r quiz8}
 quiz(
   question("What class does subtracting two dates create?",
            answer("Character"),
            answer("Date"),
            answer("Numeric"),
-           answer("Difftime"), correct = T),
+           answer("Difftime", correct = T)),
   question("What does floor_date() do?",
            answer("Converts a date-time object and rounds it down", correct = T),
            answer("Converts a date-time object and rounds it up"),
-           answer("Converts a numeric object and rounds it down")))
+           answer("Converts a numeric object and rounds it down"))
+  )
 ```
 
 ### Epiweek alternatives
@@ -1981,7 +1983,7 @@ linelist %>%
 ```
 
 ```{r epiweek_convert-hint}
-You will want to use
+You will want to use two if_else() statements before you use the epiweek() function. Remember the order is important!
 ```
 
 ```{r epiweek_convert-check}
@@ -1989,7 +1991,7 @@ You will want to use
     # Automatically pass if .result equal to .solution
     pass_if_equal()
     # Default to failing grade with feedback
-    fail()
+    fail(message = "Look back at previous exercises, you have already strung together several if/if_else statements to create new columns.")
   })
 ```
 
@@ -2011,9 +2013,32 @@ linelist %>%
          week_infection = epiweek(date_infection_updated))
 ```
 
+This could then allow us to plot an epicurve of the `week_infection`, highlighting the number of estimated and recorded values.
 
+```{r, echo = F, eval = T}
+linelistz <- linelist %>%
+    drop_na(date_onset) %>%
+    mutate(date_infection = ymd(date_infection),
+           date_onset = ymd(date_onset),
+           time_to_symptoms = as.numeric(date_onset - date_infection),
+           estimated_or_recorded = if_else(
+               is.na(date_infection),
+               "estimated",
+               "recorded"),
+           date_infection_updated = if_else(
+               estimated_or_recorded == "estimated",
+               date_onset - days(median(time_to_symptoms, na.rm = T)),
+               date_infection
+           ),
+           week_infection = epiweek(date_infection_updated)) %>%
+  group_by(estimated_or_recorded, week_infection) %>%
+  count()
 
-
+ggplot(data = linelistz, aes(x = week_infection, y = n, fill = estimated_or_recorded)) +
+    geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(x = "Epiweek", y = "Number of infections per epiweek", fill = "Source of data")
+```
 
 You might consider using the package **aweek** to set epidemiological weeks. It has the functions `date2week()` and `week2date()` in which you can set the week start day with `week_start = "Monday"`. This package is easiest if you want “week”-style outputs (e.g. “2020-W12”). Another advantage of **aweek** is that when `date2week()` is applied to a date column, the returned column (week format) is automatically of class Factor and includes levels for all weeks in the time span (this avoids the extra step of `complete()` described above). However, **aweek** does not have the functionality to round dates to other time units such as months, years, etc.
 
