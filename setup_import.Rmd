@@ -346,40 +346,50 @@ Storing R projects in shared drive folders
 
 
 
-
-
 ## What is programming?
+Programming is often talked about as being a "language". We instruct, or communicate, with R through specified commands and input that will elicit R to complete the specified task. 
 
-### What does it mean that R is a statistical programming language?
+#### What does it mean that R is a statistical programming language?
+Some commands that you, as an epidemiologist, will be most interested in will be the statistics commands that will quickly calculate population level metrics. R is powerful for calculating statistics, significance, and confidence levels without the user having to type out involved equations. R will also display the associated graphs and figures with a single command, as opposed to typing values in cells one by on in excel. 
+ 
+### Scripts are a list of instructions for R
+Scripts are a fundamental part of programming. They are documents that hold your commands (e.g. functions to create and modify datasets, print visualizations, etc). You can save a script and run it again later. There are many advantages to storing and running your commands from a script (vs. typing commands one-by-one into the R console “command line”):
 
-### Commands as instructions
+* Portability - you can share your work with others by sending them your scripts
+* Reproducibility - so that you and others know exactly what you did
+* Version control - so you can track changes made by yourself or colleagues
+* Commenting/annotation - to explain to your colleagues what you have done
 
-### Scripts are a list of instructions
+#### Open a new script
+With RStudio open, you can click on the icon under File to open a blank script (below). An untitled script should appear in your RStudio pane that is ready for you to enter commands. Be sure to save this script early and often with a descriptive name in the R project you have created. 
 
-#### Design of a typical script in public health
+[INSERT SCREENSHOT OF NEW SCRIPT ICON]
 
-Header with objective, authors, contact info, date, etc.
-Load packages
-Load data
-Clean data
-Perform analyses
-Display results as plots, tables, maps, etc.
+#### Design of a typical script in public health will include...
+* Header with objective, authors, contact info, date, etc.
+* Load packages
+* Load data
+* Clean data
+* Perform analyses
+* Display results as plots, tables, maps, etc.
+```{r script-example, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
+knitr::include_graphics("images/scripts/example_script.png")
+```
 
-All of the above can be done all in R, and can be transformed into a report via R Markdown.
+All of the above can be created all in R, and can be transformed into a report via R Markdown.
 
-### Reproducibility
+#### R Scripts can make your workflow...
+### * Reproducible
 
 (get quote or video from someone about how reproducibility helped them in collaboration)
 
-### Collaboration
+### * Collaboritive
 
 (get quote or video from someone about how reproducibility helped them in collaboration)
 
-### Compare to Excel analysis
+### * Version controlled
 
-### R has become more easy to learn
-
-Tidyverse, Epi R Handbook, other materials
+### * Portable
 
 
 ## R functions
