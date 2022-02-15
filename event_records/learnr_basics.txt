@@ -1766,3 +1766,41 @@ C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-31-02/15/22 10:31:42
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:08 GMT; ah1114; session_start; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:08 GMT; ah1114; section_viewed; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:08 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:14 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:14 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:18 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:18 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-02/15/22 12:32:18 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-02/15/22 12:34:07 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-43-02/15/22 12:43:54 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-43-02/15/22 12:43:54 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-43-02/15/22 12:43:54 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-43-02/15/22 12:43:55 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-43-02/15/22 12:43:55 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-44-02/15/22 12:44:00 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-44-02/15/22 12:44:00 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-44-02/15/22 12:44:23 GMT; ah1114; exercise_submitted; hosp_info_clean; ; hosp_info <- hosp_info %>% 
+  mutate(
+    hosp_name = case_when(
+      # criteria                         # new value
+      hosp_name == "military"          ~ "Military Hospital",
+      hosp_name == "port"              ~ "Port Hospital",
+      hosp_name == "St. Mark's"        ~ "St. Mark's Maternity Hospital (SMMH)",
+      hosp_name == "central hospital"  ~ "Central Hospital",
+      TRUE                             ~ hosp_name
+      )
+    ); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-44-02/15/22 12:44:24 GMT; ah1114; exercise_result; hosp_info_clean; ; hosp_info <- hosp_info %>% 
+  mutate(
+    hosp_name = case_when(
+      # criteria                         # new value
+      hosp_name == "military"          ~ "Military Hospital",
+      hosp_name == "port"              ~ "Port Hospital",
+      hosp_name == "St. Mark's"        ~ "St. Mark's Maternity Hospital (SMMH)",
+      hosp_name == "central hospital"  ~ "Central Hospital",
+      TRUE                             ~ hosp_name
+      )
+    ); 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-44-02/15/22 12:44:27 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-44-02/15/22 12:44:27 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-44-02/15/22 12:44:27 GMT; ah1114; section_viewed_first_time; ; ; ; 

@@ -2190,11 +2190,11 @@ However, what if we wanted to display the relative contributions of each age gro
 
 ### `pivot_longer()`
 
-The **tidyr function** `pivot_longer()` makes data “longer”. It accepts a range of columns to transform (specified to cols =). Therefore, it can operate on only a part of a dataset. This is useful for the malaria data, as we only want to pivot the case count columns.
+The **tidyr function** `pivot_longer()` makes data “longer”. It accepts a range of columns to transform (specified to `cols =`). Therefore, it can operate on only a part of a dataset. This is useful for the malaria data, as we only want to pivot the case count columns.
 
-In this process, you will end up with two “new” columns - one with the categories (the former column names), and one with the corresponding values (e.g. case counts). You can accept the default names for these new columns, or you can specify your own to names_to = and values_to = respectively.
+In this process, you will end up with two “new” columns - one with the categories (the former column names), and one with the corresponding values (e.g. case counts). You can accept the default names for these new columns, or you can specify your own to `names_to =` and `values_to =` respectively.
 
-```{r}
+```{r, echo = T, eval = T}
 df_long <- malaria_counts %>% 
   pivot_longer(
     cols = c(`malaria_rdt_0-4`, `malaria_rdt_5-14`, `malaria_rdt_15`, `malaria_tot`) #These are the columns we want to move into rows
@@ -2204,7 +2204,7 @@ df_long
 
 We can also select these by position or named range
 
-```{r}
+```{r, echo = T, eval = T}
 # provide columns by position
 malaria_counts %>% 
   pivot_longer(
@@ -2212,7 +2212,7 @@ malaria_counts %>%
   )
 ```
 
-```{r}
+```{r, echo = T, eval = T}
 malaria_counts %>% 
   pivot_longer(
     cols = `malaria_rdt_0-4`:malaria_tot
@@ -2221,7 +2221,7 @@ malaria_counts %>%
 
 The two new columns are given the default names of `name` and `value` but we can specify our own names with the `names_to` and `values_to` arguments.
 
-```{r}
+```{r, echo = T, eval = T}
 df_long <- 
   malaria_counts %>% 
   pivot_longer(
@@ -2285,7 +2285,7 @@ df
 
 If you were to use `pivot_longer` as we had learned above, then it would combine the date and status columns into a single column of class character, removing the useful information held with the class Date.
 
-```{r}
+```{r, echo = T, eval = T}
 df_long_first <- df %>% 
   pivot_longer(
     cols = -id,
@@ -2300,7 +2300,7 @@ Instead, what we want to do is to maintain different columns for the different c
 * Providing a character vector to the `names_to =` argument with the second value being `".value"` where the `.` indicates the pivoted columns will be split based on a character in the name
 * Specifying the "splitting" character in the `names_sep = ` argument. Here the column names are "obs1_date" and "obs1_status" and so the splitting value is "_".
 
-```{r}
+```{r, echo = T, eval = T}
 df_long <- 
   df %>% 
   pivot_longer(
@@ -2326,7 +2326,7 @@ fever_followup_long <- fever_followup %>%
 ```
 
 ```{r fever_followup_long-hint}
-Remember you can use : to list consecutive columns!
+This is very similar to the activity described above
 ```
 
 ```{r fever_followup_long-check}
@@ -2334,7 +2334,7 @@ Remember you can use : to list consecutive columns!
     # Automatically pass if .result equal to .solution
     pass_if_equal()
     # Default to failing grade with feedback
-    fail(message = "Great work, you've pivoted to long data format and maintained the different classes")
+    fail()
   })
 ```
 
@@ -2355,7 +2355,7 @@ A typical use-case is when we want to transform the results of an analysis into 
 
 Suppose that we want to know the counts of individuals in the different age groups, by gender:
 
-```{r}
+```{r, echo = T, eval = T}
 df_wide <- 
   linelist %>% 
   count(age_cat, gender)
@@ -2369,7 +2369,7 @@ This is ideal for plotting and running analysis on, but not great for displaying
 * The names for the new columns are specified with `names_from`
 * The values for the new columns are specified with `values_from`
 
-```{r}
+```{r, echo = T, eval = T}
 table_wide <- 
   df_wide %>% 
   pivot_wider(
@@ -2387,16 +2387,16 @@ In some situations after a `pivot()`, and more commonly after a `bind()`, we are
 
 For example, take two datasets, each with observations for the measurement number, the name of the facility, and the case count at that time. However, the second dataset also has a variable Year.
 
-```{r}
+```{r, echo = F, eval = T}
 head(fill_table_1)
 ```
-```{r}
+```{r, echo = F, eval = T}
 head(fill_table_2)
 ```
 
 When we perform a `bind_rows()` to join the two datasets together, the Year variable is filled with `NA` for those rows where there was no prior information (i.e. the first dataset):
 
-```{r}
+```{r, echo = T, eval = T}
 df_combined <- 
   bind_rows(fill_table_1, fill_table_2) %>% 
   arrange(Measurement, Facility)
@@ -2406,7 +2406,7 @@ df_combined
 
 In this case, `Year` is a useful variable to include, particularly if we want to explore trends over time. Therefore, we use `fill()` to fill in those empty cells, by specifying the column to fill and the direction (*in this case up*):
 
-```{r}
+```{r, echo = T, eval = T}
 df_combined %>% 
   fill(Year, .direction = "up")
 ```
@@ -2420,6 +2420,117 @@ Here we will learn to:
 * Combine dataframes by common values in identifier columns
 * Combine dataframes based on _probabilistic_ matches between values
 * Expand a dataset by binding rows or columns from another dataframe
+
+We will use the following datasets:
+
+* `linelist_mini` - A “miniature” version of the case linelist, containing only the columns case_id, date_onset, and hospital, and only the first 10 rows
+* `hosp_info` - A separate data frame named hosp_info, which contains more details about each hospital
+
+```{r, echo = T, eval = T}
+linelist_mini
+```
+
+```{r, echo = T, eval = T}
+hosp_info
+```
+Note that the name “Military Hospital” belongs to two different hospitals - one a primary level serving 10000 residents and the other a secondary level serving 50280 residents.
+
+### Identify differences
+
+As we need the values of `hosp_name` in `hosp_info` to match the column in `hospital` in `linelist_mini`, the first step is to identify differences. We can look at the unique names using **base** R function `unique()`.
+
+```{r, echo = T, eval = T}
+unique(linelist_mini$hospital)
+```
+
+```{r, echo = T, eval = T}
+unique(hosp_info$hosp_name)
+```
+
+You can see that while some of the hospitals exist in both data frames, there are many differences in spelling. In order to join them, we should correct some of these spelling differences. In order to do so, we use some of the skills we learned earlier in the data cleaning sections.
+
+Can you clean `hosp_name` in the dataset `hosp_info` so that they match the names in `linelist_mini`?
+
+```{r hosp_info_clean, exercise = TRUE}
+hosp_info <- hosp_info %>% 
+  
+```
+
+```{r hosp_info_clean-hint}
+You can use such functions as replace() and case_when() to rename values within a column using mutate.
+```
+
+```{r hosp_info_clean-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail(message = "Excellent, now the names are aligned it will be much easier to combine them")
+  })
+```
+
+```{r hosp_info_clean-solution}
+hosp_info <- hosp_info %>% 
+  mutate(
+    hosp_name = case_when(
+      # criteria                         # new value
+      hosp_name == "military"          ~ "Military Hospital",
+      hosp_name == "port"              ~ "Port Hospital",
+      hosp_name == "St. Mark's"        ~ "St. Mark's Maternity Hospital (SMMH)",
+      hosp_name == "central hospital"  ~ "Central Hospital",
+      TRUE                             ~ hosp_name
+      )
+    )
+```
+
+###
+
+Prior to a join, it is often easiest to convert a column to all lowercase or all uppercase. If you need to convert all values in a column to UPPER or lower case, use mutate() and wrap the column with one of these functions from stringr such as `str_to_upper()`, `str_to_lower()`, `str_to_title()`.
+
+### **dplyr** joins
+
+The **dplyr** package has several functions to join dataframes, but they all follow a similar syntax. For example, here we will look at `left_join()` where we want to match datasets by the column `ID` in dataset_1, and `identifier` in dataset_2.
+
+```{r, echo = T, eval = F}
+
+joined_data <- left_join(
+  dataset_1, # The first dataset
+  dataset_2, # The second dataset
+  #The column to match in the first dataset = The column to match in the second dataset
+  by = c("ID" = "identifier") 
+)
+
+```
+
+If the datasets have the same identifier column name, then you can just provide one name.
+
+```{r, echo = T, eval = F}
+
+joined_data <- left_join(
+  dataset_1, # The first dataset
+  dataset_2, # The second dataset
+  #The column to match in the first dataset = The column to match in the second dataset
+  by = "ID" 
+)
+
+```
+
+If you do not have an identifier column, you can join datasets based on common values across multiple fields listed within a vector (`c()`)
+
+### Left and right joins
+
+A left or right join is commonly used to add information to a data frame - new information is added only to rows that already existed in the baseline data frame. These are common joins in epidemiological work as they are used to add information from one dataset into another.
+
+In using these joins, the written order of the data frames in the command is important*.
+
+* In a left join, the first data frame written is the baseline
+* In a right join, the second data frame written is the baseline
+
+All rows of the baseline data frame are kept. Information in the other (secondary) data frame is joined to the baseline data frame only if there is a match via the identifier column(s). In addition:
+
+* Rows in the secondary data frame that do not match are dropped.
+* If there are many baseline rows that match to one row in the secondary data frame (many-to-one), the secondary information is added to each matching baseline row.
+* If a baseline row matches to multiple rows in the secondary data frame (one-to-many), all combinations are given, meaning new rows may be added to your returned data frame!
 
 
 
