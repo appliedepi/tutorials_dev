@@ -79,6 +79,68 @@ take_these <- sample(1:nrow(linelist_raw), 500)
 
 linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32
 
+#Create some dummy df's for pivoting exercises
+df <- data.frame(id = c("A", "B", "C"),
+           obs1_date = c("2021-04-23", "2021-04-23", "2021-04-23"),
+           obs1_status = c("Healthy", "Healthy", "Missing"),
+           obs2_date = c("2021-04-24", "2021-04-24", "2021-04-24"),
+           obs2_status = c("Healthy", "Healthy", "Healthy"),
+           obs3_date = c("2021-04-25", "2021-04-25", "2021-04-25"),
+           obs3_status = c("Unwell", "Healthy", "Healthy"))
+
+fever_followup <- data.frame(patient = 1:10,
+                             observation1_date = Sys.Date() - 21,
+                        observation2_date = Sys.Date() - 14,
+                        observation3_date = Sys.Date() - 7,
+                        observation1_temp = sample(seq(35, 45, by = 0.1), 10, replace = T),
+                        observation2_temp = sample(seq(35, 45, by = 0.1), 10, replace = T),
+                        observation3_temp = sample(seq(35, 45, by = 0.1), 10, replace = T))
+
+fever_followup$observation1_fever <- ifelse(fever_followup$observation1_date < 38, "No fever",
+                              ifelse(fever_followup$observation1_date >= 38 & fever_followup$observation1_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation1_date >= 39.4, "High fever", NA)))
+fever_followup$observation2_fever <- ifelse(fever_followup$observation2_date < 38, "No fever",
+                              ifelse(fever_followup$observation2_date >= 38 & fever_followup$observation2_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation2_date >= 39.4, "High fever", NA)))
+fever_followup$observation3_fever <- ifelse(fever_followup$observation3_date < 38, "No fever",
+                              ifelse(fever_followup$observation3_date >= 38 & fever_followup$observation3_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation3_date >= 39.4, "High fever", NA)))
+
+
+fill_table_1 <- 
+  tibble::tribble(
+       ~Measurement, ~Facility, ~Cases,
+                  1,  "Hosp 1",     66,
+                  2,  "Hosp 1",     26,
+                  3,  "Hosp 1",      8,
+                  1,  "Hosp 2",     71,
+                  2,  "Hosp 2",     62,
+                  3,  "Hosp 2",     70,
+                  1,  "Hosp 3",     47,
+                  2,  "Hosp 3",     70,
+                  3,  "Hosp 3",     38,
+       )
+
+fill_table_2 <- 
+  tibble::tribble(
+    ~Year, ~Measurement, ~Facility, ~Cases,
+     2000,            1,  "Hosp 4",     82,
+     2001,            2,  "Hosp 4",     87,
+     2002,            3,  "Hosp 4",     46
+  )
+
+linelist_mini <- linelist %>%                 # start with original linelist
+  select(case_id, date_onset, hospital) %>%   # select columns
+  head(10)     
+
+# Make the hospital information data frame
+hosp_info = data.frame(
+  hosp_name     = c("central hospital", "military", "military", "port", "St. Mark's", "ignace", "sisters"),
+  catchment_pop = c(1950280, 40500, 10000, 50280, 12000, 5000, 4200),
+  level         = c("Tertiary", "Secondary", "Primary", "Secondary", "Secondary", "Primary", "Primary")
+)
+
+
 ```
 
 
@@ -2072,7 +2134,7 @@ time_london_real - time_london_local
 
 ## Lagging and leading calculations
 
-`lead()` and `lag()` are functions from **dplyr** which help find previous (lagged) or subsequent (leading) values in a vector. This is useful when doing calculations of change/difference between time units.
+`lead()` and `lag()` are functions from **dplyr** which help find previous (lagged) or subsequent (leading) values in a vector. This is useful when doing calculations of change/difference between time units. For example, the weekly increase in cases.
 
 Let’s say you want to calculate the difference in cases between a current week and the previous one. The data are initially provided in weekly counts as shown below. When using lag() or lead() the order of rows in the dataframe is very important! - pay attention to whether your dates/numbers are ascending or descending
 
@@ -2093,6 +2155,271 @@ counts %>%
          case_diff = n - cases_prev_wk) %>%
   head()
 ```
+
+## Pivoting data
+
+When managing data, pivoting can be understood to refer to one of two processes:
+
+* The creation of pivot tables, which are tables of statistics that summarise the data of a more extensive table
+* The conversion of a table from *long* to *wide* format, or vice versa.
+
+Here we are focussing on the latter definition, with the former dealt with in the grouping data and descriptive tables sections.
+
+### Wide format
+
+Data are often entered and stored in a “wide” format - where a subject’s characteristics or responses are stored in a single row. While this may be useful for presentation, it is not ideal for some types of analysis.
+
+Let us take the `count_data` dataset imported in the Preparation section above as an example. You can see that each row represents a “facility-day”. The actual case counts (the right-most columns) are stored in a “wide” format such that the information for every age group on a given facility-day is stored in a single row.
+
+```{r, echo = F, eval = T}
+head(malaria_counts)
+```
+
+“Wide” data like this are not adhering to “tidy data” standards, because the column headers do not actually represent “variables” - they represent values of a hypothetical “age group” variable.
+
+This format can be useful for presenting the information in a table, or for entering data (e.g. in Excel) from case report forms. However, in the analysis stage, these data typically should be transformed to a “longer” format more aligned with “tidy data” standards. The plotting R package ggplot2 in particular works best when data are in a “long” format.
+
+Visualising the total malaria counts over time poses no difficulty with the data in it’s current format:
+
+```{r}
+ggplot(malaria_counts) +
+  geom_col(aes(x = data_date, y = malaria_tot), width = 1)
+```
+
+However, what if we wanted to display the relative contributions of each age group to this total count? In this case, we need to ensure that the variable of interest (age group), appears in the dataset in a single column that can be passed to **ggplot2**’s “mapping aesthetics” `aes()` argument.
+
+### `pivot_longer()`
+
+The **tidyr function** `pivot_longer()` makes data “longer”. It accepts a range of columns to transform (specified to cols =). Therefore, it can operate on only a part of a dataset. This is useful for the malaria data, as we only want to pivot the case count columns.
+
+In this process, you will end up with two “new” columns - one with the categories (the former column names), and one with the corresponding values (e.g. case counts). You can accept the default names for these new columns, or you can specify your own to names_to = and values_to = respectively.
+
+```{r}
+df_long <- malaria_counts %>% 
+  pivot_longer(
+    cols = c(`malaria_rdt_0-4`, `malaria_rdt_5-14`, `malaria_rdt_15`, `malaria_tot`) #These are the columns we want to move into rows
+  )
+df_long
+```
+
+We can also select these by position or named range
+
+```{r}
+# provide columns by position
+malaria_counts %>% 
+  pivot_longer(
+    cols = 6:9
+  )
+```
+
+```{r}
+malaria_counts %>% 
+  pivot_longer(
+    cols = `malaria_rdt_0-4`:malaria_tot
+  )
+```
+
+The two new columns are given the default names of `name` and `value` but we can specify our own names with the `names_to` and `values_to` arguments.
+
+```{r}
+df_long <- 
+  malaria_counts %>% 
+  pivot_longer(
+    cols = starts_with("malaria_"),
+    names_to = "age_group",
+    values_to = "counts"
+  )
+```
+
+```{r quiz9}
+quiz(
+  question("What is wide data format?",
+           answer("Where a column contains all of a subjects characteristics or responses"),
+           answer("Where a cell contains all of a subjects characteristics or responses"),
+           answer("Where a row contains all of a subjects characteristics or responses", correct = T)),
+  question("What is long data format?",
+           answer("Where a subjects characteristics or responses may be found on multiple rows", correct = T),
+           answer("Where a subjects characteristics or responses are only found on one row")),
+  question("Why would we convert data in the wide format to the long format?",
+           answer("It looks prettier"),
+           answer("It is better suited for carrying out analysis and plotting", correct = T),
+           answer("It makes the code run faster"))
+  )
+```
+
+Can you pivot `linelist` so that the columns fever, chills, cough, aches and vomit are brought into a new column called `symptom` and the values to `symptom_present`?
+
+```{r pivot_linelist, exercise = TRUE}
+
+```
+
+```{r pivot_linelist-hint}
+Remember you can use : to list consecutive columns!
+```
+
+```{r pivot_linelist-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail(message = "Great work, you're getting the hang of this")
+  })
+```
+
+```{r pivot_linelist-solution}
+linelist %>%
+    pivot_longer(cols = fever:vomit,
+                 values_to = "symptom_present",
+                 names_to = "symptom")
+```
+
+### Pivoting multiple classes of data
+
+The above example works well in situations in which all the columns you want to “pivot longer” are of the same class (character, numeric, logical…). However, there will be many cases when, you will be working with data that was prepared by non-specialists and which follow their own non-standard logic.
+
+One particularly common problem you will encounter will be the need to pivot columns that contain different classes of data. For example take the situation where you have a series of observations at different timesteps for three individuals, A, B and C.
+
+```{r, echo = F, eval = T}
+df
+```
+
+If you were to use `pivot_longer` as we had learned above, then it would combine the date and status columns into a single column of class character, removing the useful information held with the class Date.
+
+```{r}
+df_long_first <- df %>% 
+  pivot_longer(
+    cols = -id,
+    names_to = c("observation")
+  )
+
+class(df_long_first$value)
+```
+
+Instead, what we want to do is to maintain different columns for the different classes. We can do that through:
+
+* Providing a character vector to the `names_to =` argument with the second value being `".value"` where the `.` indicates the pivoted columns will be split based on a character in the name
+* Specifying the "splitting" character in the `names_sep = ` argument. Here the column names are "obs1_date" and "obs1_status" and so the splitting value is "_".
+
+```{r}
+df_long <- 
+  df %>% 
+  pivot_longer(
+    cols = -id,
+    names_to = c("observation", ".value"),
+    names_sep = "_"
+  )
+
+df_long
+```
+
+We have a dataset, `fever_followup` which records a patients temperature in columns `_temp` and the date in `_date` and the corresponding fever classification in `_fever` for 3 time points.
+
+```{r, echo = F}
+fever_followup
+```
+
+Can you convert the table from wide to long format, maintaining the three different classes (Date, numeric, character)?
+
+```{r fever_followup_long, exercise = TRUE}
+fever_followup_long <- fever_followup %>%
+  
+```
+
+```{r fever_followup_long-hint}
+Remember you can use : to list consecutive columns!
+```
+
+```{r fever_followup_long-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail(message = "Great work, you've pivoted to long data format and maintained the different classes")
+  })
+```
+
+```{r fever_followup_long-solution}
+fever_followup_long <- fever_followup %>% 
+  pivot_longer(
+    cols = -patient,
+    names_to = c("observation", ".value"),
+    names_sep = "_"
+  )
+```
+
+### Long to wide
+
+In some circumstances we may want to convert a dataset to a wider format. 
+
+A typical use-case is when we want to transform the results of an analysis into a format which is more digestible for the reader. Usually, this involves transforming a dataset in which information for one subject is are spread over multiple rows into a format in which that information is stored in a single row.
+
+Suppose that we want to know the counts of individuals in the different age groups, by gender:
+
+```{r}
+df_wide <- 
+  linelist %>% 
+  count(age_cat, gender)
+
+df_wide
+```
+
+This is ideal for plotting and running analysis on, but not great for displaying as a table. In order to do this we can use `pivot_wider()`. This follows a similar format as `pivot_longer()` except instead of using `_to`, it uses `_from`:
+
+* The column you wish to expand is specified with `id_cols`
+* The names for the new columns are specified with `names_from`
+* The values for the new columns are specified with `values_from`
+
+```{r}
+table_wide <- 
+  df_wide %>% 
+  pivot_wider(
+    id_cols = age_cat,      
+    names_from = gender,
+    values_from = n
+  )
+
+table_wide
+```
+
+## Fill
+
+In some situations after a `pivot()`, and more commonly after a `bind()`, we are left with gaps in some cells that we would like to fill.
+
+For example, take two datasets, each with observations for the measurement number, the name of the facility, and the case count at that time. However, the second dataset also has a variable Year.
+
+```{r}
+head(fill_table_1)
+```
+```{r}
+head(fill_table_2)
+```
+
+When we perform a `bind_rows()` to join the two datasets together, the Year variable is filled with `NA` for those rows where there was no prior information (i.e. the first dataset):
+
+```{r}
+df_combined <- 
+  bind_rows(fill_table_1, fill_table_2) %>% 
+  arrange(Measurement, Facility)
+
+df_combined
+```
+
+In this case, `Year` is a useful variable to include, particularly if we want to explore trends over time. Therefore, we use `fill()` to fill in those empty cells, by specifying the column to fill and the direction (*in this case up*):
+
+```{r}
+df_combined %>% 
+  fill(Year, .direction = "up")
+```
+
+## Joining data
+
+Often you will need to work with several sources of data in order to conduct epidemiological analysis or workflow. For instance, maybe you need to connect laboratory data to patient clinical outcomes, or Google mobility data to infectious disease trends, or even a dataset at one stage of analysis to a transformed version of itself.
+
+Here we will learn to:
+
+* Combine dataframes by common values in identifier columns
+* Combine dataframes based on _probabilistic_ matches between values
+* Expand a dataset by binding rows or columns from another dataframe
 
 
 
