@@ -1,0 +1,88 @@
+---
+title: "Tidy data"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+description: >
+  Learn how to get started with R and RStudio, and how to import a dataset
+---
+
+<!-- Add JavaScript code for making the exercise code larger -->
+<script language="JavaScript" src="js/exercise-font-size.js"></script>
+
+```{r setup, include=FALSE}
+# load packages ----------------------------------------------------------------
+library(learnr)
+library(gradethis)
+library(tidyverse)
+library(here)
+library(rio)
+library(basket) # not sure if we need this
+library(etude) # helper functions for gradethis
+
+# set options for exercises and checking ---------------------------------------
+gradethis_setup()
+
+learnr::tutorial_options(exercise.timelimit = 60) 
+  #exercise.checker = gradethis::grade_learnr) 
+    # alternatively, submitr::null_code_checker
+
+
+# event recorder ---------------------------------------------------------------
+# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R
+tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises
+
+vfun <- submitr::make_basic_validator(NULL, "hello") #basket::check_valid
+
+new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
+    cat(
+      tutorial_id, 
+      " (v", tutorial_version, "); ",
+      format(Sys.time(), "%Y-%M%-%D %H:%M:%S %Z"), "; ",
+      user_id, "; ",
+      event, "; ",
+      data$label, "; ",
+      data$answers, "; ",
+      data$code, "; ",
+      data$correct, "\n", sep = "",
+      
+      file = here::here("event_records", "learnr_basics.txt"),
+      append = TRUE)
+}
+
+options(tutorial.event_recorder = new_recorder)
+
+
+# hide non-exercise code chunks ------------------------------------------------
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
+
+
+# data prep --------------------------------------------------------------------
+linelist_raw <- rio::import(here::here("data", "linelist_raw.xlsx"))
+linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
+malaria_counts <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
+```
+
+
+```{r}
+submitr::login_controls() # show login and password with "Submit" button.
+```
+
+
+```{r context = "server", echo = FALSE}
+# see https://rdrr.io/github/dtkaplan/submitr/f/vignettes/using.Rmd
+options(tutorial.storage = "none")
+vfun <- submitr::make_basic_validator(NULL, "hello")       #basket::check_valid
+storage_actions <- submitr::record_local("./minimal_submissions.csv")
+submitr::shiny_logic(input, output, session, vfun,
+                     storage_actions)
+```
+
+
+```{r, echo=T, message=F}
+ggplot(malaria_counts) +
+  geom_col(aes(x = data_date, y = `malaria_rdt_5-14`,
+               fill=District), width = 1)
+```
