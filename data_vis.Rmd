@@ -82,8 +82,9 @@ pacman::p_load(
   scales,     # formatting of scales
   plotly,     # interactive plots
   cowplot,    # combine plots
-  tidyverse   # ggplot2 & data management
-)
+  tidyverse,   # ggplot2 & data management
+  ggpubr
+  )
 
 
 
@@ -333,10 +334,10 @@ quiz(
 )
 ```
 
-## Grammar of graphics in action
-We will now try applying this layered system to some example data to practice visualizing data.
+In the following sections we will put this into practice step-by-step.
 
-### "Open" the plot
+
+## "Open" the plot
 The **ggplot2** package is built around the **R** function `ggplot()` which is the first command for any ggplot. 
 Running `ggplot()` in your R console should generate a blank canvas:
 
@@ -367,7 +368,7 @@ linelist %>%
 ```
 
 
-### Aesthetic mappings
+## Mapping columns
 ```{r aes, echo=T, eval=T}
 ggplot(data = linelist, aes(x = age, y = bmi))
 
@@ -375,18 +376,17 @@ ggplot(data = linelist, aes(x = age, y = bmi))
 ```
 
 
-"Aesthetics" are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the color, shape and other properties of the plot which depend on columns in your data.
+"Aesthetics" are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the color, shape and other properties of the plot which depend on columns in your data. We will get into other aesthetics further into the tutorial.
 
 `mapping=aes()` assigns plot aesthetics to columns from your data. Any parameters to be input must be placed *within* the `aes()` command to be interpreted as dependent on the data.
 
 Here we have set the axes X and Y to the age and bmi columns from the linelist data. You can see this represented on the axes above.
 
-The first 25 rows of the linelist data are reproduced below. Try changing the Y axis to weight rather than BMI
+The first 25 rows of the linelist data are reproduced below. Try changing the Y axis to weight rather than BMI in the **R** window below. You can use the arrows to scroll left and right through the table and find the correct column.
 
 ```{r linelist-data}
 head(linelist,25)
 ```
-
 
 ```{r axes-plot, exercise = TRUE}
 ggplot(data = linelist, aes(x = age, y = bmi))
@@ -406,9 +406,9 @@ ggplot(data = linelist, aes(x = age, y = wt_kg))
 
 
 
-### Add geoms
+## Add geoms
 As we have seen above, running our `ggplot()` command with the data attached and X and Y coordinates determined does not give us a completed plot. 
-To do this we need to add geometry with "geom" commands. These all follow a common format of `geom_OPTION()` where OPTION is replaced with a plot type such as `geom_line()` or `geom_bar()` or more general objects to be plotted such as text: `geom_text()` or a horizontal line: `geom_hline()`. A full list of available **ggplot2** geoms can be found in the [ggplot reference document](ggplot2.tidyverse.org/reference/) and many more can be added by loading additional packages.
+To do this we need to add geometry with "geom" commands. These all follow a common format of `geom_XXXX()` where XXXX is replaced with a plot type such as `geom_line()` or `geom_bar()` or more general objects to be plotted such as text: `geom_text()` or a horizontal line: `geom_hline()`. A full list of available **ggplot2** geoms can be found in the [ggplot reference document](ggplot2.tidyverse.org/reference/) and many more can be added by loading additional packages.
 Some common "geoms" for epidemiology are listed below:
 
 * Histograms `geom_histogram()`
@@ -449,9 +449,9 @@ geom_histogram()
 
 ## Other aesthetics
 
-In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the `geom_OPTION()`):
+In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the `geom_XXXX()`):
 
-* shape = Display a point with geom_point() as a dot, star, triangle, or square…
+* shape = Display a point with geom_point() as a dot, star, triangle etc.
 * fill = The interior color (e.g. of a bar or boxplot)
 * color = The exterior line of a bar, boxplot, etc., or the point color if using geom_point()
 * size = Size (e.g. line thickness, point size)
@@ -468,7 +468,7 @@ These plot object aesthetics can be assigned values in two ways:
 
 ```{r plot-color, echo=T, warning=F, message=F}
 ggplot(data = linelist, aes(x = age)) +
-geom_histogram(fill="orange")
+geom_histogram(fill = "orange")
 ```
 
 2. A data column (e.g. color = gender) such that display of each observation depends on its value in that column
@@ -484,7 +484,7 @@ Try changing the histogram plot code below to have the bar fill determined by ge
 
 ```{r gender-plot, exercise = TRUE, warning=F, message=F}
 ggplot(data = linelist, aes(x = age)) +
-geom_histogram(fill="orange")
+geom_histogram(fill = "orange")
 ```
 
 ```{r gender-plot-check}
@@ -501,14 +501,89 @@ geom_histogram(aes(fill = gender))
 ```
 
 ### More examples
+For dot and line plots we assign the color using *color* rather than *fill* as they are outlines rather than filled objects. Here we also adjust the size (`size = `) of the points and the opacity (`alpha = `)(make them more see through; useful for overlaid plots)
+```{r static-col, warning=F, message=F, echo=T}
+ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(aes(color = outcome), size = 2, alpha = 0.5)
+```
+
+We will cover different color options later and how to change the colors assigned to your data. Basic colors for static mapping are built-in with **ggplot2**:
+
+```{r ggplot-default-cols, fig.height=15, fig.with=12}
+d=data.frame(c=colors(), y=seq(0, length(colors())-1)%%66, x=seq(0, length(colors())-1)%/%66)
+ggplot() +
+scale_x_continuous(name="", breaks=NULL, expand=c(0, 0)) +
+scale_y_continuous(name="", breaks=NULL, expand=c(0, 0)) +
+scale_fill_identity() +
+geom_rect(data=d, mapping=aes(xmin=x, xmax=x+1, ymin=y, ymax=y+1), fill="white") +
+geom_rect(data=d, mapping=aes(xmin=x+0.05, xmax=x+0.95, ymin=y+0.5, ymax=y+1, fill=c)) +
+geom_text(data=d, mapping=aes(x=x+0.5, y=y+0.5, label=c), colour="black", hjust=0.5, vjust=1, size=3)
+```
+
+A range of point shapes are also available in R, these can be used to set point shapes. The ones with blue centers below have a fill and so can be filled with a different parameter to their colour (outline)
+
+```{r shapes}
+ggpubr::show_point_shapes()
+
+```
+
+As with the other aesthetics we have seen shape can be dynamic:
+
+```{r dynamic-shape, warning=F, message=F, echo=T}
+ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(aes(shape = gender, color = age_cat), size = 3, alpha = 0.3)
+```
+
+or static:
+
+```{r static-shape, warning=F, message=F, echo=T}
+ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(aes(fill = age_cat), color = "black", shape = 21, size = 3, alpha = 0.3)
+```
+
+Here we use a shape with fill to allow each point to have a black outline with categorical fill.
 
 ### Static aesthetics
+An aesthetic is static if it applies the same display to all data points in the geom or plot. Static aesthetics are defined *outside* `aes()` to a *number or character value*.
+egs.
+`color = seagreen`
+`size = 3`
+`alpha = 0.5`
+
+```{r plot-with-those-aes}
+ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(color = "seagreen", size = 3, alpha = 0.5)
+```
 
 ### Assigned (dynamic) aesthetics
+*Dynamic* aesthetics are mapped to a column name, and defined *inside* `aes()`. This creates "groups" in the plot and generates a legend. The display varies for each data point.
 
 ### Combining both types
+As we have shown in the examples, both types of aesthetic can be combined in one plot to generate the desired outcome.
 
 ### Placement of `aes()`
+1. Dynamic mappings in the initial `ggplot()` call will apply to subsequent geoms, *unless otherwise indicated*
+2. Static aesthetics (e.g. color = "blue") are not inherited by subsequent geoms
+3. Mappings written within one geom apply only to that geom
+
+It is good practice to add global option sin the initial `ggplot()` call such as the coordinates used in the plot. This makes reading the code more easy for others and yourself. The data is also usually global but in some cases you may load different data for individual geoms inside those geoms
+
+```{r quiz_aes}
+quiz(
+  question("Where are dynamic aesthetics placed in ggplot code?",
+    answer("inside aes()", correct = T),
+    answer("outside aes()")
+  ),
+  question("Are static aesthetics in the initial ggplot() call inherited by subsequent geoms?",
+    answer("No", correct = TRUE),
+    answer("Yes")
+  ),
+  question("Are dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?",
+    answer("No"),
+    answer("Yes", correct = TRUE)
+  )
+)
+```
 
 ## Facets
 

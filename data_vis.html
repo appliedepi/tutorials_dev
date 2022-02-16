@@ -319,13 +319,11 @@ ID:
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
+<p>In the following sections we will put this into practice step-by-step.</p>
 </div>
 </div>
-<div id="section-grammar-of-graphics-in-action" class="section level2">
-<h2>Grammar of graphics in action</h2>
-<p>We will now try applying this layered system to some example data to practice visualizing data.</p>
-<div id="section-open-the-plot" class="section level3">
-<h3>“Open” the plot</h3>
+<div id="section-open-the-plot" class="section level2">
+<h2>“Open” the plot</h2>
 <p>The <strong>ggplot2</strong> package is built around the <strong>R</strong> function <code>ggplot()</code> which is the first command for any ggplot. Running <code>ggplot()</code> in your R console should generate a blank canvas:</p>
 <div class="tutorial-exercise" data-label="blank-plot" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot()</code></pre>
@@ -340,14 +338,14 @@ ID:
 <pre class="r"><code>linelist %&gt;%
   ggplot()</code></pre>
 </div>
-<div id="section-aesthetic-mappings" class="section level3">
-<h3>Aesthetic mappings</h3>
+<div id="section-mapping-columns" class="section level2">
+<h2>Mapping columns</h2>
 <pre class="r"><code>ggplot(data = linelist, aes(x = age, y = bmi))</code></pre>
 <p><img src="data_vis_files/figure-html/aes-1.png" width="624" /></p>
-<p>“Aesthetics” are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the color, shape and other properties of the plot which depend on columns in your data.</p>
+<p>“Aesthetics” are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the color, shape and other properties of the plot which depend on columns in your data. We will get into other aesthetics further into the tutorial.</p>
 <p><code>mapping=aes()</code> assigns plot aesthetics to columns from your data. Any parameters to be input must be placed <em>within</em> the <code>aes()</code> command to be interpreted as dependent on the data.</p>
 <p>Here we have set the axes X and Y to the age and bmi columns from the linelist data. You can see this represented on the axes above.</p>
-<p>The first 25 rows of the linelist data are reproduced below. Try changing the Y axis to weight rather than BMI</p>
+<p>The first 25 rows of the linelist data are reproduced below. Try changing the Y axis to weight rather than BMI in the <strong>R</strong> window below. You can use the arrows to scroll left and right through the table and find the correct column.</p>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["case_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["generation"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["date_infection"],"name":[3],"type":["date"],"align":["right"]},{"label":["date_onset"],"name":[4],"type":["date"],"align":["right"]},{"label":["date_hospitalisation"],"name":[5],"type":["date"],"align":["right"]},{"label":["date_outcome"],"name":[6],"type":["date"],"align":["right"]},{"label":["outcome"],"name":[7],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[8],"type":["chr"],"align":["left"]},{"label":["age"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["age_unit"],"name":[10],"type":["chr"],"align":["left"]},{"label":["age_years"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["age_cat"],"name":[12],"type":["fct"],"align":["left"]},{"label":["age_cat5"],"name":[13],"type":["fct"],"align":["left"]},{"label":["hospital"],"name":[14],"type":["chr"],"align":["left"]},{"label":["lon"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["lat"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["infector"],"name":[17],"type":["chr"],"align":["left"]},{"label":["source"],"name":[18],"type":["chr"],"align":["left"]},{"label":["wt_kg"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["ht_cm"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["ct_blood"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["fever"],"name":[22],"type":["chr"],"align":["left"]},{"label":["chills"],"name":[23],"type":["chr"],"align":["left"]},{"label":["cough"],"name":[24],"type":["chr"],"align":["left"]},{"label":["aches"],"name":[25],"type":["chr"],"align":["left"]},{"label":["vomit"],"name":[26],"type":["chr"],"align":["left"]},{"label":["temp"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["time_admission"],"name":[28],"type":["chr"],"align":["left"]},{"label":["bmi"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["days_onset_hosp"],"name":[30],"type":["dbl"],"align":["right"]}],"data":[{"1":"5fe599","2":"4","3":"2014-05-08","4":"2014-05-13","5":"2014-05-15","6":"<NA>","7":"NA","8":"m","9":"2","10":"years","11":"2","12":"0-4","13":"0-4","14":"Other","15":"-13.21574","16":"8.468973","17":"f547d6","18":"other","19":"27","20":"48","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"36.8","28":"NA","29":"117.18750","30":"2","_rn_":"1"},{"1":"8689b7","2":"4","3":"<NA>","4":"2014-05-13","5":"2014-05-14","6":"2014-05-18","7":"Recover","8":"f","9":"3","10":"years","11":"3","12":"0-4","13":"0-4","14":"Missing","15":"-13.21523","16":"8.451719","17":"NA","18":"NA","19":"25","20":"59","21":"22","22":"NA","23":"NA","24":"NA","25":"NA","26":"NA","27":"36.9","28":"09:36","29":"71.81844","30":"1","_rn_":"2"},{"1":"11f8ea","2":"2","3":"<NA>","4":"2014-05-16","5":"2014-05-18","6":"2014-05-30","7":"Recover","8":"m","9":"56","10":"years","11":"56","12":"50-69","13":"55-59","14":"St. Mark's Maternity Hospital (SMMH)","15":"-13.21291","16":"8.464817","17":"NA","18":"NA","19":"91","20":"238","21":"21","22":"NA","23":"NA","24":"NA","25":"NA","26":"NA","27":"36.9","28":"16:48","29":"16.06525","30":"2","_rn_":"3"},{"1":"b8812a","2":"3","3":"2014-05-04","4":"2014-05-18","5":"2014-05-20","6":"<NA>","7":"NA","8":"f","9":"18","10":"years","11":"18","12":"15-19","13":"15-19","14":"Port Hospital","15":"-13.23637","16":"8.475476","17":"f90f5f","18":"other","19":"41","20":"135","21":"23","22":"no","23":"no","24":"no","25":"no","26":"no","27":"36.8","28":"11:22","29":"22.49657","30":"2","_rn_":"4"},{"1":"893f25","2":"3","3":"2014-05-18","4":"2014-05-21","5":"2014-05-22","6":"2014-05-29","7":"Recover","8":"m","9":"3","10":"years","11":"3","12":"0-4","13":"0-4","14":"Military Hospital","15":"-13.22286","16":"8.460824","17":"11f8ea","18":"other","19":"36","20":"71","21":"23","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"36.9","28":"12:60","29":"71.41440","30":"1","_rn_":"5"},{"1":"be99c8","2":"3","3":"2014-05-03","4":"2014-05-22","5":"2014-05-23","6":"2014-05-24","7":"Recover","8":"f","9":"16","10":"years","11":"16","12":"15-19","13":"15-19","14":"Port Hospital","15":"-13.22263","16":"8.461831","17":"aec8ec","18":"other","19":"56","20":"116","21":"21","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"37.6","28":"14:13","29":"41.61712","30":"1","_rn_":"6"},{"1":"07e3e8","2":"4","3":"2014-05-22","4":"2014-05-27","5":"2014-05-29","6":"2014-06-01","7":"Recover","8":"f","9":"16","10":"years","11":"16","12":"15-19","13":"15-19","14":"Missing","15":"-13.23315","16":"8.462729","17":"893f25","18":"other","19":"47","20":"87","21":"21","22":"NA","23":"NA","24":"NA","25":"NA","26":"NA","27":"37.3","28":"14:33","29":"62.09539","30":"2","_rn_":"7"},{"1":"369449","2":"4","3":"2014-05-28","4":"2014-06-02","5":"2014-06-03","6":"2014-06-07","7":"Death","8":"f","9":"0","10":"years","11":"0","12":"0-4","13":"0-4","14":"Missing","15":"-13.23210","16":"8.461444","17":"133ee7","18":"other","19":"0","20":"11","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"37.0","28":"09:25","29":"0.00000","30":"1","_rn_":"8"},{"1":"f393b4","2":"4","3":"<NA>","4":"2014-06-05","5":"2014-06-06","6":"2014-06-18","7":"Recover","8":"m","9":"61","10":"years","11":"61","12":"50-69","13":"60-64","14":"Missing","15":"-13.22255","16":"8.461913","17":"NA","18":"NA","19":"86","20":"226","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"36.4","28":"11:16","29":"16.83765","30":"1","_rn_":"9"},{"1":"1389ca","2":"4","3":"<NA>","4":"2014-06-05","5":"2014-06-07","6":"2014-06-09","7":"Death","8":"f","9":"27","10":"years","11":"27","12":"20-29","13":"25-29","14":"Missing","15":"-13.25722","16":"8.472923","17":"NA","18":"NA","19":"69","20":"174","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"35.9","28":"10:55","29":"22.79033","30":"2","_rn_":"10"},{"1":"2978ac","2":"4","3":"2014-05-30","4":"2014-06-06","5":"2014-06-08","6":"2014-06-15","7":"Death","8":"m","9":"12","10":"years","11":"12","12":"10-14","13":"10-14","14":"Port Hospital","15":"-13.22063","16":"8.484016","17":"996f3a","18":"other","19":"67","20":"112","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"36.5","28":"16:03","29":"53.41199","30":"2","_rn_":"11"},{"1":"57a565","2":"4","3":"2014-05-28","4":"2014-06-13","5":"2014-06-15","6":"<NA>","7":"Death","8":"m","9":"42","10":"years","11":"42","12":"30-49","13":"40-44","14":"Military Hospital","15":"-13.25399","16":"8.458371","17":"133ee7","18":"other","19":"84","20":"186","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"36.9","28":"11:14","29":"24.28026","30":"2","_rn_":"12"},{"1":"fc15ef","2":"6","3":"2014-06-14","4":"2014-06-16","5":"2014-06-17","6":"2014-07-09","7":"Recover","8":"m","9":"19","10":"years","11":"19","12":"15-19","13":"15-19","14":"Missing","15":"-13.23851","16":"8.477617","17":"37a6f6","18":"other","19":"68","20":"174","21":"22","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"36.5","28":"12:42","29":"22.46003","30":"1","_rn_":"13"},{"1":"2eaa9a","2":"5","3":"2014-06-07","4":"2014-06-17","5":"2014-06-17","6":"<NA>","7":"Recover","8":"f","9":"7","10":"years","11":"7","12":"5-9","13":"5-9","14":"Missing","15":"-13.20939","16":"8.475702","17":"9f6884","18":"other","19":"44","20":"90","21":"21","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"37.1","28":"11:06","29":"54.32099","30":"0","_rn_":"14"},{"1":"bbfa93","2":"6","3":"2014-06-09","4":"2014-06-18","5":"2014-06-20","6":"2014-06-30","7":"NA","8":"f","9":"7","10":"years","11":"7","12":"5-9","13":"5-9","14":"Other","15":"-13.21573","16":"8.477799","17":"4802b1","18":"other","19":"34","20":"91","21":"23","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"36.5","28":"09:10","29":"41.05784","30":"2","_rn_":"15"},{"1":"c97dd9","2":"9","3":"<NA>","4":"2014-06-19","5":"2014-06-19","6":"2014-07-11","7":"Recover","8":"m","9":"13","10":"years","11":"13","12":"10-14","13":"10-14","14":"Port Hospital","15":"-13.22434","16":"8.471451","17":"NA","18":"NA","19":"66","20":"152","21":"22","22":"no","23":"no","24":"yes","25":"yes","26":"no","27":"37.3","28":"08:45","29":"28.56648","30":"0","_rn_":"16"},{"1":"f50e8a","2":"10","3":"<NA>","4":"2014-06-22","5":"2014-06-23","6":"2014-07-01","7":"NA","8":"f","9":"35","10":"years","11":"35","12":"30-49","13":"35-39","14":"Port Hospital","15":"-13.23361","16":"8.478048","17":"NA","18":"NA","19":"78","20":"214","21":"23","22":"no","23":"yes","24":"yes","25":"no","26":"no","27":"37.0","28":"NA","29":"17.03206","30":"1","_rn_":"17"},{"1":"3a7673","2":"8","3":"<NA>","4":"2014-06-23","5":"2014-06-24","6":"2014-06-25","7":"NA","8":"f","9":"17","10":"years","11":"17","12":"15-19","13":"15-19","14":"Port Hospital","15":"-13.21422","16":"8.485280","17":"NA","18":"NA","19":"47","20":"137","21":"21","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"38.0","28":"15:41","29":"25.04129","30":"1","_rn_":"18"},{"1":"7f5a01","2":"7","3":"2014-06-23","4":"2014-06-25","5":"2014-06-27","6":"2014-07-06","7":"Death","8":"f","9":"11","10":"years","11":"11","12":"10-14","13":"10-14","14":"Missing","15":"-13.23397","16":"8.469575","17":"a75c7f","18":"other","19":"53","20":"117","21":"22","22":"NA","23":"NA","24":"NA","25":"NA","26":"NA","27":"38.0","28":"13:34","29":"38.71722","30":"2","_rn_":"19"},{"1":"ddddee","2":"6","3":"2014-06-18","4":"2014-06-26","5":"2014-06-28","6":"2014-07-02","7":"Death","8":"f","9":"11","10":"years","11":"11","12":"10-14","13":"10-14","14":"Other","15":"-13.25356","16":"8.459574","17":"8e104d","18":"other","19":"47","20":"131","21":"23","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"36.0","28":"18:58","29":"27.38768","30":"2","_rn_":"20"},{"1":"99e8fa","2":"7","3":"2014-06-24","4":"2014-06-28","5":"2014-06-29","6":"2014-07-09","7":"Recover","8":"m","9":"19","10":"years","11":"19","12":"15-19","13":"15-19","14":"Port Hospital","15":"-13.22501","16":"8.474049","17":"ab634e","18":"other","19":"71","20":"150","21":"21","22":"no","23":"no","24":"yes","25":"no","26":"yes","27":"37.0","28":"12:43","29":"31.55556","30":"1","_rn_":"21"},{"1":"567136","2":"6","3":"<NA>","4":"2014-07-02","5":"2014-07-03","6":"2014-07-07","7":"NA","8":"m","9":"54","10":"years","11":"54","12":"50-69","13":"50-54","14":"Port Hospital","15":"-13.21607","16":"8.488029","17":"NA","18":"NA","19":"86","20":"241","21":"23","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"36.7","28":"16:33","29":"14.80691","30":"1","_rn_":"22"},{"1":"9371a9","2":"8","3":"<NA>","4":"2014-07-08","5":"2014-07-09","6":"2014-07-20","7":"NA","8":"f","9":"14","10":"years","11":"14","12":"10-14","13":"10-14","14":"St. Mark's Maternity Hospital (SMMH)","15":"-13.26807","16":"8.473437","17":"NA","18":"NA","19":"53","20":"131","21":"21","22":"no","23":"yes","24":"yes","25":"no","26":"no","27":"36.9","28":"14:29","29":"30.88398","30":"1","_rn_":"23"},{"1":"bc2adf","2":"6","3":"2014-07-03","4":"2014-07-09","5":"2014-07-09","6":"<NA>","7":"NA","8":"m","9":"28","10":"years","11":"28","12":"20-29","13":"25-29","14":"Missing","15":"-13.22667","16":"8.484083","17":"b799eb","18":"other","19":"69","20":"161","21":"24","22":"no","23":"no","24":"yes","25":"no","26":"no","27":"36.5","28":"07:18","29":"26.61934","30":"0","_rn_":"24"},{"1":"403057","2":"10","3":"<NA>","4":"2014-07-09","5":"2014-07-11","6":"2014-07-22","7":"Death","8":"f","9":"6","10":"years","11":"6","12":"5-9","13":"5-9","14":"Other","15":"-13.21602","16":"8.462422","17":"NA","18":"NA","19":"38","20":"80","21":"23","22":"NA","23":"NA","24":"NA","25":"NA","26":"NA","27":"37.0","28":"08:11","29":"59.37500","30":"2","_rn_":"25"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -364,9 +362,9 @@ ID:
 <pre class="text"><code>ggplot(data = linelist, aes(x = age, y = wt_kg))</code></pre>
 </div>
 </div>
-<div id="section-add-geoms" class="section level3">
-<h3>Add geoms</h3>
-<p>As we have seen above, running our <code>ggplot()</code> command with the data attached and X and Y coordinates determined does not give us a completed plot. To do this we need to add geometry with “geom” commands. These all follow a common format of <code>geom_OPTION()</code> where OPTION is replaced with a plot type such as <code>geom_line()</code> or <code>geom_bar()</code> or more general objects to be plotted such as text: <code>geom_text()</code> or a horizontal line: <code>geom_hline()</code>. A full list of available <strong>ggplot2</strong> geoms can be found in the <a href="ggplot2.tidyverse.org/reference/">ggplot reference document</a> and many more can be added by loading additional packages. Some common “geoms” for epidemiology are listed below:</p>
+<div id="section-add-geoms" class="section level2">
+<h2>Add geoms</h2>
+<p>As we have seen above, running our <code>ggplot()</code> command with the data attached and X and Y coordinates determined does not give us a completed plot. To do this we need to add geometry with “geom” commands. These all follow a common format of <code>geom_XXXX()</code> where XXXX is replaced with a plot type such as <code>geom_line()</code> or <code>geom_bar()</code> or more general objects to be plotted such as text: <code>geom_text()</code> or a horizontal line: <code>geom_hline()</code>. A full list of available <strong>ggplot2</strong> geoms can be found in the <a href="ggplot2.tidyverse.org/reference/">ggplot reference document</a> and many more can be added by loading additional packages. Some common “geoms” for epidemiology are listed below:</p>
 <ul>
 <li>Histograms <code>geom_histogram()</code></li>
 <li>Bar charts <code>geom_bar()</code> or <code>geom_col()</code> (These are covered later in the tutorial)</li>
@@ -395,12 +393,11 @@ geom_histogram()</code></pre>
 geom_histogram()</code></pre>
 </div>
 </div>
-</div>
 <div id="section-other-aesthetics" class="section level2">
 <h2>Other aesthetics</h2>
-<p>In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the <code>geom_OPTION()</code>):</p>
+<p>In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the <code>geom_XXXX()</code>):</p>
 <ul>
-<li>shape = Display a point with geom_point() as a dot, star, triangle, or square…</li>
+<li>shape = Display a point with geom_point() as a dot, star, triangle etc.</li>
 <li>fill = The interior color (e.g. of a bar or boxplot)</li>
 <li>color = The exterior line of a bar, boxplot, etc., or the point color if using geom_point()</li>
 <li>size = Size (e.g. line thickness, point size)</li>
@@ -418,7 +415,7 @@ geom_histogram()</code></pre>
 </ul></li>
 </ol>
 <pre class="r"><code>ggplot(data = linelist, aes(x = age)) +
-geom_histogram(fill=&quot;orange&quot;)</code></pre>
+geom_histogram(fill = &quot;orange&quot;)</code></pre>
 <p><img src="data_vis_files/figure-html/plot-color-1.png" width="624" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>A data column (e.g. color = gender) such that display of each observation depends on its value in that column
@@ -433,7 +430,7 @@ geom_histogram(fill=&quot;orange&quot;)</code></pre>
 <p>Try changing the histogram plot code below to have the bar fill determined by gender.</p>
 <div class="tutorial-exercise" data-label="gender-plot" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = linelist, aes(x = age)) +
-geom_histogram(fill=&quot;orange&quot;)</code></pre>
+geom_histogram(fill = &quot;orange&quot;)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="gender-plot-hint" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -445,18 +442,73 @@ geom_histogram(aes(fill = gender))</code></pre>
 </div>
 <div id="section-more-examples" class="section level3">
 <h3>More examples</h3>
+<p>For dot and line plots we assign the color using <em>color</em> rather than <em>fill</em> as they are outlines rather than filled objects. Here we also adjust the size (<code>size =</code>) of the points and the opacity (<code>alpha =</code>)(make them more see through; useful for overlaid plots)</p>
+<pre class="r"><code>ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(aes(color = outcome), size = 2, alpha = 0.5)</code></pre>
+<p><img src="data_vis_files/figure-html/static-col-1.png" width="624" /></p>
+<p>We will cover different color options later and how to change the colors assigned to your data. Basic colors for static mapping are built-in with <strong>ggplot2</strong>:</p>
+<p><img src="data_vis_files/figure-html/ggplot-default-cols-1.png" width="624" /></p>
+<p>A range of point shapes are also available in R, these can be used to set point shapes. The ones with blue centers below have a fill and so can be filled with a different parameter to their colour (outline)</p>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+## replace the existing scale.</code></pre>
+<p><img src="data_vis_files/figure-html/shapes-1.png" width="624" /></p>
+<p>As with the other aesthetics we have seen shape can be dynamic:</p>
+<pre class="r"><code>ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(aes(shape = gender, color = age_cat), size = 3, alpha = 0.3)</code></pre>
+<p><img src="data_vis_files/figure-html/dynamic-shape-1.png" width="624" /></p>
+<p>or static:</p>
+<pre class="r"><code>ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(aes(fill = age_cat), color = &quot;black&quot;, shape = 21, size = 3, alpha = 0.3)</code></pre>
+<p><img src="data_vis_files/figure-html/static-shape-1.png" width="624" /></p>
+<p>Here we use a shape with fill to allow each point to have a black outline with categorical fill.</p>
 </div>
 <div id="section-static-aesthetics" class="section level3">
 <h3>Static aesthetics</h3>
+<p>An aesthetic is static if it applies the same display to all data points in the geom or plot. Static aesthetics are defined <em>outside</em> <code>aes()</code> to a <em>number or character value</em>. egs. <code>color = seagreen</code> <code>size = 3</code> <code>alpha = 0.5</code></p>
+<pre><code>## Warning: Removed 86 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_vis_files/figure-html/plot-with-those-aes-1.png" width="624" /></p>
 </div>
 <div id="section-assigned-dynamic-aesthetics" class="section level3">
 <h3>Assigned (dynamic) aesthetics</h3>
+<p><em>Dynamic</em> aesthetics are mapped to a column name, and defined <em>inside</em> <code>aes()</code>. This creates “groups” in the plot and generates a legend. The display varies for each data point.</p>
 </div>
 <div id="section-combining-both-types" class="section level3">
 <h3>Combining both types</h3>
+<p>As we have shown in the examples, both types of aesthetic can be combined in one plot to generate the desired outcome.</p>
 </div>
 <div id="section-placement-of-aes" class="section level3">
 <h3>Placement of <code>aes()</code></h3>
+<ol style="list-style-type: decimal">
+<li>Dynamic mappings in the initial <code>ggplot()</code> call will apply to subsequent geoms, <em>unless otherwise indicated</em></li>
+<li>Static aesthetics (e.g. color = “blue”) are not inherited by subsequent geoms</li>
+<li>Mappings written within one geom apply only to that geom</li>
+</ol>
+<p>It is good practice to add global option sin the initial <code>ggplot()</code> call such as the coordinates used in the plot. This makes reading the code more easy for others and yourself. The data is also usually global but in some cases you may load different data for individual geoms inside those geoms</p>
+<p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
+<div class="panel panel-default">
+<div data-label="quiz_aes-1" class="tutorial-question panel-body">
+<div id="quiz_aes-1-answer_container" class="shiny-html-output"></div>
+<div id="quiz_aes-1-message_container" class="shiny-html-output"></div>
+<div id="quiz_aes-1-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
+<div class="panel panel-default">
+<div data-label="quiz_aes-2" class="tutorial-question panel-body">
+<div id="quiz_aes-2-answer_container" class="shiny-html-output"></div>
+<div id="quiz_aes-2-message_container" class="shiny-html-output"></div>
+<div id="quiz_aes-2-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
+<div class="panel panel-default">
+<div data-label="quiz_aes-3" class="tutorial-question panel-body">
+<div id="quiz_aes-3-answer_container" class="shiny-html-output"></div>
+<div id="quiz_aes-3-message_container" class="shiny-html-output"></div>
+<div id="quiz_aes-3-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 </div>
 </div>
 <div id="section-facets" class="section level2">
@@ -635,8 +687,9 @@ pacman::p_load(
   scales,     # formatting of scales
   plotly,     # interactive plots
   cowplot,    # combine plots
-  tidyverse   # ggplot2 & data management
-)
+  tidyverse,   # ggplot2 & data management
+  ggpubr
+  )
 
 
 
@@ -708,9 +761,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  ggExtra,    # extras", "  esquisse,   # point-and-click for simple ggplots", 
 "  apyramid,   # age pyramids", "  scales,     # formatting of scales", 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
-"  tidyverse   # ggplot2 & data management", ")", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "load-package", code = "pacman::p_load(\n  rio,        # importing data  \n  here,       # relative file pathways  \n  skimr,      # review data\n  DT,         # visualize data frame\n  janitor,    # data cleaning and tables\n  epikit,     # age categories\n  lubridate,  # working with dates\n  incidence2, # epidemic curves\n  ggrepel,    # smart labels\n  ggExtra,    # extras\n  esquisse,   # point-and-click for simple ggplots\n  apyramid,   # age pyramids\n  scales,     # formatting of scales\n  plotly,     # interactive plots\n  cowplot,    # combine plots\n  tidyverse   # ggplot2 & data management\n)", 
+"  tidyverse,   # ggplot2 & data management", "  ggpubr", "  )", 
+"", "", ""), chunk_opts = list(label = "setup", include = FALSE)), 
+    setup = NULL, chunks = list(list(label = "load-package", 
+        code = "pacman::p_load(\n  rio,        # importing data  \n  here,       # relative file pathways  \n  skimr,      # review data\n  DT,         # visualize data frame\n  janitor,    # data cleaning and tables\n  epikit,     # age categories\n  lubridate,  # working with dates\n  incidence2, # epidemic curves\n  ggrepel,    # smart labels\n  ggExtra,    # extras\n  esquisse,   # point-and-click for simple ggplots\n  apyramid,   # age pyramids\n  scales,     # formatting of scales\n  plotly,     # interactive plots\n  cowplot,    # combine plots\n  tidyverse   # ggplot2 & data management\n)", 
         opts = list(label = "\"load-package\"", exercise = "TRUE", 
             eval = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("grade_this_code(\"The packages you need for this lesson are now loaded!\")", chunk_opts = list(
@@ -758,16 +812,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-1", question = structure("What is the most basic building block of data vizualisation?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a5f003d", 
+"character")), answers = list(structure(list(id = "lnr_ans_603f702", 
     option = "Statistics", value = "Statistics", label = structure("Statistics", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_54195c7", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7525d11", 
     option = "Scale", value = "Scale", label = structure("Scale", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8ed63b8", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d9c6e4c", 
     option = "Data", value = "Data", label = structure("Data", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_27897ed", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_aa76893", 
     option = "Visualisation type", value = "Visualisation type", 
     label = structure("Visualisation type", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -779,22 +833,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-1-answer", question = "quiz1-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat is the most basic building block of data vizualisation?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 2104588754.01997, options = list()), class = c("learnr_radio", 
+    seed = 1389585924.85292, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz1-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_d158623", 
+"character")), answers = list(structure(list(id = "lnr_ans_510534f", 
     option = "ggplot2", value = "ggplot2", label = structure("ggplot2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7df1271", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ffdf648", 
     option = "here", value = "here", label = structure("here", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4c32010", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f4eeec6", 
     option = "dplyr", value = "dplyr", label = structure("dplyr", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5bd6964", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a1bafb7", 
     option = "incidence2", value = "incidence2", label = structure("incidence2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -805,7 +859,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-2-answer", question = "quiz1-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1420416152.83857, options = list()), class = c("learnr_checkbox", 
+    seed = 518656500.758482, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -848,11 +902,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  ggExtra,    # extras", "  esquisse,   # point-and-click for simple ggplots", 
 "  apyramid,   # age pyramids", "  scales,     # formatting of scales", 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
-"  tidyverse   # ggplot2 & data management", ")", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "blank-plot", code = "ggplot()", opts = list(
-        label = "\"blank-plot\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure("grade_this_code(\"correct, you should see a blank canvas loaded by ggplot2\")", chunk_opts = list(
+"  tidyverse,   # ggplot2 & data management", "  ggpubr", "  )", 
+"", "", ""), chunk_opts = list(label = "setup", include = FALSE)), 
+    setup = NULL, chunks = list(list(label = "blank-plot", code = "ggplot()", 
+        opts = list(label = "\"blank-plot\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure("grade_this_code(\"correct, you should see a blank canvas loaded by ggplot2\")", chunk_opts = list(
         label = "blank-plot-check")), solution = structure("ggplot()", chunk_opts = list(
         label = "blank-plot-solution", eval = FALSE)), options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
@@ -917,9 +972,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  ggExtra,    # extras", "  esquisse,   # point-and-click for simple ggplots", 
 "  apyramid,   # age pyramids", "  scales,     # formatting of scales", 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
-"  tidyverse   # ggplot2 & data management", ")", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "axes-plot", code = "ggplot(data = linelist, aes(x = age, y = bmi))", 
+"  tidyverse,   # ggplot2 & data management", "  ggpubr", "  )", 
+"", "", ""), chunk_opts = list(label = "setup", include = FALSE)), 
+    setup = NULL, chunks = list(list(label = "axes-plot", code = "ggplot(data = linelist, aes(x = age, y = bmi))", 
         opts = list(label = "\"axes-plot\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = structure("grade_this_code(\"correct, you should now see weight on the y axis\")", chunk_opts = list(
@@ -987,9 +1042,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  ggExtra,    # extras", "  esquisse,   # point-and-click for simple ggplots", 
 "  apyramid,   # age pyramids", "  scales,     # formatting of scales", 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
-"  tidyverse   # ggplot2 & data management", ")", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "axis-plot", code = "ggplot(data = linelist, aes(x = age))\ngeom_histogram()", 
+"  tidyverse,   # ggplot2 & data management", "  ggpubr", "  )", 
+"", "", ""), chunk_opts = list(label = "setup", include = FALSE)), 
+    setup = NULL, chunks = list(list(label = "axis-plot", code = "ggplot(data = linelist, aes(x = age))\ngeom_histogram()", 
         opts = list(label = "\"axis-plot\"", exercise = "TRUE", 
             warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("grade_this_code(\"correct, we need to link the commands together with a '+'\")", chunk_opts = list(
@@ -1058,9 +1113,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  ggExtra,    # extras", "  esquisse,   # point-and-click for simple ggplots", 
 "  apyramid,   # age pyramids", "  scales,     # formatting of scales", 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
-"  tidyverse   # ggplot2 & data management", ")", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "gender-plot", code = "ggplot(data = linelist, aes(x = age)) +\ngeom_histogram(fill=\"orange\")", 
+"  tidyverse,   # ggplot2 & data management", "  ggpubr", "  )", 
+"", "", ""), chunk_opts = list(label = "setup", include = FALSE)), 
+    setup = NULL, chunks = list(list(label = "gender-plot", code = "ggplot(data = linelist, aes(x = age)) +\ngeom_histogram(fill = \"orange\")", 
         opts = list(label = "\"gender-plot\"", exercise = "TRUE", 
             warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("grade_this_code(\"correct, we need to put the fill inside aes()\")", chunk_opts = list(
@@ -1085,9 +1140,69 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         exercise.eval = FALSE, label = "gender-plot", exercise = TRUE, 
-        code = c("ggplot(data = linelist, aes(x = age)) +", "geom_histogram(fill=\"orange\")"
+        code = c("ggplot(data = linelist, aes(x = age)) +", "geom_histogram(fill = \"orange\")"
         ), out.width.px = 624, out.height.px = 384, params.src = "gender-plot, exercise = TRUE, warning=F, message=F", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-1", question = structure("Where are dynamic aesthetics placed in ggplot code?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_cc92794", 
+    option = "inside aes()", value = "inside aes()", label = structure("inside aes()", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_33b0429", 
+    option = "outside aes()", value = "outside aes()", label = structure("outside aes()", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz_aes-1-answer", question = "quiz_aes-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhere are dynamic aesthetics placed in ggplot code?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 1532287194.78647, options = list()), class = c("learnr_radio", 
+"tutorial_question")), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-2", question = structure("Are static aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_8ce72ae", 
+    option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9a06dfb", 
+    option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz_aes-2-answer", question = "quiz_aes-2"), loading = structure("<strong>Loading:<\u002fstrong> \nAre static aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 247701039.384655, options = list()), class = c("learnr_radio", 
+"tutorial_question")), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-3", question = structure("Are dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_55ca89e", 
+    option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_da96e61", 
+    option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz_aes-3-answer", question = "quiz_aes-3"), loading = structure("<strong>Loading:<\u002fstrong> \nAre dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 1053111704.00961, options = list()), class = c("learnr_radio", 
+"tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -1129,19 +1244,20 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  ggExtra,    # extras", "  esquisse,   # point-and-click for simple ggplots", 
 "  apyramid,   # age pyramids", "  scales,     # formatting of scales", 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
-"  tidyverse   # ggplot2 & data management", ")", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "add-function", code = "add <- function() {\n  \n}", 
-        opts = list(label = "\"add-function\"", exercise = "TRUE", 
-            exercise.lines = "5"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+"  tidyverse,   # ggplot2 & data management", "  ggpubr", "  )", 
+"", "", ""), chunk_opts = list(label = "setup", include = FALSE)), 
+    setup = NULL, chunks = list(list(label = "add-function", 
+        code = "add <- function() {\n  \n}", opts = list(label = "\"add-function\"", 
+            exercise = "TRUE", exercise.lines = "5"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "data_vis_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1197,19 +1313,19 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  ggExtra,    # extras", "  esquisse,   # point-and-click for simple ggplots", 
 "  apyramid,   # age pyramids", "  scales,     # formatting of scales", 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
-"  tidyverse   # ggplot2 & data management", ")", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "print-limit", code = "mtcars", opts = list(
-        label = "\"print-limit\"", exercise = "TRUE", exercise.eval = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, options = list(eval = TRUE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "data_vis_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+"  tidyverse,   # ggplot2 & data management", "  ggpubr", "  )", 
+"", "", ""), chunk_opts = list(label = "setup", include = FALSE)), 
+    setup = NULL, chunks = list(list(label = "print-limit", code = "mtcars", 
+        opts = list(label = "\"print-limit\"", exercise = "TRUE", 
+            exercise.eval = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, options = list(
+        eval = TRUE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1229,16 +1345,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_e3116f4", 
+"character")), answers = list(structure(list(id = "lnr_ans_f8db81f", 
     option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_aab0e2a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e82395e", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_72ce87", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4edbeac", 
     option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_90c2e10", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c99a46d", 
     option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1249,22 +1365,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 996801802.035828, options = list()), class = c("learnr_radio", 
+    seed = 486994826.773225, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_cc058e6", 
+"character")), answers = list(structure(list(id = "lnr_ans_eb6b208", 
     option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_58dbca1", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_962dd6c", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_eb39b5a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a2cd5f3", 
     option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_baabfea", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1f3147", 
     option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1275,7 +1391,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1972582590.08144, options = list()), class = c("learnr_checkbox", 
+    seed = 329276935.846668, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
@@ -1285,7 +1401,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134]}},"value":[{"type":"character","attributes":{},"value":["apyramid","assertthat","backports","base","base64enc","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","cowplot","crayon","curl","data.table","datamods","datasets","DBI","dbplyr","digest","dplyr","DT","ellipsis","epikit","esquisse","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggExtra","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","incidence2","iterators","itertools","janitor","jquerylib","jsonlite","knitr","labeling","later","lazyeval","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","miniUI","modelr","munsell","openxlsx","pacman","parallel","phosphoricons","pillar","pkgconfig","plotly","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","repr","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","shinyWidgets","skimr","snakecase","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.1.2","0.2.1","1.4.1","4.1.2","0.1-3","0.10.11","0.7.11","0.3.1","1.1.0","2.0.0","3.1.1","0.2-18","2.0-2","4.1.2","1.1.1","1.4.2","4.3.2","1.14.2","1.2.0","4.1.2","1.1.2","2.1.1","0.6.29","1.0.7","0.20","0.3.2","0.1.2","1.1.0","0.3.0.9001","0.14","1.0.2","2.1.0","1.1.0","0.5.1","1.5.1","0.8-81","1.5.2","0.1.1","1.1.7","0.9","0.3.3","3.3.5","2.0.5","0.9.1","1.6.1","0.2.4.9000","4.1.2","0.8.0","4.1.2","4.1.2","2.3","0.3.0","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.2","1.2.11","1.2.3","1.0.13","0.1-3","2.1.0","0.1.4","1.7.3","1.37","0.4.2","1.3.0","0.2.2","0.10.1.9018","1.0.1","1.8.0","2.0.2","1.1","7.3-54","4.1.2","0.12","0.1.1.1","0.1.8","0.5.0","4.2.5","0.5.1","4.1.2","0.1.1","1.6.5","2.0.3","4.10.0","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.8","2.1.1","1.3.1","1.1.4","2.0.1","0.5.29","1.0.0","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","0.6.4","2.1.3","0.11.0","4.1.2","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.4","1.1.1","1.3.1","4.1.2","1.0.2","0.2.0","1.2.2","4.1.2","0.3.8","0.6.2","0.4.0","2.4.3","0.29","1.3.3","1.8-4","2.2.2","2.2.0"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140]}},"value":[{"type":"character","attributes":{},"value":["abind","apyramid","assertthat","backports","base","base64enc","basket","broom","bslib","car","carData","cellranger","checkmate","cli","codetools","colorspace","compiler","cowplot","crayon","curl","data.table","datamods","datasets","DBI","dbplyr","digest","dplyr","DT","ellipsis","epikit","esquisse","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggExtra","ggforce","ggplot2","ggpubr","ggraph","ggrepel","ggsignif","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","incidence2","iterators","itertools","janitor","jquerylib","jsonlite","knitr","labeling","later","lazyeval","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","miniUI","modelr","munsell","openxlsx","pacman","parallel","phosphoricons","pillar","pkgconfig","plotly","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","repr","reprex","rio","rlang","rmarkdown","rprojroot","rstatix","rstudioapi","rvest","sass","scales","shiny","shinyWidgets","skimr","snakecase","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["1.4-5","0.1.2","0.2.1","1.4.1","4.1.2","0.1-3","0.10.11","0.7.11","0.3.1","3.0-12","3.0-5","1.1.0","2.0.0","3.1.1","0.2-18","2.0-2","4.1.2","1.1.1","1.4.2","4.3.2","1.14.2","1.2.0","4.1.2","1.1.2","2.1.1","0.6.29","1.0.7","0.20","0.3.2","0.1.2","1.1.0","0.3.0.9001","0.14","1.0.2","2.1.0","1.1.0","0.5.1","1.5.1","0.8-81","1.5.2","0.1.1","1.1.7","0.9","0.3.3","3.3.5","0.4.0","2.0.5","0.9.1","0.6.3","1.6.1","0.2.4.9000","4.1.2","0.8.0","4.1.2","4.1.2","2.3","0.3.0","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.2","1.2.11","1.2.3","1.0.13","0.1-3","2.1.0","0.1.4","1.7.3","1.37","0.4.2","1.3.0","0.2.2","0.10.1.9018","1.0.1","1.8.0","2.0.2","1.1","7.3-54","4.1.2","0.12","0.1.1.1","0.1.8","0.5.0","4.2.5","0.5.1","4.1.2","0.1.1","1.6.5","2.0.3","4.10.0","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.8","2.1.1","1.3.1","1.1.4","2.0.1","0.5.29","1.0.0","2.11","2.0.2","0.7.0","0.13","1.0.2","0.4.0","1.1.1","1.7.1","0.6.4","2.1.3","0.11.0","4.1.2","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.4","1.1.1","1.3.1","4.1.2","1.0.2","0.2.0","1.2.2","4.1.2","0.3.8","0.6.2","0.4.0","2.4.3","0.29","1.3.3","1.8-4","2.2.2","2.2.0"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
