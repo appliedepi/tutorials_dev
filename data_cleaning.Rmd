@@ -1475,7 +1475,7 @@ quantile(linelist$age_years,               # specify numeric vector to work on
 
 You can use the results of `quantile()` as break points in `age_categories()` or `cut()`. Below we create a new column deciles using `cut()` where the breaks are defined using `quantiles()` on age_years. Below, we display the results using `tabyl()` from janitor so you can see the percentages (see the Descriptive tables page). Note how they are not exactly 10% in each group.
 
-```{r}
+```{r, echo = T, eval = T}
 linelist %>%                                # begin with linelist
   mutate(deciles = cut(age_years,           # create new column decile as cut() on column age_years
     breaks = quantile(                      # define cut breaks using quantile()
@@ -1516,7 +1516,7 @@ left_join(ntile_table, ntile_ranges, by = "even_groups")
 
 Now we'll add some of this to the cleaning pipe chain so you can see how all the steps we have learned so far are coming together to create one cleaning pipeline!
 
-```{r}
+```{r, echo = T, eval = T}
 # CLEANING 'PIPE' CHAIN (starts with raw data and pipes it through cleaning steps)
 ##################################################################################
 
@@ -1581,40 +1581,15 @@ linelist <- linelist_raw %>%
           age_cat5 = epikit::age_categories(age_years, breakers = seq(0, 85, 5)))
 ```
 
-## Adding rows
-
-Adding rows one-by-one manually is tedious but can be done with `add_row()` from **dplyr**. Remember that each column must contain values of only one class (either character, numeric, logical, etc.). So adding a row requires nuance to maintain this.
-
-```{r}
-linelist <- linelist %>% 
-  add_row(case_id = "abc",
-          generation = 4,
-          date_infection = as.Date("2020-10-10"),
-          .before = 2)
-```
-
-Use `.before` and `.after`. to specify the placement of the row you want to add. `.before = 3` will put the new row before the current 3rd row. The default behavior is to add the row to the end. Columns not specified will be left empty (`NA`).
-
-The new row number may look strange (“…23”) but the row numbers in the pre-existing rows have changed. So if using the command twice, examine/test the insertion carefully.
-
-If a class you provide is off you will see an error like this:
-`Error: Can't combine ..1$infection date <date> and ..2$infection date <character>.`
-
-*(when inserting a row with a date value, remember to wrap the date in the function as.Date() like as.Date("2020-10-10")).*
-
-**Bind rows**
-
-To combine datasets together by binding the rows of one dataframe to the bottom of another data frame, you can use `bind_rows()` from **dplyr**. This is explained in more detail in the page Joining data.
-
 ## Filter rows
 
 A typical cleaning step after cleaning columns and recoding values is to filter the dataset to specific rows with the **dplyr** function `filter()`.
 
-### Simple filter
+###Simple filter
 
 The simplest way of filtering, is to use a logical condition ("==", "!=", ">", "<", etc), so that only rows where the logical statement is `TRUE` are kept. For example here, we are only keeping rows where the gender is equal to "f".
 
-```{r}
+```{r, echo = T, eval = T}
 nrow(linelist)
 
 linelist %>% 
@@ -1628,7 +1603,7 @@ From the reduction in rows you can see that we have subset the dataset.
 
 A common use of filtering is to remove rows that have missing values. This can either be done for any missing values in _any_ column, by not specifiying any arguments in the **tidyr** function `drop_na()`, or specific columns by including them within `drop_na()`.
 
-```{r}
+```{r, echo = T, eval = T}
 linelist %>% 
   drop_na(case_id, age_years)  # drop rows with missing values for case_id or age_years
 ```
@@ -1679,14 +1654,14 @@ linelist %>% filter(row_number() %in% 2:20) %>% select(date_onset, outcome, age)
 
 You can also use the filter function as part of a standalone command (not part of a pipe chain), as in all other **dplyr** functions the first argument must be the dataset itself. Here we show how to remove `NA` values:
 
-```{r}
+```{r, echo = T, eval = T}
 # dataframe <- filter(dataframe, condition(s) for rows to keep)
 linelist <- filter(linelist, !is.na(case_id)) 
 ```
 
 and this can also be done in **base R**
 
-```{r}
+```{r, echo = T, eval = T}
 # dataframe <- dataframe[row conditions, column conditions] (blank means keep all)
 linelist <- linelist[!is.na(linelist$case_id), ]
 ```
@@ -1752,8 +1727,7 @@ Dates in R are their own class of object - the Date class. It should be noted th
 * Dates are an object class and can be tricky to work with.
 * Here we present several ways to convert date columns to Date class.
 
-## Current date
-
+**Current date**
 To get the current "system" date you using `Sys.Date()`, and to get the time, `Sys.time()`. Alternatively you can return the date with `today()` and the time with `now()` from the **lubridate** package.
 
 ## Converting to a date
@@ -1780,22 +1754,22 @@ linelist <- linelist %>%
 
 Most of the strptime abbreviations are listed below. You can see the complete list by running ?strptime.
 
-%d = Day number of month (5, 17, 28, etc.)
-%j = Day number of the year (Julian day 001-366)
-%a = Abbreviated weekday (Mon, Tue, Wed, etc.)
-%A = Full weekday (Monday, Tuesday, etc.) %w = Weekday number (0-6, Sunday is 0)
-%u = Weekday number (1-7, Monday is 1)
-%W = Week number (00-53, Monday is week start)
-%U = Week number (01-53, Sunday is week start)
-%m = Month number (e.g. 01, 02, 03, 04)
-%b = Abbreviated month (Jan, Feb, etc.)
-%B = Full month (January, February, etc.)
-%y = 2-digit year (e.g. 89)
-%Y = 4-digit year (e.g. 1989)
-%h = hours (24-hr clock)
-%m = minutes
-%s = seconds %z = offset from GMT
-%Z = Time zone (character)
+* %d = Day number of month (5, 17, 28, etc.)
+* %j = Day number of the year (Julian day 001-366)
+* %a = Abbreviated weekday (Mon, Tue, Wed, etc.)
+* %A = Full weekday (Monday, Tuesday, etc.) %w = Weekday number (0-6, Sunday is 0)
+* %u = Weekday number (1-7, Monday is 1)
+* %W = Week number (00-53, Monday is week start)
+* %U = Week number (01-53, Sunday is week start)
+* %m = Month number (e.g. 01, 02, 03, 04)
+* %b = Abbreviated month (Jan, Feb, etc.)
+* %B = Full month (January, February, etc.)
+* %y = 2-digit year (e.g. 89)
+* %Y = 4-digit year (e.g. 1989)
+* %h = hours (24-hr clock)
+* %m = minutes
+* %s = seconds %z = offset from GMT
+* %Z = Time zone (character)
 
 *Remember that you need to also get the date separator (/, -, space etc) correct in order to convert your dates*
 
@@ -1815,7 +1789,7 @@ and the `dmy()` in the format as day, month , year
 
 Within a pipe chain, it may look like this
 
-```{r}
+```{r, eval = T, echo = T}
 linelist <- linelist %>%
   mutate(date_onset = lubridate::ymd(date_onset))
 ```
@@ -1826,7 +1800,7 @@ Note that the above functions work best with 4-digit years. 2-digit years can pr
 
 To convert a 2-digit year into a 4-digit year (all in the same century) you can convert to class character and then combine the existing digits with a pre-fix using str_glue() from the **stringr** package (see Characters and strings). Then convert to date.
 
-```{r}
+```{r, eval = T, echo = T}
 two_digit_years <- c("15", "15", "16", "17")
 str_glue("20{two_digit_years}")
 ```
@@ -1859,7 +1833,7 @@ linelist %>%
 
 You can use the **lubridate** functions `make_date()` and `make_datetime()` to combine multiple numeric columns in one date column. For example, if you have the numeric columns `onset_day`, `onset_month` and `onset_year` in the dataframe `linelist`
 
-```{r}
+```{r, eval = T, echo = T}
 linelist <- linelist %>% 
   mutate(onset_date = make_date(year = year(date_onset), month = month(date_onset), day = day(date_onset)))
 ```
@@ -1876,7 +1850,7 @@ This will not work if the Excel date is stored in R as a character type, so be s
 
 NOTE: You should provide the origin date in R’s default date format (“YYYY-MM-DD”).
 
-```{r}
+```{r, eval = T, echo = T}
 # An example of providing the Excel 'origin date' when converting Excel number dates
 data_cleaned <- linelist %>% 
   mutate(date_onset = as.numeric(date_onset)) %>%   # ensure class is numeric
@@ -2081,24 +2055,22 @@ Once dates are the correct class, you often want them to display differently, fo
 
 Adjust date display with the **base R** function format(). This function accepts a character string (in quotes) specifying the desired output format in the “%” strptime abbreviations (the same syntax as used in as.Date()). Below are most of the common abbreviations.
 
-%d = Day number of month (5, 17, 28, etc.)
-%j = Day number of the year (Julian day 001-366)
-%a = Abbreviated weekday (Mon, Tue, Wed, etc.)
-%A = Full weekday (Monday, Tuesday, etc.)
-%w = Weekday number (0-6, Sunday is 0)
-%u = Weekday number (1-7, Monday is 1)
-%W = Week number (00-53, Monday is week start)
-%U = Week number (01-53, Sunday is week start)
-%m = Month number (e.g. 01, 02, 03, 04)
-%b = Abbreviated month (Jan, Feb, etc.)
-%B = Full month (January, February, etc.)
-%y = 2-digit year (e.g. 89)
-%Y = 4-digit year (e.g. 1989)
-%h = hours (24-hr clock)
-%m = minutes
-%s = seconds
-%z = offset from GMT
-%Z = Time zone (character)
+* %d = Day number of month (5, 17, 28, etc.)
+* %j = Day number of the year (Julian day 001-366)
+* %a = Abbreviated weekday (Mon, Tue, Wed, etc.)
+* %A = Full weekday (Monday, Tuesday, etc.) %w = Weekday number (0-6, Sunday is 0)
+* %u = Weekday number (1-7, Monday is 1)
+* %W = Week number (00-53, Monday is week start)
+* %U = Week number (01-53, Sunday is week start)
+* %m = Month number (e.g. 01, 02, 03, 04)
+* %b = Abbreviated month (Jan, Feb, etc.)
+* %B = Full month (January, February, etc.)
+* %y = 2-digit year (e.g. 89)
+* %Y = 4-digit year (e.g. 1989)
+* %h = hours (24-hr clock)
+* %m = minutes
+* %s = seconds %z = offset from GMT
+* %Z = Time zone (character)
 
 ### Month-Year
 
