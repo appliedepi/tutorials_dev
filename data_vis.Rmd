@@ -83,7 +83,8 @@ pacman::p_load(
   plotly,     # interactive plots
   cowplot,    # combine plots
   tidyverse,   # ggplot2 & data management
-  ggpubr
+  ggpubr,
+  gghighlight
   )
 
 
@@ -219,7 +220,7 @@ To use basic functions with public health data, the tidyverse metapackage is ver
 We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [_Suggested Packages_](https://epirhandbook.com/en/suggested-packages-1.html) page. 
 
 
-```{r load-package, exercise = TRUE, eval = FALSE}
+```{r load-package-solution, echo=T, eval = FALSE}
 pacman::p_load(
   rio,        # importing data  
   here,       # relative file pathways  
@@ -236,32 +237,8 @@ pacman::p_load(
   scales,     # formatting of scales
   plotly,     # interactive plots
   cowplot,    # combine plots
-  tidyverse   # ggplot2 & data management
-)
-```
-
-```{r load-package-check}
-grade_this_code("The packages you need for this lesson are now loaded!")
-```
-
-```{r load-package-solution, eval = FALSE}
-pacman::p_load(
-  rio,        # importing data  
-  here,       # relative file pathways  
-  skimr,      # review data
-  DT,         # visualize data frame
-  janitor,    # data cleaning and tables
-  epikit,     # age categories
-  lubridate,  # working with dates
-  incidence2, # epidemic curves
-  ggrepel,    # smart labels
-  ggExtra,    # extras
-  esquisse,   # point-and-click for simple ggplots
-  apyramid,   # age pyramids
-  scales,     # formatting of scales
-  plotly,     # interactive plots
-  cowplot,    # combine plots
-  tidyverse   # ggplot2 & data management
+  tidyverse,  # ggplot2 & data management
+  gghighlight # nice highlighting features for ggplot
 )
 ```
 
@@ -370,7 +347,7 @@ linelist %>%
 
 ## Mapping columns
 ```{r aes, echo=T, eval=T}
-ggplot(data = linelist, aes(x = age, y = bmi))
+ggplot(data = linelist, mapping = aes(x = age, y = bmi))
 
 
 ```
@@ -389,7 +366,7 @@ head(linelist,25)
 ```
 
 ```{r axes-plot, exercise = TRUE}
-ggplot(data = linelist, aes(x = age, y = bmi))
+ggplot(data = linelist, mapping = aes(x = age, y = bmi))
 ```
 
 ```{r axes-plot-check}
@@ -401,7 +378,7 @@ grade_this_code("correct, you should now see weight on the y axis")
 ```
 
 ```{r axes-plot-solution, eval= FALSE}
-ggplot(data = linelist, aes(x = age, y = wt_kg))
+ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))
 ```
 
 
@@ -420,7 +397,7 @@ Some common "geoms" for epidemiology are listed below:
 
 Adding (`+`) `geom_point()` to our previous `ggplot()` call will plot points using the X and Y variables we defined:
 ```{r simple plot, echo=T}
-ggplot(data = linelist, aes(x = age, y = wt_kg))+
+ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point()
 ```
 
@@ -430,7 +407,7 @@ You will see a warning when running this code reproduced above. This is due to m
 We can also plot other simple plots with the same data by switching out the `geom_point()` for another geom. Below we plot a histogram  of ages included in the linelist. This type of plot only requires a single variable. Can you spot what is missing from the code below?
 
 ```{r axis-plot, exercise = TRUE, warning=F, message=F}
-ggplot(data = linelist, aes(x = age))
+ggplot(data = linelist, mapping = aes(x = age))
 geom_histogram()
 ```
 
@@ -443,7 +420,7 @@ grade_this_code("correct, we need to link the commands together with a '+'")
 ```
 
 ```{r axis-plot-solution, eval= FALSE}
-ggplot(data = linelist, aes(x = age)) +
+ggplot(data = linelist, mapping = aes(x = age)) +
 geom_histogram()
 ```
 
@@ -467,7 +444,7 @@ These plot object aesthetics can be assigned values in two ways:
     * same display for all data
 
 ```{r plot-color, echo=T, warning=F, message=F}
-ggplot(data = linelist, aes(x = age)) +
+ggplot(data = linelist, mapping = aes(x = age)) +
 geom_histogram(fill = "orange")
 ```
 
@@ -476,14 +453,14 @@ geom_histogram(fill = "orange")
     * Dispalys data grouped by selected column
   
 ```{r dynamic-aes, warning=F, message=F, echo=T}
-ggplot(data = linelist, aes(x = age, y = wt_kg))+
-  geom_point(aes(color = gender))
+ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
+  geom_point(mapping = aes(color = gender))
 ```
 
 Try changing the histogram plot code below to have the bar fill determined by gender.
 
 ```{r gender-plot, exercise = TRUE, warning=F, message=F}
-ggplot(data = linelist, aes(x = age)) +
+ggplot(data = linelist, mapping = aes(x = age)) +
 geom_histogram(fill = "orange")
 ```
 
@@ -496,15 +473,15 @@ aes(fill = gender)
 ```
 
 ```{r gender-plot-solution, eval= FALSE}
-ggplot(data = linelist, aes(x = age)) +
-geom_histogram(aes(fill = gender))
+ggplot(data = linelist, mapping = aes(x = age)) +
+geom_histogram(mapping = aes(fill = gender))
 ```
 
 ### More examples
 For dot and line plots we assign the color using *color* rather than *fill* as they are outlines rather than filled objects. Here we also adjust the size (`size = `) of the points and the opacity (`alpha = `)(make them more see through; useful for overlaid plots)
 ```{r static-col, warning=F, message=F, echo=T}
-ggplot(data = linelist, aes(x = age, y = wt_kg))+
-  geom_point(aes(color = outcome), size = 2, alpha = 0.5)
+ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
+  geom_point(mapping = aes(color = outcome), size = 2, alpha = 0.5)
 ```
 
 We will cover different color options later and how to change the colors assigned to your data. Basic colors for static mapping are built-in with **ggplot2**:
@@ -530,15 +507,15 @@ ggpubr::show_point_shapes()
 As with the other aesthetics we have seen shape can be dynamic:
 
 ```{r dynamic-shape, warning=F, message=F, echo=T}
-ggplot(data = linelist, aes(x = age, y = wt_kg))+
-  geom_point(aes(shape = gender, color = age_cat), size = 3, alpha = 0.3)
+ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
+  geom_point(mapping = aes(shape = gender, color = age_cat), size = 3, alpha = 0.3)
 ```
 
 or static:
 
 ```{r static-shape, warning=F, message=F, echo=T}
-ggplot(data = linelist, aes(x = age, y = wt_kg))+
-  geom_point(aes(fill = age_cat), color = "black", shape = 21, size = 3, alpha = 0.3)
+ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
+  geom_point(mapping = aes(fill = age_cat), color = "black", shape = 21, size = 3, alpha = 0.3)
 ```
 
 Here we use a shape with fill to allow each point to have a black outline with categorical fill.
@@ -550,8 +527,8 @@ egs.
 `size = 3`
 `alpha = 0.5`
 
-```{r plot-with-those-aes}
-ggplot(data = linelist, aes(x = age, y = wt_kg))+
+```{r plot-with-those-aes, warning=F, message=F}
+ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point(color = "seagreen", size = 3, alpha = 0.5)
 ```
 
@@ -565,6 +542,10 @@ As we have shown in the examples, both types of aesthetic can be combined in one
 1. Dynamic mappings in the initial `ggplot()` call will apply to subsequent geoms, *unless otherwise indicated*
 2. Static aesthetics (e.g. color = "blue") are not inherited by subsequent geoms
 3. Mappings written within one geom apply only to that geom
+
+
+
+
 
 It is good practice to add global option sin the initial `ggplot()` call such as the coordinates used in the plot. This makes reading the code more easy for others and yourself. The data is also usually global but in some cases you may load different data for individual geoms inside those geoms
 
@@ -585,11 +566,143 @@ quiz(
 )
 ```
 
+
 ## Facets
+Aesthetics are a good way of showing groups in your data, another way is by *faceting*. `facet_wrap()` can be used to produce an individual plot for each unique value of the column passed to it. Put a "~" before the column name in the command
 
+```{r facet-wrap, echo=T, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram() +
+facet_wrap(~source)
+```
 
+Here we split out the linelist data by source of infection. By default `facet_wrap()` automatically matches scales between plots. 
+This can be turned off with "free" options passed to `scales =` 
 
+1. "free_y"
+2. "free_x"
+3. "free" (both x and y)
 
+```{r facet-wrap-free, echo=T, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram() +
+facet_wrap(~source, scales = "free_y")
+```
+
+**Free axes are generally not recommended as they can mislead an audience not carefully checking your plots**
+
+you can also set the number of columns or rows of plots produced with `ncol = ` and `nrow = `
+
+Try fixing the below code splitting cases by reporting hospital to plot a facet:
+
+1. Without a free y axis
+2. With 2 columns of plots
+3. With fill set by the source of infection (calls back to aesthetic mapping section)
+
+```{r facet-test, exercise = TRUE, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram() +
+facet_wrap(~hospital, scales = "free_y", ncol = 4)
+```
+
+```{r facet-test-check}
+grade_this_code("correct, we remove the scales argument, change ncol to 2 and add fill = source to the mapping = aes() of the histogram")
+```
+
+```{r facet-test-hint}
+`1. We can remove the scales argument completely as we want to use the default.`
+`2. adust ncol = `
+`3. we want to specify fill = source inside the aes mapping for the histogram`
+```
+
+```{r facet-test-solution, eval= FALSE}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram(mapping = aes(fill = source)) +
+facet_wrap(~hospital, ncol = 2)
+```
+
+ We will fix the date (x) axis label overlap later in the tutorial.
+ 
+### Facet by two variables
+
+The "~" signifies "by". You can place columns on either side.
+With `facet_wrap()`, levels are combined into facet titles, appearing alphabetically/by factor level.
+
+```{r multidimension facet wrap, echo=T, warning=F, message=F, fig.height=7}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram(mapping = aes(fill = source)) +
+facet_wrap(hospital ~ gender)
+```
+
+To improve on this layout we can instead use the `facet_grid()` command:
+```{r multidimension facet grid, echo=T, warning=F, message=F, fig.height=7}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram(mapping = aes(fill = source)) +
+facet_grid(hospital ~ gender)
+```
+
+### Drop levels from facets
+
+The easiest way to drop unwanted levels from your facet plot is to remove them in advance with `filter()` or `drop_na()`, functions you will have seen in the data cleaning tutorial.
+
+For ease we can also pipe this amended data straight into `ggplot()` rather than saving the changes as a new object for plotting.
+
+```{r dropping, echo=T, warning=F, message=F, fig.height=7}
+linelist %>% 
+   drop_na(gender, hospital) %>% 
+   filter(hospital != "Missing") %>% 
+ggplot(
+  mapping = aes(x = date_onset)) +
+geom_histogram(mapping = aes(fill = source)) +
+facet_grid(hospital ~ gender)
+```
+
+### `gghighlight()`
+
+It can be useful to show facets in context of other data for comparison. `gghighlight()` from the package **gghighlight** can be used in combination with facets to have this effect.
+
+```{r gghighlight, echo=T, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram(aes(fill = hospital)) +
+facet_wrap(~hospital) +
+gghighlight()
+
+```
+
+gghighlight can also be added to other types of ggplot. Here we specify we want to highlight the 15-19 year olds in some data grouped from the linelist in this tutorial
+
+```{r gghighlight-other, echo=T, warning=F, message=F}
+linelist %>% 
+  # get daily counts by age group
+  group_by(age_cat, date_onset) %>%
+  count() %>% 
+
+  ggplot(
+    mapping = aes(
+      x = date_onset,
+      y = n,
+      color = age_cat)) +
+  geom_line() +
+  gghighlight::gghighlight(
+    age_cat %in% c("15-19"))+
+  theme(legend.position = "none")
+```
+
+Check the handbook for [more information on grouping data](https://epirhandbook.com/en/grouping-data.html)
 
 ## Scales
 ***log, axis lims etc.***
