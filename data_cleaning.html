@@ -619,8 +619,8 @@ ifelse(age_unit == &quot;years&quot;,   #The condition, if the value in the colu
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x0000000022dd8fc0&gt;
-## &lt;environment: 0x0000000022dda9d8&gt;</code></pre>
+## &lt;bytecode: 0x0000000022de8c00&gt;
+## &lt;environment: 0x0000000022dea618&gt;</code></pre>
 <p>Using the same syntax you can convert columns to character with <code>as.character()</code> or to logical operators, <code>as.logical()</code> or to a factor with <code>as.factor()</code> with base R, or <code>as_factor</code> from the package <strong>forcats</strong>.</p>
 <p>Converting dates is slightly trickier, and it requires careful attention to the format (e.g. “Month/Day/Year” or “Day/Month/Year”). After converting to the class Date, check your data to confirm each value was converted correctly.</p>
 </div>
@@ -691,8 +691,8 @@ linelist %&gt;%
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x0000000022dd8fc0&gt;
-## &lt;environment: 0x0000000021a1f828&gt;</code></pre>
+## &lt;bytecode: 0x0000000022de8c00&gt;
+## &lt;environment: 0x0000000021a2f238&gt;</code></pre>
 </div>
 <div id="section-coalesce" class="section level3">
 <h3>coalesce()</h3>
@@ -1328,13 +1328,13 @@ linelist &lt;- linelist %&gt;%
 <p>Once converted you can extract aspects such as the year, month, day, weekday, week etc.</p>
 <p>2 16 4</p>
 <p>You can also extract time components from a datetime object or column. This can be useful if you want to view the distribution of admission times.</p>
-<p>14 24 33.900851</p>
+<p>14 29 19.6231329</p>
 <div id="section-date-math" class="section level3">
 <h3>Date math</h3>
 <p>Date math is simple once you have converted the dates, to add on a certain number of days, weeks, months or years you can use the functions <code>days()</code>, <code>weeks()</code>, <code>months()</code>, <code>years()</code>.</p>
 <p>2022-02-19 2022-05-16 2025-02-16</p>
 <p>and again the same for adding on time</p>
-<p>2022-02-16 17:24:33 2022-02-16 14:27:33 2022-02-16 14:24:36</p>
+<p>2022-02-16 17:29:19 2022-02-16 14:32:19 2022-02-16 14:29:22</p>
 </div>
 <div id="section-date-intervals" class="section level3">
 <h3>Date intervals</h3>
@@ -1466,7 +1466,7 @@ linelist &lt;- linelist %&gt;%
 <p>In R, each datetime object has a timezone component. By default, all datetime objects will carry the local time zone for the computer being used - this is generally specific to a location rather than a named timezone, as time zones will often change in locations due to daylight savings time. It is not possible to accurately compensate for time zones without a time component of a date, as the event a date column represents cannot be attributed to a specific time, and therefore time shifts measured in hours cannot be reasonably accounted for.</p>
 <p>To deal with time zones, there are a number of helper functions in <strong>lubridate</strong> that can be used to change the time zone of a datetime object from the local time zone to a different time zone. Time zones are set by attributing a valid tz database time zone to the datetime object. A list of these can be found here - if the location you are using data from is not on this list, nearby large cities in the time zone are available and serve the same purpose.</p>
 <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a></p>
-<pre><code>## [1] &quot;2022-02-16 14:24:35 GMT&quot;</code></pre>
+<pre><code>## [1] &quot;2022-02-16 14:29:21 GMT&quot;</code></pre>
 <pre><code>## Time difference of 0 secs</code></pre>
 </div>
 <div id="section-lagging-and-leading-calculations" class="section level2">
@@ -2087,8 +2087,8 @@ totals &lt;- linelist %&gt;%
 </div>
 </div>
 </div>
-<div id="section-binding-columns" class="section level1">
-<h1>Binding columns</h1>
+<div id="section-binding-columns" class="section level2">
+<h2>Binding columns</h2>
 <p><strong>dplyr</strong> has the function <code>bind_cols()</code> which allows us to combine two dataframes sideways. Note these are joined by <em>position</em> and so, for instance, the 10th row of dataframe A and the 10th row of dataframe B are aligned.</p>
 <pre class="r"><code>#Create the first dataframe
 case_info &lt;- linelist %&gt;% 
