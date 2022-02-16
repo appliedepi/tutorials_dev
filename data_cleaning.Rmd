@@ -304,7 +304,7 @@ In this tutorial we will use the following datasets. Please take a few minutes t
 Use the arrows on the right to scroll through hidden columns. Note that these are "raw" (messy) datasets that mimic problems commonly found in real-life epidemiological datasets.  
 
 
-### **A "linelist" of cases in a fictional (not real) Ebola outbreak***
+### **A "linelist" of cases in a fictional (not real) Ebola outbreak**
 
 A "linelist" is a term used in applied epidemiology to refer to a table that contains key information about each case or suspect case in an outbreak. Each row represents one case, and the columns contain variables such as age, sex, date of symptom onset, outcomes, etc.
 
@@ -2866,4 +2866,39 @@ and now we can combine them using `bind_rows()`
 bind_rows(hosp_summary, totals)
 
 ```
+
+# Binding columns
+
+**dplyr** has the function `bind_cols()` which allows us to combine two dataframes sideways. Note these are joined by *position* and so, for instance, the 10th row of dataframe A and the 10th row of dataframe B are aligned. 
+
+```{r, echo = T, eval = F}
+#Create the first dataframe
+case_info <- linelist %>% 
+  group_by(hospital) %>% 
+  summarise(
+    cases = n(),
+    deaths = sum(outcome == "Death", na.rm=T)
+  )
+
+#Create a second dataframe of follow up information
+contact_followup <- data.frame(
+  hospital = c("St. Mark's Maternity Hospital (SMMH)", "Military Hospital", "Missing", "Central Hospital", "Port Hospital", "Other"),
+  investigated = c("80%", "82%", NA, "78%", "64%", "55%"),
+  per_fu = c("60%", "25%", NA, "20%", "75%", "80%")
+)
+
+#The values in case_info$hospital do not equal the values in contact_followup$hospital, and so they are not in the correct order and need to be reordered
+contact_followup_aligned <- contact_followup[match(case_info$hospital, contact_followup$hospital),] #We can use this to match the order of contact_followup with case_info for the column hospital
+
+bind_cols(case_info, contact_followup)
+
+```
+
+In most circumstances, especially where dataframes may be in a different order or unequal in size, you should use a `join` function rather than `bind_cols()` to avoid incorrect matching.
+
+
+
+
+
+
 

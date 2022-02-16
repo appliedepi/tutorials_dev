@@ -1876,3 +1876,6 @@ C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-02/16/22 12:52:37
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-02/16/22 12:52:45 GMT; ah1114; section_skipped; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-02/16/22 12:52:50 GMT; ah1114; section_skipped; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-02/16/22 12:52:52 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-02/16/22 14:25:50 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-02/16/22 14:25:50 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-02/16/22 14:25:50 GMT; ah1114; section_viewed_first_time; ; ; ; 

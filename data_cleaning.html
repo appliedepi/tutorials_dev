@@ -200,7 +200,7 @@ ID:
 <p>In this tutorial we will use the following datasets. Please take a few minutes to review the structure and content of each dataset before continuing.</p>
 <p>Use the arrows on the right to scroll through hidden columns. Note that these are “raw” (messy) datasets that mimic problems commonly found in real-life epidemiological datasets.</p>
 <div id="section-a-linelist-of-cases-in-a-fictional-not-real-ebola-outbreak" class="section level3">
-<h3><strong>A “linelist” of cases in a fictional (not real) Ebola outbreak</strong>*</h3>
+<h3><strong>A “linelist” of cases in a fictional (not real) Ebola outbreak</strong></h3>
 <p>A “linelist” is a term used in applied epidemiology to refer to a table that contains key information about each case or suspect case in an outbreak. Each row represents one case, and the columns contain variables such as age, sex, date of symptom onset, outcomes, etc.</p>
 <p>This dataset contains 6611 rows and 28 columns. Below are the first 5 rows:</p>
 <div data-pagedtable="false">
@@ -619,8 +619,8 @@ ifelse(age_unit == &quot;years&quot;,   #The condition, if the value in the colu
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x0000000022726448&gt;
-## &lt;environment: 0x0000000022727e60&gt;</code></pre>
+## &lt;bytecode: 0x0000000022dd8fc0&gt;
+## &lt;environment: 0x0000000022dda9d8&gt;</code></pre>
 <p>Using the same syntax you can convert columns to character with <code>as.character()</code> or to logical operators, <code>as.logical()</code> or to a factor with <code>as.factor()</code> with base R, or <code>as_factor</code> from the package <strong>forcats</strong>.</p>
 <p>Converting dates is slightly trickier, and it requires careful attention to the format (e.g. “Month/Day/Year” or “Day/Month/Year”). After converting to the class Date, check your data to confirm each value was converted correctly.</p>
 </div>
@@ -691,8 +691,8 @@ linelist %&gt;%
 ##         .message = final_grade$message, .message_pipe_warning = NULL, 
 ##         .correct = correct, .incorrect = incorrect))
 ## }
-## &lt;bytecode: 0x0000000022726448&gt;
-## &lt;environment: 0x0000000021460728&gt;</code></pre>
+## &lt;bytecode: 0x0000000022dd8fc0&gt;
+## &lt;environment: 0x0000000021a1f828&gt;</code></pre>
 </div>
 <div id="section-coalesce" class="section level3">
 <h3>coalesce()</h3>
@@ -1328,13 +1328,13 @@ linelist &lt;- linelist %&gt;%
 <p>Once converted you can extract aspects such as the year, month, day, weekday, week etc.</p>
 <p>2 16 4</p>
 <p>You can also extract time components from a datetime object or column. This can be useful if you want to view the distribution of admission times.</p>
-<p>12 50 26.439811</p>
+<p>14 24 33.900851</p>
 <div id="section-date-math" class="section level3">
 <h3>Date math</h3>
 <p>Date math is simple once you have converted the dates, to add on a certain number of days, weeks, months or years you can use the functions <code>days()</code>, <code>weeks()</code>, <code>months()</code>, <code>years()</code>.</p>
 <p>2022-02-19 2022-05-16 2025-02-16</p>
 <p>and again the same for adding on time</p>
-<p>2022-02-16 15:50:26 2022-02-16 12:53:26 2022-02-16 12:50:29</p>
+<p>2022-02-16 17:24:33 2022-02-16 14:27:33 2022-02-16 14:24:36</p>
 </div>
 <div id="section-date-intervals" class="section level3">
 <h3>Date intervals</h3>
@@ -1466,7 +1466,7 @@ linelist &lt;- linelist %&gt;%
 <p>In R, each datetime object has a timezone component. By default, all datetime objects will carry the local time zone for the computer being used - this is generally specific to a location rather than a named timezone, as time zones will often change in locations due to daylight savings time. It is not possible to accurately compensate for time zones without a time component of a date, as the event a date column represents cannot be attributed to a specific time, and therefore time shifts measured in hours cannot be reasonably accounted for.</p>
 <p>To deal with time zones, there are a number of helper functions in <strong>lubridate</strong> that can be used to change the time zone of a datetime object from the local time zone to a different time zone. Time zones are set by attributing a valid tz database time zone to the datetime object. A list of these can be found here - if the location you are using data from is not on this list, nearby large cities in the time zone are available and serve the same purpose.</p>
 <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a></p>
-<pre><code>## [1] &quot;2022-02-16 12:50:27 GMT&quot;</code></pre>
+<pre><code>## [1] &quot;2022-02-16 14:24:35 GMT&quot;</code></pre>
 <pre><code>## Time difference of 0 secs</code></pre>
 </div>
 <div id="section-lagging-and-leading-calculations" class="section level2">
@@ -2085,6 +2085,31 @@ totals &lt;- linelist %&gt;%
 {"columns":[{"label":["hospital"],"name":[1],"type":["chr"],"align":["left"]},{"label":["cases"],"name":[2],"type":["int"],"align":["right"]},{"label":["ct_value_med"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Central Hospital","2":"454","3":"22"},{"1":"Hospital A","2":"288","3":"22"},{"1":"Hospital B","2":"288","3":"22"},{"1":"Military Hospital","2":"896","3":"21"},{"1":"Missing","2":"1469","3":"21"},{"1":"Other","2":"885","3":"22"},{"1":"Port Hospital","2":"1772","3":"22"},{"1":"St. Mark's Maternity Hospital (SMMH)","2":"422","3":"22"},{"1":"NA","2":"1","3":"NA"},{"1":"NA","2":"6475","3":"22"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+</div>
+<div id="section-binding-columns" class="section level1">
+<h1>Binding columns</h1>
+<p><strong>dplyr</strong> has the function <code>bind_cols()</code> which allows us to combine two dataframes sideways. Note these are joined by <em>position</em> and so, for instance, the 10th row of dataframe A and the 10th row of dataframe B are aligned.</p>
+<pre class="r"><code>#Create the first dataframe
+case_info &lt;- linelist %&gt;% 
+  group_by(hospital) %&gt;% 
+  summarise(
+    cases = n(),
+    deaths = sum(outcome == &quot;Death&quot;, na.rm=T)
+  )
+
+#Create a second dataframe of follow up information
+contact_followup &lt;- data.frame(
+  hospital = c(&quot;St. Mark&#39;s Maternity Hospital (SMMH)&quot;, &quot;Military Hospital&quot;, &quot;Missing&quot;, &quot;Central Hospital&quot;, &quot;Port Hospital&quot;, &quot;Other&quot;),
+  investigated = c(&quot;80%&quot;, &quot;82%&quot;, NA, &quot;78%&quot;, &quot;64%&quot;, &quot;55%&quot;),
+  per_fu = c(&quot;60%&quot;, &quot;25%&quot;, NA, &quot;20%&quot;, &quot;75%&quot;, &quot;80%&quot;)
+)
+
+#The values in case_info$hospital do not equal the values in contact_followup$hospital, and so they are not in the correct order and need to be reordered
+contact_followup_aligned &lt;- contact_followup[match(case_info$hospital, contact_followup$hospital),] #We can use this to match the order of contact_followup with case_info for the column hospital
+
+bind_cols(case_info, contact_followup)</code></pre>
+<p>In most circumstances, especially where dataframes may be in a different order or unequal in size, you should use a <code>join</code> function rather than <code>bind_cols()</code> to avoid incorrect matching.</p>
 
 <script type="application/shiny-prerendered" data-context="server-start">
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
@@ -6054,7 +6079,6 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133]}},"value":[{"type":"character","attributes":{},"value":["adagio","ade4","assertthat","backports","base","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","doParallel","dplyr","ellipsis","epikit","etude","evaluate","FactoClass","fansi","farver","fastLink","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","gtools","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","iterators","itertools","janitor","jquerylib","jsonlite","KernSmooth","knitr","labeling","later","lattice","learnr","lifecycle","linelist","lpSolve","lubridate","magrittr","markdown","MASS","Matrix","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","plotrix","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","reprex","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","scatterplot3d","shiny","snakecase","stats","stringdist","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","tzdb","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip","zoo"]},{"type":"character","attributes":{},"value":["0.8.4","1.7-18","0.2.1","1.4.1","4.0.4","0.10.11","0.7.10","0.3.1","1.1.0","2.0.0","3.1.1","0.2-18","2.0-2","4.0.4","1.4.2","4.3.2","1.14.2","4.0.4","1.1.1","2.1.1","0.6.29","1.0.17","1.0.7","0.3.2","0.1.2","0.3.0.9001","0.14","1.2.7","0.5.0","2.1.0","0.6.0","1.1.0","0.5.1","1.5.1","0.8-81","1.5.2","0.1.1","1.1.7","0.3.3","3.3.5","2.0.5","0.9.1","1.6.0","0.2.4.9000","4.0.4","0.7.2","4.0.4","4.0.4","2.3","0.3.0","3.9.2","2.4.3","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.3","1.4.2","1.2.9","1.0.13","0.1-3","2.1.0","0.1.4","1.7.2","2.23-20","1.37","0.4.2","1.3.0","0.20-45","0.10.1.9018","1.0.1","0.0.40.9000","5.6.15","1.8.0","2.0.1","1.1","7.3-54","1.4-0","4.0.4","0.12","0.1.8","0.5.0","4.2.4","4.0.4","1.6.4","2.0.3","3.8-2","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.7","2.1.1","1.3.1","2.0.1","0.5.29","0.4.12","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","0.3-41","1.7.1","0.11.0","4.0.4","0.9.8","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.4","1.1.1","1.3.1","4.0.4","1.0.2","0.2.0","1.2.2","4.0.4","0.3.8","0.6.2","0.4.0","2.4.3","0.28","1.3.3","1.8-4","2.2.1","2.2.0","1.8-9"]}]}]}
 </script>
 <!--/html_preserve-->
-</div>
 </div>
 
 </div> <!-- topics -->
