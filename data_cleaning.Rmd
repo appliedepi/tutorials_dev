@@ -192,6 +192,20 @@ results <- tribble(
   )
 
 
+cases_dup <- rbind(cases,
+                   data.frame(
+                     gender = c("M", "F"),
+           first = c("Tony", "Maria"),
+           middle = c("B.", "Contreras"),
+           last = c("Smith", "Rodriguez"),
+           yr = c(1970, 1972),
+           mon = c(9, 4),
+           day = c(19, 15),
+           district = c("River", "River"))
+           )
+
+
+
 
 ```
 
@@ -2649,7 +2663,7 @@ linelist_mini %>%
   anti_join(hosp_info, by = c("hospital" = "hosp_name"))
 ```
 
-```{r quiz9}
+```{r quiz10}
 quiz(
   question("Which of these joins would class df1 as the baseline?",
            answer("left_join(df1, df2, by = 'ID')", correct = T),
@@ -2660,7 +2674,7 @@ quiz(
            answer("full_join(df1, df2, by = 'ID')"),
            answer("left_join(df1, df2, by = 'ID')")),
   question("Which of these would fill in columns that didn't match with NA values?",
-           answer("full_join(df1, df2, by = 'ID')"),
+           answer("full_join(df1, df2, by = 'ID')", correct = T),
            answer("semi_join(df1, df2, by = 'ID')"),
            answer("anti_join(df1, df2, by = 'ID')"))
   )
@@ -2727,7 +2741,7 @@ fl_output <- fastLink::fastLink(
   varnames = c("gender", "first", "middle", "last", "yr", "mon", "day", "district"),
   stringdist.match = c("first", "middle", "last", "district"),
   numeric.match = c("yr", "mon", "day"),
-  threshold.match = 0.95)
+  threshold.match = 0.94)
 
 my_matches <- fl_output$matches
 
@@ -2771,11 +2785,85 @@ complete
 
 ```
 
+### Probabilistic deduplication
 
+We can also use `fastLink()` for probablistic deduplication.
 
+Here we have the dataset `cases_dup` which contains the same information as cases above, but additionally has two rows that _could_ be duplicates of previous rows. See the last 2 rows for "Tony" with "Anthony" and "Marialisa Rodrigues" with "Maria Rodriguez".
 
+```{r, echo = F, eval = T}
+cases_dup
+```
 
+To deduplicate we compare `cases_dup` to itself and do not need to specify stringdist.match = or numeric.match = as we did previously. After this we use `getMatches()` to get the results. 
 
+```{r, echo = T, eval = T}
+## Run fastLink on the same dataset
+dedupe_output <- fastLink(
+  dfA = cases_dup,
+  dfB = cases_dup,
+  varnames = c("gender", "first", "middle", "last", "yr", "mon", "day", "district")
+)
 
+cases_dedupe  <- getMatches(dfA = cases_dup,  
+           dfB = cases_dup,
+           fl.out = dedupe_output)
 
+```
+
+See the right-most column, which indicates the duplicate IDs - the final two rows are identified as being likely duplicates of rows 2 and 3.
+
+To return the row numbers of rows which are likely duplicates, you can count the number of rows per unique value in the `dedupe.ids` column, and then filter to keep only those with more than one row. In this case this leaves rows 2 and 3.
+
+To then remove these duplicated columns we simply filter rows.
+
+```{r, echo = T, eval = T}
+cases_dedupe %>%
+    distinct(dedupe.ids, .keep_all = TRUE) #Distinct removes duplicated values in the column dedupe.ids and ".keep_all = TRUE" means we keep all the columns and not just dedupe.ids
+```
+
+## Binding and aligning
+
+Another method of combining dataframes is "binding" them together, you can also think of this as "appending" or "adding" rows or columns.
+
+### Bind rows
+
+There are several ways of binding rows in R, however we will focus on **dplyr**'s `bind_rows()`. This function is very flexible, with numerous functionalities such as:
+
+* It doesn't require us to match the order of columns (unlike **base** R's `row.bind()`)
+* You can optionally specify the argument `.id = ` to create a character column name to identify which dataframe the new row came from
+* You can use `bind_rows()` on a `list` of similarly structured dataframes to combine them. This is especially useful when you are useing loops
+
+One common example of row binding is to bind a “total” row onto a descriptive table made with **dplyr**’s `summarise()` function. Below we create a table of case counts and median CT values by hospital with a total row.
+
+The function `summarise()` is used on data grouped by hospital to return a summary data frame by hospital. But the function `summarise()` does not automatically produce a “totals” row, so we create it by summarising the data again, but with the data not grouped by hospital. This produces a second data frame of just one row. We can then bind these data frames together to achieve the final table.
+
+```{r, echo = T, eval = T}
+
+# Create core table
+###################
+hosp_summary <- linelist %>% 
+  group_by(hospital) %>%                        # Group data by hospital
+  summarise(                                    # Create new summary columns of indicators of interest
+    cases = n(),                                  # Number of rows per hospital-outcome group     
+    ct_value_med = median(ct_blood, na.rm=T))     # median CT value per group
+
+```
+
+Create a data frame with the “total” statistics (not grouped by hospital). This will return just one row.
+```{r, echo = T, eval = T}
+# create totals
+###############
+totals <- linelist %>% 
+  summarise(
+    cases = n(),                               # Number of rows for whole dataset     
+    ct_value_med = median(ct_blood, na.rm=T))  # Median CT for whole dataset
+```
+
+and now we can combine them using `bind_rows()`
+
+```{r, echo = T, eval = T}
+bind_rows(hosp_summary, totals)
+
+```
 
