@@ -64,6 +64,29 @@ knitr::opts_chunk$set(echo = FALSE)
 linelist_raw <- rio::import(here::here("data", "linelist_raw.xlsx"))
 linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
 malaria_counts <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
+
+# Package preloads
+pacman::p_load(
+  rio,        # importing data  
+  here,       # relative file pathways  
+  skimr,      # review data
+  DT,         # visualize data frame
+  janitor,    # data cleaning and tables
+  epikit,     # age categories
+  lubridate,  # working with dates
+  incidence2, # epidemic curves
+  ggrepel,    # smart labels
+  ggExtra,    # extras
+  esquisse,   # point-and-click for simple ggplots
+  apyramid,   # age pyramids
+  scales,     # formatting of scales
+  plotly,     # interactive plots
+  cowplot,    # combine plots
+  tidyverse   # ggplot2 & data management
+)
+
+
+
 ```
 
 
@@ -130,7 +153,7 @@ If viewing offline, you can view the videos by doing ...
 
 In this tutorial you will:  
 
-* Cleaning data useing the fundamental **tidyverse** R functions
+* Cleaning data using the fundamental **tidyverse** R functions
 * ...  
 * ...  
 
@@ -153,57 +176,39 @@ knitr::include_graphics("images/hex-sidebyside.png")
 
 ## Data used and directory structure
 
-In this tutorial we will use the following datasets. Please take a few minutes to review the structure and content of each dataset before continuing.
+In this tutorial we will use the following dataset. Please take a few minutes to review the structure and content of the before continuing.
 
-Use the arrows on the right to scroll through hidden columns. Note that these are "raw" (messy) datasets that mimic problems commonly found in real-life epidemiological datasets.  
+Use the arrows on the right to scroll through hidden columns. Note that there are "raw" (messy) datasets that mimic problems commonly found in real-life epidemiological datasets availble. As we are focusing on visualization here we will use pre-cleaned data. The data cleaning tutorials cover the processing of raw data to get to this point and we recommend looking through these first
 
 
-### **A "linelist" of cases in a fictional (not real) Ebola outbreak***
+### **A "linelist" of cases in a fictional (not real) Ebola outbreak**
 
 A "linelist" is a term used in applied epidemiology to refer to a table that contains key information about each case or suspect case in an outbreak. Each row represents one case, and the columns contain variables such as age, sex, date of symptom onset, outcomes, etc.
 
-This dataset contains `r nrow(linelist_raw)` rows and `r ncol(linelist_raw)` columns. Below are the first 5 rows:  
+This dataset contains `r nrow(linelist)` rows and `r ncol(linelist)` columns. Below are the first 5 rows:  
 
 ```{r}
-head(linelist_raw)
+head(linelist)
 ```
-
-Click to [download the **raw** dataset](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_raw.xlsx) for your own practice.
 
 Click to [download the **clean** dataset as an **.rds file**](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds) for your own practice. A *.rds file* is an R-specific file type that preserves column classes. This ensures you will have only minimal cleaning to do after importing the data into R.
-
-### **Aggregated data from malaria surveillance in a fictional country**  
-
-Aggregated data in epidemiology usually means a table of counts for each facility, or district, etc. Sometimes, the counts can also be per day, week, or month.  
-
-In this fictional dataset, each facility reported *daily* case counts of rapid-test (RDT)-confirmed malaria. Thus, each row represents the number of cases for a specific facility on a specific day.  
-
-This dataset contains `r nrow(malaria_counts)` rows and `r ncol(malaria_counts)` columns. Below are the first 5 rows:  
-
-```{r}
-head(malaria_counts)
-```
-
-
-Click to [download the **clean** malaria counts dataset as an **.rds file**](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_facility_count_data.rds) for your own practice. A *.rds file* is an R-specific file type that preserves column classes. This ensures you will have only minimal cleaning to do after importing the data into R.
-
-
 
 
 ### Directory structure
 
+
 Photo or GIF of directory structure
 
 ### Accessing example data
-Here is how to access the example data
-
+The example data used in this exercise is available from the link below. This data is in the rds format, an R-specific format which preserves data formatting.
+Click to [download the **clean** dataset as an **.rds file**](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds) for your own practice. A *.rds file* is an R-specific file type that preserves column classes. This ensures you will have only minimal cleaning to do after importing the data into R.
 ### Tidy Data
 
 We highly recommend doing our tutorial on Tidy Data in Applied Epidemiology. Collecting, formatting, and preparing your dataset *before* importing it into R is a critical step!
+
+We also recommend following the tutorials in order and first learning the process of data cleaning which gives the example data above from a raw excel dataset.
+
 LINK
-VIDEO TEASER
-
-
 
 
 ## Install and Load R packages {#packages}
@@ -213,23 +218,50 @@ To use basic functions with public health data, the tidyverse metapackage is ver
 We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [_Suggested Packages_](https://epirhandbook.com/en/suggested-packages-1.html) page. 
 
 
-In this assignment we'll work with X R packages, let's load them!
-
-```{r load-package, exercise = TRUE}
-pacman::p_load(___)
-```
-
-```{r load-package-hint}
-pacman::p_load(rio, here, janitor, tidyverse)
-
+```{r load-package, exercise = TRUE, eval = FALSE}
+pacman::p_load(
+  rio,        # importing data  
+  here,       # relative file pathways  
+  skimr,      # review data
+  DT,         # visualize data frame
+  janitor,    # data cleaning and tables
+  epikit,     # age categories
+  lubridate,  # working with dates
+  incidence2, # epidemic curves
+  ggrepel,    # smart labels
+  ggExtra,    # extras
+  esquisse,   # point-and-click for simple ggplots
+  apyramid,   # age pyramids
+  scales,     # formatting of scales
+  plotly,     # interactive plots
+  cowplot,    # combine plots
+  tidyverse   # ggplot2 & data management
+)
 ```
 
 ```{r load-package-check}
-grade_this_code("You are correct, the packages you need for this lesson are now loaded!")
+grade_this_code("The packages you need for this lesson are now loaded!")
 ```
 
-```{r eval= FALSE}
-pacman::p_load(learnr, here, rio, janitor, tidyverse)
+```{r load-package-solution, eval = FALSE}
+pacman::p_load(
+  rio,        # importing data  
+  here,       # relative file pathways  
+  skimr,      # review data
+  DT,         # visualize data frame
+  janitor,    # data cleaning and tables
+  epikit,     # age categories
+  lubridate,  # working with dates
+  incidence2, # epidemic curves
+  ggrepel,    # smart labels
+  ggExtra,    # extras
+  esquisse,   # point-and-click for simple ggplots
+  apyramid,   # age pyramids
+  scales,     # formatting of scales
+  plotly,     # interactive plots
+  cowplot,    # combine plots
+  tidyverse   # ggplot2 & data management
+)
 ```
 
 ### Recommended R packages for public health
@@ -238,20 +270,13 @@ See this Epi R Handbook LINK for our recommended packages.
 
 
 
-
-
-
-
-
-
 ## Import data {#import} 
+In this example code we will work with the *cleaned* fictional Ebola data linked above. Import that data into R. If you are interested in the process of cleaning data have a look at the data cleaning tutorial.
 
-Import that data and save it as "raw" file
+To import data from a sub-folder, the `import()` command should be modified so that it correctly tells R where to search for this file. This is done using the here() function. In the example below we expect your data to be stored in a sub-directory (folder) named *data* within your R project. In your own use you will need to modify this code for your own directory structure.
 
-To import data from a sub-folder, the `import()` command should be modified so that it correctly tells R where to search for this file. This is done using the here() function. 
-
-```{r import-demo-subfolder, echo=T, eval=F}
-linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and save as named object
+```{r import-demo-subfolder, echo=T, eval=T}
+linelist <- import(here("data", "linelist_cleaned.rds"))   # import data and save as named object
 ```
 
 
@@ -259,7 +284,8 @@ linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and sa
 
 ## ggplot basics
 
-There are a number of visualisation options within the R software but in this tutorial and the handbook we focus on the **ggplot2** package available within the tidyverse. This is the visualisation package of choice for may epidemiologists and other R users as it has a number of benefits over the basic `plot()` function builit in to R.
+There are a number of visualization options within the R software but in this tutorial and the handbook we focus on the **ggplot2** package available within the tidyverse. This is the visualization package of choice for may epidemiologists and other R users as it has a number of benefits over the basic `plot()` function built in to R.
+
 **ggplot2**:
 
 * Is good for fast data exploration (especially with large numbers of parameters)
@@ -269,11 +295,11 @@ There are a number of visualisation options within the R software but in this tu
 
 
 ### Grammar of graphics
-Visualising multi-dimensional data *well* is a fine line between art and science. Visualisation is one of the most important parts of a statistical analysis as it allows you to share what you have achieved and, when done correctly, can help to explain complex work and concepts to a wider audience of stakeholders or the general public. Visualisation can also be a key step when getting to grips with new data orwith analyses you are working on.
+Visualizing multi-dimensional data *well* is a balance of art and science. Visualization is one of the most important parts of a statistical analysis as it allows you to share what you have achieved and, when done correctly, can help to explain complex work and concepts to a wider audience of stakeholders or the general public. Visualization can also be a key step when getting to grips with new data or with analyses you are working on.
 
 ***VIS OF ANSCOMBES QuARTET OR SIMILAR***
 
-The "grammar of graphics" was first introduced by Leland Wilkinson in the book ["The grammar of Graphics"](***link to springer***) but here relates to the layered grammar of graphics framework which ggplot is based on. 
+The grammar of graphics refers to the basic structure generally followed in **ggplot2** where different building blocks of the plot are manipulated in individual lines of code. These range from data, the basic requirement of all data visualization, up to individual design tweaks specific to your own needs or liking.
 
 ***pyramid illustration from towards data science is nice here***
 
@@ -290,18 +316,43 @@ For a standard plot your order will follow this process:
 
 "Adding" layers to your plot is done literally, by ending a ggplot line with the `+` symbol you can indicate that you wish to add further details on the following line. This can be repeated until your complete plot is built. Using this line-by-line syntax allows your code to be more readable, both to you to make changes in the future and to others trying to understand your work.
 
-
+```{r quiz1}
+quiz(
+  question("What is the most basic building block of data vizualisation?",
+    answer("Statistics"),
+    answer("Scale"),
+    answer("Data", correct = TRUE),
+    answer("Visualisation type")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("ggplot2", correct = TRUE),
+    answer("here"),
+    answer("dplyr"),
+    answer("incidence2", correct = TRUE)
+  )
+)
+```
 
 ## Grammar of graphics in action
-We will now try applying this layered system to some example data to practice visualising data.
+We will now try applying this layered system to some example data to practice visualizing data.
 
-## 1. "Open" the plot
+### "Open" the plot
 The **ggplot2** package is built around the **R** function `ggplot()` which is the first command for any ggplot. 
 Running `ggplot()` in your R console should generate a blank canvas:
 
-```{r ggplot empty}
+```{r blank-plot, exercise = TRUE}
 ggplot()
 ```
+
+```{r blank-plot-check}
+grade_this_code("correct, you should see a blank canvas loaded by ggplot2")
+```
+
+```{r blank-plot-solution, eval= FALSE}
+ggplot()
+```
+
+
 
 We assign the dataframe we wish to use with the data parameter of this function: 
 ```{r ggplot data, echo=T, eval=F}
@@ -309,31 +360,53 @@ ggplot(data = linelist)
 ```
 
 
-If you are familiar with the pipe operator (`%>%`) from our XXXX tutorial, data can also be passed into a ggplot command using a pipe.
+If you are familiar with the pipe operator (`%>%`) from our tidy data tutorial, data can also be passed into a ggplot command using a pipe:
+```{r pipe, eval=F, echo=T}
+linelist %>%
+  ggplot()
+```
 
-## 2. Map data columns with `aes()`
-```{r aes}
+
+### Aesthetic mappings
+```{r aes, echo=T, eval=T}
+ggplot(data = linelist, aes(x = age, y = bmi))
 
 
 ```
 
-***need to cover static aesthetics and  then go on to mapped aesthetics***
 
-"Aesthetics" are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the colour, shape and other properties of the plot which depend on columns in your data.
+"Aesthetics" are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the color, shape and other properties of the plot which depend on columns in your data.
 
 `mapping=aes()` assigns plot aesthetics to columns from your data. Any parameters to be input must be placed *within* the `aes()` command to be interpreted as dependent on the data.
 
-Here we have set the axes X and Y to columns from the data and you can see this represented on the plot area output from `ggplot`. 
-***qu chose a different column to plot and see how the axis labels and values change***
+Here we have set the axes X and Y to the age and bmi columns from the linelist data. You can see this represented on the axes above.
+
+The first 25 rows of the linelist data are reproduced below. Try changing the Y axis to weight rather than BMI
+
+```{r linelist-data}
+head(linelist,25)
+```
 
 
-***choose some data columns to plot, open and inspect the data, pick our columns***
-***intro the idea of data= and aes()***
+```{r axes-plot, exercise = TRUE}
+ggplot(data = linelist, aes(x = age, y = bmi))
+```
+
+```{r axes-plot-check}
+grade_this_code("correct, you should now see weight on the y axis")
+```
+
+```{r axes-plot-hint}
+`The weight column is labeled wt_kg`
+```
+
+```{r axes-plot-solution, eval= FALSE}
+ggplot(data = linelist, aes(x = age, y = wt_kg))
+```
 
 
 
-
-## Add geoms
+### Add geoms
 As we have seen above, running our `ggplot()` command with the data attached and X and Y coordinates determined does not give us a completed plot. 
 To do this we need to add geometry with "geom" commands. These all follow a common format of `geom_OPTION()` where OPTION is replaced with a plot type such as `geom_line()` or `geom_bar()` or more general objects to be plotted such as text: `geom_text()` or a horizontal line: `geom_hline()`. A full list of available **ggplot2** geoms can be found in the [ggplot reference document](ggplot2.tidyverse.org/reference/) and many more can be added by loading additional packages.
 Some common "geoms" for epidemiology are listed below:
@@ -346,39 +419,119 @@ Some common "geoms" for epidemiology are listed below:
 * Trend lines `geom_smooth()`
 
 Adding (`+`) `geom_point()` to our previous `ggplot()` call will plot points using the X and Y variables we defined:
-```{r simple plot}
-
-
+```{r simple plot, echo=T}
+ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point()
 ```
 
-We can also plot other simple plots with the same data by switching out the `geom_point()` for another geom. Can you spot what is missing from the following `geom_line()` command which is stopping it from plotting as intended?
-***qu where the plus is missing from the code so they need to add one in to join the lines***
+You will see a warning when running this code reproduced above. This is due to missing data in the linelist. **ggplot2** will automatically drop rows with missing values from simple plots.
 
 
+We can also plot other simple plots with the same data by switching out the `geom_point()` for another geom. Below we plot a histogram  of ages included in the linelist. This type of plot only requires a single variable. Can you spot what is missing from the code below?
+
+```{r axis-plot, exercise = TRUE, warning=F, message=F}
+ggplot(data = linelist, aes(x = age))
+geom_histogram()
+```
+
+```{r axis-plot-check}
+grade_this_code("correct, we need to link the commands together with a '+'")
+```
+
+```{r axis-plot-hint}
+`remember we need to add layers to our ggplot `
+```
+
+```{r axis-plot-solution, eval= FALSE}
+ggplot(data = linelist, aes(x = age)) +
+geom_histogram()
+```
+
+## Other aesthetics
+
+In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the `geom_OPTION()`):
+
+* shape = Display a point with geom_point() as a dot, star, triangle, or square…
+* fill = The interior color (e.g. of a bar or boxplot)
+* color = The exterior line of a bar, boxplot, etc., or the point color if using geom_point()
+* size = Size (e.g. line thickness, point size)
+* alpha = Transparency (1 = opaque, 0 = invisible)
+* binwidth = Width of histogram bins
+* width = Width of “bar plot” columns
+* linetype = Line type (e.g. solid, dashed, dotted)
+
+These plot object aesthetics can be assigned values in two ways:
+
+1. Static values (e.g. fill = "orange") to apply across all plotted observations
+    * Assigned _outside_ `aes()`
+    * same display for all data
+
+```{r plot-color, echo=T, warning=F, message=F}
+ggplot(data = linelist, aes(x = age)) +
+geom_histogram(fill="orange")
+```
+
+2. A data column (e.g. color = gender) such that display of each observation depends on its value in that column
+    * Assigned _inside_ `aes()`
+    * Dispalys data grouped by selected column
+  
+```{r dynamic-aes, warning=F, message=F, echo=T}
+ggplot(data = linelist, aes(x = age, y = wt_kg))+
+  geom_point(aes(color = gender))
+```
+
+Try changing the histogram plot code below to have the bar fill determined by gender.
+
+```{r gender-plot, exercise = TRUE, warning=F, message=F}
+ggplot(data = linelist, aes(x = age)) +
+geom_histogram(fill="orange")
+```
+
+```{r gender-plot-check}
+grade_this_code("correct, we need to put the fill inside aes()")
+```
+
+```{r gender-plot-hint}
+aes(fill = gender)
+```
+
+```{r gender-plot-solution, eval= FALSE}
+ggplot(data = linelist, aes(x = age)) +
+geom_histogram(aes(fill = gender))
+```
+
+### More examples
+
+### Static aesthetics
+
+### Assigned (dynamic) aesthetics
+
+### Combining both types
+
+### Placement of `aes()`
+
+## Facets
 
 
-
-***concept of geoms on a new line in the grammar setup***
-***examples of these geoms on our sample data***
 
 
 
 ## Scales
 ***log, axis lims etc.***
-
+## y-axis breaks
 
 ## colors
 ***premade palettes***
 ***add the ggplot colour list maybe? or link it ***
 ***hex values***
 
-## y-axis breaks
+
 
 
 ## Theme elements
 ***this part could be its own chapter - some basics plus built in themes***
 
-## Facets
+
 
 
 
