@@ -84,7 +84,8 @@ pacman::p_load(
   cowplot,    # combine plots
   tidyverse,   # ggplot2 & data management
   ggpubr,
-  gghighlight
+  gghighlight,
+  RColorBrewer # now built in to ggplot but need to load to see the palettes
   )
 
 
@@ -683,7 +684,9 @@ gghighlight()
 
 ```
 
-gghighlight can also be added to other types of ggplot. Here we specify we want to highlight the 15-19 year olds in some data grouped from the linelist in this tutorial
+gghighlight can also be added to other types of ggplot. Here we specify we want to highlight the 15-19 year olds in some data grouped from the linelist in this tutorial.
+
+
 
 ```{r gghighlight-other, echo=T, warning=F, message=F}
 linelist %>% 
@@ -704,17 +707,335 @@ linelist %>%
 
 Check the handbook for [more information on grouping data](https://epirhandbook.com/en/grouping-data.html)
 
+
+facet quiz - ways to group data - aesthetic and facet
+can you think of situations where facets are preferred?
+facet_wrap vs facet_grid
+
+
 ## Scales
-***log, axis lims etc.***
-## y-axis breaks
+Scale commands replace defaults of how the aesthetic mappings manifest, such as:
 
-## colors
-***premade palettes***
-***add the ggplot colour list maybe? or link it ***
-***hex values***
+* Which colors or shapes to display
+* The min/max of point sizes
+* The min/max and frequency of axes breaks
+
+As a generic formula, these commands are written as: `scale_AESTHETIC_METHOD()`.
+
+1. `scale_` : this prefix never changes
+2. AESTHETIC: `_fill_` , `_color_` , `_x_` , `_y_` , etc.
+3. METHOD: `_continuous()`, `_discrete()`, `_manual()`, `_date()`, etc.
+
+Some examples of scale commands:  
+
+You want to adjust  |Scale command
+--------------------|-------------------
+continuous y-axis   |`scale_y_continuous()`
+date x-axis         |`scale_x_date()`  
+categorical x-axis  |`scale_x_discrete()`  
+fill, continuous    |`scale_fill_continuous()`
+fill, continuous    |`scale_fill_gradient()`  
+color, manual assign|`scale_color_manual()`  
+
+here we show two different ways to create a continuous color gradient. `scale_*_continuous` works with pre-built gradient palettes, `scale_*_gradient()` creates a 2 color gradient, `scale_*_gradient2` allows you to also set a midpoint color between these two and `scale_gradientn()` allows you to create more complex palettes. More information on these functions is [available here](r-graphics.org/recipe-colors-palette-continuous).
 
 
 
+### Default scales
+
+```{r, eval=T, echo=T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar()
+```
+
+Above, the fill of a bar plot uses the **default colors and axis breaks**. We can adjust the elements of this plot with a `scale_AESTHETIC_METHOD()` function added (`+`) to the end of our `ggplot()`
+
+### Adjust fill
+
+Here we adjust the *fill* color of the bars *manually* (`scale_fill_manual()`). We provide assingments to the values in our dataset ("m" and "f") within a vector (`c()`). To assign a colour to the na values we need to specify this with the seperate argument `na.value = `
+
+```{r, eval=T, echo=T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_manual(        
+  values = c(
+   "m"     = "violetred", 
+   "f"      = "aquamarine"),
+   na.value = "green")
+```
+
+Here we have chosen some ugly colors to highlight what we are changing! Try changing the color for "m" to "dodgerblue" and "f" to "tomato" for a nicer color combination in the code below. Also set NA to be "grey", a common standard plot color.
+
+```{r manual-color, exercise = TRUE, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_manual(        
+  values = c(
+   "m"     = "violetred", 
+   "f"      = "aquamarine"),
+   na.value = "green")
+```
+
+```{r manual-color-check}
+grade_this_code("Correct! We can edit the values to specify any manual color combination we want")
+```
+
+```{r manual-color-solution, eval= FALSE}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_manual(        
+  values = c(
+   "m"     = "dodgerblue", 
+   "f"      = "tomato"),
+   na.value = "grey")
+```
+
+#### Built-in palettes
+
+**R** and **ggplot2** come with a number of built-in palettes. As we are working here with discrete data we can use `scale_fill_brewer()` to access the following palettes rather than specifying our own colors:
+
+```{R brewerpal, fig.height=6}
+RColorBrewer::display.brewer.all()
+
+```
+
+As we are working with a discrete scale the middle group of color palettes are most appropriate.
+
+```{r brewer_eg, eval= T, echo=T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_brewer(palette = "Pastel2", na.value = "grey")
+```
+
+A color-blind friendly palette is also available known as `viridis`. This comes in discrete and continuous forms `scale_fill_viridis_d()` and `scale_fill_viridis_c()`:
+
+```{r viridis_eg, eval= T, echo=T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_viridis_d(na.value = "grey")
+```
+
+Try applying what you have learned to add a continuous viridis palette to the following plot. Be aware that here we are dealing with a *color* rather than *fill* aesthetic. It is best practice to also specify an `na.value = `
+
+```{r pal-color, exercise = TRUE, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg,
+    color = temp)) +
+geom_point() 
+```
+
+```{r pal-color-check}
+grade_this_code("Correct! we need to specify we want a color scale, viridis palette and have continuous data (scale_color_viridis_c)")
+```
+
+```{r pal-color-hint}
++ scale_color_viridis_c(na.value = "grey")
+
+```
+
+```{r pal-color-solution, eval= FALSE}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg,
+    color = temp)) +
+geom_point() +
+scale_color_viridis_c(na.value = "grey")
+```
+
+### Adjusting y-axis
+
+We can edit axes in a similar way. In a barplot such as this one we have a continuous y-axis and discrete x-axis. Here we might decide that the counts on the y-axis are not descriptive enough so we wish to supply our own break points. In `scale_y_continuous()` we adjust the y-axis breaks using `seq()` to define a numeric sequence:   
+
+```{r axis-breaks, eval= T, echo=T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_viridis_d(na.value = "grey") +
+scale_y_continuous(breaks = seq(from = 0,
+                                to = 3000,
+                                by = 500))
+```
+
+### Starting scales at 0 
+
+You may have noticed that **ggplot2** has a behaviour of expanding your axis beyond the data, with a gap between the values and the axis at the bottom. This can be fixed with the axes scales using the `expand = ` argument.
+
+```{r axis-end, eval= T, echo=T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_viridis_d(na.value = "grey") +
+scale_y_continuous(breaks = seq(from = 0,
+                                to = 3000,
+                                by = 500),
+                   expand = c(0,0))
+```
+
+Try applying the same `expand = c(0,0)` to the *discrete* x-axis:
+
+```{r expand, exercise = TRUE, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_viridis_d(na.value = "grey") +
+scale_y_continuous(breaks = seq(from = 0,
+                                to = 3000,
+                                by = 500),
+                   expand = c(0,0))
+```
+
+```{r expand-check}
+grade_this_code("Correct! we follow the same syntax with scale_x_discrete()")
+```
+
+```{r expand-solution, eval= FALSE}
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = outcome,
+    fill = gender)) +
+geom_bar() +
+scale_fill_viridis_d(na.value = "grey") +
+scale_y_continuous(breaks = seq(from = 0,
+                                to = 3000,
+                                by = 500),
+                   expand = c(0,0)) +
+scale_x_discrete(expand = c(0,0))
+```
+
+### Date axis labels
+
+The default scale for date axis labels will vary by the range of your data. Here is an example plot:
+```{r date-x, eval= T, echo=T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram()
+```
+
+Adjust axis labels with `scale_x_date()`.  
+
+Use `date_breaks=` values like "1 week", "2 weeks", or "3 months". 
+
+Note: these are the *axis* label breaks, the don't affect the bins of the histogram (bar widths), for tips on geom_histogram() bins, see Epi R Handbook epicurves page
+
+
+Try setting the date axis breaks to 2 months on the plot from above:
+
+```{r date-break, exercise = TRUE, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram()
+```
+
+```{r date-break-check}
+grade_this_code("Good, we should be getting used to the syntax by now!")
+```
+
+```{r date-break-solution, eval= FALSE}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram() +
+scale_x_date(date_breaks = "2 months")
+```
+
+### Date axis labels
+
+We can specify the date labels format with `date_labels = ` using ["strptime" syntax - see R documentation for more information on this](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/strptime)  
+
+`"%d %b %Y"` for DD MMM YYYY. Below we also include a new line with `\n` to move the year below the day and month.
+
+```{r date-labs, eval= T, echo = T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram() +
+scale_x_date(date_breaks = "2 months",
+             date_labels = "%d %b \n %Y" )
+```
+
+See Epi R Handbook [Epicurves](https://epirhandbook.com/epidemic-curves.html) and [Strings](https://epirhandbook.com/characters-and-strings.html) pages for more tips
+
+There is also a built-in simplification for date labels using the scales package. Confusingly this is applied using the `labels = ` rather than `date_labels = ` argument. Assigning `labels=` to `label_date_short()` from [**the scales package**](https://scales.r-lib.org/) means the year is not repeated on each label anymore.  
+
+```{r date-short-labs, eval= T, echo = T, warning = F, message = F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset)) +
+geom_histogram() +
+scale_x_date(date_breaks = "2 months",
+             labels = scales::label_date_short() )
+```
+
+### Display percentages
+We can easily display proportions as percents with `percent()` from **scales** within `scale_y_continuous()`. 
+
+Here we plot some case fatality data adapted from the linelist:
+
+```{r CFR, echo = F, eval = T}
+CFR_data <- linelist %>% 
+  group_by(month = floor_date(date_outcome, "month")) %>% 
+  summarise(
+    cases = n(),
+    deaths = sum(outcome == "Death", na.rm=T),
+    CFR = deaths / cases)
+```
+
+```{r, echo = F, eval = T}
+CFR_data %>% 
+  head(4) %>%
+  knitr::kable()
+```
+
+```{r , echo = TRUE, eval = T, warning = F, message = F}
+ggplot(
+  data = CFR_data,
+  mapping = aes(
+    x = month,
+   y = CFR)) +
+geom_line(size = 2, color = "brown") +
+scale_y_continuous( labels = percent )
+```
 
 ## Theme elements
 ***this part could be its own chapter - some basics plus built in themes***
