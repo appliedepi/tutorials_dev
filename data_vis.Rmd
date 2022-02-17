@@ -1128,7 +1128,7 @@ labs(
 
 Try the argument `base_size = 16` inside the theme to quickly increase text size.  
 
-```{r themes, echo=F, eval=T, warning=F, message=F, fig.height = 8}
+```{r themes, echo=F, eval=T, warning=F, message=F, fig.height = 6}
 linelist$hosp_time <- linelist$date_outcome - linelist$date_hospitalisation
 
 plt_base <- ggplot(data = linelist) +
@@ -1142,6 +1142,7 @@ scale_color_brewer(palette = "Pastel2", na.value = "grey") +
 ylim(c(0, 70))
 
 bw <- plt_base + theme_bw() + ggtitle("theme_bw()")
+classic <- plt_base + theme_classic() + ggtitle("theme_classic()")
 dark <- plt_base + theme_dark() + ggtitle("theme_dark()")
 gray <- plt_base + theme_gray() + ggtitle("theme_gray()")
 minimal <- plt_base + theme_minimal() + ggtitle("theme_minimal()")
@@ -1149,7 +1150,7 @@ light <- plt_base + theme_light() + ggtitle("theme_light()")
 void <- plt_base + theme_void() + ggtitle("theme_void()")
 
 
-themes_plots <- cowplot::plot_grid( 
+themes_plots <- cowplot::plot_grid( classic,
   bw, dark,
   gray, minimal,
   light, void,
@@ -1174,7 +1175,6 @@ themes_plots
 
 ## Order (facets)
 
-### Dynamic labels
 
 ## Dual axes
 

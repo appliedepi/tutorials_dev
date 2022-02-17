@@ -945,6 +945,8 @@ labs(
 <div id="section-theme-elements" class="section level2">
 <h2>Theme elements</h2>
 <p>Themes are non-data design features (background, text size/color, etc).</p>
+<div id="section-complete-themes" class="section level3">
+<h3>Complete themes</h3>
 <p><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">These “complete themes”</a> are easy to add.</p>
 <pre class="r"><code># Try one of these...
 + theme_bw()
@@ -980,11 +982,18 @@ labs(
 <p>Try the argument <code>base_size = 16</code> inside the theme to quickly increase text size.</p>
 <p><img src="data_vis_files/figure-html/themes-1.png" width="624" /></p>
 </div>
+<div id="section-themes" class="section level3">
+<h3>Themes</h3>
+<p><strong>theme adjustments - more control of the titles etc. Main bit is moving the legend or deleting it</strong></p>
+</div>
+</div>
 <div id="section-common-epidemiological-plots" class="section level2">
 <h2>Common epidemiological plots</h2>
-<p><strong><em>egs from book</em></strong> ### Epidemic cuves</p>
 <div id="section-bar-plots" class="section level3">
 <h3>Bar plots</h3>
+</div>
+<div id="section-epidemic-cuves" class="section level3">
+<h3>Epidemic cuves</h3>
 <div id="section-horizontal" class="section level4">
 <h4>Horizontal</h4>
 </div>
@@ -995,9 +1004,6 @@ labs(
 </div>
 <div id="section-order-facets" class="section level2">
 <h2>Order (facets)</h2>
-<div id="section-dynamic-labels-1" class="section level3">
-<h3>Dynamic labels</h3>
-</div>
 </div>
 <div id="section-dual-axes" class="section level2">
 <h2>Dual axes</h2>
@@ -1174,16 +1180,16 @@ submitr::shiny_logic(input, output, session, vfun,
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-1", question = structure("What is the most basic building block of data vizualisation?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_5846d1b", 
+"character")), answers = list(structure(list(id = "lnr_ans_32a2968", 
     option = "Statistics", value = "Statistics", label = structure("Statistics", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_df2f414", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_45da0f2", 
     option = "Scale", value = "Scale", label = structure("Scale", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_78afffb", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_86061e2", 
     option = "Data", value = "Data", label = structure("Data", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ba5b55", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9be16a7", 
     option = "Visualisation type", value = "Visualisation type", 
     label = structure("Visualisation type", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -1195,22 +1201,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-1-answer", question = "quiz1-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat is the most basic building block of data vizualisation?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 757346335.147333, options = list()), class = c("learnr_radio", 
+    seed = 531444842.252527, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz1-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a969a5f", 
+"character")), answers = list(structure(list(id = "lnr_ans_21c2854", 
     option = "ggplot2", value = "ggplot2", label = structure("ggplot2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a9d0346", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b11b78", 
     option = "here", value = "here", label = structure("here", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9a9a40f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ad22ab2", 
     option = "dplyr", value = "dplyr", label = structure("dplyr", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f22526c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bd63d35", 
     option = "incidence2", value = "incidence2", label = structure("incidence2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1221,7 +1227,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-2-answer", question = "quiz1-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 360516422.332121, options = list()), class = c("learnr_checkbox", 
+    seed = 1515173787.29444, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1515,10 +1521,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-1", question = structure("Where are dynamic aesthetics placed in ggplot code?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_b9947a1", 
+"character")), answers = list(structure(list(id = "lnr_ans_9e5f290", 
     option = "inside aes()", value = "inside aes()", label = structure("inside aes()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_43b309b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9fabf74", 
     option = "outside aes()", value = "outside aes()", label = structure("outside aes()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1529,16 +1535,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-1-answer", question = "quiz_aes-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhere are dynamic aesthetics placed in ggplot code?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 496507039.268796, options = list()), class = c("learnr_radio", 
+    seed = 1834838746.14559, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-2", question = structure("Are static aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_2a20546", 
+"character")), answers = list(structure(list(id = "lnr_ans_3417c58", 
     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5719808", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_541c52e", 
     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1549,16 +1555,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-2-answer", question = "quiz_aes-2"), loading = structure("<strong>Loading:<\u002fstrong> \nAre static aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1288864517.89983, options = list()), class = c("learnr_radio", 
+    seed = 700832330.67365, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-3", question = structure("Are dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_94ed7d6", 
+"character")), answers = list(structure(list(id = "lnr_ans_69d52ed", 
     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ce08047", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d2aa35", 
     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1569,7 +1575,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-3-answer", question = "quiz_aes-3"), loading = structure("<strong>Loading:<\u002fstrong> \nAre dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1955665302.08932, options = list()), class = c("learnr_radio", 
+    seed = 520526700.257611, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2176,16 +2182,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-1", question = structure("Which package contains functions for installing other R packages?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9c5f377", 
+"character")), answers = list(structure(list(id = "lnr_ans_e5dfb9d", 
     option = "base", value = "base", label = structure("base", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a0c2a0", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3cec011", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cdb827f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c4412c", 
     option = "utils", value = "utils", label = structure("utils", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_866cd1c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_797bb10", 
     option = "codetools", value = "codetools", label = structure("codetools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2196,22 +2202,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-1-answer", question = "quiz-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich package contains functions for installing other R packages?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 668207289.188842, options = list()), class = c("learnr_radio", 
+    seed = 181771551.415356, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_bede107", 
+"character")), answers = list(structure(list(id = "lnr_ans_4d5e6e9", 
     option = "lattice", value = "lattice", label = structure("lattice", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dcb8cff", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_751fbe", 
     option = "tools", value = "tools", label = structure("tools", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bff3703", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_47ba350", 
     option = "stats", value = "stats", label = structure("stats", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2f25f75", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7cd573e", 
     option = "grid", value = "grid", label = structure("grid", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2222,7 +2228,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz-2-answer", question = "quiz-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 93176101.9566115, options = list()), class = c("learnr_checkbox", 
+    seed = 540930195.24811, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
