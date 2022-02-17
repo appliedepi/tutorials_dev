@@ -1037,25 +1037,142 @@ geom_line(size = 2, color = "brown") +
 scale_y_continuous( labels = percent )
 ```
 
+## Plot labels
+
+```{r, echo = TRUE, eval = FALSE, warning = F, message = F}
+linelist$hosp_time <- linelist$date_outcome - linelist$date_hospitalisation
+
+ggplot(data = linelist) +
+geom_point(
+  mapping = aes(
+    x = age,
+    y = hosp_time,
+    color = outcome),    
+  alpha = 0.7) +
+scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+ylim(c(0, 70)) +
+labs(
+  title = "Duration of admission",
+  subtitle = "All hospitals",
+  x = "Age (years)",
+  y = "Duration (days)",
+  caption = "Fictional Ebola data",
+  color = "Outcome"
+)
+```
+
+
+Use `labs()` as above to edit the labels on the plot
+Note: to edit legend title, use the aesthetic that created the legend (e.g. `color = `).  
+
+Here we also use `ylim()` to set the limits of the y-axis. The same terminology can be applied for the x-axis. 
+
+We can also use `"\n"` to break lines within labels for longer names.
+
+### Dynamic labels
+
+We can embed code in `str_glue()` that updates with the data  
+
+```{r, eval=T, echo=T}
+str_glue("Data as of {Sys.Date()}")
+```
+
+```{r, eval=T, echo=T}
+str_glue("{fmt_count(linelist, is.na(date_onset))} cases missing onset and not shown")
+```
+
+Anything wrapped in curly brackets (`{__}`) will be run as **R** code allowing us to produce labels which will update with values from our data as the data is updated.
+
 ## Theme elements
-***this part could be its own chapter - some basics plus built in themes***
+
+Themes are non-data design features (background, text size/color, etc).  
+
+### Complete themes
+
+[These "complete themes"](https://ggplot2.tidyverse.org/reference/ggtheme.html) are easy to add.  
+
+```{r, eval=F, echo=T}
+# Try one of these...
++ theme_bw()
++ theme_classic()
++ theme_dark()
++ theme_gray()
++ theme_minimal()
++ theme_light()
++ theme_void()
+```
+
+Try adding the default themes above to this plot to see the changes:
+
+```{r theme_trial, exercise = TRUE, warning=F, message=F}
+linelist$hosp_time <- linelist$date_outcome - linelist$date_hospitalisation
+
+ggplot(data = linelist) +
+geom_point(
+  mapping = aes(
+    x = age,
+    y = hosp_time,
+    color = outcome),    
+  alpha = 0.7) +
+scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+ylim(c(0, 70)) +
+labs(
+  title = "Duration of admission",
+  subtitle = "All hospitals",
+  x = "Age (years)",
+  y = "Duration (days)",
+  caption = "Fictional Ebola data",
+  color = "Outcome"
+)
+```
+
+Try the argument `base_size = 16` inside the theme to quickly increase text size.  
+
+```{r themes, echo=F, eval=T, warning=F, message=F, fig.height = 8}
+linelist$hosp_time <- linelist$date_outcome - linelist$date_hospitalisation
+
+plt_base <- ggplot(data = linelist) +
+geom_point(
+  mapping = aes(
+    x = age,
+    y = hosp_time,
+    color = outcome),    
+  alpha = 0.7) +
+scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+ylim(c(0, 70))
+
+bw <- plt_base + theme_bw() + ggtitle("theme_bw()")
+dark <- plt_base + theme_dark() + ggtitle("theme_dark()")
+gray <- plt_base + theme_gray() + ggtitle("theme_gray()")
+minimal <- plt_base + theme_minimal() + ggtitle("theme_minimal()")
+light <- plt_base + theme_light() + ggtitle("theme_light()")
+void <- plt_base + theme_void() + ggtitle("theme_void()")
 
 
+themes_plots <- cowplot::plot_grid( 
+  bw, dark,
+  gray, minimal,
+  light, void,
+  nrow = 3, rel_widths = c(2,2))
+themes_plots
 
+```
 
+### Themes
+
+**theme adjustments - more control of the titles etc. Main bit is moving the legend or deleting it**
 
 ## Common epidemiological plots
-***egs from book***
-### Epidemic cuves
 
 ### Bar plots
+
+
+### Epidemic cuves
+
 #### Horizontal
-#### Labels
 ### Demographic pyramids
 
 ## Order (facets)
-
-## Labels
 
 ### Dynamic labels
 
