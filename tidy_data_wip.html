@@ -377,11 +377,140 @@ linelist %&gt;%
 <h3><em>Answer</em></h3>
 <p>Even if you are familiar with the dataset, the meaning of the column names may not be obvious! That’s when data dictionaries become useful, as they will provide information on the column name meaning.</p>
 <p>Below is the data dictionary for this dataset:</p>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["PK..."],"name":[1],"type":["lgl"],"align":["right"]}],"data":[],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="82%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Column</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">case_id</td>
+<td align="left">case identification number assigned by MOH</td>
+</tr>
+<tr class="even">
+<td align="left">generation</td>
+<td align="left">transmission chain generation number</td>
+</tr>
+<tr class="odd">
+<td align="left">date_infection</td>
+<td align="left">estimated date of infection, YYYY-MM-DD</td>
+</tr>
+<tr class="even">
+<td align="left">date_onset</td>
+<td align="left">date of symptom onset, YYYY-MM-DD</td>
+</tr>
+<tr class="odd">
+<td align="left">date_hospitalisation</td>
+<td align="left">date of initial hospitalization, YYYY-MM-DD</td>
+</tr>
+<tr class="even">
+<td align="left">date_outcome</td>
+<td align="left">date of outcome status determination</td>
+</tr>
+<tr class="odd">
+<td align="left">outcome</td>
+<td align="left">either ‘Death’ or ‘Recovered’ or ‘Unknown’</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="left">either ‘m’ or ‘f’ or ‘unknown’</td>
+</tr>
+<tr class="odd">
+<td align="left">age</td>
+<td align="left">age number</td>
+</tr>
+<tr class="even">
+<td align="left">age_unit</td>
+<td align="left">age unit, either ‘years’ or ‘months’ or ‘days’</td>
+</tr>
+<tr class="odd">
+<td align="left">age_years</td>
+<td align="left">age in years</td>
+</tr>
+<tr class="even">
+<td align="left">age_cat</td>
+<td align="left">age category, either ‘0-4’ or ‘5-9’ or ‘10-14’ or ‘15-19’ or ‘20-29’ or ‘30-49’ or ‘50-69’ or ‘70+’</td>
+</tr>
+<tr class="odd">
+<td align="left">age_cat5</td>
+<td align="left">age category, subdivided by 5 years age ranges</td>
+</tr>
+<tr class="even">
+<td align="left">hospital</td>
+<td align="left">Name of hospital of first admission</td>
+</tr>
+<tr class="odd">
+<td align="left">lon</td>
+<td align="left">longitude of residence, approx</td>
+</tr>
+<tr class="even">
+<td align="left">lat</td>
+<td align="left">latitude of residence, approx</td>
+</tr>
+<tr class="odd">
+<td align="left">infector</td>
+<td align="left">case_id of infector</td>
+</tr>
+<tr class="even">
+<td align="left">source</td>
+<td align="left">context of known transmission event</td>
+</tr>
+<tr class="odd">
+<td align="left">wt_kg</td>
+<td align="left">weight, in kilograms</td>
+</tr>
+<tr class="even">
+<td align="left">ht_cm</td>
+<td align="left">height, in centimeters</td>
+</tr>
+<tr class="odd">
+<td align="left">ct_blood</td>
+<td align="left">blood count</td>
+</tr>
+<tr class="even">
+<td align="left">fever</td>
+<td align="left">presence of fever on admission, either ‘yes’ or ‘no’</td>
+</tr>
+<tr class="odd">
+<td align="left">chills</td>
+<td align="left">presence of chills on admission, either ‘yes’ or ‘no’</td>
+</tr>
+<tr class="even">
+<td align="left">cough</td>
+<td align="left">presence of cough on admission, either ‘yes’ or ‘no’</td>
+</tr>
+<tr class="odd">
+<td align="left">aches</td>
+<td align="left">presence of aches on admission, either ‘yes’ or ‘no’</td>
+</tr>
+<tr class="even">
+<td align="left">vomit</td>
+<td align="left">presence of vomiting on admission, either ‘yes’ or ‘no’</td>
+</tr>
+<tr class="odd">
+<td align="left">temp</td>
+<td align="left">patient temperature, in Celsius</td>
+</tr>
+<tr class="even">
+<td align="left">time_admission</td>
+<td align="left">time of hospital admission HH:MM</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 <p>This data dictionary allows to understand what each column value means, as well as what units the values were recorded in. These help keep dataframes tidy, so that the loaded dataframe can be understood by computers but the epidemiologist still has a clear understanding of what each column represents.</p>
 <p>It is good practice to create data dictionaries when you collect data and create new templates. In R, here is a (non-exhaustive) list of some best practices for naming columns:</p>
 <ul>
@@ -592,12 +721,13 @@ df_long</code></pre>
 <p>The R script consists of step-by-step instructions. This allows any colleague to read the script and easily see the steps you took. This also helps de-bug errors or inaccurate calculations. See the R basics section on scripts for examples.</p>
 <p>Here is an example of an R script:</p>
 <p>Photo or GIF of directory structure. TO DO</p>
-<div id="section-exercise-recording-dates" class="section level3">
-<h3>Exercise: recording dates</h3>
+</div>
+<div id="section-exercise-recording-dates" class="section level2">
+<h2>Exercise: recording dates</h2>
 <p>TO DO</p>
 </div>
-<div id="section-exercise-recording-gender" class="section level3">
-<h3>Exercise: recording gender</h3>
+<div id="section-exercise-recording-gender" class="section level2">
+<h2>Exercise: recording gender</h2>
 TO DO 
 <script type="application/shiny-prerendered" data-context="server-start">
 # load packages ----------------------------------------------------------------
@@ -682,13 +812,13 @@ submitr::shiny_logic(input, output, session, vfun,
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-table-format-1", 
     question = structure("Out of the 3 datasets presented above, which one is considered tidy as specified in the requirements specified previously?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_7164a05", 
+    "character")), answers = list(structure(list(id = "lnr_ans_e068949", 
         option = "table1", value = "table1", label = structure("table1", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c4b7ea8", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5d9bf25", 
         option = "table2", value = "table2", label = structure("table2", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_cf091e6", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4193052", 
         option = "table3", value = "table3", label = structure("table3", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -700,7 +830,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "quiz-table-format-1-answer", question = "quiz-table-format-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nOut of the 3 datasets presented above, which one is considered tidy as specified in the requirements specified previously?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 2047101002.04674, options = list()), class = c("learnr_radio", 
+    seed = 1323413519.38374, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -767,20 +897,20 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-colname-1", 
     question = structure("For example, what do you think the column named <code>age_cat5<\u002fcode> represents?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_c6cbc8b", 
+    "character")), answers = list(structure(list(id = "lnr_ans_47c02e1", 
         option = "The 5th age category", value = "The 5th age category", 
         label = structure("The 5th age category", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_954d6fb", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_fb193a5", 
         option = "The age of the five cats", value = "The age of the five cats", 
         label = structure("The age of the five cats", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9cedd8c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6617a1d", 
         option = "The age category, as categorised by 5 years age ranges", 
         value = "The age category, as categorised by 5 years age ranges", 
         label = structure("The age category, as categorised by 5 years age ranges", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c3ead59", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_33a2c9f", 
         option = "The age category, as categorised in 5 groups", 
         value = "The age category, as categorised in 5 groups", 
         label = structure("The age category, as categorised in 5 groups", html = TRUE, class = c("html", 
@@ -794,24 +924,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "quiz-colname-1-answer", question = "quiz-colname-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nFor example, what do you think the column named <code>age_cat5<\u002fcode> represents?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 740078074.655374, options = list()), class = c("learnr_radio", 
+    seed = 978593010.544307, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz-pivot-plot-1", 
     question = structure("With the original dataset format as shown above, which of the following could we easily plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_74ee14d", 
+    "character")), answers = list(structure(list(id = "lnr_ans_abfb408", 
         option = "The *total* malaria case counts over time", 
         value = "The *total* malaria case counts over time", 
         label = structure("The <em>total<\u002fem> malaria case counts over time", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5a19eb6", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8ad3a40", 
         option = "The *total* malaria case counts over time with relative contributions of each age group", 
         value = "The *total* malaria case counts over time with relative contributions of each age group", 
         label = structure("The <em>total<\u002fem> malaria case counts over time with relative contributions of each age group", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b13cb6d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a1ad2f4", 
         option = "Malaria case counts in children aged 5-14 years over time in each district", 
         value = "Malaria case counts in children aged 5-14 years over time in each district", 
         label = structure("Malaria case counts in children aged 5-14 years over time in each district", html = TRUE, class = c("html", 
@@ -825,7 +955,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "quiz-pivot-plot-1-answer", question = "quiz-pivot-plot-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWith the original dataset format as shown above, which of the following could we easily plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1556095550.27539, options = list()), class = c("learnr_checkbox", 
+    seed = 2120294817.51266, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -955,20 +1085,20 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-pivot_longer-1", 
     question = structure("Which of the ways shown in selecting columns would not have worked when only trying to select cases by age ranges and not total cases?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_93c7490", 
+    "character")), answers = list(structure(list(id = "lnr_ans_5c6fd99", 
         option = "Listing column names", value = "Listing column names", 
         label = structure("Listing column names", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_eb7646a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c74403d", 
         option = "Provide column with tidyselect helper function `starts_with()`", 
         value = "Provide column with tidyselect helper function `starts_with()`", 
         label = structure("Provide column with tidyselect helper function <code>starts_with()<\u002fcode>", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_98a3dad", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2f3c6e", 
         option = "Column position", value = "Column position", 
         label = structure("Column position", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a0c839e", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_24c6f3f", 
         option = "Range of consecutive columns", value = "Range of consecutive columns", 
         label = structure("Range of consecutive columns", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -981,7 +1111,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "quiz-pivot_longer-1-answer", question = "quiz-pivot_longer-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the ways shown in selecting columns would not have worked when only trying to select cases by age ranges and not total cases?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1082986307.9957, options = list()), class = c("learnr_radio", 
+    seed = 683741319.681608, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  <!--html_preserve-->
@@ -994,7 +1124,6 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","basket","broom","bslib","cellranger","checkmate","cli","codetools","colorspace","compiler","crayon","curl","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipsis","etude","evaluate","fansi","farver","fastmap","forcats","foreach","foreign","fs","generics","GenSA","ggforce","ggplot2","ggraph","ggrepel","glue","gradethis","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","igraph","iterators","itertools","jquerylib","jsonlite","knitr","labeling","later","learnr","lifecycle","lubridate","magrittr","markdown","MASS","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","plyr","polyclip","promises","purrr","R6","RColorBrewer","Rcpp","readr","readxl","reprex","reshape2","rio","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","stats","stringi","stringr","submitr","tibble","tidygraph","tidyr","tidyselect","tidyverse","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.0.2","0.10.11","0.7.2","0.3.1","1.1.0","2.0.0","3.1.1","0.2-16","2.0-2","4.0.2","1.4.2","4.3.2","1.14.2","4.0.2","1.1.1","2.0.0","0.6.29","1.0.2","0.3.2","0.3.0.9001","0.14","1.0.2","2.1.0","1.1.0","0.5.0","1.5.2","0.8-80","1.5.2","0.1.0","1.1.7","0.3.3","3.3.5","2.0.5","0.9.1","1.6.1","0.2.5.9000","4.0.2","0.8.0","4.0.2","4.0.2","2.3","0.3.0","2.3.1","1.0.1","0.9","0.5.3","0.5.2","1.5.4","1.6.5","1.4.2","1.2.9","1.0.14","0.1-3","0.1.4","1.7.3","1.37","0.4.2","1.3.0","0.10.1.9019","1.0.1","1.7.9.2","2.0.2","1.1","7.3-51.6","4.0.2","0.12","0.1.8","0.5.0","4.2.3","4.0.2","1.7.0","2.0.3","1.8.6","1.10-0","1.2.0.1","0.3.4","2.5.1","1.1-2","1.0.8","1.4.0","1.3.1","0.3.0","1.4.4","0.5.16","1.0.1","2.11","2.0.2","0.13","0.3.6","0.4.0","1.1.1","1.7.1","4.0.2","1.7.6","1.4.0","0.3.0.9000","3.1.6","1.2.0","1.1.2","1.1.0","1.3.0","4.0.2","1.0.2","1.2.2","4.0.2","0.3.8","0.6.0","0.4.0","2.4.3","0.29","1.3.2","1.8-4","2.2.2","2.1.1"]}]}]}
 </script>
 <!--/html_preserve-->
-</div>
 </div>
 
 </div> <!-- topics -->
