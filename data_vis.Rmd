@@ -1161,25 +1161,432 @@ themes_plots
 
 ### Themes
 
-**theme adjustments - more control of the titles etc. Main bit is moving the legend or deleting it**
+Micro-adjustments to the theme can be made with `theme()` as these are mostly small layout and visual details we won't go into much detail here. More information is available [in the handbook](https://www.epirhandbook.com/en/ggplot-basics.html#ggplot_basics_themes). The syntax for themes taxes time to learn and is not used often enough to commit to memory for most R users. See [this list](https://ggplot2.tidyverse.org/reference/theme.html) of feature-specific arguments. or running `theme_get()` in your R window to get a list of all theme arguments in the console.
+```{r theme-adjustment}
+ggplot(data = linelist) +
+geom_point(
+  mapping = aes(
+    x = age,
+    y = hosp_time,
+    color = outcome),    
+  alpha = 0.7) +
+scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+ylim(c(0, 70)) +
+labs(
+  title = "Duration of admission",
+  subtitle = "All hospitals",
+  x = "Age (years)",
+  y = "Duration (days)",
+  caption = "Fictional Ebola data",
+  color = "Outcome"
+) +
+theme_classic(base_size = 16) +
+theme(
+  legend.position = "bottom",                # move legend to bottom
+  plot.title = element_text(color = "red",   # title color
+                            size = 20,       # title font size
+                            face = "bold"),  # title typeface
+  axis.title.y = element_text(angle = 0))    # rotate y axis title to be horizontal
+```
+
+These theme elements follow a similar 2-part syntax much like `mapping = aes()` where we pass a function to an argument of a higher level function (here `theme()`).
+
+**Remember to add any adjustments after any pre-built themes**
+
+some useful theme options are presented below:
+
+`theme()` argument                  |	What it adjusts
+------------------------------------|-------------------
+`plot.title = element_text()`       |	The title
+`plot.subtitle = element_text()`    |	The subtitle
+`plot.caption = element_text()`     |	The caption (family, face, color, size, angle, vjust, hjust…)
+`axis.title = element_text()`       |	Axis titles (both x and y) (size, face, angle, color…)
+`axis.title.x = element_text()`     |	Axis title x-axis only (use .y for y-axis only)
+`axis.text = element_text()`        |	Axis text (both x and y)
+`axis.text.x = element_text()`      |	Axis text x-axis only (use .y for y-axis only)
+`axis.ticks = element_blank()`      |	Remove axis ticks
+`axis.line = element_line()`        |	Axis lines (colour, size, linetype: solid dashed dotted etc)
+`strip.text = element_text()`       |	Facet strip text (colour, face, size, angle…)
+`strip.background = element_rect()` |	facet strip (fill, colour, size…)
+
+
+The main adjustments you are likely to make regularly are to do with the plot `legend.position = `. Default options are `"top"`, `"bottom"`, `"left"`, `"right"` and `"none"` (to hide the legend completely). The legend position can also be set more specifically with `c(x,y)` where x and y refer to the position along the x or y axis as a proportion of the total length (ie. bottom right is c(1,0))
+
+Most other theme elements can also be turned off using `element_blank()` eg turn off minor y-axis grid lines and legend title:
+
+
+Check your understanding of the basics of themes below:
+
+```{r themes-quiz}
+quiz(
+  question("Should adjustments to the theme be made before or after setting one of the default themes?",
+    answer("before"),
+    answer("after", correct = TRUE)
+  ),
+  question("Which of the following are prebuilt themes in ggplot",
+    answer("theme_bw()", correct = TRUE),
+    answer("theme_classic()", correct = TRUE),
+    answer("theme_red()"),
+    answer("scale_color_brewer()")
+  ),
+  question("How would you hide a legend in ggplot?",
+    answer("theme(legend.title = 'element.blank()')"),
+    answer("theme(legend.position = 'right')"),
+    answer("theme(legend.position(`none`))"),
+    answer("theme(legend.position = 'none')", correct = TRUE)
+  ),
+  question("How would you set your legend to appear in the centre of your graph?",
+    answer("theme(legend.position = 'middle')"),
+    answer("theme(legend.position =  c(0.5,0.5))", correct = TRUE)
+  )
+)
+```
+
 
 ## Common epidemiological plots
+We will cover some common epidemiological plots in more detail as these are the most likely types of plots you will come across or want to recreate in your work.
 
-### Bar plots
+## Bar plots
+We have already introduced and presented bar plots throughout this tutorial using `geom_bar()`. There is an additional bar plotting `geom_x()`, `geom_col()`. These are both used to make general bar plots from different formats of data. We will also introduce a package to produce epicurves (another bar plot you will likely be familiar with) in the next section.
+
+Use `geom_bar()` if bar height should reflect the **number of rows** in the data (e.g. a case linelist) as we have seen in previous examples:
+
+```{r, eval=F, echo=T}
+ggplot(
+  data = linelist,                  # standard linelist data   
+  mapping = aes(x = hospital)) + # no y = argument                                    
+geom_bar()   
+```
+
+Use `geom_col()` if there is a numeric column containing the desired **bar height** (e.g. aggregated count data):
+
+```{r, eval=F, echo=T}
+ggplot(
+  data = linelist_agg,                  # begin with aggregated count data   
+  mapping = aes(x = eth_race, y = n)) + # bar height is value in column "n"                                     
+geom_col()   
+```
+
+### Bar plot - count rows
+
+With `geom_bar()`, the height reflects the number of rows per x-axis group. This works well for linelist data.  
+
+```{r, echo=T, eval=T}
+ggplot(
+  data = linelist,                  # standard linelist data
+  mapping = aes(x = hospital)) +    # No y= argument
+geom_bar() +
+theme_classic() + 
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+*note: here we use theme adjustments introduced in the previous section, as 45 degree rotated labels rotate around the center of the text we then need to adjust the vertical and horizontal positioning hence `vjust` and `hjust`*
+
+### `geom_bar()` - show groupings
+
+To achieve "stacked" bars with `geom_bar()`, assign the grouping column to `fill=`, within `aes()` e.g. if we want to group by outcome:
+
+```{r, eval=T, echo=F}
+linelist %>% 
+  select(date_onset, hospital, outcome) %>% 
+  head(6) %>% 
+  knitr::kable()
+```
+
+```{r, echo=F, eval=T}
+ggplot(
+  data = linelist,
+  mapping = aes(
+      x = hospital,   
+     fill = outcome)) +             
+geom_bar() + 
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+To have adjacent rather than stacked bars we use `position = "dodge"` inside the `geom_bar()` call. Try adding this to the code for the plot above:
+
+```{r dodge, exercise = TRUE, warning=F, message=F}
+ggplot(
+  data = linelist,
+  mapping = aes(
+      x = hospital,   
+     fill = outcome)) +             
+geom_bar() + 
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+```{r dodge-check}
+grade_this_code("Perfect, you should now see adjacent bars in the plot")
+```
+
+```{r dodge-solution, eval= FALSE}
+ggplot(
+  data = linelist,
+  mapping = aes(
+      x = hospital,   
+     fill = outcome)) +             
+geom_bar(position = "dodge") + 
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
 
 
-### Epidemic cuves
+### Bar plot -Aggregated counts
 
-#### Horizontal
-### Demographic pyramids
+In contrast, `geom_col()` uses a column of counts, such as column `n` in this `linelist_hospital` dataset:
 
-## Order (facets)
+```{r, eval=T, echo=F}
+linelist_hospital <- linelist %>% 
+  count(hospital)
+linelist_hospital %>% 
+  head(6) %>% 
+  knitr::kable()
+```
+
+Column `n` provides the counts for each hospital which are the bar heights we want in our plot. These need to be assigned as the y-axis for `geom_col()` unlike in `geom_bar()` where counting is by row in the data.    
+
+```{r, echo=T, eval=T}
+ggplot(linelist_hospital) +             
+  geom_col(           
+    mapping = aes(   
+      x = hospital,    
+     y = n)) +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+
+```
+
+As you can see this gives the same result as the previous section but allows us to work with aggregated count data which is a common format, especially for secondary data.
+
+### `geom_col()` show groupings
+
+To have "stacked" bars using `geom_col()`, each plotting group must have its own rows in the data. Use "long"-style data like below:  
+
+```{r, echo = F, eval=T}
+linelist_hospital_outcome <- linelist %>% 
+  count(hospital, outcome)
+linelist_hospital_outcome %>% 
+  head(6) %>% 
+  knitr::kable()
+```
+
+```{r, echo=T, eval=T}
+ggplot(linelist_hospital_outcome) +               
+geom_col(                 
+  mapping = aes(
+    x = hospital,          
+    y = n,                
+   fill = outcome)) +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+*For more information on pivoting data to "long" and "short" formats see our tidy data tutorial*
+
+### Bar plot - a common error 
+
+If your data look like below (counts) and your plot looks like the one below (bars of same height), ensure you are using `geom_col()` and not `geom_bar()`!  
+
+```{r, eval=T, echo=F}
+linelist_hospital <- linelist %>% 
+  count(hospital)
+linelist_hospital %>% 
+  head(6) %>% 
+  knitr::kable()
+```
+```{r eval=T, echo=T}
+ggplot(linelist_hospital) +             
+geom_bar(mapping = aes(x = hospital)) +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+This plot shows that there is one row per hospital!  
+
+### Flip axes
+
+It is simple to flip the axes on any ggplot by adding `coord_flip()`. This is useful for bar plots to improve readability with long bar names.
+
+```{r, echo=T, eval=T}
+ggplot(linelist) +        
+geom_bar(              
+  mapping = aes(
+    x = hospital,            
+    fill = outcome)) +
+theme(legend.position = "top") +  
+coord_flip()           
+```
+
+### Adjust bar order
+
+If we convert any column in our data to class factor we can adjust the order of the "levels" using the names present. Here we create a new hospital column, hosp_fac with the order of the hospitals changed. 
+
+```{r, echo=T, eval=T}
+linelist$hosp_fac <- factor(linelist$hospital, levels = c("Missing", "Other", "Central Hospital", "Military Hospital", "Port Hospital", "St. Mark's Maternity Hospital (SMMH)"), exclude = NULL)          
+
+ggplot(linelist) +        
+geom_bar(              
+  mapping = aes(
+    x = hosp_fac,            
+    fill = outcome)) +
+theme(legend.position = "top") +  
+coord_flip() 
+
+```
+
+[See the Epi R Handbook page on [factors](https://epirhandbook.com/factors.html#within-a-plot).]  
+For more simple layouts we can use the **forcats** package to convert to class *factor* and adjust "level" order.  
+`fct_infreq()` orders x-axis position and stacks (fill) by frequency:
+
+```{r, eval=T, echo=T}
+ggplot(linelist) +             
+geom_bar(              
+  mapping = aes(
+    x = fct_infreq(hospital),   
+    fill = fct_infreq(outcome))) +  
+theme(legend.position = "top") +
+coord_flip() 
+
+```
+
+The Y-axis and legend titles will now be renamed to the command used to assign them. See the section on plot labels for how to change this.
+
+#### Reverse order
+
+To *reverse* order, use `fct_rev()`, which can be wrapped around other functions. 
+
+```{r, eval=T, echo=T}
+ggplot(linelist) +             
+geom_bar(             
+  mapping = aes(
+    x = fct_rev(fct_infreq(hospital)),            
+    fill = fct_rev(fct_infreq(outcome)))) +     
+theme(legend.position = "top") +
+coord_flip()
+```
+
+### Bar width
+
+The width of bars can be adjusted with the `width =` argument in both `geom_col()` and `geom_bar()`
+
+```{r barwidth, eval = T, echo = F}
+ggplot(linelist_hospital_outcome) +             
+  geom_col(           
+    mapping = aes(   
+      x = hospital,    
+     y = n), width = 0.5) +
+  theme_classic() +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+Be wary of adjusting width for date bars (e.g. month) - use `geom_histogram()` instead and change the bin breaks to the breaks you want between bars.
+
+
+Try going back through the previous sections and adjust the code for the `geom_col()` plot above to show:
+1. Bars with fill color determined by outcome
+2. Bars dodged so different outcomes are next to each-other, not stacked
+3. 
+
+```{r bartest, exercise = TRUE, warning=F, message=F}
+ggplot(linelist_hospital_outcome) +             
+  geom_col(           
+    mapping = aes(   
+      x = hospital,    
+     y = n), width = 0.5) +
+  theme_classic() +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+```{r bartest-check}
+grade_this_code("Good! Building the elements of your plot will take practice, don't be afraid to search the internet for specific problems you are having with your own data.")
+```
+
+```{r bartest-solution, eval= FALSE}
+ggplot(linelist_hospital_outcome) +             
+  geom_col(           
+    mapping = aes(   
+      x = hospital,    
+     y = n, fill = outcome), width = 0.5, position = "dodge") +
+  theme_classic() +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+### Display counts
+
+Often you will want to display the counts for each group shown on your `geom_col()` or `geom_bar()` plots as with stacked bars these can be hard to interpret visually. 
+
+To display the count, use `geom_col()` with `geom_text()`. Assign `aes(label=)` to the height values (here this is `n` from our dataset). To get this to work the label aesthetic needs to be assigned in the `ggplot()` function call not the `geom_col()` call. The `position=` arg in `geom_text()` can specify the position on the bar to display the value, here we chose the middle, 0.5. 
+
+```{r, echo = T, eval=T}
+ggplot(
+  data = linelist_hospital_outcome,
+  mapping = aes(
+    x = hospital,
+    y = n,
+    fill = outcome,
+   label = n)) +             
+geom_col() +
+geom_text(
+ size = 3,
+ position = position_stack(vjust = 0.5)) +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+For a `geom_bar()` plot we need to specify the x aesthetic in the `ggplot()` rather than `geom_bar()` function call so it can be picked up by `geom_text()`. Here as the counts are calculated within the plotting function rather than in the input table we need to use unfamiliar syntax to say that we want to take the count (`stat = 'count'`) and label with this count data (`aes(label = ..count..)`).
+
+```{r, eval=T, echo=T}
+ggplot(linelist, mapping = aes(
+    x = fct_rev(fct_infreq(hospital)),            
+    fill = fct_rev(fct_infreq(outcome)))) +             
+geom_bar() + 
+  geom_text(stat = 'count', aes(label = ..count..), position = position_stack(vjust = 0.5)) +
+theme(legend.position = "top") +
+coord_flip()
+```
+
+Below is a quick quiz on bar plots with **ggplot2**
+```{r bars-quiz}
+quiz(
+  question("Which bar plotting function would we use if data already has aggregated counts in our dataset?",
+    answer("geom_bar()"),
+    answer("geom_col()", correct = TRUE)
+  ),
+  question("What argument to geom_bar or geom_col lets us convert stacked bars to adjavcent bars?",
+    answer("aes(position = 'dodge')"),
+    answer("aes(position = 'adjacent')"),
+    answer("position = 'adjacent'"),
+    answer("position = 'dodge'", correct = TRUE)
+  ),
+  question_text("In geom_col() how does the data need to be formatted to create colored groups?",
+    answer("Each plotting group must have its own rows in the data", correct = T), incorrect  = "As this is a free-text answer you won't have the same wording as me. For geom_col() each plotting group must have its own rows in the data."
+    ),
+  question_text("What command is used to flip the axes in ggplot?",
+    answer("coord_flip()", correct = T), incorrect  = "coord_flip()"
+    ),
+  question_text("Why might we want to display counts on a stacked bar plot?",
+    answer("It is hard to estimate the height of the individual sections of a stacked barplot", correct = T), incorrect  = "It is hard to estimate the height of the individual sections of a stacked barplot"
+    )
+
+
+)
+```
+
+## Epidemic cuves
+
+
+
+
+## Demographic pyramids
 
 
 ## Dual axes
 
 ## Data structure
 ### Pivoting
+
+## Point-and-click ggplot2
+Now that you've learned the basic syntax... the [**esquisse**](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html]) package allows point-and-click creation of (simple) ggplots! (esquisse means "sketch" in French)  
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::include_graphics("https://github.com/appliedepi/emory_training/blob/master/presentation/images/esquisse1.gif?raw=true")
+```
+
 
 ## Next steps
 Some good example plots with accompanying code can be found on the [R graph gallery](r-graph-gallery.com) to use for inspiration with your own plotting goals and projects.
