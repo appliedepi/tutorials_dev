@@ -871,6 +871,9 @@ geom_point() +
 scale_color_viridis_c(na.value = "grey")
 ```
 
+[Viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) (try with `option = "plasma"` or "inferno"), and [colorbrewer](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) palette functions can be added to any ggplot.  
+
+
 ### Adjusting y-axis
 
 We can edit axes in a similar way. In a barplot such as this one we have a continuous y-axis and discrete x-axis. Here we might decide that the counts on the y-axis are not descriptive enough so we wish to supply our own break points. In `scale_y_continuous()` we adjust the y-axis breaks using `seq()` to define a numeric sequence:   
@@ -1293,7 +1296,7 @@ linelist %>%
   knitr::kable()
 ```
 
-```{r, echo=F, eval=T}
+```{r, echo=T, eval=T}
 ggplot(
   data = linelist,
   mapping = aes(
@@ -1330,7 +1333,7 @@ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
 
-### Bar plot -Aggregated counts
+### Bar plot - Aggregated counts
 
 In contrast, `geom_col()` uses a column of counts, such as column `n` in this `linelist_hospital` dataset:
 
@@ -1569,81 +1572,496 @@ quiz(
 
 ## Epidemic cuves
 
+An epidemic curve or epicurve is a specialized histogram showing the progression of illness in an outbreak over time. 
+There are two approaches that we suggest:  
 
+1. Use the **incidence2** package  
+    * Fast, simple, and modifiable with ggplot additions  
+  
+2. Use ggplot's `geom_histogram()`  
+    * Most customizeability  
+    * Most complex code  
+
+Here we will focus on **incidence2** a specialized R package developed for outbreak analysis with convenient functions to help you with plotting epicurves. See the Epi R handbook's [Epicurves page](https://epirhandbook.com/en/epidemic-curves.html) for detailed examples using **incidence2** and building histograms from scratch with **geom_histogram()**. Full documentation for incidence2 is available [here](https://www.reconverse.org/incidence2).
+
+### Incidence object
+
+**Create** an incidence object from your linelist data, the interval and date index can be customised for different reporting periods and to plot based on onset or infection for example.
+
+```{r, echo=T, eval=T}
+weekly <- incidence(
+  x = linelist,            # dataset
+  date_index = date_onset, # date column
+  interval = "week")       # time bin interval    
+```
+
+**Plot** the incidence object  
+
+```{r , echo = TRUE, eval = FALSE, tidy = FALSE}
+plot(weekly)
+```
+
+Try changing the time interval in the plot by editing this code. You can use numbers and time periods such as "6 weeks" or "2 months". For Sunday weeks we can use "Sunday weeks" or "MMWR week" as often used in weekly reporting.
+
+```{r epicurve-intro, exercise = TRUE, warning=F, message=F}
+time_int <- incidence(
+  x = linelist,            # dataset
+  date_index = date_onset, # date column
+  interval = "Sunday weeks")   
+
+plot(time_int)
+
+```
+
+### Groups
+To show groups, we need to specify them with `groups = ` in the `incidence()` command:  
+
+```{r, echo=T, eval=T}
+weekly <- incidence(
+  x = linelist,              
+  date_index = date_onset,  
+  interval = "week",       
+  groups = hospital)      
+```
+
+**AND** with `fill = ` in the `plot()` command:
+
+```{r , echo = TRUE, eval = T}
+plot(weekly, fill = hospital)
+```
+
+If grouping by multiple columns, nest them in both places within `c()`:  
+
+```{r, eval=F, echo=T}
+groups = c(hospital, gender)
+```
+
+### **ggplot2** additions
+
+As the epicurves package is built on **ggplot2** we can add themes, scales, labels etc. from **ggplot2** to our epicurve plot with `+`
+
+```{r, echo=T, eval=T}
+plot(weekly, fill = hospital) +
+scale_y_continuous(
+  expand = c(0,0),
+  breaks = seq(0,300,50)) + 
+theme_classic() +
+theme(legend.position = "top") +
+labs(fill = "Primary care \n location")
+```
+
+### Dates
+
+Do not adjust **incidence2** epicurves with `scale_x_date()`, Instead, use custom **incidence2** arguments in `plot()`. `centre_dates = ` which is set to `TRUE` by default must be set to `FALSE` for custom date formats to be used. See the [handbook pages on working with dates](https://epirhandbook.com/en/working-with-dates.html#working-with-dates-1) to learn more about the strptime syntax used to display dates.
+
+```{r, echo=T, eval=T}
+plot(weekly,
+  fill = hospital,
+  centre_dates = FALSE,      # This must be false for custom date formats
+  date_format = "%Y-%m-%d",  # set date format inside the plot() command
+  angle = 30)+                          
+scale_y_continuous(
+  expand = c(0,0),
+  breaks = seq(0,300,50)) + 
+theme(legend.position = "top") +
+labs(fill = "Primary care \n location")
+```
+
+When we call `plot()` on an `incidence()` object R detects the class and runs the function `plot.incidence2()` in the background so look fo r this function in documentation to find additional arguments and defaults.
+
+### Show cases
+
+For small outbreaks, the style `show_cases = TRUE` may be helpful. This splits out individual cases as square blocks on the epicurve:
+
+```{r, echo=T, eval=T}
+small_outbreak <- linelist %>% 
+  filter(
+    hospital == "Central Hospital",
+    date_onset >= as.Date("2015-03-01")) %>% 
+  incidence(
+    date_index = date_onset,               
+    interval = "Sunday weeks",             
+    groups = gender)
+
+plot(small_outbreak,
+  fill = gender,
+ show_cases = TRUE)+
+theme(legend.position = "bottom")+
+labs(
+  title = "Central hospital by gender")
+
+```
+
+This example also shows how we can pipe data directly into the incidence function if we are filtering or making changes with dplyr.
+
+### Color palettes
+
+As we mentioned in the scales section of this document we can use `scale_fill_viridis_d()` for palettes that are color-blind friendly. Here we use the inferno option from this palette. As the incidence plot is built on **ggplot2** we can directly add this color scale to the plot as with any other ggplot.
+
+```{r, echo=F, eval=T}
+plot(weekly, fill = hospital)+
+scale_fill_viridis_d(
+    option = "inferno",           
+    name = "Hospital",  
+    na.value = "grey")          
+```
+
+Try changing the fill scale to brewer as we learned earlier
+```{r epicurve-colors, exercise = TRUE, warning=F, message=F}
+plot(weekly, fill = hospital)+
+theme(legend.position = "top") +
+scale_fill_viridis_d(
+    option = "inferno",           
+    name = "Hospital",  
+    na.value = "grey") 
+```
+
+```{r epicurve-colors-hint}
+'An example solution:'
+
+plot(weekly, fill = hospital) +
+theme(legend.position = "top") +
+scale_fill_brewer(palette = "Set1")
+```
+
+### Aggregated counts
+
+You can also use **incidence2** on data that are aggregated counts. Here we create some aggregated data from our linelist dataset but you are also likely to come across this format of data for larger outbreaks. To learn more about aggregating and dis-aggregating data see our tidy data and data cleaning tutorials.
+
+```{r, eval=T, echo=F}
+# For demo: aggregate linelist
+linelist_day_counts <- linelist %>% 
+  count(
+    day = floor_date(date_onset, "day"),
+    outcome) %>% 
+  drop_na(day)
+```
+```{r, eval=T, echo=F}
+linelist_day_counts %>% 
+  tail(10) %>% 
+  knitr::kable(row.names = F)
+```
+
+We can plot this data with the **incidence2** package in the same way as we did for the linelist data, first creating an `incidence()` object and then using `plot()` to visualize. In the same way as `geom_bar()` and `geom_col()` in the barplots section, aggregated counts require us to specify which column contains count data. Here we do this with `count = ` inside the `incidence()` function.
+
+```{r, eval=T, echo=T}
+died_curve <- incidence(   
+  linelist_day_counts,   # dataset with counts aggregated by day
+  date_index = day,      # column with dates
+  count = n,             # column with counts
+  interval = "week",     # aggregate daily counts up to weeks
+  groups = outcome          # group by outcome
+  )
+
+# plot the weekly incidence epi curve, with stacked bars by outcome
+plot(died_curve,         # incidence object
+     fill = outcome) +   # color the bars by outcome
+labs(x = "Week of onset", y = "Incidence") # edit labels with standard ggplot function
+```
+
+
+Below is a short quiz on plotting epicurves with **incidence2**. See the [handbook section on epicurves](https://epirhandbook.com/en/epidemic-curves.html) for more details, including how to build your own more customisable epicurves using the **ggplot2** function `geom_histogram()`
+```{r epicurves-quiz}
+quiz(
+  question("Where do we need to specify groups when making an epicurve with incidence2?",
+    answer("in incidence()", correct = TRUE),
+    answer("in plot()", correct = TRUE),
+    answer("in theme()"),
+    answer("in scale()")
+  ),
+  question("How do we add ggplot elements to our epicurve plot?",
+    answer("replace plot() with ggplot()"),
+    answer("just add (+) them to the plot()", correct = TRUE),
+    answer("we can't"),
+    answer("ggplot(plot())")
+  ),
+  question("How do we edit the date axis of our epicurve plot?",
+    answer("with the custom incidence2 commands in plot()", correct = TRUE),
+    answer("with scale_x_date()"),
+    answer("only by specifying different date bins in incidence()")
+  ),
+  question_text("When can it be useful to use show_cases = TRUE?",
+    answer("small outbreaks", correct = T), incorrect  = "In small outbreaks with small numbers of cases this can be useful to determine exactly how many cases fall into each category quickly and efficiently"
+    )
+
+)
+```
 
 
 ## Demographic pyramids
 
+We suggest two ways to make age pyramids:  
 
-## Dual axes
+1) Use the **apyramid** package - simple, easy  
 
-## Data structure
-### Pivoting
+2) Use **ggplot2** - more customizable, but opportunity for error  
 
-## Point-and-click ggplot2
-Now that you've learned the basic syntax... the [**esquisse**](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html]) package allows point-and-click creation of (simple) ggplots! (esquisse means "sketch" in French)  
+We will focus on **apyramid** here as this is the most intuitive way to construct most age pyramids, for details on other plotting methods and the complete documentation for **apyramid** see the Epi R Handbook [page on demographic pyramids](https://epirhandbook.com/demographic-pyramids-and-likert-scales.html) and the [package vignette](https://cran.r-project.org/web/packages/apyramid/vignettes/intro.html) for more information.  
 
-```{r, eval = TRUE, echo = FALSE}
-knitr::include_graphics("https://github.com/appliedepi/emory_training/blob/master/presentation/images/esquisse1.gif?raw=true")
+The function `age_pyramid()` from **apyramid** offers an easy interface to produce age pyramids. Here we split by gender and the function will drop `NA` values automatically, showing only `M` and `F` on either side of the pyramid. We use the `age_cat` column from our data to specify the age groupings we wish to show: 
+
+```{r, echo=T, eval=T}
+age_pyramid(
+  data = linelist,
+  age_group = "age_cat",
+  split_by = "gender")
 ```
 
+### Customizing the plot
 
-## Next steps
-Some good example plots with accompanying code can be found on the [R graph gallery](r-graph-gallery.com) to use for inspiration with your own plotting goals and projects.
+We can edit some of the key elements of this plot within the function. Some key changes you are likely to want to make are:
 
-Interactive plotting, can use 2 axes, colour, size and 2 facet directions, for more dimensions interactivity or movement are usually the next steps - plotly
+1. Percentages instead of raw counts on the x-axis
+2. No mid-point shown
+3. Specify our own colors
 
+We can also add **ggplot2** themes and other elements to these plots, in a similar way to the **incidence2** package.
 
-
-
-##  TEMPLATE Exercises
-
-### Exercise with Code
-
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
-
-Now write a function that adds any two numbers and then call it:
-
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
-  
-}
+```{r, eval=T, echo=F}
+age_pyramid(
+  data = linelist,
+  age_group = "age_cat",
+  split_by = "gender",
+  proportional = TRUE,              # 1.
+  show_midpoint = FALSE,            # 2.
+  pal = c("darkgreen", "brown")) +   # 3.
+theme_minimal(base_size = 10) +
+labs(
+  title = "Age and Gender",
+  subtitle = "Fictional Ebola data",
+  x = "Percent of total",
+  y = "Age group",
+  fill = "Gender",
+  caption = "Caption here")
 ```
 
-### Exercise with Hint
+### Showing other groupings
 
-*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+We can show stacked bars on the age pyramid to represent other columns in the data with `stack_by = `. The color palette will now be used for this data rather than the sides of the pyramid so adjust the colors as desired / required for columns with larger numbers of categories.
 
-Modify the following code to limit the number of rows printed to 5:
-
-```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
-mtcars
+```{r, eval=T, echo=F}
+age_pyramid(
+  data = linelist,
+  age_group = "age_cat",
+  split_by = "gender",
+  stack_by = "outcome",
+  proportional = TRUE,              
+  show_midpoint = FALSE,
+  pal = c("slateblue4", "dodgerblue", "grey"))+   
+theme_minimal(base_size = 10)
 ```
 
-```{r print-limit-hint}
-head(mtcars)
-```
+Note that again any NA outcomes are not shown in this plot by default, we can show `NA` with `na.rm = FALSE` inside the `age_pyramid()` function to show NA values for age, gender and outcome or adjust our dataset to assign NA to a different value for outcome if we want to visualize only this
 
-### Quiz
-
-*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
-
-Some questions to verify that you understand the purposes of various base and recommended R packages:
-
-```{r quiz}
+```{r epicurves-quiz}
 quiz(
-  question("Which package contains functions for installing other R packages?",
-    answer("base"),
-    answer("tools"),
-    answer("utils", correct = TRUE),
-    answer("codetools")
+  question("Which function do we use to create and plot our age pyramid?",
+    answer("apyramid()"),
+    answer("ggplot()"),
+    answer("incidence()"),
+    answer("age_pyramid()", correct = TRUE)
   ),
-  question("Which of the R packages listed below are used to create plots?",
-    answer("lattice", correct = TRUE),
-    answer("tools"),
-    answer("stats"),
-    answer("grid", correct = TRUE)
+  question("How do we add ggplot elements to our age pyramid plot?",
+    answer("replace age_pyramid() with ggplot()"),
+    answer("just add (+) them to the plot()", correct = TRUE),
+    answer("we can't"),
+    answer("ggplot() + age_pyramid()")
+  ),
+  question("Which argument allows us to specify an extra variable to show on the bars?",
+    answer("split_by = ", correct = TRUE),
+    answer("group_by = "),
+    answer("stack_by = ")
   )
 )
 ```
+
+
+## Dynamic labels - example
+
+Here we will combine the age pyramids in the previous section with the dynamic labels we mentioned in the scales section. These labels show useful statistics from the data and will update as the dataset is changed. For this we use the `str_glue()` function from the package **stringr**. `str_glue` allows us to run R code within the caption label within curly brackets (`{}`). A simple example is creating something such as a number of individuals to add to a plot:
+
+```{r, eval=T, echo=T}
+str_glue("n = {nrow(linelist)}")
+```
+
+For complicated `str_glue()` scenarios, define the dynamic components outside the quotation marks.  
+
+`fmt_count()` from **epikit** is useful to count and display rows:  
+
+```{r, eval=T, echo=T}
+str_glue("{missing} missing age or gender; not shown.",
+        missing = fmt_count(linelist, is.na(gender) | is.na(age_cat))
+        )
+```
+
+Max/Min dates can be wrapped in `format()` from **base** to adjust the display. See the epiRhandbook section on [strptime syntax](https://epirhandbook.com/working-with-dates.html?q=strptime#format).  
+
+```{r, eval=T, echo=T}
+str_glue("reported cases {min_date} - {max_date}",
+    min_date = format(min(linelist$date_onset, na.rm=T), "%B %d %Y"),
+    max_date = format(max(linelist$date_onset, na.rm=T), "%B %d %Y")
+    )
+```
+
+We can apply these `str_glue()` captions to our plots within `labs()` as with other labels:
+
+
+```{r, eval=T, echo=F}
+age_pyramid(
+  data = linelist,
+  age_group = "age_cat",
+  split_by = "gender",
+  proportional = TRUE,              
+  show_midpoint = FALSE,            
+  pal = c("darkgreen", "brown")) +   
+theme_minimal(base_size = 10) +
+labs(
+  title = "Age and Gender",
+  subtitle = str_glue("reported cases {min_date} - {max_date}",
+    min_date = format(min(linelist$date_onset, na.rm=T), "%B %d %Y"),
+    max_date = format(max(linelist$date_onset, na.rm=T), "%B %d %Y")
+    ),
+  x = "Percent of total",
+  y = "Age group",
+  fill = "Gender",
+  caption = str_glue("{missing} missing age or gender; not shown.",
+        missing = fmt_count(linelist, is.na(gender) | is.na(age_cat))
+        ))
+```
+
+## Point labels
+Another useful aspect of **ggplot2** is the ability to label specific points. To demonstrate labeling points, we create a new dataset that summarizes CFR and median age by hospital.
+
+```{r, echo=T, eval=T}
+hosp_CFR_age <- linelist %>% 
+  group_by(hospital) %>% 
+  summarise(
+    cases = n(),
+    deaths = sum(outcome == "Death",
+                 na.rm=T),
+    CFR = deaths/cases,
+    med_age = median(age, na.rm=T)  )
+```
+
+```{r, echo=F, eval=T}
+head(hosp_CFR_age, 5) %>% 
+  knitr::kable()
+```
+
+We can plot these data as points, and label them with `geom_text()`... but it does not look very good. As before to set labels `label = ` must be within the `aes()` of `ggplot()` not within the `geom_*()` so that it can be passed to the `geom_text()` labeling function.
+
+```{r, echo=T, eval=T}
+ggplot(
+  data = hosp_CFR_age,
+  mapping = aes(
+    x = med_age,
+    y = CFR,
+    size = cases,
+    label = hospital)) +
+  geom_point() +
+  geom_text()
+```
+
+Labels look much improved by using `geom_label_repel()` from the **ggrepel** package. These scale with the size of the point which we have assigned to number of cases in this plot so we should set size = 5 within `geom_label_repel()` to fix this. 
+Try changing the following code to use `geom_label_repel()` and `size = 5`:
+
+```{r labtest, exercise = TRUE, warning=F, message=F}
+ggplot(
+  data = hosp_CFR_age,
+  mapping = aes(
+    x = med_age,
+    y = CFR,
+    size = cases,
+    label = hospital)) +
+  geom_point() +
+  geom_text()
+```
+
+```{r labtest-check}
+grade_this_code("Good! We replace the geom_text() used above with geom_label_repel(size = 5). As the label is set in aes()")
+```
+
+```{r labtest-solution, eval= FALSE}
+ggplot(
+  data = hosp_CFR_age,
+  mapping = aes(
+    x = med_age,
+    y = CFR,
+    size = cases,
+    label = hospital)) +
+  geom_point() +
+  geom_label_repel(size = 5)
+```
+
+### Dynamic labels
+
+`label =` can also be assigned complex values with `str_glue()`:  
+
+```{r labels-glue, echo = T, eval= T}
+ggplot(
+  data = hosp_CFR_age,
+  mapping = aes(
+    x = med_age,
+    y = CFR,
+    size = cases,
+    label = str_glue(
+      "{hospital}\n{cases} cases"))) +
+  geom_point() +
+  geom_label_repel(size = 5)
+```
+
+Another good tip is to use `comma()` from the **scales** package to make numbers display with comma separators every three digits:
+```{r comma, echo=T, eval=T}
+ggplot(
+  data = hosp_CFR_age,
+  mapping = aes(
+    x = med_age,
+    y = CFR,
+    size = cases,
+    label = str_glue(
+      "{hospital}\n{comma(cases)} cases"))) +
+  geom_point() +
+  geom_label_repel(size = 5)
+```
+
+See the many other useful functions in [**scales**](https://scales.r-lib.org/).  
+
+```{r labels-quiz}
+quiz(
+  question("Which functions can we use to label points in ggplot2?",
+    answer("geom_text()", correct = TRUE),
+    answer("labs()"),
+    answer("geom_label_repel()", correct = TRUE),
+    answer("glabels()")
+  ),
+  question_text("What else do we need to specify to see labels on our plot?",
+    answer("We need to specify what data to use for the label using label = within the aes() of the ggplot() function", correct = T), incorrect  = "We need to specify what data to use for the label using label = within the aes() of the ggplot() function"
+    )
+)
+```
+
+## Combining plots
+
+### cowplot
+
+### Dual axes
+
+
+
+## Point-and-click ggplot2
+Now that you've learned the basic syntax the [**esquisse**](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html]) package allows point-and-click creation of (simple) ggplots!
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::include_graphics("https://github.com/appliedepi/tutorials/blob/master/tutorials/images/data_viz/esquisse1.gif?raw=true")
+```
+
+## Simple interactive plots
+
+
+## Next steps
+
+Much more detailed breakdowns of all the arguments and functions of ggplot and associated packages covered in this tutorial are included in the data visualization sections of the handbook. Specifically the [ggplot basics](https://epirhandbook.com/en/ggplot-basics.html), [ggplot tips](https://epirhandbook.com/en/ggplot-tips.html), [epidemic curves](https://epirhandbook.com/en/epidemic-curves.html) [demographic pyramid](https://epirhandbook.com/en/demographic-pyramids-and-likert-scales.html) and [interactive plotting](https://epirhandbook.com/en/interactive-plots.html) chapters. The handbook also covers further plotting methods in **R** and **ggplot2** such as [heatmaps](https://epirhandbook.com/en/heat-plots.html), [diagrams](https://epirhandbook.com/en/diagrams-and-charts.html), [combinations analysis](https://epirhandbook.com/en/combinations-analysis.html), [transmission chains](https://epirhandbook.com/en/transmission-chains.html), [phylogenetic trees](https://epirhandbook.com/en/phylogenetic-trees-1.html) and [GIS mapping](https://epirhandbook.com/en/gis-basics.html) techniques and links to further resources for these types of visualization.
+
+Some good example plots with accompanying code can be found on the [R graph gallery](r-graph-gallery.com) to use for inspiration with your own plotting goals and projects.
+
 
