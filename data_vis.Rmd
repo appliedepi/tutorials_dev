@@ -85,7 +85,8 @@ pacman::p_load(
   tidyverse,   # ggplot2 & data management
   ggpubr,
   gghighlight,
-  RColorBrewer # now built in to ggplot but need to load to see the palettes
+  RColorBrewer, # now built in to ggplot but need to load to see the palettes
+  Hmisc
   )
 
 
@@ -1165,7 +1166,7 @@ themes_plots
 ### Themes
 
 Micro-adjustments to the theme can be made with `theme()` as these are mostly small layout and visual details we won't go into much detail here. More information is available [in the handbook](https://www.epirhandbook.com/en/ggplot-basics.html#ggplot_basics_themes). The syntax for themes taxes time to learn and is not used often enough to commit to memory for most R users. See [this list](https://ggplot2.tidyverse.org/reference/theme.html) of feature-specific arguments. or running `theme_get()` in your R window to get a list of all theme arguments in the console.
-```{r theme-adjustment}
+```{r theme-adjustment, echo = T, message = F, warning = F}
 ggplot(data = linelist) +
 geom_point(
   mapping = aes(
@@ -1250,7 +1251,7 @@ quiz(
 We will cover some common epidemiological plots in more detail as these are the most likely types of plots you will come across or want to recreate in your work.
 
 ## Bar plots
-We have already introduced and presented bar plots throughout this tutorial using `geom_bar()`. There is an additional bar plotting `geom_x()`, `geom_col()`. These are both used to make general bar plots from different formats of data. We will also introduce a package to produce epicurves (another bar plot you will likely be familiar with) in the next section.
+We have already introduced and presented bar plots throughout this tutorial using `geom_bar()`. There is an additional bar plotting `geom_*()`, `geom_col()`. These are both used to make general bar plots from different formats of data. We will also introduce a package to produce epicurves (another bar plot you will likely be familiar with) in the next section.
 
 Use `geom_bar()` if bar height should reflect the **number of rows** in the data (e.g. a case linelist) as we have seen in previous examples:
 
@@ -1283,7 +1284,7 @@ theme_classic() +
 theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
-*note: here we use theme adjustments introduced in the previous section, as 45 degree rotated labels rotate around the center of the text we then need to adjust the vertical and horizontal positioning hence `vjust` and `hjust`*
+*note: here we use theme adjustments introduced in the previous section. As 45 degree rotated labels rotate around the center of the text we then need to adjust the vertical and horizontal positioning hence `vjust` and `hjust`*
 
 ### `geom_bar()` - show groupings
 
@@ -1853,7 +1854,7 @@ theme_minimal(base_size = 10)
 
 Note that again any NA outcomes are not shown in this plot by default, we can show `NA` with `na.rm = FALSE` inside the `age_pyramid()` function to show NA values for age, gender and outcome or adjust our dataset to assign NA to a different value for outcome if we want to visualize only this
 
-```{r epicurves-quiz}
+```{r apyramid-quiz}
 quiz(
   question("Which function do we use to create and plot our age pyramid?",
     answer("apyramid()"),
@@ -1962,7 +1963,7 @@ ggplot(
   geom_text()
 ```
 
-Labels look much improved by using `geom_label_repel()` from the **ggrepel** package. These scale with the size of the point which we have assigned to number of cases in this plot so we should set size = 5 within `geom_label_repel()` to fix this. 
+Labels look much improved by using `geom_label_repel()` from the **ggrepel** package. These scale with the size of the point which we have assigned to number of cases in this plot so we should set size = 3 within `geom_label_repel()` to fix this. 
 Try changing the following code to use `geom_label_repel()` and `size = 5`:
 
 ```{r labtest, exercise = TRUE, warning=F, message=F}
@@ -1990,7 +1991,7 @@ ggplot(
     size = cases,
     label = hospital)) +
   geom_point() +
-  geom_label_repel(size = 5)
+  geom_label_repel(size = 3)
 ```
 
 ### Dynamic labels
@@ -2007,7 +2008,7 @@ ggplot(
     label = str_glue(
       "{hospital}\n{cases} cases"))) +
   geom_point() +
-  geom_label_repel(size = 5)
+  geom_label_repel(size = 3)
 ```
 
 Another good tip is to use `comma()` from the **scales** package to make numbers display with comma separators every three digits:
@@ -2043,9 +2044,182 @@ quiz(
 ## Combining plots
 
 ### cowplot
+The **cowplot** package allows us to combine multiple plots, while aligning elements such as axes. For date axes, ensure the same limits in both plots.   
+
+Define two plots and save as objects in R. In this example the first will be a histogram of reported cases by date of onset. 
+
+```{r, echo=T, eval=T, warning=F, message=F}
+plot1 <- linelist %>% 
+  ggplot(
+    mapping = aes(
+      x = date_onset),
+    binwidth = 7)+
+  geom_histogram()+
+  theme_minimal()+
+  scale_y_continuous(expand = c(0,0))+
+ scale_x_date(
+   limits = c(
+     as.Date("2014-05-01"),
+     max(linelist$date_onset, na.rm=T)),
+    date_breaks = "months",
+    labels = scales::label_date_short(),
+    expand = c(0,0))
+```
+
+```{r plt_hist1, echo = F, message=F, warning=F}
+plot1
+```
+
+Here we adjust the date axis to start at the binning of May and end with the max onset date from the dataset so we can enxure this matches across our two plots
+
+Our second plot shows the mean age of cases with onset in each week over the same time period. Here we use a line plot (`geom_line()`) to link the mean values and a ribbon plot (`geom_ribbon()`) to show the 95% confidence interval around the mean.
+
+Data is summarized from the larger linelist by first grouping by date of onset and then calculating a confidence interval and mean age using the **Hmisc** function `mean_cl_normal()` which assumes a normal distribution of the underlying data.
+
+```{r, echo = T, eval=T}
+plot2 <- linelist %>% 
+group_by(week = floor_date(date_onset, "week")) %>% 
+summarise(ci = list(mean_cl_normal(age) %>% rename(mean=y, lwr=ymin, upr=ymax))) %>% 
+unnest(c(ci)) %>%  
+  
+ggplot(
+  mapping = aes(
+    x = week,
+    y = mean,
+    ymin = lwr,
+    ymax = upr))+
+geom_ribbon(alpha = 0.5, fill = "green", color = "green")+
+geom_line(size = 2, color = "darkgreen")+
+scale_x_date(
+  limits = c(
+     as.Date("2014-05-01"),
+     max(linelist$date_onset, na.rm=T)),
+  date_breaks = "months",
+  labels = scales::label_date_short(),
+  expand = c(0,0))+
+coord_cartesian(ylim = c(0, 60))+
+theme_minimal()+
+labs(
+  y = "Weekly mean age (95%CI)",
+  x = "Month")
+```
+```{r plt_2, echo = F, message=F, warning=F}
+plot2
+```
+
+We then use the **cowplot** function `plot_grid()` to align and plot the two plots together:
+```{r, echo = TRUE, fig.height=6, fig.width=9, warning=F, message=F}
+plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = "hv", labels = "auto")
+```
+
+Here `align = "hv"` specifies that we wish to horizontally and vertically align the plots, Options are `"none"` (default), `"hv"` (as here), `"h"` (horizontal), and `"v"` (vertical)
+We can also adjust the relative heights and widths of the plots (`rel_heights = ` and `rel_widths = `) if we want one to be taller or wider etc.
+`labels = "auto"` automatically generates the a and b labels shown in lower case, `"AUTO"` will give upper case labels and if we want to specify our own labels we can do this with a vector (`c()`). The default is to have no labels so if we remove `labels = ` no labels will be shown.
+
+A full list of available options for this function is available in the [cowplot documentation](https://www.rdocumentation.org/packages/cowplot/versions/1.1.1/topics/plot_grid). 
+
+Have a go applying some of these options to the plot:
+
+```{r plot-grid-ex,exercise = TRUE, echo = TRUE, fig.height=6, fig.width=9, warning=F, message=F}
+plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = "hv", labels = "auto")
+```
+
+`plot_grid()` calls can also be recursively placed inside each-other to generate more complex plot layouts:
+
+```{r, echo = TRUE, fig.height=6, fig.width=10, warning=F, message=F}
+plot_grid(plot1, plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = "hv", labels = c("B", "C")), rel_heights = c(1, 1), ncol = 2, align = "hv", labels = c("A", NA))
+```
 
 ### Dual axes
 
+You can also use **cowplot** to overlap two plots and create a "dual-axis" plot.  Here we want to use the cowplot default theme which helps us to produce plots with transparent backgrounds.
+
+First let us clean up the onset date plot with nicer axis labels and the **cowplot** theme:
+
+```{r, echo=T, eval=T, warning=F, message=F}
+plot1 <- linelist %>% 
+  ggplot(
+    mapping = aes(
+      x = date_onset),
+    binwidth = 7) +
+  geom_histogram(color = "darkblue", fill = "cornflowerblue", alpha = 0.5) +
+  theme_cowplot() +
+  scale_y_continuous(expand = c(0,0)) +
+ scale_x_date(
+   limits = c(
+     as.Date("2014-05-01"),
+     max(linelist$date_onset, na.rm=T)),
+    date_breaks = "months",
+    labels = scales::label_date_short(),
+    expand = c(0,0)) +
+  labs(x = "",
+       y = "Weekly incidence")+
+    theme(axis.text.y = element_text(color = "darkblue", face = "bold"),
+        axis.title.y = element_text(color = "darkblue", face = "bold"))
+```
+
+```{r plt_hist12, echo = F, message=F, warning=F}
+plot1
+```
+
+And create a second plot of CFR over time by week. For this plot we want to move the continuous Y-axis to the right with `position = "right"` so we don't get overlapping axes on the combined plot.
+
+```{r, eval=T, echo=F}
+plot2 <- linelist %>% 
+group_by(week = floor_date(date_onset, "week")) %>% 
+  summarise(CFR = sum(outcome == "Death", na.rm=T) / n() ) %>% 
+  
+ggplot(
+  mapping = aes(
+    x = week,
+    y = CFR))+
+    geom_line(size = 1.5, color = "orange")+
+  theme_cowplot()+
+  scale_y_continuous(
+    position = "right",
+    limits = c(0,1),
+    expand = c(0,0))+
+  scale_x_date(
+    limits = c(as.Date("2014-05-01"), max(linelist$date_onset, na.rm=T)),  
+    date_breaks = "months",
+    labels = scales::label_date_short(),
+    expand = c(0,0))+ 
+  labs(x = "Epiweek",
+       y = "Weekly CFR") +
+  theme(axis.text.y = element_text(color = "orange", face = "bold"),
+        axis.title.y = element_text(color = "orange", face = "bold"))
+
+```
+```{r plt_22, echo = F, message=F, warning=F}
+plot2
+```
+
+We can then align the two plots with `align_plots()` and plot with `ggdraw()`:
+
+```{r echo = TRUE, fig.width=9, fig.height=6}
+aligned  <- align_plots(plot1, plot2, align = "hv")
+combined <- ggdraw(aligned[[1]]) + draw_plot(aligned[[2]])
+combined
+```
+
+## Simple interactive plots
+
+Use `ggplotly()` from the **plotly** package to easily make most ggplots interactive. The best way to do this is to first save your ggplot to an **R** object and then call this within `ggplotly()` 
+
+```{r echo = F, eval=T, fig.width=9, fig.height=6}
+bar_plot <- ggplot(
+  data = linelist,
+  mapping = aes(x = hospital, fill = outcome)) +             
+geom_bar() + 
+theme(axis.text.x = element_text(angle=45, hjust = 1, vjust = 1))
+```
+
+```{r echo = T, eval=T, fig.width=9, fig.height=6}
+# Provide the name of a defined plot into ggplotly()  
+plotly::ggplotly(bar_plot)
+```
+
+This allows you to view tooltips with the data used to create the plot, zoom, screenshot and other basic interactive functions by default but can be built up to produce robust interactive plots for use in reports, dashboards etc. See the handboo [pages on interactive plotting](https://epirhandbook.com/en/interactive-plots.html) for more information.
 
 
 ## Point-and-click ggplot2
@@ -2055,13 +2229,21 @@ Now that you've learned the basic syntax the [**esquisse**](https://cran.r-proje
 knitr::include_graphics("https://github.com/appliedepi/tutorials/blob/master/tutorials/images/data_viz/esquisse1.gif?raw=true")
 ```
 
-## Simple interactive plots
+## Data structure  
 
+**ggplot2** works best when the dataset is in "long" format, where each variable has its own column. We recommend that you become familiar with `pivot_longer()` from **dplyr** (see the [Epi R Handbook pivoting page](https://epirhandbook.com/pivoting-data.html)). And the tutorials on data cleaning and tidy data.
+   
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::include_graphics("https://github.com/appliedepi/emory_training/blob/master/presentation/images/pivoting.png?raw=true")
+```
 
 ## Next steps
 
 Much more detailed breakdowns of all the arguments and functions of ggplot and associated packages covered in this tutorial are included in the data visualization sections of the handbook. Specifically the [ggplot basics](https://epirhandbook.com/en/ggplot-basics.html), [ggplot tips](https://epirhandbook.com/en/ggplot-tips.html), [epidemic curves](https://epirhandbook.com/en/epidemic-curves.html) [demographic pyramid](https://epirhandbook.com/en/demographic-pyramids-and-likert-scales.html) and [interactive plotting](https://epirhandbook.com/en/interactive-plots.html) chapters. The handbook also covers further plotting methods in **R** and **ggplot2** such as [heatmaps](https://epirhandbook.com/en/heat-plots.html), [diagrams](https://epirhandbook.com/en/diagrams-and-charts.html), [combinations analysis](https://epirhandbook.com/en/combinations-analysis.html), [transmission chains](https://epirhandbook.com/en/transmission-chains.html), [phylogenetic trees](https://epirhandbook.com/en/phylogenetic-trees-1.html) and [GIS mapping](https://epirhandbook.com/en/gis-basics.html) techniques and links to further resources for these types of visualization.
 
 Some good example plots with accompanying code can be found on the [R graph gallery](r-graph-gallery.com) to use for inspiration with your own plotting goals and projects.
+
+
 
 
