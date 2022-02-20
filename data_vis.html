@@ -147,7 +147,7 @@ ID:
 <h2>Introduction to R for Applied Epidemiology and Public Health</h2>
 <div id="section-data-visualisation" class="section level3">
 <h3>Data visualisation</h3>
-<p><img src="images/moz-banner.png" width="100%" /></p>
+<p><img src="images/moz-banner.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-welcome" class="section level3">
 <h3>Welcome</h3>
@@ -174,12 +174,13 @@ ID:
 </div>
 <div id="section-learning-goals" class="section level4">
 <h4>Learning goals</h4>
-<p>In this tutorial you will:</p>
+<p>In this tutorial you will learn:</p>
 <ul>
-<li>Cleaning data using the fundamental <strong>tidyverse</strong> R functions</li>
-<li>…<br />
-</li>
-<li>…</li>
+<li>The basics of data visualization in R with <strong>ggplot2</strong></li>
+<li>The “grammar of graphics” approach to data visualization</li>
+<li>How to customize and edit plots to achieve the look you want</li>
+<li>Methods to produce some common epidemiological plots with <strong>ggplot2</strong> and other helper functions</li>
+<li>How to combine and overlay your plots</li>
 </ul>
 </div>
 <div id="section-data-consent" class="section level4">
@@ -189,7 +190,7 @@ ID:
 <div id="section-who-made-this-course" class="section level4">
 <h4>Who made this course</h4>
 <p>This course is designed by epidemiologists with decades of ground-level experience in outbreak response and local public health work.</p>
-<p><img src="images/hex-sidebyside.png" width="50%" /></p>
+<p><img src="images/hex-sidebyside.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -267,10 +268,10 @@ ID:
 <div id="section-grammar-of-graphics" class="section level3">
 <h3>Grammar of graphics</h3>
 <p>Visualizing multi-dimensional data <em>well</em> is a balance of art and science. Visualization is one of the most important parts of a statistical analysis as it allows you to share what you have achieved and, when done correctly, can help to explain complex work and concepts to a wider audience of stakeholders or the general public. Visualization can also be a key step when getting to grips with new data or with analyses you are working on.</p>
-<p><strong><em>VIS OF ANSCOMBES QuARTET OR SIMILAR</em></strong></p>
+<p><img src="data_vis_files/figure-html/anscombe-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><em>Visualization of Anscombe’s quartet, a famous set of 4 very different datasets which resolve to the same set of summary statistics and same linear line of best fit. This highlights the importance of visualization when dealing with new or unknown data. Figure adapted from <a href="https://rpubs.com/debosruti007/anscombeQuartet">Debosruti Dutta</a></em></p>
 <p>The grammar of graphics refers to the basic structure generally followed in <strong>ggplot2</strong> where different building blocks of the plot are manipulated in individual lines of code. These range from data, the basic requirement of all data visualization, up to individual design tweaks specific to your own needs or liking.</p>
-<p><strong><em>pyramid illustration from towards data science is nice here</em></strong></p>
-<p><strong><em>qu on data being the basic building block of all vis</em></strong></p>
+<p><img src="images/data_viz/gg_pyramid.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>In <strong>ggplot2</strong> we build a plot by “adding” commands on top of one another which specify plot layers and design elements. For a standard plot your order will follow this process:</p>
 <ol style="list-style-type: decimal">
 <li><strong>“Open” the plot</strong> with the <code>ggplot()</code> command and specify the dataset</li>
@@ -319,7 +320,7 @@ ID:
 <div id="section-mapping-columns" class="section level2">
 <h2>Mapping columns</h2>
 <pre class="r"><code>ggplot(data = linelist, mapping = aes(x = age, y = bmi))</code></pre>
-<p><img src="data_vis_files/figure-html/aes-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/aes-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>“Aesthetics” are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the color, shape and other properties of the plot which depend on columns in your data. We will get into other aesthetics further into the tutorial.</p>
 <p><code>mapping=aes()</code> assigns plot aesthetics to columns from your data. Any parameters to be input must be placed <em>within</em> the <code>aes()</code> command to be interpreted as dependent on the data.</p>
 <p>Here we have set the axes X and Y to the age and bmi columns from the linelist data. You can see this represented on the axes above.</p>
@@ -354,8 +355,7 @@ ID:
 <p>Adding (<code>+</code>) <code>geom_point()</code> to our previous <code>ggplot()</code> call will plot points using the X and Y variables we defined:</p>
 <pre class="r"><code>ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point()</code></pre>
-<pre><code>## Warning: Removed 86 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_vis_files/figure-html/simple%20plot-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/simple%20plot-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>You will see a warning when running this code reproduced above. This is due to missing data in the linelist. <strong>ggplot2</strong> will automatically drop rows with missing values from simple plots.</p>
 <p>We can also plot other simple plots with the same data by switching out the <code>geom_point()</code> for another geom. Below we plot a histogram of ages included in the linelist. This type of plot only requires a single variable. Can you spot what is missing from the code below?</p>
 <div class="tutorial-exercise" data-label="axis-plot" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -394,7 +394,7 @@ geom_histogram()</code></pre>
 </ol>
 <pre class="r"><code>ggplot(data = linelist, mapping = aes(x = age)) +
 geom_histogram(fill = &quot;orange&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/plot-color-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/plot-color-1.png" width="624" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>A data column (e.g. color = gender) such that display of each observation depends on its value in that column
 <ul>
@@ -404,7 +404,7 @@ geom_histogram(fill = &quot;orange&quot;)</code></pre>
 </ol>
 <pre class="r"><code>ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point(mapping = aes(color = gender))</code></pre>
-<p><img src="data_vis_files/figure-html/dynamic-aes-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/dynamic-aes-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Try changing the histogram plot code below to have the bar fill determined by gender.</p>
 <div class="tutorial-exercise" data-label="gender-plot" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = linelist, mapping = aes(x = age)) +
@@ -423,27 +423,25 @@ geom_histogram(mapping = aes(fill = gender))</code></pre>
 <p>For dot and line plots we assign the color using <em>color</em> rather than <em>fill</em> as they are outlines rather than filled objects. Here we also adjust the size (<code>size =</code>) of the points and the opacity (<code>alpha =</code>)(make them more see through; useful for overlaid plots)</p>
 <pre class="r"><code>ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point(mapping = aes(color = outcome), size = 2, alpha = 0.5)</code></pre>
-<p><img src="data_vis_files/figure-html/static-col-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/static-col-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>We will cover different color options later and how to change the colors assigned to your data. Basic colors for static mapping are built-in with <strong>ggplot2</strong>:</p>
-<p><img src="data_vis_files/figure-html/ggplot-default-cols-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/ggplot-default-cols-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>A range of point shapes are also available in R, these can be used to set point shapes. The ones with blue centers below have a fill and so can be filled with a different parameter to their colour (outline)</p>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-## replace the existing scale.</code></pre>
-<p><img src="data_vis_files/figure-html/shapes-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/shapes-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>As with the other aesthetics we have seen shape can be dynamic:</p>
 <pre class="r"><code>ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point(mapping = aes(shape = gender, color = age_cat), size = 3, alpha = 0.3)</code></pre>
-<p><img src="data_vis_files/figure-html/dynamic-shape-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/dynamic-shape-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>or static:</p>
 <pre class="r"><code>ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point(mapping = aes(fill = age_cat), color = &quot;black&quot;, shape = 21, size = 3, alpha = 0.3)</code></pre>
-<p><img src="data_vis_files/figure-html/static-shape-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/static-shape-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Here we use a shape with fill to allow each point to have a black outline with categorical fill.</p>
 </div>
 <div id="section-static-aesthetics" class="section level3">
 <h3>Static aesthetics</h3>
 <p>An aesthetic is static if it applies the same display to all data points in the geom or plot. Static aesthetics are defined <em>outside</em> <code>aes()</code> to a <em>number or character value</em>. egs. <code>color = seagreen</code> <code>size = 3</code> <code>alpha = 0.5</code></p>
-<p><img src="data_vis_files/figure-html/plot-with-those-aes-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/plot-with-those-aes-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-assigned-dynamic-aesthetics" class="section level3">
 <h3>Assigned (dynamic) aesthetics</h3>
@@ -496,7 +494,7 @@ geom_histogram(mapping = aes(fill = gender))</code></pre>
   mapping = aes(x = date_onset)) +
 geom_histogram() +
 facet_wrap(~source)</code></pre>
-<p><img src="data_vis_files/figure-html/facet-wrap-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/facet-wrap-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Here we split out the linelist data by source of infection. By default <code>facet_wrap()</code> automatically matches scales between plots. This can be turned off with “free” options passed to <code>scales =</code></p>
 <ol style="list-style-type: decimal">
 <li>“free_y”</li>
@@ -508,7 +506,7 @@ facet_wrap(~source)</code></pre>
   mapping = aes(x = date_onset)) +
 geom_histogram() +
 facet_wrap(~source, scales = &quot;free_y&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/facet-wrap-free-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/facet-wrap-free-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p><strong>Free axes are generally not recommended as they can mislead an audience not carefully checking your plots</strong></p>
 <p>you can also set the number of columns or rows of plots produced with <code>ncol =</code> and <code>nrow =</code></p>
 <p>Try fixing the below code splitting cases by reporting hospital to plot a facet:</p>
@@ -546,14 +544,14 @@ facet_wrap(~hospital, ncol = 2)</code></pre>
   mapping = aes(x = date_onset)) +
 geom_histogram(mapping = aes(fill = source)) +
 facet_wrap(hospital ~ gender)</code></pre>
-<p><img src="data_vis_files/figure-html/multidimension%20facet%20wrap-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/multidimension%20facet%20wrap-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>To improve on this layout we can instead use the <code>facet_grid()</code> command:</p>
 <pre class="r"><code>ggplot(
   data = linelist,
   mapping = aes(x = date_onset)) +
 geom_histogram(mapping = aes(fill = source)) +
 facet_grid(hospital ~ gender)</code></pre>
-<p><img src="data_vis_files/figure-html/multidimension%20facet%20grid-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/multidimension%20facet%20grid-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-drop-levels-from-facets" class="section level3">
 <h3>Drop levels from facets</h3>
@@ -566,7 +564,7 @@ ggplot(
   mapping = aes(x = date_onset)) +
 geom_histogram(mapping = aes(fill = source)) +
 facet_grid(hospital ~ gender)</code></pre>
-<p><img src="data_vis_files/figure-html/dropping-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/dropping-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-gghighlight" class="section level3">
 <h3><code>gghighlight()</code></h3>
@@ -577,7 +575,7 @@ facet_grid(hospital ~ gender)</code></pre>
 geom_histogram(aes(fill = hospital)) +
 facet_wrap(~hospital) +
 gghighlight()</code></pre>
-<p><img src="data_vis_files/figure-html/gghighlight-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/gghighlight-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>gghighlight can also be added to other types of ggplot. Here we specify we want to highlight the 15-19 year olds in some data grouped from the linelist in this tutorial.</p>
 <pre class="r"><code>linelist %&gt;% 
   # get daily counts by age group
@@ -593,7 +591,7 @@ gghighlight()</code></pre>
   gghighlight::gghighlight(
     age_cat %in% c(&quot;15-19&quot;))+
   theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/gghighlight-other-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/gghighlight-other-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Check the handbook for <a href="https://epirhandbook.com/en/grouping-data.html">more information on grouping data</a></p>
 <p>facet quiz - ways to group data - aesthetic and facet can you think of situations where facets are preferred? facet_wrap vs facet_grid</p>
 </div>
@@ -656,7 +654,7 @@ gghighlight()</code></pre>
     x = outcome,
     fill = gender)) +
 geom_bar()</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-4-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-4-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Above, the fill of a bar plot uses the <strong>default colors and axis breaks</strong>. We can adjust the elements of this plot with a <code>scale_AESTHETIC_METHOD()</code> function added (<code>+</code>) to the end of our <code>ggplot()</code></p>
 </div>
 <div id="section-adjust-fill" class="section level3">
@@ -673,7 +671,7 @@ scale_fill_manual(
    &quot;m&quot;     = &quot;violetred&quot;, 
    &quot;f&quot;      = &quot;aquamarine&quot;),
    na.value = &quot;green&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-5-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-5-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Here we have chosen some ugly colors to highlight what we are changing! Try changing the color for “m” to “dodgerblue” and “f” to “tomato” for a nicer color combination in the code below. Also set NA to be “grey”, a common standard plot color.</p>
 <div class="tutorial-exercise" data-label="manual-color" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(
@@ -705,7 +703,7 @@ scale_fill_manual(
 <div id="section-built-in-palettes" class="section level4">
 <h4>Built-in palettes</h4>
 <p><strong>R</strong> and <strong>ggplot2</strong> come with a number of built-in palettes. As we are working here with discrete data we can use <code>scale_fill_brewer()</code> to access the following palettes rather than specifying our own colors:</p>
-<p><img src="data_vis_files/figure-html/brewerpal-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/brewerpal-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>As we are working with a discrete scale the middle group of color palettes are most appropriate.</p>
 <pre class="r"><code>ggplot(
   data = linelist,
@@ -714,7 +712,7 @@ scale_fill_manual(
     fill = gender)) +
 geom_bar() +
 scale_fill_brewer(palette = &quot;Pastel2&quot;, na.value = &quot;grey&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/brewer_eg-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/brewer_eg-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>A color-blind friendly palette is also available known as <code>viridis</code>. This comes in discrete and continuous forms <code>scale_fill_viridis_d()</code> and <code>scale_fill_viridis_c()</code>:</p>
 <pre class="r"><code>ggplot(
   data = linelist,
@@ -723,7 +721,7 @@ scale_fill_brewer(palette = &quot;Pastel2&quot;, na.value = &quot;grey&quot;)</c
     fill = gender)) +
 geom_bar() +
 scale_fill_viridis_d(na.value = &quot;grey&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/viridis_eg-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/viridis_eg-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Try applying what you have learned to add a continuous viridis palette to the following plot. Be aware that here we are dealing with a <em>color</em> rather than <em>fill</em> aesthetic. It is best practice to also specify an <code>na.value =</code></p>
 <div class="tutorial-exercise" data-label="pal-color" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(
@@ -764,7 +762,7 @@ scale_fill_viridis_d(na.value = &quot;grey&quot;) +
 scale_y_continuous(breaks = seq(from = 0,
                                 to = 3000,
                                 by = 500))</code></pre>
-<p><img src="data_vis_files/figure-html/axis-breaks-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/axis-breaks-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-starting-scales-at-0" class="section level3">
 <h3>Starting scales at 0</h3>
@@ -780,7 +778,7 @@ scale_y_continuous(breaks = seq(from = 0,
                                 to = 3000,
                                 by = 500),
                    expand = c(0,0))</code></pre>
-<p><img src="data_vis_files/figure-html/axis-end-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/axis-end-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Try applying the same <code>expand = c(0,0)</code> to the <em>discrete</em> x-axis:</p>
 <div class="tutorial-exercise" data-label="expand" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(
@@ -818,7 +816,7 @@ scale_x_discrete(expand = c(0,0))</code></pre>
   data = linelist,
   mapping = aes(x = date_onset)) +
 geom_histogram()</code></pre>
-<p><img src="data_vis_files/figure-html/date-x-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/date-x-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Adjust axis labels with <code>scale_x_date()</code>.</p>
 <p>Use <code>date_breaks=</code> values like “1 week”, “2 weeks”, or “3 months”.</p>
 <p>Note: these are the <em>axis</em> label breaks, the don’t affect the bins of the histogram (bar widths), for tips on geom_histogram() bins, see Epi R Handbook epicurves page</p>
@@ -848,7 +846,7 @@ scale_x_date(date_breaks = &quot;2 months&quot;)</code></pre>
 geom_histogram() +
 scale_x_date(date_breaks = &quot;2 months&quot;,
              date_labels = &quot;%d %b \n %Y&quot; )</code></pre>
-<p><img src="data_vis_files/figure-html/date-labs-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/date-labs-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>See Epi R Handbook <a href="https://epirhandbook.com/epidemic-curves.html">Epicurves</a> and <a href="https://epirhandbook.com/characters-and-strings.html">Strings</a> pages for more tips</p>
 <p>There is also a built-in simplification for date labels using the scales package. Confusingly this is applied using the <code>labels =</code> rather than <code>date_labels =</code> argument. Assigning <code>labels=</code> to <code>label_date_short()</code> from <a href="https://scales.r-lib.org/"><strong>the scales package</strong></a> means the year is not repeated on each label anymore.</p>
 <pre class="r"><code>ggplot(
@@ -857,7 +855,7 @@ scale_x_date(date_breaks = &quot;2 months&quot;,
 geom_histogram() +
 scale_x_date(date_breaks = &quot;2 months&quot;,
              labels = scales::label_date_short() )</code></pre>
-<p><img src="data_vis_files/figure-html/date-short-labs-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/date-short-labs-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-display-percentages" class="section level3">
 <h3>Display percentages</h3>
@@ -906,7 +904,7 @@ scale_x_date(date_breaks = &quot;2 months&quot;,
    y = CFR)) +
 geom_line(size = 2, color = &quot;brown&quot;) +
 scale_y_continuous( labels = percent )</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-7-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-7-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="section-plot-labels" class="section level2">
@@ -937,7 +935,7 @@ labs(
 <h3>Dynamic labels</h3>
 <p>We can embed code in <code>str_glue()</code> that updates with the data</p>
 <pre class="r"><code>str_glue(&quot;Data as of {Sys.Date()}&quot;)</code></pre>
-<pre><code>## Data as of 2022-02-19</code></pre>
+<pre><code>## Data as of 2022-02-20</code></pre>
 <pre class="r"><code>str_glue(&quot;{fmt_count(linelist, is.na(date_onset))} cases missing onset and not shown&quot;)</code></pre>
 <pre><code>## 256 (4.3%) cases missing onset and not shown</code></pre>
 <p>Anything wrapped in curly brackets (<code>{__}</code>) will be run as <strong>R</strong> code allowing us to produce labels which will update with values from our data as the data is updated.</p>
@@ -981,13 +979,36 @@ labs(
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>Try the argument <code>base_size = 16</code> inside the theme to quickly increase text size.</p>
-<p><img src="data_vis_files/figure-html/themes-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/themes-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-themes" class="section level3">
 <h3>Themes</h3>
 <p>Micro-adjustments to the theme can be made with <code>theme()</code> as these are mostly small layout and visual details we won’t go into much detail here. More information is available <a href="https://www.epirhandbook.com/en/ggplot-basics.html#ggplot_basics_themes">in the handbook</a>. The syntax for themes taxes time to learn and is not used often enough to commit to memory for most R users. See <a href="https://ggplot2.tidyverse.org/reference/theme.html">this list</a> of feature-specific arguments. or running <code>theme_get()</code> in your R window to get a list of all theme arguments in the console.</p>
-<pre><code>## Warning: Removed 1209 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_vis_files/figure-html/theme-adjustment-1.png" width="624" /></p>
+<pre class="r"><code>ggplot(data = linelist) +
+geom_point(
+  mapping = aes(
+    x = age,
+    y = hosp_time,
+    color = outcome),    
+  alpha = 0.7) +
+scale_color_brewer(palette = &quot;Pastel2&quot;, na.value = &quot;grey&quot;) +
+ylim(c(0, 70)) +
+labs(
+  title = &quot;Duration of admission&quot;,
+  subtitle = &quot;All hospitals&quot;,
+  x = &quot;Age (years)&quot;,
+  y = &quot;Duration (days)&quot;,
+  caption = &quot;Fictional Ebola data&quot;,
+  color = &quot;Outcome&quot;
+) +
+theme_classic(base_size = 16) +
+theme(
+  legend.position = &quot;bottom&quot;,                # move legend to bottom
+  plot.title = element_text(color = &quot;red&quot;,   # title color
+                            size = 20,       # title font size
+                            face = &quot;bold&quot;),  # title typeface
+  axis.title.y = element_text(angle = 0))    # rotate y axis title to be horizontal</code></pre>
+<p><img src="data_vis_files/figure-html/theme-adjustment-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>These theme elements follow a similar 2-part syntax much like <code>mapping = aes()</code> where we pass a function to an argument of a higher level function (here <code>theme()</code>).</p>
 <p><strong>Remember to add any adjustments after any pre-built themes</strong></p>
 <p>some useful theme options are presented below:</p>
@@ -1093,7 +1114,7 @@ labs(
 </div>
 <div id="section-bar-plots" class="section level2">
 <h2>Bar plots</h2>
-<p>We have already introduced and presented bar plots throughout this tutorial using <code>geom_bar()</code>. There is an additional bar plotting <code>geom_x()</code>, <code>geom_col()</code>. These are both used to make general bar plots from different formats of data. We will also introduce a package to produce epicurves (another bar plot you will likely be familiar with) in the next section.</p>
+<p>We have already introduced and presented bar plots throughout this tutorial using <code>geom_bar()</code>. There is an additional bar plotting <code>geom_*()</code>, <code>geom_col()</code>. These are both used to make general bar plots from different formats of data. We will also introduce a package to produce epicurves (another bar plot you will likely be familiar with) in the next section.</p>
 <p>Use <code>geom_bar()</code> if bar height should reflect the <strong>number of rows</strong> in the data (e.g. a case linelist) as we have seen in previous examples:</p>
 <pre class="r"><code>ggplot(
   data = linelist,                  # standard linelist data   
@@ -1113,8 +1134,8 @@ geom_col()   </code></pre>
 geom_bar() +
 theme_classic() + 
 theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-14-1.png" width="624" /></p>
-<p><em>note: here we use theme adjustments introduced in the previous section, as 45 degree rotated labels rotate around the center of the text we then need to adjust the vertical and horizontal positioning hence <code>vjust</code> and <code>hjust</code></em></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-14-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><em>note: here we use theme adjustments introduced in the previous section. As 45 degree rotated labels rotate around the center of the text we then need to adjust the vertical and horizontal positioning hence <code>vjust</code> and <code>hjust</code></em></p>
 </div>
 <div id="section-geom_bar---show-groupings" class="section level3">
 <h3><code>geom_bar()</code> - show groupings</h3>
@@ -1167,7 +1188,7 @@ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
      fill = outcome)) +             
 geom_bar() + 
 theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-16-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-16-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>To have adjacent rather than stacked bars we use <code>position = "dodge"</code> inside the <code>geom_bar()</code> call. Try adding this to the code for the plot above:</p>
 <div class="tutorial-exercise" data-label="dodge" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(
@@ -1233,7 +1254,7 @@ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
       x = hospital,    
      y = n)) +
 theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-18-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-18-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>As you can see this gives the same result as the previous section but allows us to work with aggregated count data which is a common format, especially for secondary data.</p>
 </div>
 <div id="section-geom_col-show-groupings" class="section level3">
@@ -1287,7 +1308,7 @@ geom_col(
     y = n,                
    fill = outcome)) +
 theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-20-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-20-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p><em>For more information on pivoting data to “long” and “short” formats see our tidy data tutorial</em></p>
 </div>
 <div id="section-bar-plot---a-common-error" class="section level3">
@@ -1330,7 +1351,7 @@ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
 <pre class="r"><code>ggplot(linelist_hospital) +             
 geom_bar(mapping = aes(x = hospital)) +
 theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-22-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-22-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>This plot shows that there is one row per hospital!</p>
 </div>
 <div id="section-flip-axes" class="section level3">
@@ -1343,7 +1364,7 @@ geom_bar(
     fill = outcome)) +
 theme(legend.position = &quot;top&quot;) +  
 coord_flip()           </code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-23-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-adjust-bar-order" class="section level3">
 <h3>Adjust bar order</h3>
@@ -1357,7 +1378,7 @@ geom_bar(
     fill = outcome)) +
 theme(legend.position = &quot;top&quot;) +  
 coord_flip() </code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-24-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-24-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>[See the Epi R Handbook page on <a href="https://epirhandbook.com/factors.html#within-a-plot">factors</a>.]<br />
 For more simple layouts we can use the <strong>forcats</strong> package to convert to class <em>factor</em> and adjust “level” order.<br />
 <code>fct_infreq()</code> orders x-axis position and stacks (fill) by frequency:</p>
@@ -1368,7 +1389,7 @@ geom_bar(
     fill = fct_infreq(outcome))) +  
 theme(legend.position = &quot;top&quot;) +
 coord_flip() </code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-25-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-25-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>The Y-axis and legend titles will now be renamed to the command used to assign them. See the section on plot labels for how to change this.</p>
 <div id="section-reverse-order" class="section level4">
 <h4>Reverse order</h4>
@@ -1380,13 +1401,13 @@ geom_bar(
     fill = fct_rev(fct_infreq(outcome)))) +     
 theme(legend.position = &quot;top&quot;) +
 coord_flip()</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-26-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-26-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="section-bar-width" class="section level3">
 <h3>Bar width</h3>
 <p>The width of bars can be adjusted with the <code>width =</code> argument in both <code>geom_col()</code> and <code>geom_bar()</code></p>
-<p><img src="data_vis_files/figure-html/barwidth-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/barwidth-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Be wary of adjusting width for date bars (e.g. month) - use <code>geom_histogram()</code> instead and change the bin breaks to the breaks you want between bars.</p>
 <p>Try going back through the previous sections and adjust the code for the <code>geom_col()</code> plot above to show: 1. Bars with fill color determined by outcome 2. Bars dodged so different outcomes are next to each-other, not stacked 3.</p>
 <div class="tutorial-exercise" data-label="bartest" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -1425,7 +1446,7 @@ geom_text(
  size = 3,
  position = position_stack(vjust = 0.5)) +
 theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-27-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-27-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>For a <code>geom_bar()</code> plot we need to specify the x aesthetic in the <code>ggplot()</code> rather than <code>geom_bar()</code> function call so it can be picked up by <code>geom_text()</code>. Here as the counts are calculated within the plotting function rather than in the input table we need to use unfamiliar syntax to say that we want to take the count (<code>stat = 'count'</code>) and label with this count data (<code>aes(label = ..count..)</code>).</p>
 <pre class="r"><code>ggplot(linelist, mapping = aes(
     x = fct_rev(fct_infreq(hospital)),            
@@ -1434,7 +1455,7 @@ geom_bar() +
   geom_text(stat = &#39;count&#39;, aes(label = ..count..), position = position_stack(vjust = 0.5)) +
 theme(legend.position = &quot;top&quot;) +
 coord_flip()</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-28-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-28-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Below is a quick quiz on bar plots with <strong>ggplot2</strong> <div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
 <div data-label="bars-quiz-1" class="tutorial-question panel-body">
@@ -1524,7 +1545,7 @@ plot(time_int)</code></pre>
   groups = hospital)      </code></pre>
 <p><strong>AND</strong> with <code>fill =</code> in the <code>plot()</code> command:</p>
 <pre class="r"><code>plot(weekly, fill = hospital)</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-32-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-32-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>If grouping by multiple columns, nest them in both places within <code>c()</code>:</p>
 <pre class="r"><code>groups = c(hospital, gender)</code></pre>
 </div>
@@ -1538,7 +1559,7 @@ scale_y_continuous(
 theme_classic() +
 theme(legend.position = &quot;top&quot;) +
 labs(fill = &quot;Primary care \n location&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-34-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-34-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-dates" class="section level3">
 <h3>Dates</h3>
@@ -1553,7 +1574,7 @@ scale_y_continuous(
   breaks = seq(0,300,50)) + 
 theme(legend.position = &quot;top&quot;) +
 labs(fill = &quot;Primary care \n location&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-35-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-35-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>When we call <code>plot()</code> on an <code>incidence()</code> object R detects the class and runs the function <code>plot.incidence2()</code> in the background so look fo r this function in documentation to find additional arguments and defaults.</p>
 </div>
 <div id="section-show-cases" class="section level3">
@@ -1574,15 +1595,13 @@ plot(small_outbreak,
 theme(legend.position = &quot;bottom&quot;)+
 labs(
   title = &quot;Central hospital by gender&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-36-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-36-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>This example also shows how we can pipe data directly into the incidence function if we are filtering or making changes with dplyr.</p>
 </div>
 <div id="section-color-palettes" class="section level3">
 <h3>Color palettes</h3>
 <p>As we mentioned in the scales section of this document we can use <code>scale_fill_viridis_d()</code> for palettes that are color-blind friendly. Here we use the inferno option from this palette. As the incidence plot is built on <strong>ggplot2</strong> we can directly add this color scale to the plot as with any other ggplot.</p>
-<pre><code>## Scale for &#39;fill&#39; is already present. Adding another scale for &#39;fill&#39;, which
-## will replace the existing scale.</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-37-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-37-1.png" width="624" style="display: block; margin: auto;" /></p>
 Try changing the fill scale to brewer as we learned earlier
 <div class="tutorial-exercise" data-label="epicurve-colors" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>plot(weekly, fill = hospital)+
@@ -1678,7 +1697,7 @@ scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
 plot(died_curve,         # incidence object
      fill = outcome) +   # color the bars by outcome
 labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels with standard ggplot function</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-40-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-40-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Below is a short quiz on plotting epicurves with <strong>incidence2</strong>. See the <a href="https://epirhandbook.com/en/epidemic-curves.html">handbook section on epicurves</a> for more details, including how to build your own more customisable epicurves using the <strong>ggplot2</strong> function <code>geom_histogram()</code> <div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
 <div data-label="epicurves-quiz-1" class="tutorial-question panel-body">
@@ -1727,9 +1746,7 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
   data = linelist,
   age_group = &quot;age_cat&quot;,
   split_by = &quot;gender&quot;)</code></pre>
-<pre><code>## Warning: 278 missing rows were removed (86 values from `age_cat` and 278 values
-## from `gender`).</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-41-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-41-1.png" width="624" style="display: block; margin: auto;" /></p>
 <div id="section-customizing-the-plot" class="section level3">
 <h3>Customizing the plot</h3>
 <p>We can edit some of the key elements of this plot within the function. Some key changes you are likely to want to make are:</p>
@@ -1739,16 +1756,12 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
 <li>Specify our own colors</li>
 </ol>
 <p>We can also add <strong>ggplot2</strong> themes and other elements to these plots, in a similar way to the <strong>incidence2</strong> package.</p>
-<pre><code>## Warning: 278 missing rows were removed (86 values from `age_cat` and 278 values
-## from `gender`).</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-42-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-42-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-showing-other-groupings" class="section level3">
 <h3>Showing other groupings</h3>
 <p>We can show stacked bars on the age pyramid to represent other columns in the data with <code>stack_by =</code>. The color palette will now be used for this data rather than the sides of the pyramid so adjust the colors as desired / required for columns with larger numbers of categories.</p>
-<pre><code>## Warning: 1530 missing rows were removed (86 values from `age_cat`, 278 values
-## from `gender`, and 1323 values from `outcome`).</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-43-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-43-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Note that again any NA outcomes are not shown in this plot by default, we can show <code>NA</code> with <code>na.rm = FALSE</code> inside the <code>age_pyramid()</code> function to show NA values for age, gender and outcome or adjust our dataset to assign NA to a different value for outcome if we want to visualize only this</p>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
@@ -1795,9 +1808,7 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
     )</code></pre>
 <pre><code>## reported cases April 07 2014 - April 30 2015</code></pre>
 <p>We can apply these <code>str_glue()</code> captions to our plots within <code>labs()</code> as with other labels:</p>
-<pre><code>## Warning: 278 missing rows were removed (86 values from `age_cat` and 278 values
-## from `gender`).</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-47-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-47-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-point-labels" class="section level2">
 <h2>Point labels</h2>
@@ -1868,8 +1879,8 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
     label = hospital)) +
   geom_point() +
   geom_text()</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-50-1.png" width="624" /></p>
-<p>Labels look much improved by using <code>geom_label_repel()</code> from the <strong>ggrepel</strong> package. These scale with the size of the point which we have assigned to number of cases in this plot so we should set size = 5 within <code>geom_label_repel()</code> to fix this. Try changing the following code to use <code>geom_label_repel()</code> and <code>size = 5</code>:</p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-50-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p>Labels look much improved by using <code>geom_label_repel()</code> from the <strong>ggrepel</strong> package. These scale with the size of the point which we have assigned to number of cases in this plot so we should set size = 3 within <code>geom_label_repel()</code> to fix this. Try changing the following code to use <code>geom_label_repel()</code> and <code>size = 5</code>:</p>
 <div class="tutorial-exercise" data-label="labtest" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(
   data = hosp_CFR_age,
@@ -1891,7 +1902,7 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
     size = cases,
     label = hospital)) +
   geom_point() +
-  geom_label_repel(size = 5)</code></pre>
+  geom_label_repel(size = 3)</code></pre>
 </div>
 <div id="section-dynamic-labels-1" class="section level3">
 <h3>Dynamic labels</h3>
@@ -1905,8 +1916,8 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
     label = str_glue(
       &quot;{hospital}\n{cases} cases&quot;))) +
   geom_point() +
-  geom_label_repel(size = 5)</code></pre>
-<p><img src="data_vis_files/figure-html/labels-glue-1.png" width="624" /></p>
+  geom_label_repel(size = 3)</code></pre>
+<p><img src="data_vis_files/figure-html/labels-glue-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Another good tip is to use <code>comma()</code> from the <strong>scales</strong> package to make numbers display with comma separators every three digits:</p>
 <pre class="r"><code>ggplot(
   data = hosp_CFR_age,
@@ -1918,7 +1929,7 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
       &quot;{hospital}\n{comma(cases)} cases&quot;))) +
   geom_point() +
   geom_label_repel(size = 5)</code></pre>
-<p><img src="data_vis_files/figure-html/comma-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/comma-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>See the many other useful functions in <a href="https://scales.r-lib.org/"><strong>scales</strong></a>.</p>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
@@ -1960,7 +1971,7 @@ labs(x = &quot;Week of onset&quot;, y = &quot;Incidence&quot;) # edit labels wit
     date_breaks = &quot;months&quot;,
     labels = scales::label_date_short(),
     expand = c(0,0))</code></pre>
-<p><img src="data_vis_files/figure-html/plt_hist1-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/plt_hist1-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>Here we adjust the date axis to start at the binning of May and end with the max onset date from the dataset so we can enxure this matches across our two plots</p>
 <p>Our second plot shows the mean age of cases with onset in each week over the same time period. Here we use a line plot (<code>geom_line()</code>) to link the mean values and a ribbon plot (<code>geom_ribbon()</code>) to show the 95% confidence interval around the mean.</p>
 <p>Data is summarized from the larger linelist by first grouping by date of onset and then calculating a confidence interval and mean age using the <strong>Hmisc</strong> function <code>mean_cl_normal()</code> which assumes a normal distribution of the underlying data.</p>
@@ -1989,14 +2000,10 @@ theme_minimal()+
 labs(
   y = &quot;Weekly mean age (95%CI)&quot;,
   x = &quot;Month&quot;)</code></pre>
-<p><img src="data_vis_files/figure-html/plt_2-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/plt_2-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>We then use the <strong>cowplot</strong> function <code>plot_grid()</code> to align and plot the two plots together:</p>
 <pre class="r"><code>plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = &quot;hv&quot;, labels = &quot;auto&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 263 rows containing non-finite values (stat_bin).</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<pre><code>## Warning: Removed 5 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-53-1.png" width="864" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-53-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Here <code>align = "hv"</code> specifies that we wish to horizontally and vertically align the plots, Options are <code>"none"</code> (default), <code>"hv"</code> (as here), <code>"h"</code> (horizontal), and <code>"v"</code> (vertical) We can also adjust the relative heights and widths of the plots (<code>rel_heights =</code> and <code>rel_widths =</code>) if we want one to be taller or wider etc. <code>labels = "auto"</code> automatically generates the a and b labels shown in lower case, <code>"AUTO"</code> will give upper case labels and if we want to specify our own labels we can do this with a vector (<code>c()</code>). The default is to have no labels so if we remove <code>labels =</code> no labels will be shown.</p>
 <p>A full list of available options for this function is available in the <a href="https://www.rdocumentation.org/packages/cowplot/versions/1.1.1/topics/plot_grid">cowplot documentation</a>.</p>
 <p>Have a go applying some of these options to the plot:</p>
@@ -2006,15 +2013,7 @@ labs(
 </div>
 <p><code>plot_grid()</code> calls can also be recursively placed inside each-other to generate more complex plot layouts:</p>
 <pre class="r"><code>plot_grid(plot1, plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = &quot;hv&quot;, labels = c(&quot;B&quot;, &quot;C&quot;)), rel_heights = c(1, 1), ncol = 2, align = &quot;hv&quot;, labels = c(&quot;A&quot;, NA))</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 263 rows containing non-finite values (stat_bin).</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<pre><code>## Warning: Removed 5 row(s) containing missing values (geom_path).</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 263 rows containing non-finite values (stat_bin).</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_text).</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-54-1.png" width="960" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-54-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-dual-axes" class="section level3">
 <h3>Dual axes</h3>
@@ -2039,18 +2038,14 @@ labs(
        y = &quot;Weekly incidence&quot;)+
     theme(axis.text.y = element_text(color = &quot;darkblue&quot;, face = &quot;bold&quot;),
         axis.title.y = element_text(color = &quot;darkblue&quot;, face = &quot;bold&quot;))</code></pre>
-<p><img src="data_vis_files/figure-html/plt_hist12-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/plt_hist12-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>And create a second plot of CFR over time by week. For this plot we want to move the continuous Y-axis to the right with <code>position = "right"</code> so we don’t get overlapping axes on the combined plot.</p>
-<p><img src="data_vis_files/figure-html/plt_22-1.png" width="624" /></p>
+<p><img src="data_vis_files/figure-html/plt_22-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>We can then align the two plots with <code>align_plots()</code> and plot with <code>ggdraw()</code>:</p>
-<pre class="r"><code>aligned  &lt;- align_plots(plot1, plot2, align = &quot;hv&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 263 rows containing non-finite values (stat_bin).</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<pre><code>## Warning: Removed 5 row(s) containing missing values (geom_path).</code></pre>
-<pre class="r"><code>combined &lt;- ggdraw(aligned[[1]]) + draw_plot(aligned[[2]])
+<pre class="r"><code>aligned  &lt;- align_plots(plot1, plot2, align = &quot;hv&quot;)
+combined &lt;- ggdraw(aligned[[1]]) + draw_plot(aligned[[2]])
 combined</code></pre>
-<p><img src="data_vis_files/figure-html/unnamed-chunk-57-1.png" width="864" /></p>
+<p><img src="data_vis_files/figure-html/unnamed-chunk-57-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="section-simple-interactive-plots" class="section level2">
@@ -2058,19 +2053,19 @@ combined</code></pre>
 <p>Use <code>ggplotly()</code> from the <strong>plotly</strong> package to easily make most ggplots interactive. The best way to do this is to first save your ggplot to an <strong>R</strong> object and then call this within <code>ggplotly()</code></p>
 <pre class="r"><code># Provide the name of a defined plot into ggplotly()  
 plotly::ggplotly(bar_plot)</code></pre>
-<div id="htmlwidget-be4ecfdb7429921060a4" style="width:864px;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-be4ecfdb7429921060a4">{"x":{"data":[{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[261,497,858,490,977,223],"x":[1,2,3,4,5,6],"y":[193,399,611,395,785,199],"text":["count: 193<br />hospital: Central Hospital<br />outcome: Death","count: 399<br />hospital: Military Hospital<br />outcome: Death","count: 611<br />hospital: Missing<br />outcome: Death","count: 395<br />hospital: Other<br />outcome: Death","count: 785<br />hospital: Port Hospital<br />outcome: Death","count: 199<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Death"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Death","legendgroup":"Death","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[96,188,344,200,398,97],"x":[1,2,3,4,5,6],"y":[165,309,514,290,579,126],"text":["count: 165<br />hospital: Central Hospital<br />outcome: Recover","count: 309<br />hospital: Military Hospital<br />outcome: Recover","count: 514<br />hospital: Missing<br />outcome: Recover","count: 290<br />hospital: Other<br />outcome: Recover","count: 579<br />hospital: Port Hospital<br />outcome: Recover","count: 126<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Recover"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Recover","legendgroup":"Recover","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[0,0,0,0,0,0],"x":[1,2,3,4,5,6],"y":[96,188,344,200,398,97],"text":["count:  96<br />hospital: Central Hospital<br />outcome: NA","count: 188<br />hospital: Military Hospital<br />outcome: NA","count: 344<br />hospital: Missing<br />outcome: NA","count: 200<br />hospital: Other<br />outcome: NA","count: 398<br />hospital: Port Hospital<br />outcome: NA","count:  97<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: NA"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"NA","legendgroup":"NA","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.958904109589,"r":7.30593607305936,"b":139.927692672061,"l":48.9497716894977},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,6.6],"tickmode":"array","ticktext":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"tickvals":[1,2,3,4,5,6],"categoryorder":"array","categoryarray":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-45,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"hospital","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-88.1,1850.1],"tickmode":"array","ticktext":["0","500","1000","1500"],"tickvals":[0,500,1000,1500],"categoryorder":"array","categoryarray":["0","500","1000","1500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"outcome","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"52185b3b1c43":{"x":{},"fill":{},"type":"bar"}},"cur_data":"52185b3b1c43","visdat":{"52185b3b1c43":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1e9962d4d65735dd420d" style="width:864px;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1e9962d4d65735dd420d">{"x":{"data":[{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[261,497,858,490,977,223],"x":[1,2,3,4,5,6],"y":[193,399,611,395,785,199],"text":["count: 193<br />hospital: Central Hospital<br />outcome: Death","count: 399<br />hospital: Military Hospital<br />outcome: Death","count: 611<br />hospital: Missing<br />outcome: Death","count: 395<br />hospital: Other<br />outcome: Death","count: 785<br />hospital: Port Hospital<br />outcome: Death","count: 199<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Death"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Death","legendgroup":"Death","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[96,188,344,200,398,97],"x":[1,2,3,4,5,6],"y":[165,309,514,290,579,126],"text":["count: 165<br />hospital: Central Hospital<br />outcome: Recover","count: 309<br />hospital: Military Hospital<br />outcome: Recover","count: 514<br />hospital: Missing<br />outcome: Recover","count: 290<br />hospital: Other<br />outcome: Recover","count: 579<br />hospital: Port Hospital<br />outcome: Recover","count: 126<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Recover"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Recover","legendgroup":"Recover","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[0,0,0,0,0,0],"x":[1,2,3,4,5,6],"y":[96,188,344,200,398,97],"text":["count:  96<br />hospital: Central Hospital<br />outcome: NA","count: 188<br />hospital: Military Hospital<br />outcome: NA","count: 344<br />hospital: Missing<br />outcome: NA","count: 200<br />hospital: Other<br />outcome: NA","count: 398<br />hospital: Port Hospital<br />outcome: NA","count:  97<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: NA"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"NA","legendgroup":"NA","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.958904109589,"r":7.30593607305936,"b":139.927692672061,"l":48.9497716894977},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,6.6],"tickmode":"array","ticktext":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"tickvals":[1,2,3,4,5,6],"categoryorder":"array","categoryarray":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-45,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"hospital","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-88.1,1850.1],"tickmode":"array","ticktext":["0","500","1000","1500"],"tickvals":[0,500,1000,1500],"categoryorder":"array","categoryarray":["0","500","1000","1500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"outcome","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"55c4c9970fe":{"x":{},"fill":{},"type":"bar"}},"cur_data":"55c4c9970fe","visdat":{"55c4c9970fe":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>This allows you to view tooltips with the data used to create the plot, zoom, screenshot and other basic interactive functions by default but can be built up to produce robust interactive plots for use in reports, dashboards etc. See the handboo <a href="https://epirhandbook.com/en/interactive-plots.html">pages on interactive plotting</a> for more information.</p>
 </div>
 <div id="section-point-and-click-ggplot2" class="section level2">
 <h2>Point-and-click ggplot2</h2>
 <p>Now that you’ve learned the basic syntax the <a href="https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html%5D"><strong>esquisse</strong></a> package allows point-and-click creation of (simple) ggplots!</p>
-<p><img src="https://github.com/appliedepi/tutorials/blob/master/tutorials/images/data_viz/esquisse1.gif?raw=true" /><!-- --></p>
+<p><img src="images/data_viz/esquisse1.gif" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-data-structure" class="section level2">
 <h2>Data structure</h2>
 <p><strong>ggplot2</strong> works best when the dataset is in “long” format, where each variable has its own column. We recommend that you become familiar with <code>pivot_longer()</code> from <strong>dplyr</strong> (see the <a href="https://epirhandbook.com/pivoting-data.html">Epi R Handbook pivoting page</a>). And the tutorials on data cleaning and tidy data.</p>
-<p><img src="https://github.com/appliedepi/emory_training/blob/master/presentation/images/pivoting.png?raw=true" /><!-- --></p>
+<p><img src="images/data_viz/pivoting.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-next-steps" class="section level2">
 <h2>Next steps</h2>
@@ -2122,7 +2117,7 @@ options(tutorial.event_recorder = new_recorder)
 
 
 # hide non-exercise code chunks ------------------------------------------------
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center", message = F, warning = F)
 
 
 # data prep --------------------------------------------------------------------
@@ -2151,7 +2146,8 @@ pacman::p_load(
   ggpubr,
   gghighlight,
   RColorBrewer, # now built in to ggplot but need to load to see the palettes
-  Hmisc
+  Hmisc,
+  datasets
   )
 
 
@@ -2187,16 +2183,16 @@ submitr::shiny_logic(input, output, session, vfun,
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-1", question = structure("What is the most basic building block of data vizualisation?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f8e21b0", 
+"character")), answers = list(structure(list(id = "lnr_ans_5cd25ae", 
     option = "Statistics", value = "Statistics", label = structure("Statistics", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7906e42", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_340bc11", 
     option = "Scale", value = "Scale", label = structure("Scale", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5bc0c4d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9c0e81e", 
     option = "Data", value = "Data", label = structure("Data", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e9b91", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6afc8aa", 
     option = "Visualisation type", value = "Visualisation type", 
     label = structure("Visualisation type", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -2208,22 +2204,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-1-answer", question = "quiz1-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat is the most basic building block of data vizualisation?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1778213781.67195, options = list()), class = c("learnr_radio", 
+    seed = 1114358063.98109, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz1-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_593d2f9", 
+"character")), answers = list(structure(list(id = "lnr_ans_a419c87", 
     option = "ggplot2", value = "ggplot2", label = structure("ggplot2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1da21b8", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bbb4bbc", 
     option = "here", value = "here", label = structure("here", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c24563a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6753a2e", 
     option = "dplyr", value = "dplyr", label = structure("dplyr", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bb4fbca", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cf118af", 
     option = "incidence2", value = "incidence2", label = structure("incidence2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2234,7 +2230,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-2-answer", question = "quiz1-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 922058704.070633, options = list()), class = c("learnr_checkbox", 
+    seed = 1920173211.60585, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2265,7 +2261,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2279,11 +2276,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "blank-plot", 
-    code = "ggplot()", opts = list(label = "\"blank-plot\"", 
-        exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = structure("grade_this_code(\"correct, you should see a blank canvas loaded by ggplot2\")", chunk_opts = list(
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "blank-plot", code = "ggplot()", opts = list(
+        label = "\"blank-plot\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure("grade_this_code(\"correct, you should see a blank canvas loaded by ggplot2\")", chunk_opts = list(
         label = "blank-plot-check")), solution = structure("ggplot()", chunk_opts = list(
         label = "blank-plot-solution", eval = FALSE)), options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
@@ -2292,14 +2289,14 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
@@ -2336,7 +2333,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2350,34 +2348,35 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "axes-plot", 
-    code = "ggplot(data = linelist, mapping = aes(x = age, y = bmi))", 
-    opts = list(label = "\"axes-plot\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_this_code(\"correct, you should now see weight on the y axis\")", chunk_opts = list(
-    label = "axes-plot-check")), solution = structure("ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))", chunk_opts = list(
-    label = "axes-plot-solution", eval = FALSE)), options = list(
-    eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-    tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-    highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-    strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
-    cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-    cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-    fig.align = "default", fig.path = "data_vis_files/figure-html/", 
-    dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
-    fig.width = 6.5, fig.height = 4, fig.env = "figure", fig.cap = NULL, 
-    fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, fig.pos = "", 
-    out.width = 624, out.height = NULL, out.extra = NULL, fig.retina = 2, 
-    external = TRUE, sanitize = FALSE, interval = 1, aniopts = "controls,loop", 
-    warning = TRUE, error = FALSE, message = TRUE, render = NULL, 
-    ref.label = NULL, child = NULL, engine = "r", split = FALSE, 
-    include = TRUE, purl = TRUE, max.print = 1000, exercise.timelimit = 60, 
-    exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
-    exercise.error.check.code = "gradethis_error_checker()", 
-    exercise.eval = FALSE, label = "axes-plot", exercise = TRUE, 
-    code = "ggplot(data = linelist, mapping = aes(x = age, y = bmi))", 
-    out.width.px = 624, out.height.px = 384, params.src = "axes-plot, exercise = TRUE", 
-    fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "axes-plot", code = "ggplot(data = linelist, mapping = aes(x = age, y = bmi))", 
+        opts = list(label = "\"axes-plot\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure("grade_this_code(\"correct, you should now see weight on the y axis\")", chunk_opts = list(
+        label = "axes-plot-check")), solution = structure("ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))", chunk_opts = list(
+        label = "axes-plot-solution", eval = FALSE)), options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        exercise.eval = FALSE, label = "axes-plot", exercise = TRUE, 
+        code = "ggplot(data = linelist, mapping = aes(x = age, y = bmi))", 
+        out.width.px = 624, out.height.px = 384, params.src = "axes-plot, exercise = TRUE", 
+        fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -2407,7 +2406,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2421,12 +2421,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "axis-plot", 
-    code = "ggplot(data = linelist, mapping = aes(x = age))\ngeom_histogram()", 
-    opts = list(label = "\"axis-plot\"", exercise = "TRUE", warning = "F", 
-        message = "F"), engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure("grade_this_code(\"correct, we need to link the commands together with a '+'\")", chunk_opts = list(
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "axis-plot", code = "ggplot(data = linelist, mapping = aes(x = age))\ngeom_histogram()", 
+        opts = list(label = "\"axis-plot\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = structure("grade_this_code(\"correct, we need to link the commands together with a '+'\")", chunk_opts = list(
         label = "axis-plot-check")), solution = structure(c("ggplot(data = linelist, mapping = aes(x = age)) +", 
     "geom_histogram()"), chunk_opts = list(label = "axis-plot-solution", 
         eval = FALSE)), options = list(eval = FALSE, echo = TRUE, 
@@ -2436,7 +2436,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         cache.path = "data_vis_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2481,7 +2481,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2495,11 +2496,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "gender-plot", 
-    code = "ggplot(data = linelist, mapping = aes(x = age)) +\ngeom_histogram(fill = \"orange\")", 
-    opts = list(label = "\"gender-plot\"", exercise = "TRUE", 
-        warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "gender-plot", code = "ggplot(data = linelist, mapping = aes(x = age)) +\ngeom_histogram(fill = \"orange\")", 
+        opts = list(label = "\"gender-plot\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("grade_this_code(\"correct, we need to put the fill inside aes()\")", chunk_opts = list(
         label = "gender-plot-check")), solution = structure(c("ggplot(data = linelist, mapping = aes(x = age)) +", 
     "geom_histogram(mapping = aes(fill = gender))"), chunk_opts = list(
@@ -2510,7 +2511,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2530,10 +2531,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-1", question = structure("Where are dynamic aesthetics placed in ggplot code?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f7ad300", 
+"character")), answers = list(structure(list(id = "lnr_ans_c53eb58", 
     option = "inside aes()", value = "inside aes()", label = structure("inside aes()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6be8993", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_80820b7", 
     option = "outside aes()", value = "outside aes()", label = structure("outside aes()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2544,16 +2545,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-1-answer", question = "quiz_aes-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhere are dynamic aesthetics placed in ggplot code?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1613067868.24886, options = list()), class = c("learnr_radio", 
+    seed = 219373568.397846, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-2", question = structure("Are static aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_b550a85", 
+"character")), answers = list(structure(list(id = "lnr_ans_e69720", 
     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ce4df5e", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_37d8e5b", 
     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2564,16 +2565,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-2-answer", question = "quiz_aes-2"), loading = structure("<strong>Loading:<\u002fstrong> \nAre static aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1620302881.24549, options = list()), class = c("learnr_radio", 
+    seed = 897190562.582213, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-3", question = structure("Are dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_c298317", 
+"character")), answers = list(structure(list(id = "lnr_ans_589190f", 
     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e9a10bc", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_77c8544", 
     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2584,7 +2585,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-3-answer", question = "quiz_aes-3"), loading = structure("<strong>Loading:<\u002fstrong> \nAre dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 2114725948.51525, options = list()), class = c("learnr_radio", 
+    seed = 712805318.668074, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2615,7 +2616,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2629,11 +2631,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "facet-test", 
-    code = "ggplot(\n  data = linelist,\n  mapping = aes(x = date_onset)) +\ngeom_histogram() +\nfacet_wrap(~hospital, scales = \"free_y\", ncol = 4)", 
-    opts = list(label = "\"facet-test\"", exercise = "TRUE", 
-        warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "facet-test", code = "ggplot(\n  data = linelist,\n  mapping = aes(x = date_onset)) +\ngeom_histogram() +\nfacet_wrap(~hospital, scales = \"free_y\", ncol = 4)", 
+        opts = list(label = "\"facet-test\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("grade_this_code(\"correct, we remove the scales argument, change ncol to 2 and add fill = source to the mapping = aes() of the histogram\")", chunk_opts = list(
         label = "facet-test-check")), solution = structure(c("ggplot(", 
     "  data = linelist,", "  mapping = aes(x = date_onset)) +", 
@@ -2646,7 +2648,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         cache.path = "data_vis_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2691,7 +2693,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2705,11 +2708,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "manual-color", 
-    code = "ggplot(\n  data = linelist,\n  mapping = aes(\n    x = outcome,\n    fill = gender)) +\ngeom_bar() +\nscale_fill_manual(        \n  values = c(\n   \"m\"     = \"violetred\", \n   \"f\"      = \"aquamarine\"),\n   na.value = \"green\")", 
-    opts = list(label = "\"manual-color\"", exercise = "TRUE", 
-        warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "manual-color", code = "ggplot(\n  data = linelist,\n  mapping = aes(\n    x = outcome,\n    fill = gender)) +\ngeom_bar() +\nscale_fill_manual(        \n  values = c(\n   \"m\"     = \"violetred\", \n   \"f\"      = \"aquamarine\"),\n   na.value = \"green\")", 
+        opts = list(label = "\"manual-color\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("grade_this_code(\"Correct! We can edit the values to specify any manual color combination we want\")", chunk_opts = list(
         label = "manual-color-check")), solution = structure(c("ggplot(", 
     "  data = linelist,", "  mapping = aes(", "    x = outcome,", 
@@ -2723,7 +2726,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         cache.path = "data_vis_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2770,7 +2773,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2784,12 +2788,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "pal-color", 
-    code = "ggplot(\n  data = linelist,\n  mapping = aes(\n    x = age,\n    y = wt_kg,\n    color = temp)) +\ngeom_point() ", 
-    opts = list(label = "\"pal-color\"", exercise = "TRUE", warning = "F", 
-        message = "F"), engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure("grade_this_code(\"Correct! we need to specify we want a color scale, viridis palette and have continuous data (scale_color_viridis_c)\")", chunk_opts = list(
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "pal-color", code = "ggplot(\n  data = linelist,\n  mapping = aes(\n    x = age,\n    y = wt_kg,\n    color = temp)) +\ngeom_point() ", 
+        opts = list(label = "\"pal-color\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = structure("grade_this_code(\"Correct! we need to specify we want a color scale, viridis palette and have continuous data (scale_color_viridis_c)\")", chunk_opts = list(
         label = "pal-color-check")), solution = structure(c("ggplot(", 
     "  data = linelist,", "  mapping = aes(", "    x = age,", 
     "    y = wt_kg,", "    color = temp)) +", "geom_point() +", 
@@ -2801,7 +2805,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2847,7 +2851,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2861,12 +2866,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "expand", 
-    code = "ggplot(\n  data = linelist,\n  mapping = aes(\n    x = outcome,\n    fill = gender)) +\ngeom_bar() +\nscale_fill_viridis_d(na.value = \"grey\") +\nscale_y_continuous(breaks = seq(from = 0,\n                                to = 3000,\n                                by = 500),\n                   expand = c(0,0))", 
-    opts = list(label = "\"expand\"", exercise = "TRUE", warning = "F", 
-        message = "F"), engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure("grade_this_code(\"Correct! we follow the same syntax with scale_x_discrete()\")", chunk_opts = list(
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "expand", code = "ggplot(\n  data = linelist,\n  mapping = aes(\n    x = outcome,\n    fill = gender)) +\ngeom_bar() +\nscale_fill_viridis_d(na.value = \"grey\") +\nscale_y_continuous(breaks = seq(from = 0,\n                                to = 3000,\n                                by = 500),\n                   expand = c(0,0))", 
+        opts = list(label = "\"expand\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = structure("grade_this_code(\"Correct! we follow the same syntax with scale_x_discrete()\")", chunk_opts = list(
         label = "expand-check")), solution = structure(c("ggplot(", 
     "  data = linelist,", "  mapping = aes(", "    x = outcome,", 
     "    fill = gender)) +", "geom_bar() +", "scale_fill_viridis_d(na.value = \"grey\") +", 
@@ -2880,7 +2885,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         cache.path = "data_vis_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2928,7 +2933,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -2942,11 +2948,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "date-break", 
-    code = "ggplot(\n  data = linelist,\n  mapping = aes(x = date_onset)) +\ngeom_histogram()", 
-    opts = list(label = "\"date-break\"", exercise = "TRUE", 
-        warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "date-break", code = "ggplot(\n  data = linelist,\n  mapping = aes(x = date_onset)) +\ngeom_histogram()", 
+        opts = list(label = "\"date-break\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("grade_this_code(\"Good, we should be getting used to the syntax by now!\")", chunk_opts = list(
         label = "date-break-check")), solution = structure(c("ggplot(", 
     "  data = linelist,", "  mapping = aes(x = date_onset)) +", 
@@ -2959,7 +2965,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         cache.path = "data_vis_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -3004,7 +3010,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -3018,11 +3025,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "theme_trial", 
-    code = "linelist$hosp_time <- linelist$date_outcome - linelist$date_hospitalisation\n\nggplot(data = linelist) +\ngeom_point(\n  mapping = aes(\n    x = age,\n    y = hosp_time,\n    color = outcome),    \n  alpha = 0.7) +\nscale_color_brewer(palette = \"Pastel2\", na.value = \"grey\") +\nylim(c(0, 70)) +\nlabs(\n  title = \"Duration of admission\",\n  subtitle = \"All hospitals\",\n  x = \"Age (years)\",\n  y = \"Duration (days)\",\n  caption = \"Fictional Ebola data\",\n  color = \"Outcome\"\n)", 
-    opts = list(label = "\"theme_trial\"", exercise = "TRUE", 
-        warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "theme_trial", code = "linelist$hosp_time <- linelist$date_outcome - linelist$date_hospitalisation\n\nggplot(data = linelist) +\ngeom_point(\n  mapping = aes(\n    x = age,\n    y = hosp_time,\n    color = outcome),    \n  alpha = 0.7) +\nscale_color_brewer(palette = \"Pastel2\", na.value = \"grey\") +\nylim(c(0, 70)) +\nlabs(\n  title = \"Duration of admission\",\n  subtitle = \"All hospitals\",\n  x = \"Age (years)\",\n  y = \"Duration (days)\",\n  caption = \"Fictional Ebola data\",\n  color = \"Outcome\"\n)", 
+        opts = list(label = "\"theme_trial\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -3030,7 +3037,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -3057,10 +3064,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "themes-quiz-1", 
     question = structure("Should adjustments to the theme be made before or after setting one of the default themes?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_6bf3c9e", 
+    "character")), answers = list(structure(list(id = "lnr_ans_1ff3399", 
         option = "before", value = "before", label = structure("before", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_72298ff", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dfcad8a", 
         option = "after", value = "after", label = structure("after", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -3072,24 +3079,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "themes-quiz-1-answer", question = "themes-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nShould adjustments to the theme be made before or after setting one of the default themes?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 133276378.937938, options = list()), class = c("learnr_radio", 
+    seed = 1620561829.74537, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "themes-quiz-2", 
     question = structure("Which of the following are prebuilt themes in ggplot", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_a39f33", 
+    "character")), answers = list(structure(list(id = "lnr_ans_47d3044", 
         option = "theme_bw()", value = "theme_bw()", label = structure("theme_bw()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_16152e5", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3f6e9dc", 
         option = "theme_classic()", value = "theme_classic()", 
         label = structure("theme_classic()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_26f7591", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e2e9b8a", 
         option = "theme_red()", value = "theme_red()", label = structure("theme_red()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8cef007", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d196600", 
         option = "scale_color_brewer()", value = "scale_color_brewer()", 
         label = structure("scale_color_brewer()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -3102,26 +3109,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "themes-quiz-2-answer", question = "themes-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following are prebuilt themes in ggplot\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 2075170458.03367, options = list()), class = c("learnr_checkbox", 
+    seed = 1587854411.2606, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "themes-quiz-3", 
     question = structure("How would you hide a legend in ggplot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_42caf56", 
+    "character")), answers = list(structure(list(id = "lnr_ans_564f50f", 
         option = "theme(legend.title = 'element.blank()')", value = "theme(legend.title = 'element.blank()')", 
         label = structure("theme(legend.title = &#39;element.blank()&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_291a1ef", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9bb9d9e", 
         option = "theme(legend.position = 'right')", value = "theme(legend.position = 'right')", 
         label = structure("theme(legend.position = &#39;right&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c7796bd", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_734880f", 
         option = "theme(legend.position(`none`))", value = "theme(legend.position(`none`))", 
         label = structure("theme(legend.position(<code>none<\u002fcode>))", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c09cede", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8e16f8", 
         option = "theme(legend.position = 'none')", value = "theme(legend.position = 'none')", 
         label = structure("theme(legend.position = &#39;none&#39;)", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -3134,18 +3141,18 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "themes-quiz-3-answer", question = "themes-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow would you hide a legend in ggplot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 711629027.168622, options = list()), class = c("learnr_radio", 
+    seed = 1117892653.97944, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "themes-quiz-4", 
     question = structure("How would you set your legend to appear in the centre of your graph?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_e1a7cfc", 
+    "character")), answers = list(structure(list(id = "lnr_ans_37853a3", 
         option = "theme(legend.position = 'middle')", value = "theme(legend.position = 'middle')", 
         label = structure("theme(legend.position = &#39;middle&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a8d5905", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_65694d9", 
         option = "theme(legend.position =  c(0.5,0.5))", value = "theme(legend.position =  c(0.5,0.5))", 
         label = structure("theme(legend.position =  c(0.5,0.5))", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -3158,7 +3165,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "themes-quiz-4-answer", question = "themes-quiz-4"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow would you set your legend to appear in the centre of your graph?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1404441590.84601, options = list()), class = c("learnr_radio", 
+    seed = 28154982.9868893, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -3189,7 +3196,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -3203,12 +3211,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "dodge", 
-    code = "ggplot(\n  data = linelist,\n  mapping = aes(\n      x = hospital,   \n     fill = outcome)) +             \ngeom_bar() + \ntheme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))", 
-    opts = list(label = "\"dodge\"", exercise = "TRUE", warning = "F", 
-        message = "F"), engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure("grade_this_code(\"Perfect, you should now see adjacent bars in the plot\")", chunk_opts = list(
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "dodge", code = "ggplot(\n  data = linelist,\n  mapping = aes(\n      x = hospital,   \n     fill = outcome)) +             \ngeom_bar() + \ntheme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))", 
+        opts = list(label = "\"dodge\"", exercise = "TRUE", warning = "F", 
+            message = "F"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = structure("grade_this_code(\"Perfect, you should now see adjacent bars in the plot\")", chunk_opts = list(
         label = "dodge-check")), solution = structure(c("ggplot(", 
     "  data = linelist,", "  mapping = aes(", "      x = hospital,   ", 
     "     fill = outcome)) +             ", "geom_bar(position = \"dodge\") + ", 
@@ -3221,7 +3229,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         cache.path = "data_vis_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -3267,7 +3275,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -3281,12 +3290,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "bartest", 
-    code = "ggplot(linelist_hospital_outcome) +             \n  geom_col(           \n    mapping = aes(   \n      x = hospital,    \n     y = n), width = 0.5) +\n  theme_classic() +\ntheme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))", 
-    opts = list(label = "\"bartest\"", exercise = "TRUE", warning = "F", 
-        message = "F"), engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure("grade_this_code(\"Good! Building the elements of your plot will take practice, don't be afraid to search the internet for specific problems you are having with your own data.\")", chunk_opts = list(
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "bartest", code = "ggplot(linelist_hospital_outcome) +             \n  geom_col(           \n    mapping = aes(   \n      x = hospital,    \n     y = n), width = 0.5) +\n  theme_classic() +\ntheme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))", 
+        opts = list(label = "\"bartest\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = structure("grade_this_code(\"Good! Building the elements of your plot will take practice, don't be afraid to search the internet for specific problems you are having with your own data.\")", chunk_opts = list(
         label = "bartest-check")), solution = structure(c("ggplot(linelist_hospital_outcome) +             ", 
     "  geom_col(           ", "    mapping = aes(   ", "      x = hospital,    ", 
     "     y = n, fill = outcome), width = 0.5, position = \"dodge\") +", 
@@ -3299,7 +3308,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         cache.path = "data_vis_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -3322,10 +3331,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "bars-quiz-1", 
     question = structure("Which bar plotting function would we use if data already has aggregated counts in our dataset?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_7714bb7", 
+    "character")), answers = list(structure(list(id = "lnr_ans_18467b4", 
         option = "geom_bar()", value = "geom_bar()", label = structure("geom_bar()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bad21ce", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8c3c55b", 
         option = "geom_col()", value = "geom_col()", label = structure("geom_col()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -3337,26 +3346,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "bars-quiz-1-answer", question = "bars-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich bar plotting function would we use if data already has aggregated counts in our dataset?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1355942305.86859, options = list()), class = c("learnr_radio", 
+    seed = 3120649.99854683, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "bars-quiz-2", 
     question = structure("What argument to geom_bar or geom_col lets us convert stacked bars to adjavcent bars?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_1319486", 
+    "character")), answers = list(structure(list(id = "lnr_ans_360033a", 
         option = "aes(position = 'dodge')", value = "aes(position = 'dodge')", 
         label = structure("aes(position = &#39;dodge&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d9e5b40", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_713da2d", 
         option = "aes(position = 'adjacent')", value = "aes(position = 'adjacent')", 
         label = structure("aes(position = &#39;adjacent&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6caada5", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ebf0250", 
         option = "position = 'adjacent'", value = "position = 'adjacent'", 
         label = structure("position = &#39;adjacent&#39;", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a6b82f8", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2e15530", 
         option = "position = 'dodge'", value = "position = 'dodge'", 
         label = structure("position = &#39;dodge&#39;", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -3369,13 +3378,13 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "bars-quiz-2-answer", question = "bars-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat argument to geom_bar or geom_col lets us convert stacked bars to adjavcent bars?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1336197753.87778, options = list()), class = c("learnr_radio", 
+    seed = 238223029.389069, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "bars-quiz-3", question = structure("In geom_col() how does the data need to be formatted to create colored groups?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_62049cc", 
+"character")), answers = list(structure(list(id = "lnr_ans_5576f55", 
     option = "Each plotting group must have its own rows in the data", 
     value = "Each plotting group must have its own rows in the data", 
     label = structure("Each plotting group must have its own rows in the data", html = TRUE, class = c("html", 
@@ -3389,14 +3398,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     answer = "bars-quiz-3-answer", question = "bars-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nIn geom_col() how does the data need to be formatted to create colored groups?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1113423120.48152, options = list(placeholder = "Enter answer here...", 
+    seed = 1302982690.89325, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "bars-quiz-4", question = structure("What command is used to flip the axes in ggplot?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_5f1dab4", 
+"character")), answers = list(structure(list(id = "lnr_ans_9246294", 
     option = "coord_flip()", value = "coord_flip()", label = structure("coord_flip()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -3408,14 +3417,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     answer = "bars-quiz-4-answer", question = "bars-quiz-4"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat command is used to flip the axes in ggplot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 870528350.594629, options = list(placeholder = "Enter answer here...", 
+    seed = 1114030693.98124, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "bars-quiz-5", question = structure("Why might we want to display counts on a stacked bar plot?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_5fe3ca", 
+"character")), answers = list(structure(list(id = "lnr_ans_bd0e958", 
     option = "It is hard to estimate the height of the individual sections of a stacked barplot", 
     value = "It is hard to estimate the height of the individual sections of a stacked barplot", 
     label = structure("It is hard to estimate the height of the individual sections of a stacked barplot", html = TRUE, class = c("html", 
@@ -3429,7 +3438,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     answer = "bars-quiz-5-answer", question = "bars-quiz-5"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhy might we want to display counts on a stacked bar plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 2117728476.01386, options = list(placeholder = "Enter answer here...", 
+    seed = 1100532611.48752, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -3461,7 +3470,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -3475,11 +3485,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "epicurve-intro", 
-    code = "time_int <- incidence(\n  x = linelist,            # dataset\n  date_index = date_onset, # date column\n  interval = \"Sunday weeks\")   \n\nplot(time_int)\n", 
-    opts = list(label = "\"epicurve-intro\"", exercise = "TRUE", 
-        warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "epicurve-intro", code = "time_int <- incidence(\n  x = linelist,            # dataset\n  date_index = date_onset, # date column\n  interval = \"Sunday weeks\")   \n\nplot(time_int)\n", 
+        opts = list(label = "\"epicurve-intro\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -3487,7 +3497,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -3533,7 +3543,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -3547,11 +3558,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "epicurve-colors", 
-    code = "plot(weekly, fill = hospital)+\ntheme(legend.position = \"top\") +\nscale_fill_viridis_d(\n    option = \"inferno\",           \n    name = \"Hospital\",  \n    na.value = \"grey\") ", 
-    opts = list(label = "\"epicurve-colors\"", exercise = "TRUE", 
-        warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "epicurve-colors", code = "plot(weekly, fill = hospital)+\ntheme(legend.position = \"top\") +\nscale_fill_viridis_d(\n    option = \"inferno\",           \n    name = \"Hospital\",  \n    na.value = \"grey\") ", 
+        opts = list(label = "\"epicurve-colors\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -3559,7 +3570,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -3581,17 +3592,17 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "epicurves-quiz-1", 
     question = structure("Where do we need to specify groups when making an epicurve with incidence2?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_7752bad", 
+    "character")), answers = list(structure(list(id = "lnr_ans_7c954d5", 
         option = "in incidence()", value = "in incidence()", 
         label = structure("in incidence()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_524a1be", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2728f9", 
         option = "in plot()", value = "in plot()", label = structure("in plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_11a76c4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ac9d0d2", 
         option = "in theme()", value = "in theme()", label = structure("in theme()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5ae5417", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_deec62d", 
         option = "in scale()", value = "in scale()", label = structure("in scale()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -3603,25 +3614,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "epicurves-quiz-1-answer", question = "epicurves-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhere do we need to specify groups when making an epicurve with incidence2?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 964636276.050806, options = list()), class = c("learnr_checkbox", 
+    seed = 1093144328.49096, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "epicurves-quiz-2", 
     question = structure("How do we add ggplot elements to our epicurve plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_bf0e131", 
+    "character")), answers = list(structure(list(id = "lnr_ans_263c72a", 
         option = "replace plot() with ggplot()", value = "replace plot() with ggplot()", 
         label = structure("replace plot() with ggplot()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_672c2cd", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d7c69de", 
         option = "just add (+) them to the plot()", value = "just add (+) them to the plot()", 
         label = structure("just add (+) them to the plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b79ea2a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c4a5167", 
         option = "we can't", value = "we can't", label = structure("we can&#39;t", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ec28974", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5b6db24", 
         option = "ggplot(plot())", value = "ggplot(plot())", 
         label = structure("ggplot(plot())", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -3634,23 +3645,23 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "epicurves-quiz-2-answer", question = "epicurves-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow do we add ggplot elements to our epicurve plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1341221651.37544, options = list()), class = c("learnr_radio", 
+    seed = 326907224.347772, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "epicurves-quiz-3", 
     question = structure("How do we edit the date axis of our epicurve plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4f8eb04", 
+    "character")), answers = list(structure(list(id = "lnr_ans_c2dca2f", 
         option = "with the custom incidence2 commands in plot()", 
         value = "with the custom incidence2 commands in plot()", 
         label = structure("with the custom incidence2 commands in plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2b91050", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1080adc", 
         option = "with scale_x_date()", value = "with scale_x_date()", 
         label = structure("with scale_x_date()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3a14076", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc35316", 
         option = "only by specifying different date bins in incidence()", 
         value = "only by specifying different date bins in incidence()", 
         label = structure("only by specifying different date bins in incidence()", html = TRUE, class = c("html", 
@@ -3664,14 +3675,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "epicurves-quiz-3-answer", question = "epicurves-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow do we edit the date axis of our epicurve plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1350794837.37099, options = list()), class = c("learnr_radio", 
+    seed = 1671186890.22179, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "epicurves-quiz-4", 
     question = structure("When can it be useful to use show_cases = TRUE?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_e5d0fcc", 
+    "character")), answers = list(structure(list(id = "lnr_ans_551c21a", 
         option = "small outbreaks", value = "small outbreaks", 
         label = structure("small outbreaks", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -3684,7 +3695,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "epicurves-quiz-4-answer", question = "epicurves-quiz-4"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhen can it be useful to use show_cases = TRUE?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1818487788.1532, options = list(placeholder = "Enter answer here...", 
+    seed = 1232147049.42624, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -3692,16 +3703,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "apyramid-quiz-1", 
     question = structure("Which function do we use to create and plot our age pyramid?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_fe817ed", 
+    "character")), answers = list(structure(list(id = "lnr_ans_71d8eea", 
         option = "apyramid()", value = "apyramid()", label = structure("apyramid()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8b1e60", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4aee521", 
         option = "ggplot()", value = "ggplot()", label = structure("ggplot()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_12aa85c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_744eec6", 
         option = "incidence()", value = "incidence()", label = structure("incidence()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f672137", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d44b495", 
         option = "age_pyramid()", value = "age_pyramid()", label = structure("age_pyramid()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -3713,25 +3724,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "apyramid-quiz-1-answer", question = "apyramid-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich function do we use to create and plot our age pyramid?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 474127719.279217, options = list()), class = c("learnr_radio", 
+    seed = 1765450016.1779, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "apyramid-quiz-2", 
     question = structure("How do we add ggplot elements to our age pyramid plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_751e2ce", 
+    "character")), answers = list(structure(list(id = "lnr_ans_a58850c", 
         option = "replace age_pyramid() with ggplot()", value = "replace age_pyramid() with ggplot()", 
         label = structure("replace age_pyramid() with ggplot()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9d57c4b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_eca5697", 
         option = "just add (+) them to the plot()", value = "just add (+) them to the plot()", 
         label = structure("just add (+) them to the plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bf371b2", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_98d7295", 
         option = "we can't", value = "we can't", label = structure("we can&#39;t", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b2013e2", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9454259", 
         option = "ggplot() + age_pyramid()", value = "ggplot() + age_pyramid()", 
         label = structure("ggplot() + age_pyramid()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -3744,20 +3755,20 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "apyramid-quiz-2-answer", question = "apyramid-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow do we add ggplot elements to our age pyramid plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1597854657.25594, options = list()), class = c("learnr_radio", 
+    seed = 895881271.582823, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "apyramid-quiz-3", 
     question = structure("Which argument allows us to specify an extra variable to show on the bars?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_f8bea59", 
+    "character")), answers = list(structure(list(id = "lnr_ans_d1b4a13", 
         option = "split_by = ", value = "split_by = ", label = structure("split_by = ", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6e20828", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dd40c45", 
         option = "group_by = ", value = "group_by = ", label = structure("group_by = ", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_be91aea", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5218b9c", 
         option = "stack_by = ", value = "stack_by = ", label = structure("stack_by = ", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -3769,7 +3780,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "apyramid-quiz-3-answer", question = "apyramid-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich argument allows us to specify an extra variable to show on the bars?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1782380551.67001, options = list()), class = c("learnr_radio", 
+    seed = 1329726855.8808, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -3800,7 +3811,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -3814,16 +3826,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "labtest", 
-    code = "ggplot(\n  data = hosp_CFR_age,\n  mapping = aes(\n    x = med_age,\n    y = CFR,\n    size = cases,\n    label = hospital)) +\n  geom_point() +\n  geom_text()", 
-    opts = list(label = "\"labtest\"", exercise = "TRUE", warning = "F", 
-        message = "F"), engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure("grade_this_code(\"Good! We replace the geom_text() used above with geom_label_repel(size = 5). As the label is set in aes()\")", chunk_opts = list(
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "labtest", code = "ggplot(\n  data = hosp_CFR_age,\n  mapping = aes(\n    x = med_age,\n    y = CFR,\n    size = cases,\n    label = hospital)) +\n  geom_point() +\n  geom_text()", 
+        opts = list(label = "\"labtest\"", exercise = "TRUE", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = structure("grade_this_code(\"Good! We replace the geom_text() used above with geom_label_repel(size = 5). As the label is set in aes()\")", chunk_opts = list(
         label = "labtest-check")), solution = structure(c("ggplot(", 
     "  data = hosp_CFR_age,", "  mapping = aes(", "    x = med_age,", 
     "    y = CFR,", "    size = cases,", "    label = hospital)) +", 
-    "  geom_point() +", "  geom_label_repel(size = 5)"), chunk_opts = list(
+    "  geom_point() +", "  geom_label_repel(size = 3)"), chunk_opts = list(
         label = "labtest-solution", eval = FALSE)), options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -3831,7 +3843,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
         strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -3853,17 +3865,17 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "labels-quiz-1", 
     question = structure("Which functions can we use to label points in ggplot2?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_25200cf", 
+    "character")), answers = list(structure(list(id = "lnr_ans_a11a644", 
         option = "geom_text()", value = "geom_text()", label = structure("geom_text()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_89b910", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_176fa0f", 
         option = "labs()", value = "labs()", label = structure("labs()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4fa642", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_fa0e8ca", 
         option = "geom_label_repel()", value = "geom_label_repel()", 
         label = structure("geom_label_repel()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ae8008c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ed27393", 
         option = "glabels()", value = "glabels()", label = structure("glabels()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -3875,14 +3887,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "labels-quiz-1-answer", question = "labels-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich functions can we use to label points in ggplot2?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1524908494.78991, options = list()), class = c("learnr_checkbox", 
+    seed = 1584165635.26232, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "labels-quiz-2", 
     question = structure("What else do we need to specify to see labels on our plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_e546d16", 
+    "character")), answers = list(structure(list(id = "lnr_ans_923e8c", 
         option = "We need to specify what data to use for the label using label = within the aes() of the ggplot() function", 
         value = "We need to specify what data to use for the label using label = within the aes() of the ggplot() function", 
         label = structure("We need to specify what data to use for the label using label = within the aes() of the ggplot() function", html = TRUE, class = c("html", 
@@ -3896,7 +3908,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "labels-quiz-2-answer", question = "labels-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat else do we need to specify to see labels on our plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 778943097.137276, options = list(placeholder = "Enter answer here...", 
+    seed = 615397861.713433, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -3928,7 +3940,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "      ", "      file = here::here(\"event_records\", \"learnr_basics.txt\"),", 
 "      append = TRUE)", "}", "", "options(tutorial.event_recorder = new_recorder)", 
 "", "", "# hide non-exercise code chunks ------------------------------------------------", 
-"knitr::opts_chunk$set(echo = FALSE)", "", "", "# data prep --------------------------------------------------------------------", 
+"knitr::opts_chunk$set(echo = FALSE, fig.align = \"center\", message = F, warning = F)", 
+"", "", "# data prep --------------------------------------------------------------------", 
 "linelist_raw <- rio::import(here::here(\"data\", \"linelist_raw.xlsx\"))", 
 "linelist <- rio::import(here::here(\"data\", \"linelist_cleaned.rds\"))", 
 "malaria_counts <- rio::import(here::here(\"data\", \"malaria_facility_count_data.rds\"))", 
@@ -3942,33 +3955,33 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  plotly,     # interactive plots", "  cowplot,    # combine plots", 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
-"  Hmisc", "  )", "", "", ""), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "plot-grid-ex", 
-    code = "plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = \"hv\", labels = \"auto\")", 
-    opts = list(label = "\"plot-grid-ex\"", exercise = "TRUE", 
-        echo = "TRUE", fig.height = "6", fig.width = "9"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, size = "normalsize", 
-        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "data_vis_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "data_vis_files/figure-html/", 
+"  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "plot-grid-ex", code = "plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = \"hv\", labels = \"auto\")", 
+        opts = list(label = "\"plot-grid-ex\"", exercise = "TRUE", 
+            echo = "TRUE", fig.height = "6", fig.width = "9", 
+            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 9, fig.height = 6, fig.env = "figure", fig.cap = NULL, 
         fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 864, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
-        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         exercise.eval = FALSE, label = "plot-grid-ex", exercise = TRUE, 
         code = "plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = \"hv\", labels = \"auto\")", 
-        out.width.px = 864, out.height.px = 576, params.src = "plot-grid-ex,exercise = TRUE, echo = TRUE, fig.height=6, fig.width=9", 
+        out.width.px = 864, out.height.px = 576, params.src = "plot-grid-ex,exercise = TRUE, echo = TRUE, fig.height=6, fig.width=9, warning=F, message=F", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  <!--html_preserve-->

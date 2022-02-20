@@ -57,7 +57,7 @@ options(tutorial.event_recorder = new_recorder)
 
 
 # hide non-exercise code chunks ------------------------------------------------
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center", message = F, warning = F)
 
 
 # data prep --------------------------------------------------------------------
@@ -86,7 +86,8 @@ pacman::p_load(
   ggpubr,
   gghighlight,
   RColorBrewer, # now built in to ggplot but need to load to see the palettes
-  Hmisc
+  Hmisc,
+  datasets
   )
 
 
@@ -155,11 +156,13 @@ If viewing offline, you can view the videos by doing ...
 
 #### Learning goals
 
-In this tutorial you will:  
+In this tutorial you will learn:  
 
-* Cleaning data using the fundamental **tidyverse** R functions
-* ...  
-* ...  
+* The basics of data visualization in R with **ggplot2**
+* The "grammar of graphics" approach to data visualization
+* How to customize and edit plots to achieve the look you want
+* Methods to produce some common epidemiological plots with **ggplot2** and other helper functions
+* How to combine and overlay your plots
 
 
 #### Data consent
@@ -277,13 +280,83 @@ There are a number of visualization options within the R software but in this tu
 ### Grammar of graphics
 Visualizing multi-dimensional data *well* is a balance of art and science. Visualization is one of the most important parts of a statistical analysis as it allows you to share what you have achieved and, when done correctly, can help to explain complex work and concepts to a wider audience of stakeholders or the general public. Visualization can also be a key step when getting to grips with new data or with analyses you are working on.
 
-***VIS OF ANSCOMBES QuARTET OR SIMILAR***
+```{r anscombe, fig.height=8, message = F, warning = F}
+p1 <- ggplot(anscombe) +
+  geom_point(aes(x1, y1), color = "darkorange", size = 1.5) +
+  scale_x_continuous(breaks = seq(0,20,2)) +
+  scale_y_continuous(breaks = seq(0,12,2)) +
+  expand_limits(x = 0, y = 0) +
+  labs(x = "x1", y = "y1",
+       title = "Dataset 1" ) +
+  theme_classic()
+
+p2 <- ggplot(anscombe) +
+  geom_point(aes(x2, y2), color = "darkorange", size = 1.5) +
+  scale_x_continuous(breaks = seq(0,20,2)) +
+  scale_y_continuous(breaks = seq(0,12,2)) +
+  expand_limits(x = 0, y = 0) +
+  labs(x = "x2", y = "y2",
+       title = "Dataset 2" ) +
+  theme_classic()
+
+p3 <- ggplot(anscombe) +
+  geom_point(aes(x3, y3), color = "darkorange", size = 1.5) +
+  scale_x_continuous(breaks = seq(0,20,2)) +
+  scale_y_continuous(breaks = seq(0,12,2)) +
+  expand_limits(x = 0, y = 0) +
+  labs(x = "x3", y = "y3",
+       title = "Dataset 3" ) +
+  theme_classic()
+
+p4 <- ggplot(anscombe) +
+  geom_point(aes(x4, y4), color = "darkorange", size = 1.5) +
+  scale_x_continuous(breaks = seq(0,20,2)) +
+  scale_y_continuous(breaks = seq(0,12,2)) +
+  expand_limits(x = 0, y = 0) +
+  labs(x = "x4", y = "y4",
+       title = "Dataset 4" ) +
+  theme_classic()
+
+
+p1_fitted <- p1 + geom_abline(intercept = 3.0001, slope = 0.5001, color = "blue")+ labs(caption = str_glue("mean x = {mean(anscombe$x1)} \n mean y = {round(mean(anscombe$y1),2)}"))+   theme(plot.caption = element_text(color = "blue", size = 12, face = "italic")) + lims(y = c(0,15), x = c(0,20))
+p2_fitted <- p2 + geom_abline(intercept = 3.001, slope = 0.500, color = "blue")+ labs(caption = str_glue("mean x = {mean(anscombe$x2)} \n mean y = {round(mean(anscombe$y2),2)}"))+   theme(plot.caption = element_text(color = "blue", size = 12, face = "italic"))+ lims(y = c(0,15), x = c(0,20))
+p3_fitted <- p3 + geom_abline(intercept = 3.0025, slope = 0.4997, color = "blue")+ labs(caption = str_glue("mean x = {mean(anscombe$x3)} \n mean y = {round(mean(anscombe$y3),2)}"))+   theme(plot.caption = element_text(color = "blue", size = 12, face = "italic"))+ lims(y = c(0,15), x = c(0,20))
+p4_fitted <- p4 + geom_abline(intercept = 3.0017, slope = 0.499, color = "blue") + labs(caption = str_glue("mean x = {mean(anscombe$x4)} \n mean y = {round(mean(anscombe$y4),2)}"))+   theme(plot.caption = element_text(color = "blue", size = 12, face = "italic"))+ lims(y = c(0,15), x = c(0,20))
+
+
+joint <- plot_grid(p1_fitted, p2_fitted,
+                          p3_fitted, p4_fitted,
+             ncol = 2)
+
+title <- ggdraw() + 
+  draw_label(
+    "Anscombe's Quartet",
+    fontface = 'bold',
+    x = 0,
+    hjust = 0
+  ) +
+  theme(
+    # add margin on the left of the drawing canvas,
+    # so title is aligned with left edge of first plot
+    plot.margin = margin(0, 0, 0, 7)
+  )
+plot_grid(
+  title, joint,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)
+
+```
+
+*Visualization of Anscombe's quartet, a famous set of 4 very different datasets which resolve to the same set of summary statistics and same linear line of best fit. This highlights the importance of visualization when dealing with new or unknown data. Figure adapted from [Debosruti Dutta](https://rpubs.com/debosruti007/anscombeQuartet)*
 
 The grammar of graphics refers to the basic structure generally followed in **ggplot2** where different building blocks of the plot are manipulated in individual lines of code. These range from data, the basic requirement of all data visualization, up to individual design tweaks specific to your own needs or liking.
 
-***pyramid illustration from towards data science is nice here***
+```{r grammar-graphics-pyramid, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
+knitr::include_graphics("images/data_viz/gg_pyramid.png")
+```
 
-***qu on data being the basic building block of all vis***
 
 In **ggplot2** we build a plot by "adding" commands on top of one another which specify plot layers and design elements.
 For a standard plot your order will follow this process:
@@ -398,7 +471,7 @@ Some common "geoms" for epidemiology are listed below:
 * Trend lines `geom_smooth()`
 
 Adding (`+`) `geom_point()` to our previous `ggplot()` call will plot points using the X and Y variables we defined:
-```{r simple plot, echo=T}
+```{r simple plot, echo=T, message = T, warning = T}
 ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point()
 ```
@@ -428,7 +501,7 @@ geom_histogram()
 
 ## Other aesthetics
 
-In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the `geom_XXXX()`):
+In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the `geom_*()`):
 
 * shape = Display a point with geom_point() as a dot, star, triangle etc.
 * fill = The interior color (e.g. of a bar or boxplot)
@@ -2225,8 +2298,8 @@ This allows you to view tooltips with the data used to create the plot, zoom, sc
 ## Point-and-click ggplot2
 Now that you've learned the basic syntax the [**esquisse**](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html]) package allows point-and-click creation of (simple) ggplots!
 
-```{r, eval = TRUE, echo = FALSE}
-knitr::include_graphics("https://github.com/appliedepi/tutorials/blob/master/tutorials/images/data_viz/esquisse1.gif?raw=true")
+```{r, eval = TRUE, echo = FALSE,out.width = "70%"}
+knitr::include_graphics("./images/data_viz/esquisse1.gif")
 ```
 
 ## Data structure  
@@ -2234,8 +2307,8 @@ knitr::include_graphics("https://github.com/appliedepi/tutorials/blob/master/tut
 **ggplot2** works best when the dataset is in "long" format, where each variable has its own column. We recommend that you become familiar with `pivot_longer()` from **dplyr** (see the [Epi R Handbook pivoting page](https://epirhandbook.com/pivoting-data.html)). And the tutorials on data cleaning and tidy data.
    
 
-```{r, eval = TRUE, echo = FALSE}
-knitr::include_graphics("https://github.com/appliedepi/emory_training/blob/master/presentation/images/pivoting.png?raw=true")
+```{r, eval = TRUE, echo = FALSE, out.width = "70%"}
+knitr::include_graphics("./images/data_viz/pivoting.png")
 ```
 
 ## Next steps
