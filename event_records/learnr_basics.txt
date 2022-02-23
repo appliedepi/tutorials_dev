@@ -2083,3 +2083,4 @@ C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-03-02/16/22 15:03:31
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-03-02/16/22 15:03:31 GMT; ah1114; section_viewed_first_time; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-03-02/16/22 15:03:35 GMT; ah1114; section_skipped; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-03-02/16/22 15:03:36 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-05-02/16/22 15:05:12 GMT; ah1114; session_stop; ; ; ; 

@@ -134,7 +134,7 @@ linelist_mini <- linelist %>%                 # start with original linelist
   select(case_id, date_onset, hospital) %>%   # select columns
   head(10)     
 
-# Make the hospital information data frame
+# Make the hospital information dataframe
 hosp_info = data.frame(
   hosp_name     = c("central hospital", "military", "military", "port", "St. Mark's", "ignace", "sisters"),
   catchment_pop = c(1950280, 40500, 10000, 50280, 12000, 5000, 4200),
@@ -204,8 +204,9 @@ cases_dup <- rbind(cases,
            district = c("River", "River"))
            )
 
-
-
+#Create a  factor column
+linelist$source[is.na(linelist$source)] <- "missing"
+linelist$source <- factor(linelist$source)
 
 ```
 
@@ -270,9 +271,9 @@ If viewing offline, you can view the videos by doing ...
 In this tutorial you will learn and practice:  
 
 * Using the pipe operator (`%>%`) to pass the dataset from one cleaning function to another
-* The core **tidyverse** R functions used to reduce, clean, and modify data frames  
+* The core **tidyverse** R functions used to reduce, clean, and modify dataframes  
 * How to manipulate dates in order to clean and translate between units of time (days/months/years) with the **lubridate** package
-* The use of descriptive analysis and summary statistics with the **janitor** package in order to summarise your data
+* The use of descriptive analysis and summary statistics with the **janitor** package in order to summarize your data
 
 
 
@@ -581,7 +582,7 @@ Rather than manually typing these out, and especially if we have a cleaned datas
 
 ### Tidyselect helper functions
 
-Tidyselect helper functions are functions that work within **dplyr** functions such as `select()`, `across()` or `summarise()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
+Tidyselect helper functions are functions that work within **dplyr** functions such as `select()`, `across()` or `summarize()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
 
 * `everything()` - all othecolumns not mentioned
 * `last_col()` - the last column
@@ -835,12 +836,12 @@ Often your data will be grouped, and so functions such as `mutate()` will behave
 ```{r, eval = T, echo = T}
 # age normalized to mean of ALL rows
 linelist %>% 
-    summarise(mean_age = mean(age, na.rm = T))
+    summarize(mean_age = mean(age, na.rm = T))
 
 # age normalized to mean of hospital group
 linelist %>% 
     group_by(hospital) %>% 
-    summarise(mean_age = mean(age, na.rm = T))
+    summarize(mean_age = mean(age, na.rm = T))
 ```
 
 Can you group outcome by `age_cat` *and* `gender`, then use `count(outcome)` in order to produce a summary table of outcome by age category and gender?
@@ -1269,7 +1270,7 @@ linelist %>%
 
 ### Cleaning dictionary
 
-Use the R package **linelist** and it’s function `clean_variable_spelling()` to clean a data frame with a cleaning dictionary. **linelist** is a package developed by RECON - the R Epidemics Consortium.
+Use the R package **linelist** and it’s function `clean_variable_spelling()` to clean a dataframe with a cleaning dictionary. **linelist** is a package developed by RECON - the R Epidemics Consortium.
 
 1) Create a cleaning dictionary with 3 columns:
 * “from” column (the incorrect value)
@@ -1502,7 +1503,7 @@ ntile_table <- ntile_data %>%
 # attach min/max values to demonstrate ranges
 ntile_ranges <- ntile_data %>% 
   group_by(even_groups) %>% 
-  summarise(
+  summarize(
     min = min(age_years, na.rm=T),
     max = max(age_years, na.rm=T)
   )
@@ -1878,9 +1879,9 @@ Converting columns to the date-time class follows a similar format to the date c
 `r dmy_hm("01 January 2020 16:20")`
 `r mdy_hms("01 January 2020, 16:20:40")`
 
-When working with a data frame, time and date columns can be combined to create a datetime column using `str_glue()` from **stringr** package and an appropriate **lubridate** function.
+When working with a dataframe, time and date columns can be combined to create a datetime column using `str_glue()` from **stringr** package and an appropriate **lubridate** function.
 
-In this example, the linelist data frame has a column in format “hours:minutes”. To convert this to a datetime we follow a few steps:
+In this example, the linelist dataframe has a column in format “hours:minutes”. To convert this to a datetime we follow a few steps:
 
 * Create a “clean” time of admission column with missing values filled-in with the column median. We do this because lubridate won’t operate on missing values. 
 * Combine it with the column date_hospitalisation, and then use the function ymd_hm() to convert.
@@ -2295,7 +2296,7 @@ counts %>%
 
 When managing data, pivoting can be understood to refer to one of two processes:
 
-* The creation of pivot tables, which are tables of statistics that summarise the data of a more extensive table
+* The creation of pivot tables, which are tables of statistics that summarize the data of a more extensive table
 * The conversion of a table from *long* to *wide* format, or vice versa.
 
 Here we are focussing on the latter definition, with the former dealt with in the grouping data and descriptive tables sections.
@@ -2559,7 +2560,7 @@ Here we will learn to:
 We will use the following datasets:
 
 * `linelist_mini` - A “miniature” version of the case linelist, containing only the columns case_id, date_onset, and hospital, and only the first 10 rows
-* `hosp_info` - A separate data frame named hosp_info, which contains more details about each hospital
+* `hosp_info` - A separate dataframe named hosp_info, which contains more details about each hospital
 
 ```{r, echo = T, eval = T}
 linelist_mini
@@ -2582,7 +2583,7 @@ unique(linelist_mini$hospital)
 unique(hosp_info$hosp_name)
 ```
 
-You can see that while some of the hospitals exist in both data frames, there are many differences in spelling. In order to join them, we should correct some of these spelling differences. In order to do so, we use some of the skills we learned earlier in the data cleaning sections.
+You can see that while some of the hospitals exist in both dataframes, there are many differences in spelling. In order to join them, we should correct some of these spelling differences. In order to do so, we use some of the skills we learned earlier in the data cleaning sections.
 
 Can you clean `hosp_name` in the dataset `hosp_info` so that they match the names in `linelist_mini`?
 
@@ -2654,18 +2655,18 @@ If you do not have an identifier column, you can join datasets based on common v
 
 ### Left and right joins
 
-A left or right join is commonly used to add information to a data frame - new information is added only to rows that already existed in the baseline data frame. These are common joins in epidemiological work as they are used to add information from one dataset into another.
+A left or right join is commonly used to add information to a dataframe - new information is added only to rows that already existed in the baseline dataframe. These are common joins in epidemiological work as they are used to add information from one dataset into another.
 
-In using these joins, the written order of the data frames in the command is important*.
+In using these joins, the written order of the dataframes in the command is important*.
 
-* In a left join, the first data frame written is the baseline
-* In a right join, the second data frame written is the baseline
+* In a left join, the first dataframe written is the baseline
+* In a right join, the second dataframe written is the baseline
 
-All rows of the baseline data frame are kept. Information in the other (secondary) data frame is joined to the baseline data frame only if there is a match via the identifier column(s). In addition:
+All rows of the baseline dataframe are kept. Information in the other (secondary) dataframe is joined to the baseline dataframe only if there is a match via the identifier column(s). In addition:
 
-* Rows in the secondary data frame that do not match are dropped.
-* If there are many baseline rows that match to one row in the secondary data frame (many-to-one), the secondary information is added to each matching baseline row.
-* If a baseline row matches to multiple rows in the secondary data frame (one-to-many), all combinations are given, meaning new rows may be added to your returned data frame!
+* Rows in the secondary dataframe that do not match are dropped.
+* If there are many baseline rows that match to one row in the secondary dataframe (many-to-one), the secondary information is added to each matching baseline row.
+* If a baseline row matches to multiple rows in the secondary dataframe (one-to-many), all combinations are given, meaning new rows may be added to your returned dataframe!
 
 With these rules in mind, and the prior example, can you join `hosp_info` to `linelist_mini` (where `linelist_mini` is the baseline) in a pipe chain?
 
@@ -2707,7 +2708,7 @@ You can see that hospitals found in `hosp_info` but not in `linelist_mini` have 
 
 ### `inner_join()`
 
-*`inner_join()` is the least inclusive of all joins* it returns *only* rows with matches across both data frames. This means you may lose rows from your baseline dataset if it cannot match them. For example:
+*`inner_join()` is the least inclusive of all joins* it returns *only* rows with matches across both dataframes. This means you may lose rows from your baseline dataset if it cannot match them. For example:
 
 ```{r, echo = T, eval = T}
 linelist_mini %>% 
@@ -2716,7 +2717,7 @@ linelist_mini %>%
 
 ### `semi_join()`
 
-*`semi_join()` keeps all observations in the baseline data frame that have a match in the secondary data frame* but *does not* include any new columns nor duplicate any rows for multiple matches.
+*`semi_join()` keeps all observations in the baseline dataframe that have a match in the secondary dataframe* but *does not* include any new columns nor duplicate any rows for multiple matches.
 
 ```{r, echo = T, eval = T}
 linelist_mini %>% 
@@ -2725,7 +2726,7 @@ linelist_mini %>%
 
 ### `anti_join`
 
-*`anti_join i`s another “filtering join” that returns rows in the baseline data frame that do not have a match in the secondary data frame.*
+*`anti_join i`s another “filtering join” that returns rows in the baseline dataframe that do not have a match in the secondary dataframe.*
 
 ```{r, echo = T, eval = T}
 linelist_mini %>% 
@@ -2903,9 +2904,9 @@ There are several ways of binding rows in R, however we will focus on **dplyr**'
 * You can optionally specify the argument `.id = ` to create a character column name to identify which dataframe the new row came from
 * You can use `bind_rows()` on a `list` of similarly structured dataframes to combine them. This is especially useful when you are useing loops
 
-One common example of row binding is to bind a “total” row onto a descriptive table made with **dplyr**’s `summarise()` function. Below we create a table of case counts and median CT values by hospital with a total row.
+One common example of row binding is to bind a “total” row onto a descriptive table made with **dplyr**’s `summarize()` function. Below we create a table of case counts and median CT values by hospital with a total row.
 
-The function `summarise()` is used on data grouped by hospital to return a summary data frame by hospital. But the function `summarise()` does not automatically produce a “totals” row, so we create it by summarising the data again, but with the data not grouped by hospital. This produces a second data frame of just one row. We can then bind these data frames together to achieve the final table.
+The function `summarize()` is used on data grouped by hospital to return a summary dataframe by hospital. But the function `summarize()` does not automatically produce a “totals” row, so we create it by summarising the data again, but with the data not grouped by hospital. This produces a second dataframe of just one row. We can then bind these dataframes together to achieve the final table.
 
 ```{r, echo = T, eval = T}
 
@@ -2913,18 +2914,18 @@ The function `summarise()` is used on data grouped by hospital to return a summa
 ###################
 hosp_summary <- linelist %>% 
   group_by(hospital) %>%                        # Group data by hospital
-  summarise(                                    # Create new summary columns of indicators of interest
+  summarize(                                    # Create new summary columns of indicators of interest
     cases = n(),                                  # Number of rows per hospital-outcome group     
     ct_value_med = median(ct_blood, na.rm=T))     # median CT value per group
 
 ```
 
-Create a data frame with the “total” statistics (not grouped by hospital). This will return just one row.
+Create a dataframe with the “total” statistics (not grouped by hospital). This will return just one row.
 ```{r, echo = T, eval = T}
 # create totals
 ###############
 totals <- linelist %>% 
-  summarise(
+  summarize(
     cases = n(),                               # Number of rows for whole dataset     
     ct_value_med = median(ct_blood, na.rm=T))  # Median CT for whole dataset
 ```
@@ -2944,7 +2945,7 @@ bind_rows(hosp_summary, totals)
 #Create the first dataframe
 case_info <- linelist %>% 
   group_by(hospital) %>% 
-  summarise(
+  summarize(
     cases = n(),
     deaths = sum(outcome == "Death", na.rm=T)
   )
@@ -2965,8 +2966,74 @@ bind_cols(case_info, contact_followup)
 
 In most circumstances, especially where dataframes may be in a different order or unequal in size, you should use a `join` function rather than `bind_cols()` to avoid incorrect matching.
 
+## Descriptive analyses
 
+Once you have a clean dataset, you may want to conduct some basic statistical analysis and summaries in order to better understand your data.
 
+There are a number of different packages that can be used to do this such as **janitor**, **dplyr**, **gtsummary**, **rstatix** and **base** R in order to summarize and create tables with descriptive statistics.
+
+Each of these have their own advantages and disadvantages, and the tool you use will depend on factors such as code simplicity, customizeability and the desired output (printed to R console or a figure for a report/publication). Consider the points below:
+
+* Use `tably()` from **janitor** to produce and "adorn" tabulations and cross-tabulations
+* Use `get_summary_stats()` from **rstatix** to easily generate dataframes of numerical summary statistics from multiple columns or groups
+* Use `summarize()` and `count()` from **dplyr** for more complex statistics, tidy dataframe outputs or preparing data for `ggplot()`
+* Use `tbl_summary()` from **gtsummary** to produce detailed publication-ready tables
+* Use `table()` from **base** R if you do not have access to the above packages
+
+### **janitor**
+
+The **janitor** package offers the `tabyl()` function to produce tabulations and cross-tabulations, which can be "adorned" or modified with helper functions to display percentages, proportions, counts, etc.
+
+Below we summarize the column `age_cat`:
+
+```{r, echo = T, eval = T}
+linelist %>%
+  tabyl(age_cat)
+
+```
+
+You can adjust the number of decimals with `adorn_round()`, and if you want to ignore `NA` values you can suppress them by including `show_na = FALSE`.
+
+```{r, echo = T, eval = T}
+linelist %>%
+  tabyl(age_cat, show_na = FALSE) %>%
+  adorn_rounding(digits = 3) #Specify the number of digits with the digits = argument
+```
+
+If the column is class Factor and only certain levels are present in your data, all levels will still appear in the table. You can suppress this feature by specifying `show_missing_levels = FALSE`:
+
+```{r, echo = T, eval = T}
+linelist %>%
+  filter(source != "other") %>%
+  tabyl(source)
+
+linelist %>%
+  filter(source != "other") %>%
+  tabyl(source, show_missing_levels = FALSE)
+
+```
+
+### Cross-tabulation
+
+Cross-tabulation counts are achieved by adding one or more additional columns within 1. Note that now only counts are returned - proportions and percents can be added with additional steps shown below.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  tabyl(age_cat, gender)
+```
+
+### Adoring the tabyl
+
+Use **janitor**’s “adorn” functions to add totals or convert to proportions, percents, or otherwise adjust the display. Often, you will pipe the tabyl through several of these functions.
+
+| **Function**      | **Outcome** |
+| ----------- | ----------- |
+| `adorn_totals()`      | Adds totals (`where = ` "row", "column", "both"). Set `name = ` for "Total"       |
+| `adorn_percentages()`   | Convert counts to proportions, with `denominator = ` "row", "col" or "all"        |
+| `adorn_pct_formatting()`   | Converts proportions to percents. Specify `digits =`. Remove the “%” symbol with `affix_sign = FALSE`        |
+| `adorn_rounding()`   | To round proportions to `digits =` places. To round percents use `adorn_pct_formatting()` with `digits =`        |
+| `adorn_ns()`   | Add counts to a table of proportions or percents. Indicate `position = “rear”` to show counts in parentheses, or “front” to put the percents in parentheses|
+| `adorn_title()`   | Add counts to a table of proportions or percents. Indicate `position = “rear”` to show counts in parentheses, or “front” to put the percents in parentheses|
 
 
 
