@@ -851,7 +851,7 @@ linelist %>%
   
 ```
 
-```{r date_mutate-hint}
+```{r age_sex_group-hint}
 You can include multiple arguments in group_by(), and remember to end your pipe chain with count(outcome).
 ```
 
@@ -3034,6 +3034,399 @@ Use **janitor**’s “adorn” functions to add totals or convert to proportion
 | `adorn_rounding()`   | To round proportions to `digits =` places. To round percents use `adorn_pct_formatting()` with `digits =`        |
 | `adorn_ns()`   | Add counts to a table of proportions or percents. Indicate `position = “rear”` to show counts in parentheses, or “front” to put the percents in parentheses|
 | `adorn_title()`   | Add counts to a table of proportions or percents. Indicate `position = “rear”` to show counts in parentheses, or “front” to put the percents in parentheses|
+
+Can you summarize age categories in `linelist`, drop `NA` values, and "adorn" them to show the percentage to 2 decimal places?
+
+```{r crosstab_age, exercise = TRUE}
+  
+```
+
+```{r crosstab_age-hint}
+Re-read the table above if you need help deciding which "adorn" function to use in order to display age categories as a percentage
+```
+
+```{r crosstab_age-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail(message = "Remember to drop NA values using 'show_na = FALSE'")
+  })
+```
+
+```{r crosstab_age-solution}
+linelist %>%
+    tabyl(age_cat, show_na = FALSE) %>%
+    adorn_pct_formatting(digits = 2)
+```
+
+Now we want to create a cross table of `age_cat` and `gender`, where we work out the percentage in each gender by row, and the overall percentage in each gender across all age categories. Can you use several "adorn" functions to do this?
+
+```{r crosstab_age_gender, exercise = TRUE}
+  
+```
+
+```{r crosstab_age_gender-hint}
+You will need to use three "adorn" functions. Remember to specify "where = " for totals, and the "denominator = " correctly.
+```
+
+```{r crosstab_age_gender-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r crosstab_age_gender-solution}
+linelist %>%                                  
+  tabyl(age_cat, gender) %>%
+  adorn_totals(where = "row") %>%
+  adorn_percentages(denominator = "row") %>%
+  adorn_pct_formatting()
+```
+
+```{r quiz11}
+quiz(
+  question("Which of these would change the row name title to 'Age category' and add a title to the groups (gender) of 'Gender'?",
+           answer(adorn_totals(row_name = 'Age Category', col_name = 'Gender'), correct = F),
+           answer(tabyl(row_name = 'Age Category', col_name = 'Gender'), correct = F),
+           answer(adorn_title(row_name = 'Age Category', col_name = 'Gender'), correct = T))
+  )
+```
+
+### Printing the tabyl
+
+By default, the tabyl will print raw to your R table.
+
+Alternatively, you can pass the tabyl to **flextable** or similar package to print as a “pretty” image in the RStudio Viewer, which could be exported as .png, .jpeg, .html, etc. Note that if printing in this manner and using `adorn_titles()`, you must specify `placement = "combined"`.
+
+```{r, echo = T, eval = T}
+linelist %>%
+  tabyl(age_cat, gender) %>% 
+  adorn_totals(where = "col") %>% 
+  adorn_percentages(denominator = "col") %>% 
+  adorn_pct_formatting() %>% 
+  adorn_ns(position = "front") %>% 
+  adorn_title(
+    row_name = "Age Category",
+    col_name = "Gender",
+    placement = "combined") %>% # this is necessary to print as image
+  flextable::flextable() %>%    # convert to pretty image
+  flextable::autofit()          # format to one line per row 
+```
+
+*Use on other tables*
+
+You can use janitor’s adorn_*() functions on other tables, such as those created by summarise() and count() from dplyr, or table() from base R. Simply pipe the table to the desired janitor function. For example:
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  count(hospital) %>%   # dplyr function
+  adorn_totals()        # janitor function
+```
+
+### Saving the tabyl
+
+If you convert the table to a “pretty” image with a package like **flextable**, you can save it with functions from that package - like `save_as_html()`, `save_as_word()`, `save_as_ppt()`, and `save_as_image()` from **flextable**
+
+```{r, echo = T, eval = F}
+linelist %>%
+  tabyl(age_cat, gender) %>% 
+  adorn_totals(where = "col") %>% 
+  adorn_percentages(denominator = "col") %>% 
+  adorn_pct_formatting() %>% 
+  adorn_ns(position = "front") %>% 
+  adorn_title(
+    row_name = "Age Category",
+    col_name = "Gender",
+    placement = "combined") %>% 
+  flextable::flextable() %>%                     # convert to image
+  flextable::autofit() %>%                       # ensure only one line per row
+  flextable::save_as_docx(path = "tabyl.docx")   # save as Word document to filepath
+```
+
+### Statistics
+
+You can apply statistical tests on tabyls, like `chisq.test()` or `fisher.test()` from the **stats** package as shown below. Note missing values are not allowed so they are excluded from the tabyl with show_na = FALSE.
+
+```{r, echo = T, eval = T}
+age_by_outcome <- linelist %>% 
+  tabyl(age_cat, outcome, show_na = FALSE) 
+
+chisq.test(age_by_outcome)
+```
+
+## **dplyr** package
+
+**dplyr** is part of the tidyverse packages and is an very common data management tool. Creating tables with **dplyr** functions `summarise()` and `count()` is a useful approach to calculating summary statistics, summarize by group, or pass tables to `ggplot()`.
+
+`summarise()` creates a new, summary data frame. If the data are ungrouped, it will return a one-row dataframe with the specified summary statistics of the entire data frame. If the data are grouped, the new data frame will have one row per group (see Grouping data page).
+
+Within the `summarise()` parentheses, you provide the names of each new summary column followed by an equals sign and a statistical function to apply.
+
+*Get counts*
+
+The most simple function to apply within `summarise()` is `n()`. Leave the parentheses empty to count the number of rows.
+```{r, echo = T, eval = T}
+linelist %>% 
+  summarise(n_rows = n())   # return number of rows 
+```
+
+This gets more interesting if we have grouped the data beforehand.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  group_by(age_cat) %>%     # group data by unique values in column age_cat
+  summarise(n_rows = n())   # return number of rows *per group*
+```
+
+The above command can be shortened by using the count() function instead. count() does the following:
+
+1. Groups the data by the columns provided
+2. Summarises them with `n()`, creating the column `n`
+3. Un-groups the data
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  count(age_cat)
+```
+
+You can change the name of the counts column from the default `n` to something else by specifying it to `name =`.
+
+Tabulating counts of two or more grouping columns are still returned in “long” format, with the counts in the n column. See the page on Pivoting data to learn about “long” and “wide” data formats.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  count(age_cat, outcome)
+```
+
+If you are tabling a column of class _factor_ then you can ensure _all_ levels are shown by adding `.drop = FALSE` into `summarise()` or `count()`. 
+
+### Proportions
+
+Proportions can be added by piping the table to `mutate()` to create a new column. Define the new column as the counts column (n by default) divided by the `sum()` of the counts column (this will return a proportion).
+
+Note that in this case, `sum()` in the `mutate()` command will return the sum of the whole column n for use as the proportion denominator. If `sum()` is used in grouped data (e.g. if the `mutate()` immediately followed a `group_by()` command), it will return sums by group. As stated just above, `count()` finishes its actions by ungrouping. Thus, in this scenario we get full column proportions.
+
+To easily display percents, you can wrap the proportion in the function `percent()` from the package **scales** (note this convert to class character).
+
+```{r, echo = T, eval = T}
+age_summary <- linelist %>% 
+  count(age_cat) %>%                     # group and count by gender (produces "n" column)
+  mutate(                                # create percent of column - note the denominator
+    percent = scales::percent(n / sum(n))) 
+
+# print
+age_summary
+```
+
+If you wish to calculate proportions _within groups_ then you need to additionally group the data using `group_by()`:
+
+```{r, echo = T, eval = T}
+age_by_outcome <- linelist %>%                  # begin with linelist
+  group_by(outcome) %>%                         # group by outcome 
+  count(age_cat) %>%                            # group and count by age_cat, and then remove age_cat grouping
+  mutate(percent = scales::percent(n / sum(n))) # calculate percent - note the denominator is by outcome group
+```
+
+Can you now drop the `NA` values from `gender` and `outcome` in `linelist`, then produce a cross-table of `gender` and `outcome` to count the number of rows in each cross-tabulation?
+
+```{r dplyr_crosstab, exercise = TRUE}
+  linelist %>%
+  
+```
+
+```{r dplyr_crosstab-hint}
+You can remove NA values using a number of different commands, but remember that we only care about the NA values in the columns 'gender' and 'outcome'. Additionally, remember how many columns we need to group by.
+```
+
+```{r dplyr_crosstab-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r dplyr_crosstab-solution}
+linelist %>% 
+    drop_na(gender, outcome) %>%
+    group_by(gender, outcome) %>%
+    count()
+```
+
+### Plotting
+
+One of the advantages of using **dplyr** is that the data is already in the format expected for plotting by **ggplot**, for example:
+
+```{r, echo = T, eval = T}
+linelist %>%                      # begin with linelist
+  count(age_cat, outcome) %>%     # group and tabulate counts by two columns
+  ggplot()+                       # pass new data frame to ggplot
+    geom_col(                     # create bar plot
+      mapping = aes(   
+        x = outcome,              # map outcome to x-axis
+        fill = age_cat,           # map age_cat to the fill
+        y = n))                   # map the counts column `n` to the height
+```
+
+### Summary statistics
+
+Another advantage of using **dplyr** and `summarise()` is that you can return more advanced statistical summarises such as `median()`, `mean()`, `max()`, `min()`, `sd()` (standard deviation) and percentiles. 
+
+The syntax is the same - within the `summarise()` parentheses you provide the names of each new summary column followed by an equals sign and a statistical function to apply. Within the statistical function, give the column(s) to be operated on and any relevant arguments (e.g. `na.rm = TRUE` for most mathematical functions).
+
+You can also use `sum()` to return the number of rows that meet a logical criteria. The expression within is counted if it evaluates to `TRUE`. For example:
+
+* `sum(age_years < 18, na.rm = T)`
+* `sum(gender == "male", na.rm = T)`
+* `sum(response %in% c("Likely", "Very Likely"))`
+
+Below, `linelist` data are summarised to describe the days delay from symptom onset to hospital admission (column `days_onset_hosp`), by hospital.
+
+```{r, echo = T, eval = T}
+summary_table <- linelist %>%                                        # begin with linelist, save out as new object
+  group_by(hospital) %>%                                             # group all calculations by hospital
+  summarise(                                                         # only the below summary columns will be returned
+    cases       = n(),                                                # number of rows per group
+    delay_max   = max(days_onset_hosp, na.rm = T),                    # max delay
+    delay_mean  = round(mean(days_onset_hosp, na.rm = T), digits = 1),  # mean delay, rounded
+    delay_sd    = round(sd(days_onset_hosp, na.rm = T), digits = 1),  # standard deviation of delays, rounded
+    delay_3     = sum(days_onset_hosp >= 3, na.rm = T),               # number of rows with delay of 3 or more days
+    pct_delay_3 = scales::percent(delay_3 / cases)                    # convert previously-defined delay column to percent 
+  )
+
+summary_table  # print
+```
+
+Can you now summarise the median, min and max ages in `age` by `gender` in `linelist`? Remember to remove `NA` values!
+
+```{r dplyr_summarise, exercise = TRUE}
+  linelist %>%
+  
+```
+
+```{r dplyr_summarise-hint}
+Remember to drop NA values from 'gender' and to ignore NA values in the age column.
+```
+
+```{r dplyr_summarise-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r dplyr_summarise-solution}
+linelist %>%
+    group_by(gender) %>%
+    drop_na(gender) %>%
+    summarise(
+    median_age = median(age, na.rm = T),
+    min_age = min(age, na.rm = T),
+    max_age = max(age, na.rm = T),
+)
+```
+
+### Conditional statistics
+
+We may want to return _conditional statistics_, e.g. the maximum of rows that meet a certain criteria. This can be done by subsetting the column with a square bracket `[]`. The example below returns the maximum temperature for patients classified having or not having fever. Be aware however - it may be more appropriate to add another column to the `group_by()` command and `pivot_wider()`.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  group_by(hospital) %>% 
+  summarise(
+    max_temp_fvr = max(temp[fever == "yes"], na.rm = T),
+    max_temp_no = max(temp[fever == "no"], na.rm = T)
+  )
+```
+
+Can you now work out the proportion of people (in a column `prop_outcome_death`) who have the outcome of death by age category and gender?
+
+```{r dplyr_conditional_death, exercise = TRUE}
+  linelist %>%
+  
+```
+
+```{r dplyr_conditional_death-hint}
+You may have to use group_by() more than once, and count() as well as summarise()
+```
+
+```{r dplyr_conditional_death-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r dplyr_conditional_death-solution}
+linelist %>% 
+  group_by(age_cat, outcome) %>% 
+  count(outcome) %>%
+  group_by(age_cat) %>%
+  summarise(prop_outcome_death = sum(n[outcome == "Death"], na.rm = T)/sum(n, na.rm = T))
+```
+
+### Glueing together
+
+The function `str_glue()` from **stringr** is useful to combine values from several columns into one new column. In this context this is typically used after the `summarise()` command.
+
+In the Characters and strings page, various options for combining columns are discussed, including `unite()`, and `paste0()`. In this use case, we advocate for `str_glue()` because it is more flexible than `unite()` and has more simple syntax than `paste0()`.
+
+
+Below, the `summary_table` data frame (created above) is mutated such that columns `delay_mean` and `delay_sd` are combined, parentheses formating is added to the new column, and their respective old columns are removed.
+
+Then, to make the table more presentable, a total row is added with `adorn_totals()` from janitor (which ignores non-numeric columns). Lastly, we use `select()` from **dplyr** to both re-order and rename to nicer column names.
+
+```{r, echo = T, eval = T}
+summary_table %>% 
+  mutate(delay = str_glue("{delay_mean} ({delay_sd})")) %>%  # combine and format other values
+  select(-c(delay_mean, delay_sd)) %>%                       # remove two old columns   
+  adorn_totals(where = "row") %>%                            # add total row
+  select(                                                    # order and rename cols
+    "Hospital Name"   = hospital,
+    "Cases"           = cases,
+    "Max delay"       = delay_max,
+    "Mean (sd)"       = delay,
+    "Delay 3+ days"   = delay_3,
+    "% delay 3+ days" = pct_delay_3
+    )
+```
+
+### Percentiles
+
+Percentiles and quantiles in **dplyr** deserve a special mention. To return quantiles, use `quantile()` with the defaults or specify the value(s) you would like with `probs =`.
+
+```{r, echo = T, eval = T}
+# get default percentile values of age (0%, 25%, 50%, 75%, 100%)
+linelist %>% 
+  summarise(age_percentiles = quantile(age_years, na.rm = TRUE))
+```
+
+and if we wanted to use manually specified percentiles, and show them by hospital
+
+```{r, echo = T, eval = T}
+# get manually-specified percentile values of age (5%, 50%, 75%, 98%)
+linelist %>% 
+  group_by(hospital) %>% 
+  summarise(
+    p05 = quantile(age_years, probs = 0.05, na.rm=T),
+    p50 = quantile(age_years, probs = 0.5, na.rm=T),
+    p75 = quantile(age_years, probs = 0.75, na.rm=T),
+    p98 = quantile(age_years, probs = 0.98, na.rm=T)
+    )
+```
+
+### Summarise aggregated data
+
+
 
 
 
