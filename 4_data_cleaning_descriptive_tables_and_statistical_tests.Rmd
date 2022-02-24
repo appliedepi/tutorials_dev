@@ -27,6 +27,7 @@ library(epikit)
 library(linelist)
 library(lubridate)
 library(fastLink)
+library(gtsummary)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -850,10 +851,290 @@ linelist %>%
     )
 ```
 
+Can you use what you have learned above to do the following:
+
+1) Remove `NA` values from `outcome` and `age_cat` and group by these columns
+2) Summarise `wt_kg` to produce quantiles of 2.5%, 50% and 97.5% in columns called `p02.5`, `p50` and `p97.5`
+3) Use `str_glue()` to combine the columns as "p50 (p02.5 - p97.5)" and call this new column `wt_kg_quantile". This will display the median and 95% quantile values in a single column.
+
+```{r glue_quantile, exercise = TRUE}
+  linelist %>%
+  
+```
+
+```{r glue_quantile-hint}
+Remember to carry out the exercise in the order specified above. You have been through each of these steps individually, it is now time to combine them.
+```
+
+```{r glue_quantile-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r glue_quantile-solution}
+linelist %>%
+  drop_na(outcome, age_cat) %>%
+  group_by(outcome, age_cat) %>%
+  summarise(p02.5 = quantile(wt_kg, probs = 0.025, na.rm = T),
+            p50 = quantile(wt_kg, probs = 0.5, na.rm = T),
+            p97.5 = quantile(wt_kg, probs = 0.975, na.rm = T)) %>%
+  transmute(outcome,
+            age_cat,
+            wt_kg_quantile = str_glue("{p50} ({p02.5} - {p97.5})"))
+  
+```
+
 ### Summarise aggregated data
 
+If you begin with aggregated data, using `n()` return the number of rows, not the sum of the aggregated counts. To get sums, use `sum()` on the data’s counts column.
+
+For example, let’s say you are beginning with the data frame of counts below, called `linelist_agg` - it shows in “long” format the case counts by outcome and gender.
+
+```{r, echo = T, eval = T}
+linelist_agg <- linelist %>% 
+  drop_na(gender, outcome) %>% 
+  count(outcome, gender)
+
+linelist_agg
+```
+
+To sum the counts (in column `n`) by group you can use `summarise()` but set the new column equal to `sum(n, na.rm=T)`. To add a conditional element to the sum operation, you can use the subset bracket `[ ]` syntax on the counts column.
+
+```{r, echo = T, eval = T}
+linelist_agg %>% 
+  group_by(outcome) %>% 
+  summarise(
+    total_cases  = sum(n, na.rm=T),
+    male_cases   = sum(n[gender == "m"], na.rm=T),
+    female_cases = sum(n[gender == "f"], na.rm=T))
+```
+
+### `across()`
+
+You can use `summarise()` across multiple columns using `across()`. This makes life easier when you want to calculate the same statistics for many columns. Place `across()` within `summarise()` and specify the following:
+
+* `.cols` = as either a vector of column names `c()` or “tidyselect” helper functions
+* `.fns` = the function to perform (no parentheses) - you can provide multiple within a `list()`
+
+Below, `mean()` is applied to several numeric columns. A vector of columns are named explicitly to `.cols =` and a single function mean is specified (no parentheses) to `.fns =`. Any additional arguments for the function (e.g. `na.rm=TRUE`) are provided after `.fns =`, separated by a comma.
+
+It can be difficult to get the order of parentheses and commas correct when using `across()`. Remember that within `across()` you must include the columns, the functions, and any extra arguments needed for the functions.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  group_by(outcome) %>% 
+  summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm),  # columns
+                   .fns = mean,                               # function
+                   na.rm=T))                                  # extra arguments
+```
+
+You can also use multiple functions at once if you provide the argument to `.fns = ` within a `list()`. You can also provide character names which are appended in the new column names.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  group_by(outcome) %>% 
+  summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm), # columns
+                   .fns = list("mean" = mean, "sd" = sd),    # multiple functions 
+                   na.rm=T))                                 # extra arguments
+```
 
 
+Here are those “tidyselect” helper functions you can provide to `.cols =` to select columns:
+
+* `everything()` - all other columns not mentioned
+* `last_col()` - the last column
+* `where()` - applies a function to all columns and selects those which are `TRUE`
+* `starts_with()` - matches to a specified prefix. Example: `starts_with("date")`
+* `ends_with()` - matches to a specified suffix. Example: `ends_with("_end")`
+* `contains()` - columns containing a character string. Example: `contains("time")`
+* `matches()` - to apply a regular expression (regex). Example: `contains("[pt]al")`
+* `num_range()` -
+* `any_of()` - matches if column is named. Useful if the name might not exist. Example: `any_of(date_onset, date_death, cardiac_arrest)`
 
 
+```{r quiz12}
+quiz(
+  question("Which of these would select all numeric columns and take the mean?",
+           answer("across(.cols = where(is.numeric), .fns = list('mean' = mean), na.rm = T)", correct = T),
+           answer("across(.cols = contains(numeric), .fns = list('mean' = mean), na.rm = T)", correct = F),
+           answer("across(.cols = matches('numeric'), .fns = list('mean' = mean))"), correct = F),
+   question("Which of these would select all column names that contain 'date' and get the standard deviation and max value?",
+           answer("across(.cols = where(is.Date), .fns = list('mean' = mean), na.rm = T)", correct = F),
+           answer("across(.cols = contains('date'), .fns = list('mean' = mean, 'sd' = sd), na.rm = T)", correct = T),
+           answer("across(.cols = matches('date'), .fns = c('mean' = mean, 'sd' = sd))"), correct = F),
+  question("Which of these would select all column names that contain 'years' and get the min value?",
+           answer("across(.cols = contains('years'), .fns = list('min' = min), na.rm = T)", correct = T),
+           answer("across(.cols = matches('years'), .fns = list('min' = min), na.rm = T)", correct = T),
+           answer("across(.cols = any_of('years'), .fns = list('min' = min), na.rm = T)", correct = F),
+           )
+  )
+```
 
+Can you summarise `linelist` by `gender` in order to calculate the numer of deaths and recovered and then add on totals, proportions in each category (by column) and convert these to percentages?
+
+```{r linelist_adorn, exercise = TRUE}
+  linelist %>%
+  
+```
+
+```{r linelist_adorn-hint}
+Remember you can use the "adorn_" functions from the janitor package on dplyr (and any other) tables. Refer to the previous section if you need to be reminded of which "adorn_" functions to use
+```
+
+```{r linelist_adorn-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r linelist_adorn-solution}
+linelist %>% 
+  group_by(gender) %>%
+  summarise(
+    n_death  = sum(outcome == "Death", na.rm = T),
+    n_recover = sum(outcome == "Recover", na.rm = T),
+  ) %>% 
+  adorn_totals() %>% 
+  adorn_percentages("col") %>% 
+  adorn_pct_formatting()
+  
+```
+
+
+## **gtsummary** package
+
+If you want to print your summary statistics in a pretty, publication-ready graphic, you can use the **gtsummary** package and its function `tbl_summary()`. The code can seem complex at first, but the outputs look very nice and print to your RStudio Viewer panel as an HTML image.
+
+### Summary table
+
+The default behavior of `tbl_summary()` provides a summary of the columns included, outputting median and inter-quartile range (IQR) for numeric columns, and counts (%) for categorical columns. Missing values are converted to “Unknown”. Footnotes are added to the bottom to explain the statistics, while the total N is shown at the top.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  select(age_years, gender, outcome, fever, temp, hospital) %>%  # keep only the columns of interest
+  tbl_summary()                                                  # default
+```
+
+This summary table gives you a good overview of the columns of interest, however you are likely to want to make some adjustments
+
+### Adjustments
+
+Now we will explain how the function works and how to make adjustments. The key arguments are detailed below:
+
+* `by = ` -  You can stratify your table by a column (e.g. by outcome), creating a 2-way table.
+* `statistic = ` - Use an equations to specify which statistics to show and how to display them. There are two sides to the equation, separated by a tilde `~`
+  * The right side of the equation uses the syntax of `str_glue()` from **stringr** 
+  * For the left side of the equation, you can specify columns by name (e.g. `age` or c(`age`, `gender`)) or using helpers such as `all_continuous()`, `contains()`, `starts_with()`, etc.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  select(age_years) %>%                       # keep only columns of interest 
+  tbl_summary(                                # create summary table
+    statistic = age_years ~ "({min}, {max})") # print min and max of age
+```
+
+  * You can also differentiate syntax for separate columns or types of columns by providing them in a `list()`, e.g. 
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  select(age_years, gender, outcome, fever, temp, hospital) %>% # keep only columns of interest
+  tbl_summary(     
+    by = outcome,                                               # stratify entire table by outcome
+    statistic = list(all_continuous() ~ "{mean} ({sd})",        # stats and format for continuous columns
+                     all_categorical() ~ "{n} / {N} ({p}%)"),   # stats and format for categorical columns
+    digits = all_continuous() ~ 1,                              # rounding for continuous columns
+    type   = all_categorical() ~ "categorical",                 # force all categorical levels to display
+    label  = list(                                              # display labels for column names
+      outcome   ~ "Outcome",                           
+      age_years ~ "Age (years)",
+      gender    ~ "Gender",
+      temp      ~ "Temperature",
+      hospital  ~ "Hospital"),
+    missing_text = "Missing"                                    # how missing values should display
+  )
+```
+
+### Multi-line stats for continuous variables
+
+If you want to print multiple lines of statistics for continuous variables, you can indicate this by setting the `type =` to "continuous2". You can combine all of the previously shown elements in one table by choosing which statistics you want to show. To do this you need to tell the function that you want to get a table back by entering the type as "continuous2". The number of missing values is shown as "Unknown".
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  select(age_years, temp) %>%                      # keep only columns of interest
+  tbl_summary(                                     # create summary table
+    type = all_continuous() ~ "continuous2",       # indicate that you want to print multiple statistics 
+    statistic = all_continuous() ~ c(
+      "{mean} ({sd})",                             # line 1: mean and SD
+      "{median} ({p25}, {p75})",                   # line 2: median and IQR
+      "{min}, {max}")                              # line 3: min and max
+    )
+```
+
+Can you now produce a summary table of `outcome`, `age_cat`, `temp`, `wt_kg` where they are analysed by `gender`? For continuous values the output should be "median (min - max)" and for categorical values the percent in each category.
+
+```{r gtsummary_first, exercise = TRUE}
+  linelist %>%
+  
+```
+
+```{r gtsummary_first-hint}
+You will need to select the specified columns, and then treat continuous and categorical values differently
+```
+
+```{r gtsummary_first-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r gtsummary_first-solution}
+linelist %>%
+  select(gender, outcome, age_cat, temp, wt_kg) %>%
+  tbl_summary(by = gender,
+              statistic = list(all_continuous() ~ "{median} ({min} - {max})",
+                               all_categorical() ~ "{n} / {N} ({p}%)"))
+  
+```
+
+### **base** R
+
+You can use the function `table()` to tabulate and cross-tabulate columns. Unlike the options above, you must specify the dataframe each time you reference a column name, as shown below.
+
+CAUTION: `NA` (missing) values will not be tabulated unless you include the argument `useNA = "always"` (which could also be set to “no” or “ifany”).
+
+```{r, echo = T, eval = T}
+table(linelist$outcome, useNA = "always")
+```
+
+Multiple columns can be cross-tabulated by listing them one after the other, separated by commas. Optionally, you can assign each column a “name” like `Outcome = linelist$outcome`.
+
+```{r, echo = T, eval = T}
+age_by_outcome <- table(linelist$age_cat, linelist$outcome, useNA = "always") # save table as object
+age_by_outcome   # print table
+```
+
+### Proportions
+
+To return proportions, passing the above table to the function `prop.table()`. Use the margins = argument to specify whether you want the proportions to be of rows (1), of columns (2), or of the whole table (3). For clarity, we pipe the table to the round() function from **base** R, specifying 2 digits.
+
+```{r, echo = T, eval = T}
+# get proportions of table defined above, by rows, rounded
+prop.table(age_by_outcome, 1) %>% round(2)
+```
+
+to add row and columns total, pass the table to `addmargins()`.
+
+```{r, echo = T, eval = T}
+# get proportions of table defined above, by rows, rounded
+addmargins(age_by_outcome)
+```
