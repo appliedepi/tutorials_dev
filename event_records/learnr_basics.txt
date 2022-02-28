@@ -1417,3 +1417,4 @@ C:/Users/ah1114.DIDE/Documents/tutorials (v1.0); 2022-53-02/11/22 15:53:18 GMT; 
 C:/Users/ah1114.DIDE/Documents/tutorials (v1.0); 2022-53-02/11/22 15:53:18 GMT; ah1114; section_viewed_first_time; ; ; ; 
 C:/Users/ah1114.DIDE/Documents/tutorials (v1.0); 2022-53-02/11/22 15:53:18 GMT; ah1114; section_viewed; ; ; ; 
 C:/Users/ah1114.DIDE/Documents/tutorials (v1.0); 2022-53-02/11/22 15:53:18 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114.DIDE/Documents/tutorials (v1.0); 2022-40-02/11/22 16:40:48 GMT; ah1114; session_stop; ; ; ; 
