@@ -1,0 +1,1071 @@
+---
+title: "Data cleaning"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+description: >
+  Learn how to get started with R and RStudio, and how to import a dataset
+---
+
+<!-- Add JavaScript code for making the exercise code larger -->
+<script language="JavaScript" src="js/exercise-font-size.js"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+# load packages ----------------------------------------------------------------
+library(learnr)
+library(gradethis)
+library(tidyverse)
+library(here)
+library(janitor)
+library(rio)
+library(basket) # not sure if we need this
+library(etude) # helper functions for gradethis
+library(epikit)
+library(linelist)
+library(lubridate)
+library(fastLink)
+
+# set options for exercises and checking ---------------------------------------
+gradethis_setup()
+
+learnr::tutorial_options(exercise.timelimit = 60) 
+  #exercise.checker = gradethis::grade_learnr) 
+    # alternatively, submitr::null_code_checker
+
+
+# event recorder ---------------------------------------------------------------
+# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R
+tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises
+
+vfun <- submitr::make_basic_validator(NULL, "hello") #basket::check_valid
+
+new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
+    cat(
+      tutorial_id, 
+      " (v", tutorial_version, "); ",
+      format(Sys.time(), "%Y-%M%-%D %H:%M:%S %Z"), "; ",
+      user_id, "; ",
+      event, "; ",
+      data$label, "; ",
+      data$answers, "; ",
+      data$code, "; ",
+      data$correct, "\n", sep = "",
+      
+      file = here::here("event_records", "learnr_basics.txt"),
+      append = TRUE)
+}
+
+options(tutorial.event_recorder = new_recorder)
+
+
+# hide non-exercise code chunks ------------------------------------------------
+knitr::opts_chunk$set(echo = FALSE)
+
+
+# data prep --------------------------------------------------------------------
+linelist_raw <- rio::import(here::here("data", "linelist_raw.xlsx"))
+linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
+malaria_counts <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
+
+#Incorrectly assign class so we can clean later
+linelist_raw$age <- as.character(linelist_raw$age)
+linelist_raw$`date onset` <- as.character(linelist_raw$`date onset`)
+
+#Going to randomly convert some temperatures to Fahrenheit instead of celcius for an exercise later
+set.seed(1)
+take_these <- sample(1:nrow(linelist_raw), 500)
+
+linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32
+
+#Create some dummy df's for pivoting exercises
+df <- data.frame(id = c("A", "B", "C"),
+           obs1_date = c("2021-04-23", "2021-04-23", "2021-04-23"),
+           obs1_status = c("Healthy", "Healthy", "Missing"),
+           obs2_date = c("2021-04-24", "2021-04-24", "2021-04-24"),
+           obs2_status = c("Healthy", "Healthy", "Healthy"),
+           obs3_date = c("2021-04-25", "2021-04-25", "2021-04-25"),
+           obs3_status = c("Unwell", "Healthy", "Healthy"))
+
+fever_followup <- data.frame(patient = 1:10,
+                             observation1_date = Sys.Date() - 21,
+                        observation2_date = Sys.Date() - 14,
+                        observation3_date = Sys.Date() - 7,
+                        observation1_temp = sample(seq(35, 45, by = 0.1), 10, replace = T),
+                        observation2_temp = sample(seq(35, 45, by = 0.1), 10, replace = T),
+                        observation3_temp = sample(seq(35, 45, by = 0.1), 10, replace = T))
+
+fever_followup$observation1_fever <- ifelse(fever_followup$observation1_date < 38, "No fever",
+                              ifelse(fever_followup$observation1_date >= 38 & fever_followup$observation1_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation1_date >= 39.4, "High fever", NA)))
+fever_followup$observation2_fever <- ifelse(fever_followup$observation2_date < 38, "No fever",
+                              ifelse(fever_followup$observation2_date >= 38 & fever_followup$observation2_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation2_date >= 39.4, "High fever", NA)))
+fever_followup$observation3_fever <- ifelse(fever_followup$observation3_date < 38, "No fever",
+                              ifelse(fever_followup$observation3_date >= 38 & fever_followup$observation3_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation3_date >= 39.4, "High fever", NA)))
+
+
+fill_table_1 <- 
+  tibble::tribble(
+       ~Measurement, ~Facility, ~Cases,
+                  1,  "Hosp 1",     66,
+                  2,  "Hosp 1",     26,
+                  3,  "Hosp 1",      8,
+                  1,  "Hosp 2",     71,
+                  2,  "Hosp 2",     62,
+                  3,  "Hosp 2",     70,
+                  1,  "Hosp 3",     47,
+                  2,  "Hosp 3",     70,
+                  3,  "Hosp 3",     38,
+       )
+
+fill_table_2 <- 
+  tibble::tribble(
+    ~Year, ~Measurement, ~Facility, ~Cases,
+     2000,            1,  "Hosp 4",     82,
+     2001,            2,  "Hosp 4",     87,
+     2002,            3,  "Hosp 4",     46
+  )
+
+linelist_mini <- linelist %>%                 # start with original linelist
+  select(case_id, date_onset, hospital) %>%   # select columns
+  head(10)     
+
+# Make the hospital information dataframe
+hosp_info = data.frame(
+  hosp_name     = c("central hospital", "military", "military", "port", "St. Mark's", "ignace", "sisters"),
+  catchment_pop = c(1950280, 40500, 10000, 50280, 12000, 5000, 4200),
+  level         = c("Tertiary", "Secondary", "Primary", "Secondary", "Secondary", "Primary", "Primary")
+)
+
+#Make some ID's and dataframes to join for exercises
+patient_ID <- apply(sapply(1:10, function(x) sample(c(LETTERS, 0:9), 10, replace = T)), 2, paste0, collapse = "")
+
+
+patient_symptoms <- data.frame(patient_id = sample(patient_ID, 10),
+                  linelist %>%
+    select(fever:vomit) %>%
+    filter(row_number() %in% 1:10))
+
+patient_dates <- data.frame(id = patient_ID,
+                  linelist %>%
+    select(contains("date")) %>%
+    filter(row_number() %in% c(sample(which(is.na(linelist$date_onset)), 5),
+  sample(which(!is.na(linelist$date_onset)), 5))))
+
+#Probablistic matching
+
+# make datasets
+
+cases <- tribble(
+  ~gender, ~first,      ~middle,     ~last,        ~yr,   ~mon, ~day, ~district,
+  "M",     "Amir",      NA,          "Khan",       1989,  11,   22,   "River",
+  "M",     "Anthony",   "B.",        "Smith",      1970, 09, 19,      "River", 
+  "F",     "Marialisa", "Contreras", "Rodrigues",  1972, 04, 15,      "River",
+  "F",     "Elizabeth", "Casteel",   "Chase",      1954, 03, 03,      "City",
+  "M",     "Jose",      "Sanchez",   "Lopez",      1996, 01, 06,      "City",
+  "F",     "Cassidy",   "Jones",      "Davis",     1980, 07, 20,      "City",
+  "M",     "Michael",   "Murphy",     "O'Calaghan",1969, 04, 12,      "Rural", 
+  "M",     "Oliver",    "Laurent",    "De Bordow" , 1971, 02, 04,     "River",
+  "F",      "Blessing",  NA,          "Adebayo",   1955,  02, 14,     "Rural"
+)
+
+results <- tribble(
+  ~gender,  ~first,     ~middle,     ~last,          ~yr, ~mon, ~day, ~district, ~result,
+  "M",      "Amir",     NA,          "Khan",         1989, 11,   22,  "River", "positive",
+  "M",      "Tony",   "B",         "Smith",          1970, 09,   19,  "River", "positive",
+  "F",      "Maria",    "Contreras", "Rodriguez",    1972, 04,   15,  "Cty",   "negative",
+  "F",      "Betty",    "Castel",   "Chase",        1954,  03,   30,  "City",  "positive",
+  "F",      "Andrea",   NA,          "Kumaraswamy",  2001, 01,   05,  "Rural", "positive",      
+  "F",      "Caroline", NA,          "Wang",         1988, 12,   11,  "Rural", "negative",
+  "F",      "Trang",    NA,          "Nguyen",       1981, 06,   10,  "Rural", "positive",
+  "M",      "Olivier" , "Laurent",   "De Bordeaux",  NA,   NA,   NA,  "River", "positive",
+  "M",      "Mike",     "Murphy",    "O'Callaghan",  1969, 04,   12,  "Rural", "negative",
+  "F",      "Cassidy",  "Jones",     "Davis",        1980, 07,   02,  "City",  "positive",
+  "M",      "Mohammad", NA,          "Ali",          1942, 01,   17,  "City",  "negative",
+  NA,       "Jose",     "Sanchez",   "Lopez",        1995, 01,   06,  "City",  "negative",
+  "M",      "Abubakar", NA,          "Abullahi",     1960, 01,   01,  "River", "positive",
+  "F",      "Maria",    "Salinas",   "Contreras",    1955, 03,   03,  "River", "positive"
+  )
+
+
+cases_dup <- rbind(cases,
+                   data.frame(
+                     gender = c("M", "F"),
+           first = c("Tony", "Maria"),
+           middle = c("B.", "Contreras"),
+           last = c("Smith", "Rodriguez"),
+           yr = c(1970, 1972),
+           mon = c(9, 4),
+           day = c(19, 15),
+           district = c("River", "River"))
+           )
+
+#Create a  factor column
+linelist$source[is.na(linelist$source)] <- "missing"
+linelist$source <- factor(linelist$source)
+
+```
+
+
+```{r}
+submitr::login_controls() # show login and password with "Submit" button.
+```
+
+
+```{r context = "server", echo = FALSE}
+# see https://rdrr.io/github/dtkaplan/submitr/f/vignettes/using.Rmd
+options(tutorial.storage = "none")
+vfun <- submitr::make_basic_validator(NULL, "hello")       #basket::check_valid
+storage_actions <- submitr::record_local("./minimal_submissions.csv")
+submitr::shiny_logic(input, output, session, vfun,
+                     storage_actions)
+```
+
+
+
+
+## Introduction to R for Applied Epidemiology and Public Health
+### Data cleaning and core functions
+
+```{r appliedepi-banner, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "100%", fig.cap = ""}
+knitr::include_graphics("images/moz-banner.png")
+```
+
+
+### Welcome
+
+Welcome to the course "Introduction to R for applied epidemiologists", offered for free by [Applied Epi](www.appliedepi.org) - a non-profit organisation that offers open-source tools, training, and support to frontline public health practitioners.
+
+This interactive tutorial focuses on **cleaning of datasets often encountered by applied epidemiologists and public health practitioners**, such as outbreak linelists, surveillance, and laboratory data.  
+
+
+#### Target Audience  
+
+This course is designed with the following objectives: 
+
+* To be friendly to people who have never used a programming language before
+* To teach R emphasizing examples, datasets, and challenges commonly faced by applied epidemiologists
+* To be modular - so that you can skip to section most relevant to you
+
+If this is your first introduction to R programming, please consider first completing our [R Setup and Data Import tutorial], which introduces R, RStudio, R projects, R code syntax, and explains how to import a dataset into R.  
+
+
+
+#### Other languages
+This course is available...
+
+
+#### Offline / Online
+
+You can access this tutorial offline by downloading our R package ... 
+If viewing offline, you can view the videos by doing ...
+
+
+
+#### Learning goals
+
+In this tutorial you will learn and practice:  
+
+* Using the pipe operator (`%>%`) to pass the dataset from one cleaning function to another
+* The core **tidyverse** R functions used to reduce, clean, and modify dataframes  
+* How to manipulate dates in order to clean and translate between units of time (days/months/years) with the **lubridate** package
+* The use of descriptive analysis and summary statistics with the **janitor** package in order to summarize your data
+
+
+
+This tutorial adapts the [Data cleaning and core functions](https://epirhandbook.com/en/cleaning-data-and-core-functions.html) section of our free [ Epidemiologist R Handbook](https://epirhandbook.com/en/), which is available for use offline as well. 
+
+
+#### Data consent
+
+We continually improve these tutorials by collecting your entries and submitted answers to the quiz questions. By continuing, you consent to this collection and use.
+
+To continue anonymously... do XYZ.
+
+
+
+#### Who made this course  
+
+This course is designed by epidemiologists with decades of ground-level experience in outbreak response and local public health work. 
+
+
+```{r appliedepi-hexes, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "50%", fig.cap = ""}
+knitr::include_graphics("images/hex-sidebyside.png")
+```
+
+
+## Data used and directory structure
+
+In this tutorial we will use the following datasets. Please take a few minutes to review the structure and content of each dataset before continuing.
+
+Use the arrows on the right to scroll through hidden columns. Note that these are "raw" (messy) datasets that mimic problems commonly found in real-life epidemiological datasets.  
+
+
+### **A "linelist" of cases in a fictional (not real) Ebola outbreak**
+
+A "linelist" is a term used in applied epidemiology to refer to a table that contains key information about each case or suspect case in an outbreak. Each row represents one case, and the columns contain variables such as age, sex, date of symptom onset, outcomes, etc.
+
+This dataset contains `r nrow(linelist_raw)` rows and `r ncol(linelist_raw)` columns. Below are the first 5 rows:  
+
+```{r}
+head(linelist_raw)
+```
+
+Click to [download the **raw** dataset](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_raw.xlsx) for your own practice.
+
+Click to [download the **clean** dataset as an **.rds file**](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds) for your own practice. A *.rds file* is an R-specific file type that preserves column classes. This ensures you will have only minimal cleaning to do after importing the data into R.
+
+### **Aggregated data from malaria surveillance in a fictional country**  
+
+Aggregated data in epidemiology usually means a table of counts for each facility, or district, etc. Sometimes, the counts can also be per day, week, or month.  
+
+In this fictional dataset, each facility reported *daily* case counts of rapid-test (RDT)-confirmed malaria. Thus, each row represents the number of cases for a specific facility on a specific day.  
+
+This dataset contains `r nrow(malaria_counts)` rows and `r ncol(malaria_counts)` columns. Below are the first 5 rows:  
+
+```{r}
+head(malaria_counts)
+```
+
+
+Click to [download the **clean** malaria counts dataset as an **.rds file**](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_facility_count_data.rds) for your own practice. A *.rds file* is an R-specific file type that preserves column classes. This ensures you will have only minimal cleaning to do after importing the data into R.
+
+
+### Directory structure
+
+Photo or GIF of directory structure
+
+### Accessing example data
+Here is how to access the example data
+
+### Tidy Data
+
+We highly recommend doing our tutorial on Tidy Data in Applied Epidemiology. Collecting, formatting, and preparing your dataset *before* importing it into R is a critical step!
+LINK
+VIDEO TEASER
+
+
+
+
+## Install and Load R packages {#packages}
+
+To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis. 
+
+We've preloaded the below packages for now. Installation and loading of these packages is described on the EpiRHandbook [_Suggested Packages_](https://epirhandbook.com/en/suggested-packages-1.html) page. 
+
+
+In this assignment we'll work with X R packages, let's load them!
+
+```{r load-package, exercise = TRUE}
+pacman::p_load(___)
+```
+
+```{r load-package-hint}
+pacman::p_load(rio, here, janitor, tidyverse)
+
+```
+
+```{r load-package-check}
+grade_this_code("You are correct, the packages you need for this lesson are now loaded!")
+```
+
+```{r eval=FALSE}
+pacman::p_load(learnr, here, rio, janitor, tidyverse)
+```
+
+### Recommended R packages for public health
+
+See this Epi R Handbook LINK for our recommended packages.
+
+
+## Import data {#import} 
+https://www.epirhandbook.com/en/import-and-export.html
+Import that data and save it as "raw" file
+
+To import data from a sub-folder, the `import()` command should be modified so that it correctly tells R where to search for this file. This is done using the here() function. 
+
+```{r import-demo-subfolder, echo=T, eval=F}
+linelist_raw <- import(here("data", "linelist_raw.xlsx"))   # import data and save as named object
+```
+
+
+## Pivoting data
+
+When managing data, pivoting can be understood to refer to one of two processes:
+
+* The creation of pivot tables, which are tables of statistics that summarize the data of a more extensive table
+* The conversion of a table from *long* to *wide* format, or vice versa.
+
+Here we are focussing on the latter definition, with the former dealt with in the grouping data and descriptive tables sections.
+
+### Wide format
+
+Data are often entered and stored in a “wide” format - where a subject’s characteristics or responses are stored in a single row. While this may be useful for presentation, it is not ideal for some types of analysis.
+
+Let us take the `count_data` dataset imported in the Preparation section above as an example. You can see that each row represents a “facility-day”. The actual case counts (the right-most columns) are stored in a “wide” format such that the information for every age group on a given facility-day is stored in a single row.
+
+```{r, echo = F, eval = T}
+head(malaria_counts)
+```
+
+“Wide” data like this are not adhering to “tidy data” standards, because the column headers do not actually represent “variables” - they represent values of a hypothetical “age group” variable.
+
+This format can be useful for presenting the information in a table, or for entering data (e.g. in Excel) from case report forms. However, in the analysis stage, these data typically should be transformed to a “longer” format more aligned with “tidy data” standards. The plotting R package ggplot2 in particular works best when data are in a “long” format.
+
+Visualising the total malaria counts over time poses no difficulty with the data in it’s current format:
+
+```{r}
+ggplot(malaria_counts) +
+  geom_col(aes(x = data_date, y = malaria_tot), width = 1)
+```
+
+However, what if we wanted to display the relative contributions of each age group to this total count? In this case, we need to ensure that the variable of interest (age group), appears in the dataset in a single column that can be passed to **ggplot2**’s “mapping aesthetics” `aes()` argument.
+
+### `pivot_longer()`
+
+The **tidyr function** `pivot_longer()` makes data “longer”. It accepts a range of columns to transform (specified to `cols =`). Therefore, it can operate on only a part of a dataset. This is useful for the malaria data, as we only want to pivot the case count columns.
+
+In this process, you will end up with two “new” columns - one with the categories (the former column names), and one with the corresponding values (e.g. case counts). You can accept the default names for these new columns, or you can specify your own to `names_to =` and `values_to =` respectively.
+
+```{r, echo = T, eval = T}
+df_long <- malaria_counts %>% 
+  pivot_longer(
+    cols = c(`malaria_rdt_0-4`, `malaria_rdt_5-14`, `malaria_rdt_15`, `malaria_tot`) #These are the columns we want to move into rows
+  )
+df_long
+```
+
+We can also select these by position or named range
+
+```{r, echo = T, eval = T}
+# provide columns by position
+malaria_counts %>% 
+  pivot_longer(
+    cols = 6:9
+  )
+```
+
+```{r, echo = T, eval = T}
+malaria_counts %>% 
+  pivot_longer(
+    cols = `malaria_rdt_0-4`:malaria_tot
+  )
+```
+
+The two new columns are given the default names of `name` and `value` but we can specify our own names with the `names_to` and `values_to` arguments.
+
+```{r, echo = T, eval = T}
+df_long <- 
+  malaria_counts %>% 
+  pivot_longer(
+    cols = starts_with("malaria_"),
+    names_to = "age_group",
+    values_to = "counts"
+  )
+```
+
+```{r quiz9}
+quiz(
+  question("What is wide data format?",
+           answer("Where a column contains all of a subjects characteristics or responses"),
+           answer("Where a cell contains all of a subjects characteristics or responses"),
+           answer("Where a row contains all of a subjects characteristics or responses", correct = T)),
+  question("What is long data format?",
+           answer("Where a subjects characteristics or responses may be found on multiple rows", correct = T),
+           answer("Where a subjects characteristics or responses are only found on one row")),
+  question("Why would we convert data in the wide format to the long format?",
+           answer("It looks prettier"),
+           answer("It is better suited for carrying out analysis and plotting", correct = T),
+           answer("It makes the code run faster"))
+  )
+```
+
+Can you pivot `linelist` so that the columns fever, chills, cough, aches and vomit are brought into a new column called `symptom` and the values to `symptom_present`?
+
+```{r pivot_linelist, exercise = TRUE}
+
+```
+
+```{r pivot_linelist-hint}
+Remember you can use : to list consecutive columns!
+```
+
+```{r pivot_linelist-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "Great work, you're getting the hang of this")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r pivot_linelist-solution}
+linelist %>%
+    pivot_longer(cols = fever:vomit,
+                 values_to = "symptom_present",
+                 names_to = "symptom")
+```
+
+### Pivoting multiple classes of data
+
+The above example works well in situations in which all the columns you want to “pivot longer” are of the same class (character, numeric, logical…). However, there will be many cases when, you will be working with data that was prepared by non-specialists and which follow their own non-standard logic.
+
+One particularly common problem you will encounter will be the need to pivot columns that contain different classes of data. For example take the situation where you have a series of observations at different timesteps for three individuals, A, B and C.
+
+```{r, echo = F, eval = T}
+df
+```
+
+If you were to use `pivot_longer` as we had learned above, then it would combine the date and status columns into a single column of class character, removing the useful information held with the class Date.
+
+```{r, echo = T, eval = T}
+df_long_first <- df %>% 
+  pivot_longer(
+    cols = -id,
+    names_to = c("observation")
+  )
+
+class(df_long_first$value)
+```
+
+Instead, what we want to do is to maintain different columns for the different classes. We can do that through:
+
+* Providing a character vector to the `names_to =` argument with the second value being `".value"` where the `.` indicates the pivoted columns will be split based on a character in the name
+* Specifying the "splitting" character in the `names_sep = ` argument. Here the column names are "obs1_date" and "obs1_status" and so the splitting value is "_".
+
+```{r, echo = T, eval = T}
+df_long <- 
+  df %>% 
+  pivot_longer(
+    cols = -id,
+    names_to = c("observation", ".value"),
+    names_sep = "_"
+  )
+
+df_long
+```
+
+We have a dataset, `fever_followup` which records a patients temperature in columns `_temp` and the date in `_date` and the corresponding fever classification in `_fever` for 3 time points.
+
+```{r, echo = F}
+fever_followup
+```
+
+Can you convert the table from wide to long format, maintaining the three different classes (Date, numeric, character)?
+
+```{r fever_followup_long, exercise = TRUE}
+fever_followup_long <- fever_followup %>%
+  
+```
+
+```{r fever_followup_long-hint}
+This is very similar to the activity described above
+```
+
+```{r fever_followup_long-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r fever_followup_long-solution}
+fever_followup_long <- fever_followup %>% 
+  pivot_longer(
+    cols = -patient,
+    names_to = c("observation", ".value"),
+    names_sep = "_"
+  )
+```
+
+### Long to wide
+
+In some circumstances we may want to convert a dataset to a wider format. 
+
+A typical use-case is when we want to transform the results of an analysis into a format which is more digestible for the reader. Usually, this involves transforming a dataset in which information for one subject is are spread over multiple rows into a format in which that information is stored in a single row.
+
+Suppose that we want to know the counts of individuals in the different age groups, by gender:
+
+```{r, echo = T, eval = T}
+df_wide <- 
+  linelist %>% 
+  count(age_cat, gender)
+
+df_wide
+```
+
+This is ideal for plotting and running analysis on, but not great for displaying as a table. In order to do this we can use `pivot_wider()`. This follows a similar format as `pivot_longer()` except instead of using `_to`, it uses `_from`:
+
+* The column you wish to expand is specified with `id_cols`
+* The names for the new columns are specified with `names_from`
+* The values for the new columns are specified with `values_from`
+
+```{r, echo = T, eval = T}
+table_wide <- 
+  df_wide %>% 
+  pivot_wider(
+    id_cols = age_cat,      
+    names_from = gender,
+    values_from = n
+  )
+
+table_wide
+```
+
+## Fill
+
+In some situations after a `pivot()`, and more commonly after a `bind()`, we are left with gaps in some cells that we would like to fill.
+
+For example, take two datasets, each with observations for the measurement number, the name of the facility, and the case count at that time. However, the second dataset also has a variable Year.
+
+```{r, echo = F, eval = T}
+head(fill_table_1)
+```
+```{r, echo = F, eval = T}
+head(fill_table_2)
+```
+
+When we perform a `bind_rows()` to join the two datasets together, the Year variable is filled with `NA` for those rows where there was no prior information (i.e. the first dataset):
+
+```{r, echo = T, eval = T}
+df_combined <- 
+  bind_rows(fill_table_1, fill_table_2) %>% 
+  arrange(Measurement, Facility)
+
+df_combined
+```
+
+In this case, `Year` is a useful variable to include, particularly if we want to explore trends over time. Therefore, we use `fill()` to fill in those empty cells, by specifying the column to fill and the direction (*in this case up*):
+
+```{r, echo = T, eval = T}
+df_combined %>% 
+  fill(Year, .direction = "up")
+```
+
+## Joining data
+
+Often you will need to work with several sources of data in order to conduct epidemiological analysis or workflow. For instance, maybe you need to connect laboratory data to patient clinical outcomes, or Google mobility data to infectious disease trends, or even a dataset at one stage of analysis to a transformed version of itself.
+
+Here we will learn to:
+
+* Combine dataframes by common values in identifier columns
+* Combine dataframes based on _probabilistic_ matches between values
+* Expand a dataset by binding rows or columns from another dataframe
+
+We will use the following datasets:
+
+* `linelist_mini` - A “miniature” version of the case linelist, containing only the columns case_id, date_onset, and hospital, and only the first 10 rows
+* `hosp_info` - A separate dataframe named hosp_info, which contains more details about each hospital
+
+```{r, echo = T, eval = T}
+linelist_mini
+```
+
+```{r, echo = T, eval = T}
+hosp_info
+```
+Note that the name “Military Hospital” belongs to two different hospitals - one a primary level serving 10000 residents and the other a secondary level serving 50280 residents.
+
+### Identify differences
+
+As we need the values of `hosp_name` in `hosp_info` to match the column in `hospital` in `linelist_mini`, the first step is to identify differences. We can look at the unique names using **base** R function `unique()`.
+
+```{r, echo = T, eval = T}
+unique(linelist_mini$hospital)
+```
+
+```{r, echo = T, eval = T}
+unique(hosp_info$hosp_name)
+```
+
+You can see that while some of the hospitals exist in both dataframes, there are many differences in spelling. In order to join them, we should correct some of these spelling differences. In order to do so, we use some of the skills we learned earlier in the data cleaning sections.
+
+Can you clean `hosp_name` in the dataset `hosp_info` so that they match the names in `linelist_mini`?
+
+```{r hosp_info_clean, exercise = TRUE}
+hosp_info <- hosp_info %>% 
+  
+```
+
+```{r hosp_info_clean-hint}
+You can use such functions as replace() and case_when() to rename values within a column using mutate.
+```
+
+```{r hosp_info_clean-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail)
+  })
+```
+
+```{r hosp_info_clean-solution}
+hosp_info <- hosp_info %>% 
+  mutate(
+    hosp_name = case_when(
+      # criteria                         # new value
+      hosp_name == "military"          ~ "Military Hospital",
+      hosp_name == "port"              ~ "Port Hospital",
+      hosp_name == "St. Mark's"        ~ "St. Mark's Maternity Hospital (SMMH)",
+      hosp_name == "central hospital"  ~ "Central Hospital",
+      TRUE                             ~ hosp_name
+      )
+    )
+```
+
+###
+
+Prior to a join, it is often easiest to convert a column to all lowercase or all uppercase. If you need to convert all values in a column to UPPER or lower case, use mutate() and wrap the column with one of these functions from stringr such as `str_to_upper()`, `str_to_lower()`, `str_to_title()`.
+
+### **dplyr** joins
+
+The **dplyr** package has several functions to join dataframes, but they all follow a similar syntax. For example, here we will look at `left_join()` where we want to match datasets by the column `ID` in dataset_1, and `identifier` in dataset_2.
+
+```{r, echo = T, eval = F}
+
+joined_data <- left_join(
+  dataset_1, # The first dataset
+  dataset_2, # The second dataset
+  #The column to match in the first dataset = The column to match in the second dataset
+  by = c("ID" = "identifier") 
+)
+
+```
+
+If the datasets have the same identifier column name, then you can just provide one name.
+
+```{r, echo = T, eval = F}
+
+joined_data <- left_join(
+  dataset_1, # The first dataset
+  dataset_2, # The second dataset
+  #The column to match in the first dataset = The column to match in the second dataset
+  by = "ID" 
+)
+
+```
+
+If you do not have an identifier column, you can join datasets based on common values across multiple fields listed within a vector (`c()`)
+
+### Left and right joins
+
+A left or right join is commonly used to add information to a dataframe - new information is added only to rows that already existed in the baseline dataframe. These are common joins in epidemiological work as they are used to add information from one dataset into another.
+
+In using these joins, the written order of the dataframes in the command is important*.
+
+* In a left join, the first dataframe written is the baseline
+* In a right join, the second dataframe written is the baseline
+
+All rows of the baseline dataframe are kept. Information in the other (secondary) dataframe is joined to the baseline dataframe only if there is a match via the identifier column(s). In addition:
+
+* Rows in the secondary dataframe that do not match are dropped.
+* If there are many baseline rows that match to one row in the secondary dataframe (many-to-one), the secondary information is added to each matching baseline row.
+* If a baseline row matches to multiple rows in the secondary dataframe (one-to-many), all combinations are given, meaning new rows may be added to your returned dataframe!
+
+With these rules in mind, and the prior example, can you join `hosp_info` to `linelist_mini` (where `linelist_mini` is the baseline) in a pipe chain?
+
+```{r left_join_first, exercise = TRUE}
+  
+```
+
+```{r left_join_first-hint}
+Because we want linelist_mini as the baseline, it should be listed first. Additionally, remember that the id column in linelist_mini is "hospital" and in hosp_ifno it is "hosp_name"
+
+```
+
+```{r left_join_first-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "Excellent, now the names are aligned it will be much easier to combine them")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r left_join_first-solution}
+linelist_mini %>% 
+  left_join(hosp_info, by = c("hospital" = "hosp_name"))
+```
+
+### `full_join()`
+
+*`full_join()` is the most inclusive of joins* it returns *all* rows from both dataframes.
+
+If there are any rows present in one but not identified in the other then it will fill in missing values with `NA`. For example:
+
+```{r, echo = T, eval = T}
+linelist_mini %>% 
+  full_join(hosp_info, by = c("hospital" = "hosp_name"))
+```
+
+You can see that hospitals found in `hosp_info` but not in `linelist_mini` have NA values filled in for `case_id` and `date_onset` from `linelist_mini` as it can not match them.
+
+### `inner_join()`
+
+*`inner_join()` is the least inclusive of all joins* it returns *only* rows with matches across both dataframes. This means you may lose rows from your baseline dataset if it cannot match them. For example:
+
+```{r, echo = T, eval = T}
+linelist_mini %>% 
+  inner_join(hosp_info, by = c("hospital" = "hosp_name"))
+```
+
+### `semi_join()`
+
+*`semi_join()` keeps all observations in the baseline dataframe that have a match in the secondary dataframe* but *does not* include any new columns nor duplicate any rows for multiple matches.
+
+```{r, echo = T, eval = T}
+linelist_mini %>% 
+  semi_join(hosp_info, by = c("hospital" = "hosp_name"))
+```
+
+### `anti_join`
+
+*`anti_join i`s another “filtering join” that returns rows in the baseline dataframe that do not have a match in the secondary dataframe.*
+
+```{r, echo = T, eval = T}
+linelist_mini %>% 
+  anti_join(hosp_info, by = c("hospital" = "hosp_name"))
+```
+
+```{r quiz10}
+quiz(
+  question("Which of these joins would class df1 as the baseline?",
+           answer("left_join(df1, df2, by = 'ID')", correct = T),
+           answer("right_join(df2, df1, by = 'ID')", correct = T),
+           answer("left_join(df2, df1, by = 'ID')"), correct = F),
+   question("Which of these would return only the rows found in df1?",
+           answer("inner_join(df1, df2, by = 'ID')", correct = T),
+           answer("full_join(df1, df2, by = 'ID')"),
+           answer("left_join(df1, df2, by = 'ID')")),
+  question("Which of these would fill in columns that didn't match with NA values?",
+           answer("full_join(df1, df2, by = 'ID')", correct = T),
+           answer("semi_join(df1, df2, by = 'ID')"),
+           answer("anti_join(df1, df2, by = 'ID')"))
+  )
+```
+
+You have the following datasets, `patient_symptoms` and `patient_dates`:
+
+```{r, eval = T, echo = T}
+head(patient_symptoms)
+```
+
+```{r, eval = T, echo = T}
+head(patient_dates)
+```
+
+Can you clean and join them so that we only include rows that have a non `NA` value in `date_onset`?
+
+```{r join_ditch_NA, exercise = TRUE}
+  
+```
+
+```{r join_ditch_NA-hint}
+You can remove the NA values before joining by using drop_na(). Remember that the columns to match have different names.
+
+```
+
+```{r join_ditch_NA-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r join_ditch_NA-solution}
+patient_dates %>%
+    drop_na(date_onset) %>%
+    left_join(patient_symptoms, by = c("id" = "patient_id"))
+```
+
+## Probabalistic matching
+
+If you do not have a unique identifier common across datasets to join on, consider using a probabilistic matching algorithm. This would find matches between records based on similarity (e.g. Jaro–Winkler string distance, or numeric distance). Here we have two datasets that are not matched, but contain several values that could their combined presence could be unique, and so an identifier.
+
+```{r, eval = T, echo = T}
+cases
+```
+
+```{r, eval = T, echo = T}
+results
+```
+
+The `fastLink()` function from the **fastLink** package can be used to apply a matching algorithm. Here is the basic information. You can read more detail by entering `?fastLink` in your console.
+
+`fastLink()` works by specifying columns to match, using the argument `varnames = ` to list all columns to match, and then the columns which are to be matched using "string distance" (character columns) using `stringdist.match = ` and those to be evaluated using "numeric distance" with `numeric.match = `. 
+
+The argument `threshold.match` specifies the threshold for matching, at a default of 0.94. You may adjust this up or down, but consider that higher thresholds could yield more false-negatives (rows that do not match which actually should match) and likewise a lower threshold could yield more false-positive matches.
+
+```{r, eval = T, echo = T}
+fl_output <- fastLink::fastLink(
+  dfA = cases,
+  dfB = results,
+  varnames = c("gender", "first", "middle", "last", "yr", "mon", "day", "district"),
+  stringdist.match = c("first", "middle", "last", "district"),
+  numeric.match = c("yr", "mon", "day"),
+  threshold.match = 0.94)
+
+my_matches <- fl_output$matches
+
+```
+
+This has matched the rows of the two disparate datasets despite a lack of a unique ID. Additionally, it has done this despite slight differences in spelling names and dates of birth
+
+* “Tony B. Smith” matched to “Anthony B Smith”
+* “Maria Rodriguez” matched to “Marialisa Rodrigues”
+* “Betty Chase” matched to “Elizabeth Chase”
+* “Olivier Laurent De Bordeaux” matched to “Oliver Laurent De Bordow” (missing date of birth ignored)
+
+One row from cases (for “Blessing Adebayo”, row 9) had no good match in results, so it is not present in my_matches.
+
+Now to join these we need to add in a column "rowname", and then use one of the **dplyr** join functions.
+
+```{r, eval = T, echo = T}
+
+#In order to join the datasets, we need to make sure the id columns are the same class. This is done by converting everything to character
+cases_clean <- cases %>% 
+  rownames_to_column() %>%
+  mutate(rowname = as.character(rowname)) 
+
+results_clean <- results %>% 
+  rownames_to_column() %>%
+  mutate(rowname = as.character(rowname))
+
+# convert all columns in matches dataset to character, so they can be joined to the rownames
+matches_clean <- my_matches %>%
+  mutate(across(everything(), as.character))
+
+# Join matches to dfA, then add dfB
+###################################
+# column "inds.b" is added to dfA
+complete <- left_join(cases_clean, matches_clean, by = c("rowname" = "inds.a"))
+
+# column(s) from dfB are added 
+complete <- left_join(complete, results_clean, by = c("inds.b" = "rowname"))
+
+complete
+
+```
+
+### Probabilistic deduplication
+
+We can also use `fastLink()` for probablistic deduplication.
+
+Here we have the dataset `cases_dup` which contains the same information as cases above, but additionally has two rows that _could_ be duplicates of previous rows. See the last 2 rows for "Tony" with "Anthony" and "Marialisa Rodrigues" with "Maria Rodriguez".
+
+```{r, echo = F, eval = T}
+cases_dup
+```
+
+To deduplicate we compare `cases_dup` to itself and do not need to specify stringdist.match = or numeric.match = as we did previously. After this we use `getMatches()` to get the results. 
+
+```{r, echo = T, eval = T}
+## Run fastLink on the same dataset
+dedupe_output <- fastLink(
+  dfA = cases_dup,
+  dfB = cases_dup,
+  varnames = c("gender", "first", "middle", "last", "yr", "mon", "day", "district")
+)
+
+cases_dedupe  <- getMatches(dfA = cases_dup,  
+           dfB = cases_dup,
+           fl.out = dedupe_output)
+
+```
+
+See the right-most column, which indicates the duplicate IDs - the final two rows are identified as being likely duplicates of rows 2 and 3.
+
+To return the row numbers of rows which are likely duplicates, you can count the number of rows per unique value in the `dedupe.ids` column, and then filter to keep only those with more than one row. In this case this leaves rows 2 and 3.
+
+To then remove these duplicated columns we simply filter rows.
+
+```{r, echo = T, eval = T}
+cases_dedupe %>%
+    distinct(dedupe.ids, .keep_all = TRUE) #Distinct removes duplicated values in the column dedupe.ids and ".keep_all = TRUE" means we keep all the columns and not just dedupe.ids
+```
+
+## Binding and aligning
+
+Another method of combining dataframes is "binding" them together, you can also think of this as "appending" or "adding" rows or columns.
+
+### Bind rows
+
+There are several ways of binding rows in R, however we will focus on **dplyr**'s `bind_rows()`. This function is very flexible, with numerous functionalities such as:
+
+* It doesn't require us to match the order of columns (unlike **base** R's `row.bind()`)
+* You can optionally specify the argument `.id = ` to create a character column name to identify which dataframe the new row came from
+* You can use `bind_rows()` on a `list` of similarly structured dataframes to combine them. This is especially useful when you are useing loops
+
+One common example of row binding is to bind a “total” row onto a descriptive table made with **dplyr**’s `summarize()` function. Below we create a table of case counts and median CT values by hospital with a total row.
+
+The function `summarize()` is used on data grouped by hospital to return a summary dataframe by hospital. But the function `summarize()` does not automatically produce a “totals” row, so we create it by summarising the data again, but with the data not grouped by hospital. This produces a second dataframe of just one row. We can then bind these dataframes together to achieve the final table.
+
+```{r, echo = T, eval = T}
+
+# Create core table
+###################
+hosp_summary <- linelist %>% 
+  group_by(hospital) %>%                        # Group data by hospital
+  summarize(                                    # Create new summary columns of indicators of interest
+    cases = n(),                                  # Number of rows per hospital-outcome group     
+    ct_value_med = median(ct_blood, na.rm=T))     # median CT value per group
+
+```
+
+Create a dataframe with the “total” statistics (not grouped by hospital). This will return just one row.
+```{r, echo = T, eval = T}
+# create totals
+###############
+totals <- linelist %>% 
+  summarize(
+    cases = n(),                               # Number of rows for whole dataset     
+    ct_value_med = median(ct_blood, na.rm=T))  # Median CT for whole dataset
+```
+
+and now we can combine them using `bind_rows()`
+
+```{r, echo = T, eval = T}
+bind_rows(hosp_summary, totals)
+
+```
+
+## Binding columns
+
+**dplyr** has the function `bind_cols()` which allows us to combine two dataframes sideways. Note these are joined by *position* and so, for instance, the 10th row of dataframe A and the 10th row of dataframe B are aligned. 
+
+```{r, echo = T, eval = F}
+#Create the first dataframe
+case_info <- linelist %>% 
+  group_by(hospital) %>% 
+  summarize(
+    cases = n(),
+    deaths = sum(outcome == "Death", na.rm=T)
+  )
+
+#Create a second dataframe of follow up information
+contact_followup <- data.frame(
+  hospital = c("St. Mark's Maternity Hospital (SMMH)", "Military Hospital", "Missing", "Central Hospital", "Port Hospital", "Other"),
+  investigated = c("80%", "82%", NA, "78%", "64%", "55%"),
+  per_fu = c("60%", "25%", NA, "20%", "75%", "80%")
+)
+
+#The values in case_info$hospital do not equal the values in contact_followup$hospital, and so they are not in the correct order and need to be reordered
+contact_followup_aligned <- contact_followup[match(case_info$hospital, contact_followup$hospital),] #We can use this to match the order of contact_followup with case_info for the column hospital
+
+bind_cols(case_info, contact_followup)
+
+```
+
+In most circumstances, especially where dataframes may be in a different order or unequal in size, you should use a `join` function rather than `bind_cols()` to avoid incorrect matching.
+
+
+

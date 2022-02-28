@@ -24,6 +24,9 @@ library(rio)
 library(basket) # not sure if we need this
 library(etude) # helper functions for gradethis
 library(epikit)
+library(linelist)
+library(lubridate)
+library(fastLink)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -77,6 +80,133 @@ take_these <- sample(1:nrow(linelist_raw), 500)
 
 linelist_raw$temp[take_these] <- (linelist_raw$temp[take_these] * 9/5) + 32
 
+#Create some dummy df's for pivoting exercises
+df <- data.frame(id = c("A", "B", "C"),
+           obs1_date = c("2021-04-23", "2021-04-23", "2021-04-23"),
+           obs1_status = c("Healthy", "Healthy", "Missing"),
+           obs2_date = c("2021-04-24", "2021-04-24", "2021-04-24"),
+           obs2_status = c("Healthy", "Healthy", "Healthy"),
+           obs3_date = c("2021-04-25", "2021-04-25", "2021-04-25"),
+           obs3_status = c("Unwell", "Healthy", "Healthy"))
+
+fever_followup <- data.frame(patient = 1:10,
+                             observation1_date = Sys.Date() - 21,
+                        observation2_date = Sys.Date() - 14,
+                        observation3_date = Sys.Date() - 7,
+                        observation1_temp = sample(seq(35, 45, by = 0.1), 10, replace = T),
+                        observation2_temp = sample(seq(35, 45, by = 0.1), 10, replace = T),
+                        observation3_temp = sample(seq(35, 45, by = 0.1), 10, replace = T))
+
+fever_followup$observation1_fever <- ifelse(fever_followup$observation1_date < 38, "No fever",
+                              ifelse(fever_followup$observation1_date >= 38 & fever_followup$observation1_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation1_date >= 39.4, "High fever", NA)))
+fever_followup$observation2_fever <- ifelse(fever_followup$observation2_date < 38, "No fever",
+                              ifelse(fever_followup$observation2_date >= 38 & fever_followup$observation2_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation2_date >= 39.4, "High fever", NA)))
+fever_followup$observation3_fever <- ifelse(fever_followup$observation3_date < 38, "No fever",
+                              ifelse(fever_followup$observation3_date >= 38 & fever_followup$observation3_date< 39.4, "Mild fever",
+                                     ifelse(fever_followup$observation3_date >= 39.4, "High fever", NA)))
+
+
+fill_table_1 <- 
+  tibble::tribble(
+       ~Measurement, ~Facility, ~Cases,
+                  1,  "Hosp 1",     66,
+                  2,  "Hosp 1",     26,
+                  3,  "Hosp 1",      8,
+                  1,  "Hosp 2",     71,
+                  2,  "Hosp 2",     62,
+                  3,  "Hosp 2",     70,
+                  1,  "Hosp 3",     47,
+                  2,  "Hosp 3",     70,
+                  3,  "Hosp 3",     38,
+       )
+
+fill_table_2 <- 
+  tibble::tribble(
+    ~Year, ~Measurement, ~Facility, ~Cases,
+     2000,            1,  "Hosp 4",     82,
+     2001,            2,  "Hosp 4",     87,
+     2002,            3,  "Hosp 4",     46
+  )
+
+linelist_mini <- linelist %>%                 # start with original linelist
+  select(case_id, date_onset, hospital) %>%   # select columns
+  head(10)     
+
+# Make the hospital information dataframe
+hosp_info = data.frame(
+  hosp_name     = c("central hospital", "military", "military", "port", "St. Mark's", "ignace", "sisters"),
+  catchment_pop = c(1950280, 40500, 10000, 50280, 12000, 5000, 4200),
+  level         = c("Tertiary", "Secondary", "Primary", "Secondary", "Secondary", "Primary", "Primary")
+)
+
+#Make some ID's and dataframes to join for exercises
+patient_ID <- apply(sapply(1:10, function(x) sample(c(LETTERS, 0:9), 10, replace = T)), 2, paste0, collapse = "")
+
+
+patient_symptoms <- data.frame(patient_id = sample(patient_ID, 10),
+                  linelist %>%
+    select(fever:vomit) %>%
+    filter(row_number() %in% 1:10))
+
+patient_dates <- data.frame(id = patient_ID,
+                  linelist %>%
+    select(contains("date")) %>%
+    filter(row_number() %in% c(sample(which(is.na(linelist$date_onset)), 5),
+  sample(which(!is.na(linelist$date_onset)), 5))))
+
+#Probablistic matching
+
+# make datasets
+
+cases <- tribble(
+  ~gender, ~first,      ~middle,     ~last,        ~yr,   ~mon, ~day, ~district,
+  "M",     "Amir",      NA,          "Khan",       1989,  11,   22,   "River",
+  "M",     "Anthony",   "B.",        "Smith",      1970, 09, 19,      "River", 
+  "F",     "Marialisa", "Contreras", "Rodrigues",  1972, 04, 15,      "River",
+  "F",     "Elizabeth", "Casteel",   "Chase",      1954, 03, 03,      "City",
+  "M",     "Jose",      "Sanchez",   "Lopez",      1996, 01, 06,      "City",
+  "F",     "Cassidy",   "Jones",      "Davis",     1980, 07, 20,      "City",
+  "M",     "Michael",   "Murphy",     "O'Calaghan",1969, 04, 12,      "Rural", 
+  "M",     "Oliver",    "Laurent",    "De Bordow" , 1971, 02, 04,     "River",
+  "F",      "Blessing",  NA,          "Adebayo",   1955,  02, 14,     "Rural"
+)
+
+results <- tribble(
+  ~gender,  ~first,     ~middle,     ~last,          ~yr, ~mon, ~day, ~district, ~result,
+  "M",      "Amir",     NA,          "Khan",         1989, 11,   22,  "River", "positive",
+  "M",      "Tony",   "B",         "Smith",          1970, 09,   19,  "River", "positive",
+  "F",      "Maria",    "Contreras", "Rodriguez",    1972, 04,   15,  "Cty",   "negative",
+  "F",      "Betty",    "Castel",   "Chase",        1954,  03,   30,  "City",  "positive",
+  "F",      "Andrea",   NA,          "Kumaraswamy",  2001, 01,   05,  "Rural", "positive",      
+  "F",      "Caroline", NA,          "Wang",         1988, 12,   11,  "Rural", "negative",
+  "F",      "Trang",    NA,          "Nguyen",       1981, 06,   10,  "Rural", "positive",
+  "M",      "Olivier" , "Laurent",   "De Bordeaux",  NA,   NA,   NA,  "River", "positive",
+  "M",      "Mike",     "Murphy",    "O'Callaghan",  1969, 04,   12,  "Rural", "negative",
+  "F",      "Cassidy",  "Jones",     "Davis",        1980, 07,   02,  "City",  "positive",
+  "M",      "Mohammad", NA,          "Ali",          1942, 01,   17,  "City",  "negative",
+  NA,       "Jose",     "Sanchez",   "Lopez",        1995, 01,   06,  "City",  "negative",
+  "M",      "Abubakar", NA,          "Abullahi",     1960, 01,   01,  "River", "positive",
+  "F",      "Maria",    "Salinas",   "Contreras",    1955, 03,   03,  "River", "positive"
+  )
+
+
+cases_dup <- rbind(cases,
+                   data.frame(
+                     gender = c("M", "F"),
+           first = c("Tony", "Maria"),
+           middle = c("B.", "Contreras"),
+           last = c("Smith", "Rodriguez"),
+           yr = c(1970, 1972),
+           mon = c(9, 4),
+           day = c(19, 15),
+           district = c("River", "River"))
+           )
+
+#Create a  factor column
+linelist$source[is.na(linelist$source)] <- "missing"
+linelist$source <- factor(linelist$source)
 
 ```
 
@@ -141,9 +271,9 @@ If viewing offline, you can view the videos by doing ...
 In this tutorial you will learn and practice:  
 
 * Using the pipe operator (`%>%`) to pass the dataset from one cleaning function to another
-* The core **tidyverse** R functions used to reduce, clean, and modify data frames  
+* The core **tidyverse** R functions used to reduce, clean, and modify dataframes  
 * How to manipulate dates in order to clean and translate between units of time (days/months/years) with the **lubridate** package
-* The use of descriptive analysis and summary statistics with the **janitor** package in order to summarise your data
+* The use of descriptive analysis and summary statistics with the **janitor** package in order to summarize your data
 
 
 
@@ -175,7 +305,7 @@ In this tutorial we will use the following datasets. Please take a few minutes t
 Use the arrows on the right to scroll through hidden columns. Note that these are "raw" (messy) datasets that mimic problems commonly found in real-life epidemiological datasets.  
 
 
-### **A "linelist" of cases in a fictional (not real) Ebola outbreak***
+### **A "linelist" of cases in a fictional (not real) Ebola outbreak**
 
 A "linelist" is a term used in applied epidemiology to refer to a table that contains key information about each case or suspect case in an outbreak. Each row represents one case, and the columns contain variables such as age, sex, date of symptom onset, outcomes, etc.
 
@@ -269,7 +399,7 @@ A pipe chain refers to the use of the "pipe" operator `%>%` to chain together op
 
 This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator `%>%` as telling the computer "and then" between your operational commands. The order of this pipeline is important as operations occur sequentially, and so improperly ordered arguments may fail or (potentially more dangerously!) give incorrect values or unwanted outcomes.
 
-Can you connect the following commands from the **janitor** package (`clean_names`, `select(contains("date_"))` and `names()` to clean the dataset `linelist_raw` and display the names of any columns that contain "_date"?
+Can you connect the following commands from the **janitor** package (`clean_names()`, `select(contains("date_"))` and `names()` to clean the dataset `linelist_raw` and display the names of any columns that contain "_date"?
 
 ```{r pipe_linelist, exercise = TRUE}
 linelist_raw %>%
@@ -283,24 +413,22 @@ linelist_raw %>%
 ```
 
 ```{r pipe_linelist-check}
-grade_result(
-  pass_if(~ identical(.result, linelist_raw %>%
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r pipe_linelist-solution}
+linelist_raw %>%
     clean_names() %>%
     select(contains("date_")) %>%
-    names() ), "You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!")
-)
+    names() 
 ```
 
-
-```{r eval = FALSE}
-linelist_raw %>%                              #Define the dataset, and then
-         clean_names() %>%                    #clean the dataset columns, and then
-         select(contains("date_")) %>%        #Select columns where their name contains "date_", and then
-         names()                              #Display the column names
-
-```
-
-If the order of cleaning and selecting columns had not been correct, then you would have missed the column "date_onset" as in the raw linelist it was called "date onset". 
+If the order of cleaning and selecting columns had not been correct, then you would have missed the column `date_onset` as in the raw linelist it was called `"date onset"`. 
 
 This was a very simple example giving you a first taste of pipe operators and cleaning functions, as we progress through the chapter you will gain more familiarity with the functions available and how to use them in increasingly complex examples.
 
@@ -313,7 +441,7 @@ As we call column names often, it is helpful to have a "clean" syntax. We sugges
 *   Short
 *   No spaces (replace with underscores)
 *   No unusual characters (&, #, <, >, ...)
-*   Similar style nomenclature (e.g. all date columns named like "**date_**"onset, "**date_**"report, "**date_**"death, ...)
+*   Similar style nomenclature (e.g. all date columns named like **date_**onset, **date_**report, **date_**death, ...)
 
 These are often not what real, raw, data and linelists look like, luckily R has a set of very handy and easy to use tools to clean and standardize column names.
 
@@ -348,7 +476,7 @@ linelist_raw %>%                              #Define the dataset, and then
 
 You can see that this has done a lot of the work for us, replacing spaces with "_", and ensuring there are no unusual characters. However, if we want to standardize the entire dataset to the "clean syntax" described previously, we will have to include additional cleaning stages.
 
-For example, if we wanted to use a similar style nomenclature such as "**date_**", then we would have to carry out additional steps to the columns "infection_date", "hosp_date", "date_of_outcome".
+For example, if we wanted to use a similar style nomenclature such as **date_**, then we would have to carry out additional steps to the columns `infection_date`, `hosp_date`, `date_of_outcome`.
 
 ### Manual name cleaning
 
@@ -401,7 +529,7 @@ linelist_raw %>%
 
 ```
 
-As you can see, this has subset to the columns with the original names of `'infection date'` and `'hosp date'` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within ' ' as R does not like spaces in column names.
+As you can see, this has subset to the columns with the original names of `infection date` and `hosp date` and renamed them. Note, because of the spaces in the names of the dataset we need to put the column name within ' ' as R does not like spaces in column names.
 
 `select()` can be used without renaming in order to subset a dataset to the columns you are interested in.
 
@@ -431,22 +559,19 @@ Remember the order of your pipe chain is important.
 ```
 
 ```{r clean_rename_select-check}
-grade_result(
-  pass_if(~ identical(.result, linelist_raw %>%
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message =  "Excellent, you have cleaned the dataset and subset to the columns you want")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r clean_rename_select-solution}
+linelist_raw %>%
          clean_names() %>%
          rename(date_infection = infection_date,
                 date_outcome = date_of_outcome) %>%
-         select(case_id, date_infection, date_outcome) %>%
-         head()), "Excellent, you have cleaned the dataset and subset to the columns you want")
-)
-```
-
-```{r eval = FALSE}
-linelist_raw %>%                                        #Define the dataset, and then
-         clean_names() %>%                              #clean the dataset columns, and then
-                #New name   Old name
-         rename(date_infection = infection_date,
-                date_outcome = date_of_outcome) %>%     #rename the select columns, and then
          select(case_id, date_infection, date_outcome) %>%
          head()
 ```
@@ -457,7 +582,7 @@ Rather than manually typing these out, and especially if we have a cleaned datas
 
 ### Tidyselect helper functions
 
-Tidyselect helper functions are functions that work within **dplyr** functions such as `select()`, `across()` or `summarise()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
+Tidyselect helper functions are functions that work within **dplyr** functions such as `select()`, `across()` or `summarize()`. These offer convenient shortcuts for selecting subsets of columns that match specified criteria:
 
 * `everything()` - all othecolumns not mentioned
 * `last_col()` - the last column
@@ -472,7 +597,7 @@ Tidyselect helper functions are functions that work within **dplyr** functions s
   * example: `select(ends_with("_post"))`
 * `matches()` - to apply a regulaexpression (regex)
   * example: `select(matches("[pt]al))`
-  * Regulaexpression (regex) refers to a sequence of characters that specifies a search pattern in text. If you are unfamiliawith regex, then there some aspects may seem non-intuitive, foa good introduction to the use of regex please see https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html.
+  * Regular expression (regex) refers to a sequence of characters that specifies a search pattern in text. If you are unfamiliawith regex, then there some aspects may seem non-intuitive, foa good introduction to the use of regex please see https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html.
 * `num_range()` - a numerical range
   * example: `select(num_range("week", 1:5))`
 * `any_of()` - matches if the column exists, but returns no erroif it is not found
@@ -500,9 +625,9 @@ linelist %>%
   names()
 ```
 
-You can also remove a column using base R syntax, by defining it as NULL. For example:
+You can also remove a column using **base R** syntax, by defining it as NULL. For example:
 ```{r, eval = F, echo = T}
-linelist$date_onset <- NULL #Deletes column with base R syntax
+linelist$date_onset <- NULL #Deletes column with **base R** syntax
 ```
 
 ###
@@ -549,15 +674,17 @@ Remember, you do not need to specifiy each column name individually that you wan
 ```
 
 ```{r drop_lon_to_source-check}
-grade_result(
-  pass_if(~ identical(.result, linelist_raw %>%
-         select(-c(lon:source)) ), "Good work, ':' is a useful tool for referencing several concurrent columns.")
-)
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!")
+    # Default to failing grade with feedback
+    fail()
+  })
 ```
 
-```{r eval = FALSE}
-linelist_raw %>%                    #Define the dataset, and then
-         select(-c(lon:source))     #Remove all columns between lon and source
+```{r drop_lon_to_source-solution}
+linelist_raw %>%
+         select(-c(lon:source))
 ```
 
 We need to put all columns with a "date" in them into the same nomenclature (*date_*) and then subset linelist_raw to contain these and all symptom columns.
@@ -572,17 +699,15 @@ You will have to combine renaming, a tidyselect helper function and a normal ope
 ```
 
 ```{r date_symptom_subset-check}
-grade_result(
-  pass_if(~ identical(.result, linelist_raw %>%
-  clean_names() %>%
-  select(date_infection = infection_date,
-         date_hospitalisation = hosp_date,
-         starts_with("date_"),
-         fever:vomit) ), "Combining multiple operations within a select function allows us to efficiently clean, rename and subset data. Nice one.")
-)
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!")
+    # Default to failing grade with feedback
+    fail()
+  })
 ```
 
-```{r eval = FALSE}
+```{r date_symptom_subset-solution}
 linelist_raw %>%
   clean_names() %>%
   select(date_infection = infection_date,
@@ -593,7 +718,7 @@ linelist_raw %>%
 
 ## Column creation and transformation
 
-Creating new columns and transforming existing ones is easily done in R, where we recommend using the **dplyr** package function `mutate()` which uses the syntax `NEW = VALUE/TRANSFORMATION`.
+Creating new columns and transforming existing ones is easily done in R, where we recommend using the **dplyr** package function `mutate()` which uses the syntax `NEW = TRANSFORMATION`.
 
 For example, this would create a new column called `new_col` where each row has the value of 10.
 
@@ -610,7 +735,7 @@ linelist %>%
   head()                                 #This displays the top 6 rows to check
 ```
 
-In base R this would be carried out with
+In **base R** this would be carried out with
 ```{r, echo = T, eval = F}
 linelist$bmi = linelist$wt_kg / (linelist$ht_cm / 100) ^ 2)
 ```
@@ -620,6 +745,7 @@ We can also create multiple new columns at once, which are separated with a comm
 linelist %>%                       
   mutate(
     new_var_dup    = case_id,             # new column = duplicate/copy another existing column
+    new_var_static = 7,                   # you can create static variables that are the same for each row
     new_var_static = new_var_static + 5,  # you can overwrite a column, and it can be a calculation using other variables
     ) %>% 
   select(case_id, hospital, date_hospitalisation, contains("new")) %>%
@@ -652,13 +778,21 @@ ifelse(age_unit == "years",   #The condition, if the value in the column age_uni
 ```
 
 ```{r date_mutate-check}
-grade_result(
-  pass_if(~ identical(.result, linelist %>%
-  mutate(age_months = ifelse(age_unit == "years", age * 12, age)) %>%
-  select(age, age_months, gender)), "Great, you have created a new column based and learned about the ifelse() function.")
-)
-
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "Great, you have created a new column based and learned about the ifelse() function.")
+    # Default to failing grade with feedback
+    fail()
+  })
 ```
+
+```{r date_mutate-solution}
+linelist %>%
+  mutate(age_months = ifelse(age_unit == "years", age * 12, age)) %>%
+  select(age, age_months, gender)
+```
+
+
 
 ### Converting column class
 
@@ -670,20 +804,28 @@ The class of a column is displayed when we use `skim()` and individually we can 
 class(linelist_raw$age)
 ```
 
-we can see that this column has been incorrectly assigned as "character". Can you reassign the value of this column to numeric using `as.numeric()`?
+we can see that this column has been incorrectly assigned as "character". Can you reassign the class of this column to numeric using `as.numeric()`?
 
 ```{r change_class, exercise = T}
-
+linelist %>%
+  
 ```
 
 ```{r change_class-check}
-grade_result(
-  pass_if(~ identical(.result, linelist %>%
-  mutate(age = as.numeric(age))), "Good work.")
-)
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "Great, you've got the hang of changing class!")
+    # Default to failing grade with feedback
+    fail()
+  })
 ```
 
-Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with base R, or `as_factor` from the package **forcats**.
+```{r change_class-solution}
+linelist %>%
+    mutate(age = as.numeric(age))
+```
+
+Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with **base R**, or `as_factor` from the package **forcats**.
 
 Converting dates is slightly trickier, and it requires careful attention to the format (e.g. "Month/Day/Year" or "Day/Month/Year"). After converting to the class Date, check your data to confirm each value was converted correctly.
 
@@ -694,13 +836,40 @@ Often your data will be grouped, and so functions such as `mutate()` will behave
 ```{r, eval = T, echo = T}
 # age normalized to mean of ALL rows
 linelist %>% 
-    summarise(mean_age = mean(age, na.rm = T))
+    summarize(mean_age = mean(age, na.rm = T))
 
 # age normalized to mean of hospital group
 linelist %>% 
     group_by(hospital) %>% 
-    summarise(mean_age = mean(age, na.rm = T))
+    summarize(mean_age = mean(age, na.rm = T))
 ```
+
+Can you group outcome by `age_cat` *and* `gender`, then use `count(outcome)` in order to produce a summary table of outcome by age category and gender?
+
+```{r age_sex_group, exercise = TRUE}
+linelist %>%
+  
+```
+
+```{r age_sex_group-hint}
+You can include multiple arguments in group_by(), and remember to end your pipe chain with count(outcome).
+```
+
+```{r age_sex_group-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "Great, you have created a new column based and learned about the ifelse() function.")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r age_sex_group-solution}
+linelist %>% 
+  group_by(age_cat, gender) %>% 
+  count(outcome)
+```
+
 
 ### Transform multiple columns
 
@@ -728,10 +897,17 @@ Can you update the above function using "tidyselect" helper functions to convert
 ```
 
 ```{r tidyselect_date_character-check}
-grade_result(
-  pass_if(~ identical(.result, linelist %>%
-  mutate(across(.cols = contains("date"), .fns = as.character))), "Great work")
-)
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r tidyselect_date_character-solution}
+linelist %>%
+  mutate(across(.cols = contains("date"), .fns = as.character))
 ```
 
 ### coalesce()
@@ -782,18 +958,26 @@ Remember to use group_by()
 ```
 
 ```{r cumulative_sum-check}
-grade_result(
-  pass_if(~ identical(.result, linelist %>% group_by(hospital) %>%
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "Great, it's hard to see because we have 1629 rows, but you have correctly grouped and cumulatively summed by hospital!")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r cumulative_sum-solution}
+linelist %>% 
+  group_by(hospital) %>%
     count(date_onset) %>%
-    mutate(cumulative_cases = cumsum(n))), "Great, it's hard to see because we have 1629 rows, but you have correctly grouped and cumulatively summed by hospital!")
-)
+    mutate(cumulative_cases = cumsum(n))
 ```
 
 ### Deduplication
 
 The package **dplyr** has the function  `distinct()` which removes duplicated rows in the dataset, by default it considers all columns though this can be adjusted. Here we will ensure that no rows are 100% duplicates of other rows (evaluated across all columns) in the dataset `linelist_raw`. We are comparing the number of rows in the original and de-duplicated 
 
-```{r}
+```{r, echo = T, eval = T}
 nrow(linelist_raw)
 
 linelist_raw %>%
@@ -823,8 +1007,16 @@ You have already done each of these steps individually (and some together), this
 ```
 
 ```{r linelist_raw_to_linelist-check}
-grade_result(
-  pass_if(~ identical(.result, linelist_raw %>%
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "You have strung together numerous functions in order to create a clean dataset, you are well on your way to becoming a data cleaning expert.")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r linelist_raw_to_linelist-solution}
+linelist_raw %>%
   janitor::clean_names() %>% 
   rename(date_infection       = infection_date,
          date_hospitalisation = hosp_date,
@@ -834,9 +1026,9 @@ grade_result(
   mutate(bmi = wt_kg / (ht_cm/100)^2) %>% 
   mutate(across(contains("date"), as.Date), 
          generation = as.numeric(generation),
-         age = as.numeric(age)) ), "You have strung together numerous functions in order to create a clean dataset, you are well on your way to becoming a data cleaning expert.")
-)
+         age = as.numeric(age))
 ```
+
 
 ## Re-code values
 
@@ -878,6 +1070,31 @@ linelist_updated <- linelist_raw %>%
 
 table(linelist_updated$hospital, useNA = "always")
 
+```
+
+Can you quickly recode the values in the column `gender` from "f" to "Female" and "m" to "Male"? Once this is done, can you also `select()` the column `gender` only and show the first 6 rows with `head()`?
+
+```{r gender_recode, exercise = TRUE}
+linelist_raw %>%
+
+```
+
+```{r gender_recode-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r gender_recode-solution}
+linelist_raw %>%
+  mutate(gender  = recode(gender, "f" = "Female",
+                          "m" = "Male")) %>%
+  select(gender) %>%
+  head()
+  
 ```
 
 ### Simple logic
@@ -960,7 +1177,6 @@ Most of the values are located between 35 and 41, as expected if we were recordi
 
 ```{r temp_convert_logic, exercise = TRUE}
 linelist %>%
-  mutate()
 ```
 
 ```{r temp_convert_logic-hint}
@@ -968,11 +1184,19 @@ You will need to use case_when and greater than (temp >) and less than (temp <) 
 ```
 
 ```{r temp_convert_logic-check}
-grade_result(
-  pass_if(~ identical(.result, linelist %>%
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal(message = "You've successfully used complex logic, great work.")
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r temp_convert_logic-solution}
+linelist %>%
     mutate(temp = case_when(temp > 90 & temp < 120 ~ (temp - 32) * 5/9,
-                            TRUE ~ temp))), "You've successfully used complex logic, great work.")
-)
+                            TRUE ~ temp))
+  
 ```
 
 ### Missing values
@@ -1004,7 +1228,7 @@ linelist <- linelist %>%
   mutate(hospital = na_if(hospital, "Missing"))
 ```
 
-However, `na_if()` cannot be used for logical criteria (e.g. “all values > 99”) - use replace() or `case_when()` for this:
+However, `na_if()` cannot be used for logical criteria (e.g. “all values > 99”) - use `replace()` or `case_when()` for this:
 
 ```{r}
 # Convert temperatures above 40 to NA 
@@ -1016,9 +1240,37 @@ linelist <- linelist %>%
   mutate(date_onset = replace(date_onset, date_onset > as.Date("2000-01-01"), NA))
 ```
 
+We are now going to practice these different methods of replacing NA values. In `linelist` can you do the following:
+
+* Convert NA values in the `age` column to "Age not recorded"
+* If values in `bmi` are below 10 or above 40, replace them with NA
+
+```{r NA_practice, exercise = TRUE}
+
+```
+
+```{r NA_practice-hint}
+You will need to use both na_if() and replace(), and a few logical operators ("|", "<", ">")
+```
+
+```{r NA_practice-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r NA_practice-solution}
+linelist %>%
+ mutate(age = na_if(age, "Age not recorded"),
+        bmi = replace(bmi, bmi < 10 | bmi > 40, NA))
+```
+
 ### Cleaning dictionary
 
-Use the R package **linelist** and it’s function `clean_variable_spelling()` to clean a data frame with a cleaning dictionary. **linelist** is a package developed by RECON - the R Epidemics Consortium.
+Use the R package **linelist** and it’s function `clean_variable_spelling()` to clean a dataframe with a cleaning dictionary. **linelist** is a package developed by RECON - the R Epidemics Consortium.
 
 1) Create a cleaning dictionary with 3 columns:
 * “from” column (the incorrect value)
@@ -1043,13 +1295,13 @@ linelist <- linelist %>%
 There are numerous reasons why you may want to categorise numeric values, such as for age groups, lab values etc. R has several ways of doing this.
 
 * `age_categories()`, from the **epikit** package
-* `cut()` from base R
+* `cut()` from **base R**
 * `case_when()`
 * quantile breaks with `quantile()` and `ntile()`
 
 ### age_categories()
 
-With the **epikit** package, you can use the age_categories() function to easily categorize and label numeric columns (note: this function can be applied to non-age numeric variables too). As a bonus, the output column is automatically an ordered factor.
+With the **epikit** package, you can use the `age_categories()` function to easily categorize and label numeric columns (note: this function can be applied to non-age numeric variables too). As a bonus, the output column is automatically an ordered factor.
 
 Here are the required inputs:
 
@@ -1102,6 +1354,16 @@ linelist <- linelist %>%
 table(linelist$age_cat, useNA = "always")
 ```
 
+```{r quiz5}
+quiz(
+  question("Which of these age_categories() specifications would create breaks at 0, 25, 50 and 75?",
+    answer("age_categories(age_years, breakers = c(0, 25, 50, 75))", correct = TRUE),
+    answer("age_categories(age_years, lower = 0, upper = 75, by = 5)", correct = TRUE),
+    answer("age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", correct = TRUE),
+    answer("age_categories(age_years, breakers = 25, lower = 0, upper  = 75)")
+  ))
+```
+
 ### cut()
 
 `cut()` is a **base** R alternative to `age_categories()`. The basic syntax is to first provide a numeric culumn to be cut (`age_years`), and then the `breaks = ` argument which is a numeric vector `c()` of break points. 
@@ -1110,7 +1372,7 @@ By default, the categorisation occurs so the right/upper side is "open" and "inc
 
 Thus, by default, “0” values are excluded from the lowest group, and categorized as NA! “0” values could be infants coded as age 0 so be careful! To change this, add the argument `include.lowest = TRUE` so that any “0” values will be included in the lowest group. The automatically-generated label for the lowest category will then be “[A],B]”. Note that if you include the `include.lowest = TRUE` argument *and* `right = TRUE`, the extreme inclusion will now apply to the highest break point value and category, not the lowest.
 
-```{r}
+```{r, echo = T, eval = T}
 # Create new variable, by cutting the numeric age variable
 # lower break is excluded but upper break is included in each category
 linelist <- linelist %>% 
@@ -1127,7 +1389,7 @@ table(linelist$age_cat, useNA = "always")
 ```
 
 **It is very important to check your work here, do so by cross-tabulating the numeric and category columns**
-```{r}
+```{r, echo = T, eval = T}
 # Cross tabulation of the numeric and category columns. 
 table("Numeric Values" = linelist$age_years,   # names specified in table for clarity.
       "Categories"     = linelist$age_cat,
@@ -1139,7 +1401,7 @@ table("Numeric Values" = linelist$age_years,   # names specified in table for cl
 
 You may want to assign NA values a label such as “Missing”. Because the new column is class Factor (restricted values), you cannot simply mutate it with `replace_na()`, as this value will be rejected. Instead, use `fct_explicit_na()` from the **forcats** package, as explained in the Factors page.
 
-```{r}
+```{r, echo = T, eval = T}
 linelist <- linelist %>% 
   
   # cut() creates age_cat, automatically of class Factor      
@@ -1160,18 +1422,53 @@ linelist <- linelist %>%
 table(linelist$age_cat, useNA = "always")
 ```
 
+Can you write some code to create a new column `temp_cat` to convert values in `temp` to the following categories:
+
+* Less than 38 - "No fever"
+* Greater than or equal to 38 & less than 39.4 - "Low grade fever"
+* Greater than or equal to 39.4 - "High grade fever"
+
+set the lower bound to 0, and then display only the columns `temp` and `temp_cat`?
+
+```{r cut_temp, exercise = TRUE}
+
+```
+
+```{r cut_temp-hint}
+You will need to use the function cut() and specify the correct breaks, and remember that cut() occurs on the right side, and age_categories() the left, so if you are using cut() you may also need to include the argument right = FALSE 
+```
+
+```{r cut_temp-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r cut_temp-solution}
+  linelist %>% 
+  mutate(temp_cat = cut(
+    temp,
+    breaks = c(0, 38, 39.4, 45),          
+    right = FALSE,
+    labels = c("No fever", "Low grade fever", "High grade fever"))) %>%
+  select(temp, temp_cat)
+```
+
 ### Quantile breaks
 
 Quantiles, or percentiles, typically refer to a value below which a proportion of values fall. For example, the 95th percentile of ages in `linelist` would be the age below which 95% of the ages fall. 
 
 However in common speech, “quartiles” and “deciles” can also refer to the groups of data as equally divided into 4, or 10 groups (note there will be one more break point than group).
 
-To get quantile break points, you can use quantile() from the **stats** package from base R. You provide a numeric vector (e.g. a column in a dataset) and vector of numeric probability values ranging from 0 to 1.0. The break points are returned as a numeric vector. Explore the details of the statistical methodologies by entering ?quantile.
+To get quantile break points, you can use quantile() from the **stats** package from **base R**. You provide a numeric vector (e.g. a column in a dataset) and vector of numeric probability values ranging from 0 to 1.0. The break points are returned as a numeric vector. Explore the details of the statistical methodologies by entering ?quantile.
 
 * If your input numeric vector has any missing values it is best to set na.rm = TRUE
 * Set names = FALSE to get an un-named numeric vector
 
-``` {r}
+``` {r, echo = T, eval = T}
 quantile(linelist$age_years,               # specify numeric vector to work on
   probs = c(0, .25, .50, .75, .90, .95),   # specify the percentiles you want
   na.rm = TRUE)                            # ignore missing values 
@@ -1179,7 +1476,7 @@ quantile(linelist$age_years,               # specify numeric vector to work on
 
 You can use the results of `quantile()` as break points in `age_categories()` or `cut()`. Below we create a new column deciles using `cut()` where the breaks are defined using `quantiles()` on age_years. Below, we display the results using `tabyl()` from janitor so you can see the percentages (see the Descriptive tables page). Note how they are not exactly 10% in each group.
 
-```{r}
+```{r, echo = T, eval = T}
 linelist %>%                                # begin with linelist
   mutate(deciles = cut(age_years,           # create new column decile as cut() on column age_years
     breaks = quantile(                      # define cut breaks using quantile()
@@ -1192,55 +1489,232 @@ linelist %>%                                # begin with linelist
 
 ### Evenly sized groups
 
+Another tool to make numeric groups is the **dplyr** function `ntile()` which breaks your data into evenly sized groups - *be aware that unlike in `quantile()` the same value could appear in more than one group.* Firstly you provided the numeric vector (the column) and the number of groups with the values in the new column created being the group "numbers" not the range of values themselves (as when you use `cut()`).
 
-## Clean rows
+```{r, echo = T, eval = T}
+# make groups with ntile()
+ntile_data <- linelist %>% 
+  mutate(even_groups = ntile(age_years, 10))
 
-Now that we have worked through how to clean and subset columns, we need to learn how to apply similar approaches to rows. There are several reasons why you would want to clean the rows of your dataset such as to remove duplicate entries, rows that contain NA values in all, or a selection, of columns. These allow us to clean the dataset and produce a final cleaned version that is ready for analysis and figure generation.
+# make table of counts and proportions by group
+ntile_table <- ntile_data %>% 
+  janitor::tabyl(even_groups)
+  
+# attach min/max values to demonstrate ranges
+ntile_ranges <- ntile_data %>% 
+  group_by(even_groups) %>% 
+  summarize(
+    min = min(age_years, na.rm=T),
+    max = max(age_years, na.rm=T)
+  )
 
-### Drop missing values
+# combine and print - note that values are present in multiple groups
+left_join(ntile_table, ntile_ranges, by = "even_groups")
+
+```
+
+### Add to the pipe chain
+
+Now we'll add some of this to the cleaning pipe chain so you can see how all the steps we have learned so far are coming together to create one cleaning pipeline!
+
+```{r, echo = T, eval = T}
+# CLEANING 'PIPE' CHAIN (starts with raw data and pipes it through cleaning steps)
+##################################################################################
+
+# begin cleaning pipe chain
+###########################
+linelist <- linelist_raw %>%
+    
+    # standardize column name syntax
+    janitor::clean_names() %>% 
+    
+    # manually re-name columns
+           # NEW name             # OLD name
+    rename(date_infection       = infection_date,
+           date_hospitalisation = hosp_date,
+           date_outcome         = date_of_outcome) %>% 
+    
+    # remove column
+    select(-c(row_num, merged_header, x28)) %>% 
+  
+    # de-duplicate
+    distinct() %>% 
+
+    # add column
+    mutate(bmi = wt_kg / (ht_cm/100)^2) %>%     
+
+    # convert class of columns
+    mutate(across(contains("date"), as.Date), 
+           generation = as.numeric(generation),
+           age        = as.numeric(age)) %>% 
+    
+    # add column: delay to hospitalisation
+    mutate(days_onset_hosp = as.numeric(date_hospitalisation - date_onset)) %>% 
+    
+    # clean values of hospital column
+    mutate(hospital = recode(hospital,
+                      # OLD = NEW
+                      "Mitylira Hopital"  = "Military Hospital",
+                      "Mitylira Hospital" = "Military Hospital",
+                      "Military Hopital"  = "Military Hospital",
+                      "Port Hopital"      = "Port Hospital",
+                      "Central Hopital"   = "Central Hospital",
+                      "other"             = "Other",
+                      "St. Marks Maternity Hopital (SMMH)" = "St. Mark's Maternity Hospital (SMMH)"
+                      )) %>% 
+    
+    mutate(hospital = replace_na(hospital, "Missing")) %>% 
+
+    # create age_years column (from age and age_unit)
+    mutate(age_years = case_when(
+          age_unit == "years" ~ age,
+          age_unit == "months" ~ age/12,
+          is.na(age_unit) ~ age,
+          TRUE ~ NA_real_)) %>% 
+  
+    # ABOVE ARE UPSTREAM CLEANING STEPS ALREADY DISCUSSED
+    ###################################################   
+    mutate(
+          # age categories: custom
+          age_cat = epikit::age_categories(age_years, breakers = c(0, 5, 10, 15, 20, 30, 50, 70)),
+        
+          # age categories: 0 to 85 by 5s
+          age_cat5 = epikit::age_categories(age_years, breakers = seq(0, 85, 5)))
+```
+
+## Filter rows
+
+A typical cleaning step after cleaning columns and recoding values is to filter the dataset to specific rows with the **dplyr** function `filter()`.
+
+###Simple filter
+
+The simplest way of filtering, is to use a logical condition ("==", "!=", ">", "<", etc), so that only rows where the logical statement is `TRUE` are kept. For example here, we are only keeping rows where the gender is equal to "f".
+
+```{r, echo = T, eval = T}
+nrow(linelist)
+
+linelist %>% 
+  filter(gender == "f") %>%
+  nrow()
+```
+
+From the reduction in rows you can see that we have subset the dataset.
+
+### Filter out missing values
+
+A common use of filtering is to remove rows that have missing values. This can either be done for any missing values in _any_ column, by not specifiying any arguments in the **tidyr** function `drop_na()`, or specific columns by including them within `drop_na()`.
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  drop_na(case_id, age_years)  # drop rows with missing values for case_id or age_years
+```
+
+Can you now write a pipe chain to filter out any rows with a `bmi` of more than 20, and then drop any rows that have NA values in any column between fever and vomit, and then show the first 6 rows with `head()`?
+
+```{r filter_row_first, exercise = TRUE}
+
+```
+
+```{r filter_row_first-hint}
+Remember to use logical operators, and that you can specify a group of consective columns with ":".
+```
+
+```{r filter_row_first-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r filter_row_first-solution}
+  linelist %>% 
+  filter(bmi < 20) %>%
+  drop_na(fever:vomit) %>%
+  head()
+```
+
+### Filter by row number
+
+You can also filter by row number, this is done using the **dplyr** function `row_number()`. Here you will often use the operator `%in%` to specify all numbers within a supplied vector. For instance
+
+```{r}
+# View first 100 rows
+linelist %>% head(100)     # or use tail() to see the n last rows
+
+# Show row 5 only
+linelist %>% filter(row_number() == 5)
+
+# View rows 2 through 20, and three specific columns
+linelist %>% filter(row_number() %in% 2:20) %>% select(date_onset, outcome, age)
+```
 
 
+### Standalone
 
+You can also use the filter function as part of a standalone command (not part of a pipe chain), as in all other **dplyr** functions the first argument must be the dataset itself. Here we show how to remove `NA` values:
 
-Touch upon some of these: https://www.epirhandbook.com/en/de-duplication.html
-### Filter by logic
-### Quiz
+```{r, echo = T, eval = T}
+# dataframe <- filter(dataframe, condition(s) for rows to keep)
+linelist <- filter(linelist, !is.na(case_id)) 
+```
 
+and this can also be done in **base R**
 
+```{r, echo = T, eval = T}
+# dataframe <- dataframe[row conditions, column conditions] (blank means keep all)
+linelist <- linelist[!is.na(linelist$case_id), ]
+```
 
+## Row-wise calculations
 
+We may want to perform a calculation within a row, and to do so we can use `rowwise()` from **dplyr**. 
 
+For example, this code applies `rowwise()` and then creates a new column that sums the number of the specified symptom columns that have value “yes”, for each row in the linelist. The columns are specified within sum() by name within a vector `c()`. `rowwise()` is essentially a special kind of `group_by()`, so it is best to use `ungroup()` when you are done.
 
+```{r}
+linelist %>%
+  rowwise() %>%
+  mutate(num_symptoms = sum(c(fever, chills, cough, aches, vomit) == "yes")) %>% 
+  ungroup() %>% 
+  select(fever, chills, cough, aches, vomit, num_symptoms) # for display
 
+```
 
+As you specify the column to evaluate, you may want to use the “tidyselect” helper functions.
 
-## Dates
-See Epi R Handbook chapter on working with dates
-https://www.epirhandbook.com/en/working-with-dates.html
+For example, the following code:
 
+* Applies `rowwise()` so the following operation (`sum()`) is applied within each row (not summing entire columns)
+* Creates new column num_NA_dates, defined for each row as the number of columns (with name containing “date”) for which `is.na()` evaluated to TRUE (they are missing data).
+* `ungroup()` to remove the effects of `rowwise()` for subsequent steps
 
-### Convert to date
-#### Character to date
-#### Excel to date
+You could also provide other functions, such as max() to get the latest or most recent date for each row:
 
-### epiweeks
-use floor_date() from lubridate
-#### ISO weeks
+```{r}
+linelist %>%
+  rowwise() %>%
+  mutate(latest_date = max(c_across(contains("date")), na.rm=T)) %>% 
+  ungroup() %>% 
+  select(latest_date, contains("date"))  # for display
+```
 
-### Quiz
+## Arrange and sort
 
+The **dplyr** function `arrange()` allows us to sort or order rows by column values. List the columns in the order they should be sorted on, and specify `.by_group = TRUE` if you want the sorting to occur by any groupings in the data.
 
-## Pivots
-See Epi R Handbook page on Pivoting
-https://www.epirhandbook.com/en/pivoting-data.html
-### Quiz
+By default the column will be sorted in "ascending" order, but you can change this to "descending" by wrapping it with `desc()`.
 
-## Joins
-https://www.epirhandbook.com/en/joining-data.html
-### Quiz
+Sorting data with `arrange()` is particularly useful when making Tables for presentation, using `slice()` to take the “top” rows per group, or setting factor level order by order of appearance.
 
-## Next steps
+For example, to sort the our linelist rows by hospital, then by `date_onset` in descending order, we would use:
 
+```{r}
+linelist %>% 
+   arrange(hospital, desc(date_onset)) %>%
+   select(case_id, hospital, date_onset)
+```
 
 
 
