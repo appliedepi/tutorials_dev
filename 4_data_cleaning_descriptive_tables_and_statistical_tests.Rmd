@@ -1371,6 +1371,50 @@ linelist %>%
   add_p(age_years ~ "kruskal.test")                    # specify what test to perform
 ```
 
+In addition to carrying out tests individually, you can specify them all at once by including the tests in a `list()`. For example:
+
+```{r, echo = T, eval = T}
+linelist %>% 
+  select(age_years, outcome) %>%                       # keep variables of interest
+  tbl_summary(                                         # produce summary table
+    statistic = age_years ~ "{median} ({p25}, {p75})", # specify what statistic to show (default, so could remove)
+    by = outcome) %>%                                  # specify the grouping variable
+  add_p(list(age_years ~ "kruskal.test",
+             age_years ~ "t.test"))
+```
+
+
+Now we're going to use what you've learned in order to analyse the `linelist`.
+
+```{r gtsummary_test_chisq, exercise = TRUE}
+  linelist %>%
+  
+```
+
+```{r gtsummary_test_chisq-hint}
+
+```
+
+```{r gtsummary_test_chisq-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r gtsummary_test_chisq-solution}
+linelist %>% 
+  select(hospital, outcome) %>%    # keep variables of interest
+  tbl_summary(by = outcome) %>%  # produce summary table and specify grouping variable
+  add_p()
+  
+```
+
+
+
+
 ## Correlations
 
 Correlation between numeric variables can be investigated using the **tidyverse**
