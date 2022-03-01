@@ -28,6 +28,7 @@ library(linelist)
 library(lubridate)
 library(fastLink)
 library(gtsummary)
+library(rstatix)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -1138,3 +1139,141 @@ to add row and columns total, pass the table to `addmargins()`.
 # get proportions of table defined above, by rows, rounded
 addmargins(age_by_outcome)
 ```
+
+## Simple statistical tests
+
+Here we will demonstrate several simple statistical tests using **base** R, **rstatix** and **gtsummary*. Though we have highlighted a few common ones, there are many other tests you can use.
+
+Each of the above packages bring certain advantages and disadvantages:
+
+* **base** R easily prints statistical outputs to the R console
+* **rstatix** return results in a dataframe, or for running tests by group
+* **gtsummary** if you want to quickly prepare print publication-ready tables
+
+## **base** R
+
+You can use **base** R functions to conduct statistical tests. The commands are relatively simple and results will print to the R Console for simple viewing. However, the outputs are usually lists and so are harder to manipulate if you want to use the results in subsequent operations.
+
+### T-tests
+
+A t-test is typically used to determine if there is a significant difference between the means of numeric variables between two tests. There are two ways of writing the syntax for tests, either you specify the data and the columns separated by a tilde (`~`):
+
+```{r, echo = T, eval = T}
+## compare mean age by outcome group with a t-test
+t.test(age_years ~ gender, data = linelist)
+```
+
+or for distinguishing between separate numeric vectors, you can call the columns directly using `$` to denote the column,
+
+```{r, echo = T, eval = F}
+## compare mean age by outcome group with a t-test
+t.test(df1$age_years, df2$age_years)
+```
+
+This applies to all of the statistical tests. You can also use a t-test to determine whether a sample mean is significantly different from a specific value.
+
+```{r, echo = T, eval = T}
+t.test(linelist$age_years, 
+       mu = 45) #Specify the value you want to test against with mu = 
+```
+
+### Shapiro-Wilk test
+
+The Shapiro-Wilk test can be used to determine whether a sample came from a normally-distributed population (an assumption of many other tests and analysis, such as the t-test). However, this can only be used on a sample between 3 and 5000 observations. For larger samples a quantile-quantile plot may be helpful.
+
+```{r, echo = T, eval = T}
+shapiro.test(linelist$age_years)
+shapiro.test(subset(linelist, gender == "m")$age_years) #We are subsetting to only males in order to show the output of the test when there are between 3 and 5000 observations
+```
+
+### Wilcoxon rank sum test
+
+Also called the Mann-Whitney U test, this statistical test is used to determine if two numeric samples are from the same distribution when their populations are not normally distributed, or have an unequal variance.
+
+```{r, echo = T, eval = T}
+## compare age distribution by outcome group with a wilcox test
+wilcox.test(age_years ~ outcome, data = linelist)
+```
+
+### Kruskal-Wallis test
+
+The Kruskal-Wallis test is an extension of the Wilcoxon rank sum test that can be used to test for differences in the distribution of more than two samples. When only two samples are used it gives identical results to the Wilcoxon rank sum test.
+
+```{r, echo = T, eval = T}
+## compare age distribution by outcome group with a kruskal-wallis test
+kruskal.test(age_years ~ outcome, data = linelist)
+```
+
+### Chi-squared test
+
+Pearson’s Chi-squared test is used in testing for significant differences between categorical groups.
+
+```{r, echo = T, eval = T}
+## compare the proportions in each group with a chi-squared test
+chisq.test(linelist$gender, linelist$outcome)
+```
+
+```{r quiz11}
+quiz(
+  question("Which of these would you use to test if the data is normally distributed?",
+           answer("T-test", correct = F),
+           answer("Wilcoxon rank sum test", correct = F),
+           answer("Shapiro-Wilk test", correct = T),
+           answer("Chi-squared test", correct = F),
+           answer("Kruskal-Wallis test", correct = F)),
+  question("Which of these would you use to test if there is a significant difference in means between two groups?",
+           answer("T-test", correct = T),
+           answer("Wilcoxon rank sum test", correct = F),
+           answer("Shapiro-Wilk test", correct = F),
+           answer("Chi-squared test", correct = F),
+           answer("Kruskal-Wallis test", correct = F)),
+  question("Which of these would you use to test if there is a significant difference between two groups?",
+           answer("T-test", correct = F),
+           answer("Wilcoxon rank sum test", correct = F),
+           answer("Shapiro-Wilk test", correct = F),
+           answer("Chi-squared test", correct = T),
+           answer("Kruskal-Wallis test", correct = F)),
+  question("Which of these could you use to test if two numeric samples from non-normal distributions are from the same distribution?",
+           answer("T-test", correct = F),
+           answer("Wilcoxon rank sum test", correct = T),
+           answer("Shapiro-Wilk test", correct = F),
+           answer("Mann-Whitney U test", correct = F),
+           answer("Kruskal-Wallis test", correct = T))
+           
+  )
+```
+
+## **rstatix** package
+
+The **rstatix** package offers the ability to run statistical tests and retrieve results in a “pipe-friendly” framework. The results are automatically in a data frame so that you can perform subsequent operations on the results. It is also easy to group the data being passed into the functions, so that the statistics are run for each group.
+
+The function `get_summary_stats()` is a quick way to return summary statistics, if no columns are specified the statistics are calculated for all columns.
+
+By default, a full range of summary statistics are returned: n, max, min, median, 25% quantile, 75% quantile, IQR, median absolute deviation (mad), mean, standard deviation, standard error, and a confidence interval of the mean.
+
+```{r, echo = T, eval = T}
+linelist %>%
+  rstatix::get_summary_stats(age, temp)
+```
+
+It can be used with grouped data as well, such that a row is returned for each grouping variable
+
+```{r, echo = T, eval = T}
+linelist %>%
+  group_by(hospital) %>%
+  rstatix::get_summary_stats(age, temp, type = "common")
+```
+
+### T-test
+
+Use the formula syntax to specify the numeric and categorical columns
+
+```{r, echo = T, eval = T}
+linelist %>%
+  t_test(age_years ~ gender)
+```
+
+
+
+
+
