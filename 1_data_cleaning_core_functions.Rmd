@@ -630,7 +630,6 @@ You can also remove a column using **base R** syntax, by defining it as NULL. Fo
 linelist$date_onset <- NULL #Deletes column with **base R** syntax
 ```
 
-###
 ```{r quiz1}
 quiz(
   question("Which of these column names follows a clean syntax?",
@@ -893,13 +892,14 @@ quiz(
 Can you update the above function using "tidyselect" helper functions to convert any columns that contain "date" to character?
 
 ```{r tidyselect_date_character, exercise = T}
-
+linelist %>%
+  
 ```
 
 ```{r tidyselect_date_character-check}
   grade_this({
     # Automatically pass if .result equal to .solution
-    pass_if_equal()
+    pass_if_equal()s
     # Default to failing grade with feedback
     fail()
   })
