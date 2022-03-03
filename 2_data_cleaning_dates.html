@@ -376,6 +376,14 @@ data_cleaned &lt;- linelist %&gt;%
                         &quot;07/03/1982&quot;,
                         &quot;08/20/85&quot;))</code></pre>
 <pre><code>## [1] &quot;2018-01-03&quot; &quot;1982-03-07&quot; &quot;1985-08-20&quot;</code></pre>
+<div class="panel panel-default">
+<div data-label="rhetorical2" class="tutorial-question panel-body">
+<div id="rhetorical2-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical2-message_container" class="shiny-html-output"></div>
+<div id="rhetorical2-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 </div>
 <div id="section-working-with-the-date-time-class" class="section level2">
 <h2>Working with the date-time class</h2>
@@ -446,9 +454,6 @@ as.numeric(time2_clean - time1_clean)   # difference in hours</code></pre>
     hour_admit &gt;= 12 &amp; hour_admit &lt; 17 ~ &quot;Afternoon&quot;,
     hour_admit &gt;= 17 &amp; hour_admit &lt; 21 ~ &quot;Evening&quot;,
     hour_admit &gt;=21 | hour_admit &lt;= 6 ~ &quot;Night&quot;))</code></pre>
-</div>
-<div id="section-practice" class="section level3">
-<h3>Practice</h3>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
 <div data-label="quiz6-1" class="tutorial-question panel-body">
@@ -487,13 +492,13 @@ as.numeric(time2_clean - time1_clean)   # difference in hours</code></pre>
 <p>Once converted you can extract aspects such as the year, month, day, weekday, week etc.</p>
 <p>3 3 5</p>
 <p>You can also extract time components from a datetime object or column. This can be useful if you want to view the distribution of admission times.</p>
-<p>15 12 44.4886341</p>
+<p>15 18 20.780179</p>
 <div id="section-date-math" class="section level3">
 <h3>Date math</h3>
 <p>Date math is simple once you have converted the dates, to add on a certain number of days, weeks, months or years you can use the functions <code>days()</code>, <code>weeks()</code>, <code>months()</code>, <code>years()</code>.</p>
 <p>2022-03-06 2022-06-03 2025-03-03</p>
 <p>and again the same for adding on time</p>
-<p>2022-03-03 18:12:44 2022-03-03 15:15:44 2022-03-03 15:12:47</p>
+<p>2022-03-03 18:18:20 2022-03-03 15:21:20 2022-03-03 15:18:23</p>
 </div>
 <div id="section-date-intervals" class="section level3">
 <h3>Date intervals</h3>
@@ -668,7 +673,7 @@ weekly_counts &lt;- linelist %&gt;%
 <pre class="r"><code># assign the current time to a column
 time_now &lt;- Sys.time()
 time_now</code></pre>
-<pre><code>## [1] &quot;2022-03-03 15:12:45 GMT&quot;</code></pre>
+<pre><code>## [1] &quot;2022-03-03 15:18:21 GMT&quot;</code></pre>
 <pre class="r"><code># use with_tz() to assign a new timezone to the column, while CHANGING the clock time
 time_london_real &lt;- with_tz(time_now, &quot;Europe/London&quot;)
 
@@ -1386,13 +1391,33 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical2", question = structure("Have you ever had to deal with a dataset that contains multiple data formats? If so, how did you deal with it?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_1600f1f", 
+    option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    label = NULL, correct = NULL, message = NULL, type = "function"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "rhetorical2-answer", question = "rhetorical2"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nHave you ever had to deal with a dataset that contains multiple data formats? If so, how did you deal with it?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 28152902.4868903, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label = "sortable_question", 
     question = structure("Arrange from first to last in terms of date", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_1600f1f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_55f36ce", 
         option = c("2020-01-01 17:05:06", "2020-01-02 16:00:00", 
-        "2020-02-20 16:00:40", "2020-01-02 16:01:00"), value = structure(c(1577898306, 
-        1577980800, 1582214440, 1577980860), class = c("POSIXct", 
-        "POSIXt"), tzone = "UTC"), label = structure("2020-01-01 17:05:06\n2020-01-02 16:00:00\n2020-02-20 16:00:40\n2020-01-02 16:01:00", html = TRUE, class = c("html", 
+        "2020-01-02 16:00:40", "2020-01-02 16:01:00"), value = structure(c(1577898306, 
+        1577980800, 1577980840, 1577980860), class = c("POSIXct", 
+        "POSIXt"), tzone = "UTC"), label = structure("2020-01-01 17:05:06\n2020-01-02 16:00:00\n2020-01-02 16:00:40\n2020-01-02 16:01:00", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", 
     "character")), try_again = structure("Try Again", html = TRUE, class = c("html", 
@@ -1403,59 +1428,56 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
         answer = "sortable_question-answer", question = "sortable_question"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nArrange from first to last in terms of date\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 28152902.4868903, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
+    seed = 256118169.380736, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz6-1", question = structure("Which of the following functions would convert &#39;Jan 5 1997&#39; to the correct Date format?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_55f36ce", 
-    option = "1997-01-05", value = structure(9866, class = "Date"), 
-    label = structure("1997-01-05", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_97f5df0", 
+    option = "mdy('Jan 5 1997')", value = "mdy('Jan 5 1997')", 
+    label = structure("mdy(&#39;Jan 5 1997&#39;)", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1e881b4", 
-    option = "1997-01-05", value = structure(9866, class = "Date"), 
-    label = structure("1997-01-05", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_98d52e", 
+    option = "guess_dates('Jan 5 1997')", value = "guess_dates('Jan 5 1997')", 
+    label = structure("guess_dates(&#39;Jan 5 1997&#39;)", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_97f5df0", 
-    option = "1997-01-05", value = structure(9866, class = "Date"), 
-    label = structure("1997-01-05", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2734c1", 
+    option = "as.Date('Jan 5 1997', format = '%b %d %Y')", value = "as.Date('Jan 5 1997', format = '%b %d %Y')", 
+    label = structure("as.Date(&#39;Jan 5 1997&#39;, format = &#39;%b %d %Y&#39;)", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
 "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Yes, all of these work to convert your date! However, there is a lot more to specify in the base R function as.Date()", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz6-1-answer", question = "quiz6-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following functions would convert &#39;Jan 5 1997&#39; to the correct Date format?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 80128360.9626873, options = list()), class = c("learnr_checkbox", 
+    seed = 347025037.838404, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz6-2", question = structure("Which of the following functions be used to convert a column that has the format year, month, day, hour, minute?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_2734c1", 
-    option = character(0), value = structure(numeric(0), class = c("POSIXct", 
-    "POSIXt"), tzone = "UTC"), label = structure("", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_d4f7550", 
+    option = "ymd_hm()", value = "ymd_hm()", label = structure("ymd_hm()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_295e5d2", 
-    option = character(0), value = structure(numeric(0), class = c("POSIXct", 
-    "POSIXt"), tzone = "UTC"), label = structure("", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c44fce8", 
+    option = "ymd_hms()", value = "ymd_hms()", label = structure("ymd_hms()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d4f7550", 
-    option = character(0), value = structure(numeric(0), class = c("POSIXct", 
-    "POSIXt"), tzone = "UTC"), label = structure("", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_45d4ee5", 
+    option = "mdy_hm()", value = "mdy_hm()", label = structure("mdy_hm()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
 "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correct, good work", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz6-2-answer", question = "quiz6-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following functions be used to convert a column that has the format year, month, day, hour, minute?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1646782274.73316, options = list()), class = c("learnr_radio", 
+    seed = 404077607.311837, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1609,16 +1631,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz8-1", question = structure("What class does subtracting two dates create?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_45d4ee5", 
+"character")), answers = list(structure(list(id = "lnr_ans_39cb871", 
     option = "Character", value = "Character", label = structure("Character", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_302b785", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fdd4a4", 
     option = "Date", value = "Date", label = structure("Date", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_39cb871", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f559f5", 
     option = "Numeric", value = "Numeric", label = structure("Numeric", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fdd4a4", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_25ed8b1", 
     option = "Difftime", value = "Difftime", label = structure("Difftime", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1629,22 +1651,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz8-1-answer", question = "quiz8-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat class does subtracting two dates create?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 128634787.9401, options = list()), class = c("learnr_radio", 
+    seed = 156740291.427012, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz8-2", question = structure("What does floor_date() do?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_25ed8b1", 
+"character")), answers = list(structure(list(id = "lnr_ans_afa91e", 
     option = "Converts a date-time object and rounds it down", 
     value = "Converts a date-time object and rounds it down", 
     label = structure("Converts a date-time object and rounds it down", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_12af559", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_85c005a", 
     option = "Converts a date-time object and rounds it up", 
     value = "Converts a date-time object and rounds it up", label = structure("Converts a date-time object and rounds it up", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_afa91e", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ca0b132", 
     option = "Converts a numeric object and rounds it down", 
     value = "Converts a numeric object and rounds it down", label = structure("Converts a numeric object and rounds it down", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -1656,7 +1678,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz8-2-answer", question = "quiz8-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat does floor_date() do?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1121977038.47754, options = list()), class = c("learnr_radio", 
+    seed = 1491971453.80525, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  

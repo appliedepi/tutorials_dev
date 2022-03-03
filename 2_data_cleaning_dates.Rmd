@@ -543,7 +543,7 @@ question_text(
     if (grepl(paste(letters, collapse = "|"), value)) {
       correct("")
     }
-  }, )
+  })
 )
 ```
 
@@ -586,7 +586,7 @@ question_text(
     if (grepl(paste(letters, collapse = "|"), value)) {
       correct("")
     }
-  }, )
+  })
 )
 ```
 
@@ -677,12 +677,14 @@ linelist <- linelist %>%
     hour_admit >=21 | hour_admit <= 6 ~ "Night"))
 ```
 
+
 ```{r quiz6}
 quiz(
   question("Which of the following functions would convert 'Jan 5 1997' to the correct Date format?",
     answer("mdy('Jan 5 1997')", correct = T),
     answer("guess_dates('Jan 5 1997')", correct = T),
-    answer("as.Date('Jan 5 1997', format = "%b %d %Y")", correct = T)),
+    answer("as.Date('Jan 5 1997', format = '%b %d %Y')", correct = T),
+    incorrect = "All of these would return the date in the correct format!"),
   question("Which of the following functions be used to convert a column that has the format year, month, day, hour, minute?",
     answer("ymd_hm()", correct = T),
     answer("ymd_hms()", correct = F),
@@ -721,29 +723,48 @@ linelist <- linelist %>%
 
 Once converted you can extract aspects such as the year, month, day, weekday, week etc.
 
-`r month(Sys.Date())`
-`r day(Sys.Date())`
-`r wday(Sys.Date())`
+```{r, echo = T, eval = T}
+month(Sys.Date())
+day(Sys.Date())
+wday(Sys.Date())
+```
 
 You can also extract time components from a datetime object or column. This can be useful if you want to view the distribution of admission times.
 
-`r hour(Sys.time())`
-`r minute(Sys.time())`
-`r second(Sys.time())`
+```{r, echo = T, eval = T}
+hour(Sys.time())
+minute(Sys.time())
+second(Sys.time())
+```
 
 ### Date math
 
 Date math is simple once you have converted the dates, to add on a certain number of days, weeks, months or years you can use the functions `days()`, `weeks()`, `months()`, `years()`.
 
-`r Sys.Date() + days(3)`
-`r Sys.Date() + months(3)`
-`r Sys.Date() + years(3)`
+```{r, echo = T, eval = T}
+Sys.Date() + days(3)
+Sys.Date() + months(3)
+Sys.Date() + years(3)
+```
 
 and again the same for adding on time
 
-`r Sys.time() + hours(3)`
-`r Sys.time() + minutes(3)`
-`r Sys.time() + seconds(3)`
+```{r, echo = T, eval = T}
+Sys.time() + seconds(3)
+Sys.time() + minutes(3)
+Sys.time() + hours(3)
+```
+
+```{r rhetorical3, echo = FALSE}
+question_text(
+  "When do you think this would be useful?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  })
+)
+```
 
 ### Date intervals
 
@@ -789,7 +810,7 @@ Once dates are the correct class, you often want them to display differently, fo
 
 ### `format()`
 
-Adjust date display with the **base R** function format(). This function accepts a character string (in quotes) specifying the desired output format in the “%” strptime abbreviations (the same syntax as used in as.Date()). Below are most of the common abbreviations.
+Adjust date display with the **base** R function `format()`. This function accepts a character string (in quotes) specifying the desired output format in the “%” `strptime()` abbreviations (the same syntax as used in `as.Date()`). Below are most of the common abbreviations.
 
 * %d = Day number of month (5, 17, 28, etc.)
 * %j = Day number of the year (Julian day 001-366)
@@ -833,6 +854,18 @@ test_format <- linelist %>%
 # print table
 table(test_format$yearmon)
 ```
+
+```{r rhetorical4, echo = FALSE}
+question_text(
+  "Why does format() return a different order?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  })
+)
+```
+
 
 ## Epidemiological weeks
 
@@ -880,6 +913,53 @@ weekly_counts <- linelist %>%
     fill = list(n = 0)) %>%             # fill-in NAs in the n counts column with 0
   head()                            #Display the top 6 entries
 ```
+
+```{r rhetorical5, echo = FALSE}
+question_text(
+  "Why would we want to include weeks that have no data?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  })
+)
+```
+
+We would like to now work out the number of `case_outcome` per **month** in a column `monthly_outcome` from the dataset `linelist`. Could you write some code to do this?
+
+```{r epimonth_cases, exercise = TRUE}
+linelist %>%
+
+```
+
+```{r epimonth_cases-hint}
+```
+
+```{r epimonth_cases-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail(message = "")
+  })
+```
+
+```{r epimonth_cases-solution}
+linelist %>% 
+  drop_na(date_outcome) %>%             # remove cases missing onset date
+  mutate(monthly_outcome = floor_date(   # make new column, week of onset
+    date_outcome,
+    unit = "month")) %>%            
+  count(monthly_outcome) %>%           # group data by week and count rows per group (creates column 'n')
+  tidyr::complete(                  # ensure all weeks are present, even those with no cases reported
+    monthly_outcome = seq.Date(          # re-define the "weekly_cases" column as a complete sequence,
+      from = min(monthly_outcome),       # from the minimum date
+      to = max(monthly_outcome),         # to the maxiumum date
+      by = "month"),                   # by weeks
+    fill = list(n = 0))
+
+```
+
 
 ```{r quiz8}
 quiz(
@@ -973,6 +1053,28 @@ ggplot(data = linelistz, aes(x = week_infection, y = n, fill = estimated_or_reco
   labs(x = "Epiweek", y = "Number of infections per epiweek", fill = "Source of data")
 ```
 
+```{r rhetorical6, echo = FALSE}
+question_text(
+  "What advantages would estimating the missing data bring?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  })
+)
+```
+
+```{r rhetorical7, echo = FALSE}
+question_text(
+  "And what potential pitfalls and things we should be careful of could occur if we estimate dates?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  })
+)
+```
+
 You might consider using the package **aweek** to set epidemiological weeks. It has the functions `date2week()` and `week2date()` in which you can set the week start day with `week_start = "Monday"`. This package is easiest if you want “week”-style outputs (e.g. “2020-W12”). Another advantage of **aweek** is that when `date2week()` is applied to a date column, the returned column (week format) is automatically of class Factor and includes levels for all weeks in the time span (this avoids the extra step of `complete()` described above). However, **aweek** does not have the functionality to round dates to other time units such as months, years, etc.
 
 ## Converting date/time zones
@@ -1026,4 +1128,8 @@ counts %>%
          case_diff = n - cases_prev_wk) %>%
   head()
 ```
+
+
+
+
 
