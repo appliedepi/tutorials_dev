@@ -2338,3 +2338,332 @@ C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/01/22 14:24:32
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/01/22 14:24:32 GMT; ah1114; section_viewed_first_time; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/01/22 14:24:34 GMT; ah1114; section_skipped; ; ; ; 
 C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/01/22 14:24:49 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-04-03/03/22 11:04:42 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-04-03/03/22 11:04:42 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-04-03/03/22 11:04:42 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-04-03/03/22 11:04:47 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-05-03/03/22 11:05:15 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 11:06:47 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 11:06:47 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 11:06:47 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 11:06:47 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 11:06:47 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:29 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:29 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:29 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:30 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:30 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:50 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:50 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-08-03/03/22 11:08:50 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:02 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:02 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:02 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:04 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:04 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:04 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:10 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 11:09:32 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:00 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:53 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:53 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:53 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:54 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:54 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:58 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:58 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:58 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 11:10:59 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:00 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:00 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:01 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:01 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:01 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:05 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:08 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:08 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:08 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:08 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:08 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:09 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:09 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:09 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 11:11:12 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-17-03/03/22 11:17:37 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-17-03/03/22 11:17:37 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-17-03/03/22 11:17:37 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-17-03/03/22 11:17:41 GMT; ah1114; question_submission; sortable_question; ; ; FALSE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-17-03/03/22 11:17:44 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 11:19:54 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 11:19:54 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 11:19:54 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-03/03/22 11:20:07 GMT; ah1114; question_submission; sortable_question; ; ; FALSE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:17 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:17 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:17 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:18 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:18 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:20 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:20 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:21 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:21 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:40 GMT; ah1114; question_submission; sortable_question; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 11:22:45 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-23-03/03/22 11:23:36 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-23-03/03/22 11:23:36 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-23-03/03/22 11:23:36 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-23-03/03/22 11:23:44 GMT; ah1114; question_submission; sortable_question; ; ; FALSE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-23-03/03/22 11:23:45 GMT; ah1114; reset_question_submission; sortable_question; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-23-03/03/22 11:23:47 GMT; ah1114; question_submission; sortable_question; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 11:24:55 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 11:24:55 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 11:24:55 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 11:24:56 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 11:24:56 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 11:25:00 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 11:26:14 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 11:26:14 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 11:26:14 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 11:26:31 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 11:27:49 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 11:27:49 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 11:27:49 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 11:27:58 GMT; ah1114; question_submission; sortable_question; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-29-03/03/22 11:29:03 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-29-03/03/22 11:29:03 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-29-03/03/22 11:29:03 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-29-03/03/22 11:29:55 GMT; ah1114; question_submission; sortable_question; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-29-03/03/22 11:29:56 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-03/03/22 11:32:56 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-03/03/22 11:32:56 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-32-03/03/22 11:32:56 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-33-03/03/22 11:33:04 GMT; ah1114; question_submission; sortable_question; ; ; FALSE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-33-03/03/22 11:33:05 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-33-03/03/22 11:33:51 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-33-03/03/22 11:33:51 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-33-03/03/22 11:33:51 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-33-03/03/22 11:33:53 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-33-03/03/22 11:33:53 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-03/03/22 11:34:06 GMT; ah1114; question_submission; sortable_question; ; ; FALSE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-34-03/03/22 11:34:10 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-03/03/22 11:35:01 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-03/03/22 11:35:01 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-03/03/22 11:35:01 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-03/03/22 11:35:12 GMT; ah1114; question_submission; sortable_question; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-35-03/03/22 11:35:13 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-41-03/03/22 11:41:18 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-41-03/03/22 11:41:18 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-41-03/03/22 11:41:18 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-41-03/03/22 11:41:25 GMT; ah1114; question_submission; sortable_question; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-41-03/03/22 11:41:26 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-41-03/03/22 11:41:37 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-50-03/03/22 11:50:38 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-50-03/03/22 11:50:38 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-50-03/03/22 11:50:38 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-50-03/03/22 11:50:47 GMT; ah1114; question_submission; sortable_question; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-50-03/03/22 11:50:49 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-51-03/03/22 11:51:38 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-51-03/03/22 11:51:38 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-51-03/03/22 11:51:38 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-51-03/03/22 11:51:42 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-51-03/03/22 11:51:42 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-03/03/22 11:52:49 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-03/03/22 11:52:49 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-03/03/22 11:52:49 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-03/03/22 11:52:51 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-52-03/03/22 11:52:51 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-53-03/03/22 11:53:32 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-53-03/03/22 11:53:32 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-53-03/03/22 11:53:32 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-53-03/03/22 11:53:34 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-53-03/03/22 11:53:34 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-58-03/03/22 11:58:09 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-58-03/03/22 11:58:09 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-58-03/03/22 11:58:09 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-58-03/03/22 11:58:11 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-58-03/03/22 11:58:11 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-58-03/03/22 11:58:22 GMT; ah1114; session_stop; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-00-03/03/22 12:00:24 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-00-03/03/22 12:00:24 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-00-03/03/22 12:00:24 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-00-03/03/22 12:00:25 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-00-03/03/22 12:00:25 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:11 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:11 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:13 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:13 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:13 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:15 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:15 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:15 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:16 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:16 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:28 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:28 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:33 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:33 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:53 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:53 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-01-03/03/22 12:01:53 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-05-03/03/22 12:05:53 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-05-03/03/22 12:05:53 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-05-03/03/22 12:05:53 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 12:06:51 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 12:06:51 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 12:06:51 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 12:06:52 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-06-03/03/22 12:06:52 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 12:09:38 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 12:09:38 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 12:09:38 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 12:09:38 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 12:09:38 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:16 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:16 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:16 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:16 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:16 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:55 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:55 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-10-03/03/22 12:10:55 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 12:11:27 GMT; ah1114; question_submission; quiz0-1; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 12:11:28 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 12:11:28 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 12:11:28 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-11-03/03/22 12:11:40 GMT; ah1114; exercise_hint; clean_rename_select; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:04 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:04 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:04 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:17 GMT; ah1114; question_submission; quiz1-1; ; ; TRUE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:22 GMT; ah1114; question_submission; quiz1-2; ; ; FALSE
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:47 GMT; ah1114; exercise_submitted; drop_lon_to_source; ; linelist_raw %>%
+select(!c(lon:source)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:47 GMT; ah1114; exercise_result; drop_lon_to_source; ; linelist_raw %>%
+select(!c(lon:source)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:56 GMT; ah1114; exercise_submitted; drop_lon_to_source; ; linelist_raw %>%
+select(-c(lon:source)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-13-03/03/22 12:13:56 GMT; ah1114; exercise_result; drop_lon_to_source; ; linelist_raw %>%
+select(-c(lon:source)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-14-03/03/22 12:14:14 GMT; ah1114; exercise_hint; drop_lon_to_source; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-14-03/03/22 12:14:27 GMT; ah1114; exercise_submitted; drop_lon_to_source; ; linelist_raw %>%
+select(-c(lon:source)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-14-03/03/22 12:14:27 GMT; ah1114; exercise_result; drop_lon_to_source; ; linelist_raw %>%
+select(-c(lon:source)
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-14-03/03/22 12:14:35 GMT; ah1114; exercise_submitted; drop_lon_to_source; ; linelist_raw %>%
+select(-c(lon:source))
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-14-03/03/22 12:14:39 GMT; ah1114; exercise_result; drop_lon_to_source; ; linelist_raw %>%
+select(-c(lon:source))
+
+; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-14-03/03/22 12:14:46 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-16-03/03/22 12:16:33 GMT; ah1114; exercise_hint; date_mutate; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:39 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:39 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:39 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:42 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:42 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:45 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:45 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:45 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:46 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:46 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:56 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:56 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-19-03/03/22 12:19:56 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-03/03/22 12:20:49 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-03/03/22 12:20:49 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-20-03/03/22 12:20:49 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:02 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:02 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:02 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:29 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:29 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:29 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:30 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:30 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:34 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:34 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:34 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:36 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:36 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:36 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:40 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:40 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-22-03/03/22 12:22:40 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:40 GMT; ah1114; session_start; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:40 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:40 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:47 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:47 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:47 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:47 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:51 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:51 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:51 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:52 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:52 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:52 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:53 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:53 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:53 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:59 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:59 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-24-03/03/22 12:24:59 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 12:25:03 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 12:25:03 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 12:25:03 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 12:25:19 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 12:25:19 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 12:25:19 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-25-03/03/22 12:25:22 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:12 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:12 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:12 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:12 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:12 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:26 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:26 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-26-03/03/22 12:26:26 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:28 GMT; ah1114; exercise_hint; temp_convert_logic; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:34 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:34 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:35 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:35 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:35 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:35 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:35 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:35 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:38 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:38 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-27-03/03/22 12:27:38 GMT; ah1114; section_viewed_first_time; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 13:09:33 GMT; ah1114; section_skipped; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 13:09:33 GMT; ah1114; section_viewed; ; ; ; 
+C:/Users/ah1114/Documents/appliedepi/tutorials (v1.0); 2022-09-03/03/22 13:09:33 GMT; ah1114; section_viewed_first_time; ; ; ; 

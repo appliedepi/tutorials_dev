@@ -27,6 +27,7 @@ library(epikit)
 library(linelist)
 library(lubridate)
 library(fastLink)
+library(sortable)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -399,36 +400,19 @@ A pipe chain refers to the use of the "pipe" operator `%>%` to chain together op
 
 This allows us to carry out several different alterations of the dataframe in a single operation. It can be helpful to think of the pipe operator `%>%` as telling the computer "and then" between your operational commands. The order of this pipeline is important as operations occur sequentially, and so improperly ordered arguments may fail or (potentially more dangerously!) give incorrect values or unwanted outcomes.
 
-Can you connect the following commands from the **janitor** package (`clean_names()`, `select(contains("date_"))` and `names()` to clean the dataset `linelist_raw` and display the names of any columns that contain "_date"?
+Can you arrange the following commands from the **janitor** package, and **base** R, to clean the names of the dataset `linelist_raw`, select any columns that contain "_date" and display the names of these columns? Don't worry if you have not seen these functions before, we will explain them later.
 
-```{r pipe_linelist, exercise = TRUE}
-linelist_raw %>%
-  
+```{r sortable_question, echo = FALSE}
+function_order <- c("clean_names()", "select(contains('_date'))", "names()")
+
+# Initialize the question
+question_rank(
+  "Sort these insects in alpabetical order:",
+  answer(function_order, correct = TRUE),
+  answer(rev(function_order), correct = FALSE, message = "Other direction!"),
+  allow_retry = TRUE
+)
 ```
-
-```{r pipe_linelist-hint}
-linelist_raw %>%
-  clean_names() %>%
-
-```
-
-```{r pipe_linelist-check}
-  grade_this({
-    # Automatically pass if .result equal to .solution
-    pass_if_equal(message = "You have correctly linked the functions in order and displayed the names of the cleaned dataset, good work!")
-    # Default to failing grade with feedback
-    fail()
-  })
-```
-
-```{r pipe_linelist-solution}
-linelist_raw %>%
-    clean_names() %>%
-    select(contains("date_")) %>%
-    names() 
-```
-
-If the order of cleaning and selecting columns had not been correct, then you would have missed the column `date_onset` as in the raw linelist it was called `"date onset"`. 
 
 This was a very simple example giving you a first taste of pipe operators and cleaning functions, as we progress through the chapter you will gain more familiarity with the functions available and how to use them in increasingly complex examples.
 
@@ -451,9 +435,11 @@ names(linelist_raw)
 ```
 We can see that there are numerous violations of this clean syntax. We have names with spaces (infection date), different naming patterns for dates (date onset vs infection date) and there must have been a merged header across the last two columns (as the second last column i called "merged_header" and the last "...28" indicating it was assigned a placeholder name (it is the 28th column)). 
 
-Manually changing these column names to the preferred clean syntax would be time consuming, error prone and would need to be repeated everytime new versions of the linelist became available. Luckily, R has some helpful functions to make this process much faster and reproducible.
+**Can you think of a reason why it is useful to have a clean syntax for data organization and analysis?**
 
 ### Automatic cleaning
+
+Manually changing these column names to the preferred clean syntax would be time consuming, error prone and would need to be repeated everytime new versions of the linelist became available. Luckily, R has some helpful functions to make this process much faster and reproducible.
 
 The first function we will explore in detail is the `clean_names()` function from the **janitor** package. This function does a lot of the hard work of cleaning column names for us. It does this through:
 
@@ -476,7 +462,7 @@ linelist_raw %>%                              #Define the dataset, and then
 
 You can see that this has done a lot of the work for us, replacing spaces with "_", and ensuring there are no unusual characters. However, if we want to standardize the entire dataset to the "clean syntax" described previously, we will have to include additional cleaning stages.
 
-For example, if we wanted to use a similar style nomenclature such as **date_**, then we would have to carry out additional steps to the columns `infection_date`, `hosp_date`, `date_of_outcome`.
+For example, if we wanted to use a similar style nomenclature such as **date_**, then we would have to carry out additional, manual, steps to the columns `infection_date`, `hosp_date`, `date_of_outcome`.
 
 ### Manual name cleaning
 
@@ -734,7 +720,7 @@ linelist %>%
   head()                                 #This displays the top 6 rows to check
 ```
 
-In **base R** this would be carried out with
+In **base** R this would be carried out with
 ```{r, echo = T, eval = F}
 linelist$bmi = linelist$wt_kg / (linelist$ht_cm / 100) ^ 2)
 ```
@@ -751,6 +737,7 @@ linelist %>%
   head()
 ```
 
+**Can you think of a reason why we would create a new column in R, rather than the csv we take the data from?**
 
 ```{r quiz2}
 quiz(
@@ -792,28 +779,31 @@ linelist %>%
 ```
 
 
-
 ### Converting column class
 
 Columns contain values that are dates, numbers or logical values (TRUE/FALSE) and will only behave if correctly classified. Trying to sum "2" and "1" of class character will return an error, and summing 2 and 1 of class numeric will return 3.
 
-The class of a column is displayed when we use `skim()` and individually we can check the value of columns with `class()`. For instance,
+The class of a column is displayed when we use `skim()` and individually we can check the value of columns with `class()`. For instance, below we can see that this column has been incorrectly assigned as "character". 
 
 ```{r, echo = T, eval = T}
 class(linelist_raw$age)
 ```
 
-we can see that this column has been incorrectly assigned as "character". Can you reassign the class of this column to numeric using `as.numeric()`?
+Can you reassign the class of this column to numeric using `as.numeric()`?
 
-```{r change_class, exercise = T}
-linelist %>%
+```{r change_class, exercise = TRUE}
+linelist_raw %>%
   
+```
+
+```{r change_class-hint}
+In order to change a value to numeric, you can use the function as.numeric()
 ```
 
 ```{r change_class-check}
   grade_this({
     # Automatically pass if .result equal to .solution
-    pass_if_equal(message = "Great, you've got the hang of changing class!")
+    pass_if_equal(message = "Great, you have created a new column based and learned about the ifelse() function.")
     # Default to failing grade with feedback
     fail()
   })
@@ -824,13 +814,15 @@ linelist %>%
     mutate(age = as.numeric(age))
 ```
 
-Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with **base R**, or `as_factor` from the package **forcats**.
+Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with **base R**, or `as_factor()` from the package **forcats**.
 
 Converting dates is slightly trickier, and it requires careful attention to the format (e.g. "Month/Day/Year" or "Day/Month/Year"). After converting to the class Date, check your data to confirm each value was converted correctly.
 
 ### Grouping data
 
 Often your data will be grouped, and so functions such as `mutate()` will behave differently than if the data is not grouped. Additionally, summarising functions such as `mean()`, `min()`, `max()` will calculate by group and not by all the rows.
+
+**Why might we want to group data?**
 
 ```{r, eval = T, echo = T}
 # age normalized to mean of ALL rows
@@ -891,15 +883,18 @@ quiz(
 
 Can you update the above function using "tidyselect" helper functions to convert any columns that contain "date" to character?
 
-```{r tidyselect_date_character, exercise = T}
-linelist %>%
-  
+```{r tidyselect_date_character, exercise = TRUE}
+linelist_raw %>%
+```
+
+```{r tidyselect_date_character-hint}
+Remember you can use tidyhelper functions such as "select()"
 ```
 
 ```{r tidyselect_date_character-check}
   grade_this({
     # Automatically pass if .result equal to .solution
-    pass_if_equal()s
+    pass_if_equal(message = "Great, you have created a new column based and learned about the ifelse() function.")
     # Default to failing grade with feedback
     fail()
   })
@@ -931,6 +926,8 @@ linelist %>%
             date_onset) %>% 
   head()
 ```
+
+**Can you think of any analysis or programmatic issues that might arise when two distinct columns, and how we might mitigate them?**
 
 ### Cumulative math
 
@@ -1072,6 +1069,8 @@ table(linelist_updated$hospital, useNA = "always")
 
 ```
 
+**Why would you recode in R rather than manually in the dataset?**
+
 Can you quickly recode the values in the column `gender` from "f" to "Female" and "m" to "Male"? Once this is done, can you also `select()` the column `gender` only and show the first 6 rows with `head()`?
 
 ```{r gender_recode, exercise = TRUE}
@@ -1162,7 +1161,7 @@ The criteria are applied in the order the `case_when()` statement is written. So
 
 Along those lines, in your final statement, place TRUE on the left-side, which will capture any row that did not meet any of the previous criteria. The right-side of this statement could be assigned a value like “check me!” or missing.
 
-DANGER: Values on the right-side must all be the same class - either numeric, character, date, logical, etc. To assign missing (NA), you may need to use special variations of NA such as NA_character_, NA_real_ (for numeric or POSIX), and as.Date(NA). Read more in Working with dates.
+**DANGER: Values on the right-side must all be the same class - either numeric, character, date, logical, etc. To assign missing (NA), you may need to use special variations of NA such as NA_character_, NA_real_ (for numeric or POSIX), and as.Date(NA). Read more in Working with [dates](https://www.epirhandbook.com/en/working-with-dates.html).**
 
 Here we want to look at the temperatures of people recorded in the dataset. However, upon first visualization we can see that there is some discordence in the dataset.
 
@@ -1203,6 +1202,8 @@ linelist %>%
 
 Missing values are an ever present facet of dealing with real world data, and it is important to correctly identify and handle them in order to highlight data gaps and adjust our analysis accordingly. There are several inbuilt functions for dealing with missing data, depending on the scenario and the class of data.
 
+**Why is it important to correctly account for missing data? Can you think about how this may impact our understanding of the data and any analyses that are performed?**
+
 To change missing values (`NA`) to a specific value, such as "Missing", we can use the **dplyr** function `replace_na()` with `mutate()`
 
 ```{r}
@@ -1210,9 +1211,7 @@ linelist <- linelist %>%
   mutate(hospital = replace_na(hospital, "Missing"))
 ```
 
-Factors are R’s way to handle ordered values such as c("First", "Second", "Third") or to set the order that values (e.g. hospitals) appear in tables and plots.
-
-If your data are class Factor and you try to convert NA to “Missing” by using `replace_na()`, you will get this error: invalid factor level, NA generated. You have tried to add “Missing” as a value, when it was not defined as a possible level of the factor, and it was rejected.
+Factors are R’s way to handle ordered values such as c("First", "Second", "Third") or to set the order that values (e.g. hospitals) appear in tables and plots. If your data are of the class Factor and you try to convert NA to “Missing” by using `replace_na()`, you will get this error: invalid factor level, NA generated. You have tried to add “Missing” as a value, when it was not defined as a possible level of the factor, and it was rejected.
 
 The easiest way to solve this is to use the **forcats** function `fct_explicit_na()` which converts a column to class factor, and converts NA values to the character “(Missing)”.
 
