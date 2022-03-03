@@ -1388,15 +1388,6 @@ table(linelist$age_cat, useNA = "always")
 ```
 
 **It is very important to check your work here, do so by cross-tabulating the numeric and category columns**
-```{r, echo = T, eval = T}
-# Cross tabulation of the numeric and category columns. 
-table("Numeric Values" = linelist$age_years,   # names specified in table for clarity.
-      "Categories"     = linelist$age_cat,
-      useNA = "always") %>% # don't forget to examine NA values
-  head()
-```
-
-**Re-labeling NA values**
 
 You may want to assign NA values a label such as “Missing”. Because the new column is class Factor (restricted values), you cannot simply mutate it with `replace_na()`, as this value will be rejected. Instead, use `fct_explicit_na()` from the **forcats** package, as explained in the Factors page.
 
@@ -1462,7 +1453,7 @@ Quantiles, or percentiles, typically refer to a value below which a proportion o
 
 However in common speech, “quartiles” and “deciles” can also refer to the groups of data as equally divided into 4, or 10 groups (note there will be one more break point than group).
 
-To get quantile break points, you can use quantile() from the **stats** package from **base R**. You provide a numeric vector (e.g. a column in a dataset) and vector of numeric probability values ranging from 0 to 1.0. The break points are returned as a numeric vector. Explore the details of the statistical methodologies by entering ?quantile.
+To get quantile break points, you can use quantile() from the **stats** package from **base** R. You provide a numeric vector (e.g. a column in a dataset) and vector of numeric probability values ranging from 0 to 1.0. The break points are returned as a numeric vector. Explore the details of the statistical methodologies by entering ?quantile.
 
 * If your input numeric vector has any missing values it is best to set na.rm = TRUE
 * Set names = FALSE to get an un-named numeric vector
@@ -1484,6 +1475,29 @@ linelist %>%                                # begin with linelist
       na.rm = TRUE),                           # ignore missing values
     include.lowest = TRUE)) %>%             # for cut() include age 0
   janitor::tabyl(deciles)                   # pipe to table to display
+```
+
+Can you create a quantile break that gives us `linelist$age_years` broken down in 10% increments from 0 to 1? Remember to remove `NA` values. 
+
+```{r quant_break, exercise = TRUE}
+
+```
+
+```{r quant_break-hint}
+Remember you can specify the probs either manually, or by using seq()
+```
+
+```{r quant_break-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r quant_break-solution}
+quantile(linelist$age_years, probs = seq(0, 1, by = 0.1), na.rm = TRUE)
 ```
 
 ### Evenly sized groups
@@ -1512,74 +1526,7 @@ left_join(ntile_table, ntile_ranges, by = "even_groups")
 
 ```
 
-### Add to the pipe chain
-
-Now we'll add some of this to the cleaning pipe chain so you can see how all the steps we have learned so far are coming together to create one cleaning pipeline!
-
-```{r, echo = T, eval = T}
-# CLEANING 'PIPE' CHAIN (starts with raw data and pipes it through cleaning steps)
-##################################################################################
-
-# begin cleaning pipe chain
-###########################
-linelist <- linelist_raw %>%
-    
-    # standardize column name syntax
-    janitor::clean_names() %>% 
-    
-    # manually re-name columns
-           # NEW name             # OLD name
-    rename(date_infection       = infection_date,
-           date_hospitalisation = hosp_date,
-           date_outcome         = date_of_outcome) %>% 
-    
-    # remove column
-    select(-c(row_num, merged_header, x28)) %>% 
-  
-    # de-duplicate
-    distinct() %>% 
-
-    # add column
-    mutate(bmi = wt_kg / (ht_cm/100)^2) %>%     
-
-    # convert class of columns
-    mutate(across(contains("date"), as.Date), 
-           generation = as.numeric(generation),
-           age        = as.numeric(age)) %>% 
-    
-    # add column: delay to hospitalisation
-    mutate(days_onset_hosp = as.numeric(date_hospitalisation - date_onset)) %>% 
-    
-    # clean values of hospital column
-    mutate(hospital = recode(hospital,
-                      # OLD = NEW
-                      "Mitylira Hopital"  = "Military Hospital",
-                      "Mitylira Hospital" = "Military Hospital",
-                      "Military Hopital"  = "Military Hospital",
-                      "Port Hopital"      = "Port Hospital",
-                      "Central Hopital"   = "Central Hospital",
-                      "other"             = "Other",
-                      "St. Marks Maternity Hopital (SMMH)" = "St. Mark's Maternity Hospital (SMMH)"
-                      )) %>% 
-    
-    mutate(hospital = replace_na(hospital, "Missing")) %>% 
-
-    # create age_years column (from age and age_unit)
-    mutate(age_years = case_when(
-          age_unit == "years" ~ age,
-          age_unit == "months" ~ age/12,
-          is.na(age_unit) ~ age,
-          TRUE ~ NA_real_)) %>% 
-  
-    # ABOVE ARE UPSTREAM CLEANING STEPS ALREADY DISCUSSED
-    ###################################################   
-    mutate(
-          # age categories: custom
-          age_cat = epikit::age_categories(age_years, breakers = c(0, 5, 10, 15, 20, 30, 50, 70)),
-        
-          # age categories: 0 to 85 by 5s
-          age_cat5 = epikit::age_categories(age_years, breakers = seq(0, 85, 5)))
-```
+**Can you think of a situation, other than age, where we might want to split the data into evenly sized groups?**
 
 ## Filter rows
 
