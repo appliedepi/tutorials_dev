@@ -403,11 +403,11 @@ This allows us to carry out several different alterations of the dataframe in a 
 Can you arrange the following commands from the **janitor** package, and **base** R, to clean the names of the dataset `linelist_raw`, select any columns that contain "_date" and display the names of these columns? Don't worry if you have not seen these functions before, we will explain them later.
 
 ```{r sortable_question, echo = FALSE}
-function_order <- c("clean_names()", "select(contains('_date'))", "names()")
+function_order <- c("clean_names()", "select(contains('date'))", "names()")
 
 # Initialize the question
 question_rank(
-  "Sort these insects in alpabetical order:",
+  "Arrange these functions in order to clean, select all columns with date in the name, and then print these names:",
   answer(function_order, correct = TRUE),
   answer(rev(function_order), correct = FALSE, message = "Other direction!"),
   allow_retry = TRUE
@@ -435,7 +435,16 @@ names(linelist_raw)
 ```
 We can see that there are numerous violations of this clean syntax. We have names with spaces (infection date), different naming patterns for dates (date onset vs infection date) and there must have been a merged header across the last two columns (as the second last column i called "merged_header" and the last "...28" indicating it was assigned a placeholder name (it is the 28th column)). 
 
-**Can you think of a reason why it is useful to have a clean syntax for data organization and analysis?**
+```{r rhetorical1, echo = FALSE}
+question_text(
+  "Can you think of a reason why it is useful to have a clean syntax for data organization and analysis?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
 
 ### Automatic cleaning
 
@@ -526,7 +535,7 @@ linelist_raw %>%
 
 Using what we have learned, can you `clean()`, `rename()`, `select()` and `head()` to recreate the output below?
 
-```{r}
+```{r, eval = T}
   linelist_raw %>%                                        #Define the dataset, and then
          clean_names() %>%                              #clean the dataset columns, and then
                 #New name   Old name
@@ -737,7 +746,17 @@ linelist %>%
   head()
 ```
 
-**Can you think of a reason why we would create a new column in R, rather than the csv we take the data from?**
+```{r rhetorical2, echo = FALSE}
+question_text(
+  "Can you think of a reason why we would create a new column in R, rather than the csv we take the data from?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
 
 ```{r quiz2}
 quiz(
@@ -814,7 +833,7 @@ linelist %>%
     mutate(age = as.numeric(age))
 ```
 
-Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with **base R**, or `as_factor()` from the package **forcats**.
+Using the same syntax you can convert columns to character with `as.character()` or to logical operators, `as.logical()` or to a factor with `as.factor()` with **base** R, or `as_factor()` from the package **forcats**.
 
 Converting dates is slightly trickier, and it requires careful attention to the format (e.g. "Month/Day/Year" or "Day/Month/Year"). After converting to the class Date, check your data to confirm each value was converted correctly.
 
@@ -822,7 +841,16 @@ Converting dates is slightly trickier, and it requires careful attention to the 
 
 Often your data will be grouped, and so functions such as `mutate()` will behave differently than if the data is not grouped. Additionally, summarising functions such as `mean()`, `min()`, `max()` will calculate by group and not by all the rows.
 
-**Why might we want to group data?**
+```{r rhetorical3, echo = FALSE}
+question_text(
+  "Why might we want to group data?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
 
 ```{r, eval = T, echo = T}
 # age normalized to mean of ALL rows
@@ -927,7 +955,16 @@ linelist %>%
   head()
 ```
 
-**Can you think of any analysis or programmatic issues that might arise when two distinct columns, and how we might mitigate them?**
+```{r rhetorical5, echo = FALSE}
+question_text(
+  "Can you think of any analysis or programmatic issues that might arise when two distinct columns, and how we might mitigate them?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
 
 ### Cumulative math
 
@@ -1069,7 +1106,17 @@ table(linelist_updated$hospital, useNA = "always")
 
 ```
 
-**Why would you recode in R rather than manually in the dataset?**
+
+```{r rhetorical6, echo = FALSE}
+question_text(
+  "Why would you recode in R rather than manually in the dataset?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
 
 Can you quickly recode the values in the column `gender` from "f" to "Female" and "m" to "Male"? Once this is done, can you also `select()` the column `gender` only and show the first 6 rows with `head()`?
 
@@ -1202,7 +1249,16 @@ linelist %>%
 
 Missing values are an ever present facet of dealing with real world data, and it is important to correctly identify and handle them in order to highlight data gaps and adjust our analysis accordingly. There are several inbuilt functions for dealing with missing data, depending on the scenario and the class of data.
 
-**Why is it important to correctly account for missing data? Can you think about how this may impact our understanding of the data and any analyses that are performed?**
+```{r rhetorical7, echo = FALSE}
+question_text(
+  "Why is it important to correctly account for missing data? Can you think about how this may impact our understanding of the data and any analyses that are performed?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
 
 To change missing values (`NA`) to a specific value, such as "Missing", we can use the **dplyr** function `replace_na()` with `mutate()`
 
@@ -1265,28 +1321,6 @@ You will need to use both na_if() and replace(), and a few logical operators ("|
 linelist %>%
  mutate(age = na_if(age, "Age not recorded"),
         bmi = replace(bmi, bmi < 10 | bmi > 40, NA))
-```
-
-### Cleaning dictionary
-
-Use the R package **linelist** and it’s function `clean_variable_spelling()` to clean a dataframe with a cleaning dictionary. **linelist** is a package developed by RECON - the R Epidemics Consortium.
-
-1) Create a cleaning dictionary with 3 columns:
-* “from” column (the incorrect value)
-* A “to” column (the correct value)
-* A column specifying the column for the changes to be applied (or “.global” to apply to all columns)
-
-2) Import the dictionary file into R
-`cleaning_dictionary <- import(cleaning_dictionary.csv)`
-
-3) Pass the rawlinelist to `clean_variable_spelling()`, specifiying to `wordlists = ` the cleaning dictionary dataframe. The `spelling_vars` argument can be used to specify which column in the dictionary refers to the columns (3rd by default), or can be set to `NULL` in order to have the dictionary apply to all character and factor columns. Note this function can take a long time to run.
-
-```{r, echo = T, eval = F}
-linelist <- linelist %>% 
-  linelist::clean_variable_spelling(
-    wordlists = cleaning_dict,
-    spelling_vars = "col",        # dictionary column containing column names
-  )
 ```
 
 ## Numerical categories
@@ -1526,7 +1560,16 @@ left_join(ntile_table, ntile_ranges, by = "even_groups")
 
 ```
 
-**Can you think of a situation, other than age, where we might want to split the data into evenly sized groups?**
+```{r rhetorical8, echo = FALSE}
+question_text(
+  "Can you think of a situation, other than age, where we might want to split the data into evenly sized groups?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
 
 ## Filter rows
 
@@ -1689,15 +1732,15 @@ linelist %>%
 
 Can you now arrange the column `source` in `linelist` by `date_infection` in ascending order *and* `date_onset` in descending order, then only display rows where `gender == "m"` and the columns `gender`, `date_infection` and `date_onset`? Remember to drop `NA` values from the columns you are sorting by.
 
-```{r rowwise_calc, exercise = TRUE}
+```{r arrange_filter, exercise = TRUE}
 
 ```
 
-```{r rowwise_calc-hint}
+```{r arrange_filter-hint}
 Take this step by step, you have successfully completed all these steps individually, it is just a case of tying everything you have learned together!
 ```
 
-```{r rowwise_calc-check}
+```{r arrange_filter-check}
   grade_this({
     # Automatically pass if .result equal to .solution
     pass_if_equal()
@@ -1706,7 +1749,7 @@ Take this step by step, you have successfully completed all these steps individu
   })
 ```
 
-```{r rowwise_calc-solution}
+```{r arrange_filter-solution}
 linelist %>% 
   drop_na(date_infection, date_onset) %>%
    arrange(source, date_infection, desc(date_onset)) %>%

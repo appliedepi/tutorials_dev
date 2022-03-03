@@ -408,6 +408,29 @@ Dates in R are their own class of object - the Date class. It should be noted th
 **Current date**
 To get the current "system" date you using `Sys.Date()`, and to get the time, `Sys.time()`. Alternatively you can return the date with `today()` and the time with `now()` from the **lubridate** package.
 
+Try it out now, type `Sys.Date()`, `Sys.time()`, `today()` and `now()` on different lines and click submit.
+
+```{r today_date, exercise = TRUE}
+Sys.Date()
+Sys.time()
+today()
+now()
+```
+
+```{r today_date-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail(message = "Remember to type each of the four functions on a separate line. Also remember date Sys.Date() has Date capitalized")
+  })
+```
+
+```{r today_date-solution}
+Sys.Date()
+```
+
+
 ## Converting to a date
 
 After importing a dataset into R, date column values may look like "1989/12/30", "05/06/2014" or "13 Jan 2020". In all these cases, R is likely still treating these as character values. *R must be told that these are dates, and the format that the dates are in (which is Day, Month and Year).* 
@@ -541,7 +564,7 @@ Often dates are in a variety of different formats, the function `guess_dates()` 
 
 For example `guess_dates()` would see a vector of the following character dates “03 Jan 2018”, “07/03/1982”, and “08/20/85” and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.
 
-```{r}
+```{r, echo = T, eval = T}
 linelist::guess_dates(c("03 Jan 2018",
                         "07/03/1982",
                         "08/20/85"))
@@ -563,7 +586,7 @@ In this example, the linelist dataframe has a column in format “hours:minutes�
 * Create a “clean” time of admission column with missing values filled-in with the column median. We do this because lubridate won’t operate on missing values. 
 * Combine it with the column date_hospitalisation, and then use the function ymd_hm() to convert.
 
-```{r}
+```{r, echo = T, eval = T}
 # time_admission is a column in hours:minutes
 linelist <- linelist %>%
   
@@ -587,7 +610,7 @@ linelist <- linelist %>%
 
 If your data only contains character time (hours, minutes, seconds), you can convert and manipulate these as times using `strptime()` from **base R**. For example, to get the difference between these two times:
 
-```{r}
+```{r, echo = T, eval = T}
 # raw character times
 time1 <- "13:45" 
 time2 <- "15:20"
@@ -606,7 +629,7 @@ You can extract the elements of a time with `hour()`, `minute()` and `second()` 
 
 Here is an example of extracting the hour, and then classifing by part of the day. We begin with the column `time_admission`, which is class Character in format “HH:MM”. First, the `strptime()` is used as described above to convert the characters to datetime class. Then, the hour is extracted with `hour()`, returning a number from 0-24. Finally, a column time_period is created using logic with `case_when()` to classify rows into Morning/Afternoon/Evening/Night based on their hour of admission.
 
-```{r}
+```{r, echo = T, eval = T}
 linelist <- linelist %>%
   mutate(hour_admit = hour(strptime(time_admission, format = "%H:%M"))) %>%
   mutate(time_period = case_when(
@@ -695,12 +718,12 @@ The differences between dates can be calculated by
 * Use subtraction to return the difftime difference between two dates
 * If necessary, convert to numeric class to perform subsequent calculations
 
-```{r}
+```{r, echo = T, eval = T}
 output <- Sys.Date() - ymd("2020-02-20")
 output    # print
 ```
 
-```{r}
+```{r, echo = T, eval = T}
 class(output)
 ```
 
@@ -708,7 +731,7 @@ To do subsequent operations on a “difftime”, convert it to numeric with `as.
 
 This can all be brought together to work with data - for example:
 
-```{r}
+```{r, echo = T, eval = T}
 linelist_delay <- linelist %>%
   
   # convert date of onset from character to date objects by specifying ymd format
@@ -806,7 +829,7 @@ For example, to work out the weekly cases we carry out the following operations:
 2. Get counts of rows (cases) per week with `count()`; filter out any cases with missing date
 3. Finish with `complete()` from **tidyr** to ensure that all weeks appear in the data - even those with no rows/cases. By default the count values for any “new” rows are NA, but you can make them 0 with the `fill = argument`, which expects a named list (below, `n` is the name of the counts column).
 
-```{r}
+```{r, echo = T, eval = T}
 # Make aggregated dataset of weekly case counts
 weekly_counts <- linelist %>% 
   drop_na(date_onset) %>%             # remove cases missing onset date
@@ -927,7 +950,7 @@ To deal with time zones, there are a number of helper functions in **lubridate**
 
 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
-```{r}
+```{r, echo = T, eval = T}
 # assign the current time to a column
 time_now <- Sys.time()
 time_now
@@ -957,12 +980,12 @@ First, create a new column containing the value of the previous (lagged) week.
 * Use default = to define the value placed in non-existing rows (e.g. the first row for which there is no lagged value). By default this is NA.
 * Use order_by = TRUE if your the rows are not ordered by your reference column
 
-```{r}
+```{r, echo = T, eval = T}
 counts <- weekly_counts %>% 
   mutate(cases_prev_wk = lag(n, n = 1))
 ```
 
-```{r}
+```{r, echo = T, eval = T}
 counts %>% 
   mutate(cases_prev_wk = lag(n, n = 1),
          case_diff = n - cases_prev_wk) %>%
