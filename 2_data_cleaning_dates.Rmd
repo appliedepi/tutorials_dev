@@ -27,6 +27,7 @@ library(epikit)
 library(linelist)
 library(lubridate)
 library(fastLink)
+library(sortable)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -408,13 +409,10 @@ Dates in R are their own class of object - the Date class. It should be noted th
 **Current date**
 To get the current "system" date you using `Sys.Date()`, and to get the time, `Sys.time()`. Alternatively you can return the date with `today()` and the time with `now()` from the **lubridate** package.
 
-Try it out now, type `Sys.Date()`, `Sys.time()`, `today()` and `now()` on different lines and click submit.
+Try it out now, type `Sys.Date()` and `today()` on different lines and click submit.
 
 ```{r today_date, exercise = TRUE}
-Sys.Date()
-Sys.time()
-today()
-now()
+
 ```
 
 ```{r today_date-check}
@@ -422,20 +420,20 @@ now()
     # Automatically pass if .result equal to .solution
     pass_if_equal()
     # Default to failing grade with feedback
-    fail(message = "Remember to type each of the four functions on a separate line. Also remember date Sys.Date() has Date capitalized")
+    fail(message = "Remember to type each of the two functions on a separate line. Also remember date Sys.Date() has Date capitalized")
   })
 ```
 
 ```{r today_date-solution}
 Sys.Date()
+today()
 ```
-
 
 ## Converting to a date
 
-After importing a dataset into R, date column values may look like "1989/12/30", "05/06/2014" or "13 Jan 2020". In all these cases, R is likely still treating these as character values. *R must be told that these are dates, and the format that the dates are in (which is Day, Month and Year).* 
+After importing a dataset into R, date column values may look like "1989/12/30", "05/06/2014" or "13 Jan 2020". In all these cases, R is likely still treating these as character values. **R must be told that these are dates, and the format that the dates are in (which is Day, Month and Year).** 
 
-By default, the values of class Date are displayed as YYYY-MM-DD, later in this section we will discuss how tho change these.
+By default, the values of class Date are displayed as YYYY-MM-DD, later in this section we will discuss how to change these.
 
 ### **base R**
 
@@ -473,7 +471,6 @@ Most of the strptime abbreviations are listed below. You can see the complete li
 * %Z = Time zone (character)
 
 *Remember that you need to also get the date separator (/, -, space etc) correct in order to convert your dates*
-
 ### lubridate
 
 The **lubridate** package makes handling dates and times a lot easier than using **base R**, and is recommended whenever you are working with dates
@@ -539,6 +536,18 @@ linelist <- linelist %>%
   mutate(onset_date = make_date(year = year(date_onset), month = month(date_onset), day = day(date_onset)))
 ```
 
+```{r rhetorical1, echo = FALSE}
+question_text(
+  "When do you think this function would be useful?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
+
 ## Excel dates
 
 In the background, most software store dates as numbers. R stores dates from an origin of 1st January, 1970. Thus, if you run `as.numeric(as.Date("1970-01-01))` you will get `0`. 
@@ -570,14 +579,27 @@ linelist::guess_dates(c("03 Jan 2018",
                         "08/20/85"))
 ```
 
+```{r rhetorical2, echo = FALSE}
+question_text(
+  "Have you ever had to deal with a dataset that contains multiple data formats? If so, how did you deal with it?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
 ## Working with the date-time class
 
 Converting columns to the date-time class follows a similar format to the date class with **lubridate** functions, only with `_h` (only hours supplied), `_hm` (hours and minutes supplied), or `_hms` (hours, minutes, and seconds supplied) appended to the end (e.g. `dmy_hms()`).
 
-`r ymd_h("2020-01-01 16hrs")`
-`r ymd_h("2020-01-01 4PM")`
-`r dmy_hm("01 January 2020 16:20")`
-`r mdy_hms("01 January 2020, 16:20:40")`
+```{r, echo = T, eval = T}
+ymd_h("2020-01-01 16hrs")
+ymd_h("2020-01-01 4PM")
+dmy_hm("01 January 2020 16:20")
+mdy_hms("01 January 2020, 16:20:40")
+```
 
 When working with a dataframe, time and date columns can be combined to create a datetime column using `str_glue()` from **stringr** package and an appropriate **lubridate** function.
 
@@ -604,6 +626,22 @@ linelist <- linelist %>%
     date_time_of_admission = str_glue("{date_hospitalisation} {time_admission_clean}") %>% 
       ymd_hm()
   )
+```
+
+Can you order these functions in increasing order by the time they output? For example `ymd_h("2020-01-01 16")` would output "2020-01-01 16:00:00 UTC" which is before the output of `ymd_hm("2020-01-01 16.05")` which would output "2020-01-01 16:05:00 UTC" and so would be placed before.
+
+```{r sortable_question, echo = FALSE}
+function_order <- c(ymd_hms("2020-01-01 17hrs 5min 6second"),
+                    ymd_hm("2020-01-02 16.00"),
+                    mdy_hms("January 02 2020, 16:00:40"),
+                    dmy_hm("02 January 2020 16:01"))
+
+# Initialize the question
+question_rank(
+  "Arrange from first to last in terms of date",
+  answer(function_order, correct = TRUE),
+  allow_retry = TRUE
+)
 ```
 
 ### Convert times alone
@@ -639,20 +677,17 @@ linelist <- linelist %>%
     hour_admit >=21 | hour_admit <= 6 ~ "Night"))
 ```
 
-### Practice
-
 ```{r quiz6}
 quiz(
   question("Which of the following functions would convert 'Jan 5 1997' to the correct Date format?",
-    answer(mdy('Jan 5 1997'), correct = T),
-    answer(guess_dates('Jan 5 1997'), correct = T),
-    answer(as.Date('Jan 5 1997', format = "%b %d %Y"), correct = T),
-  correct = "Yes, all of these work to convert your date! However, there is a lot more to specify in the base R function as.Date()"),
+    answer("mdy('Jan 5 1997')", correct = T),
+    answer("guess_dates('Jan 5 1997')", correct = T),
+    answer("as.Date('Jan 5 1997', format = "%b %d %Y")", correct = T)),
   question("Which of the following functions be used to convert a column that has the format year, month, day, hour, minute?",
-    answer(ymd_hm(), correct = T),
-    answer(ymd_hms(), correct = F),
-    answer(mdy_hm(), correct = F),
-  correct = "Correct, good work"))
+    answer("ymd_hm()", correct = T),
+    answer("ymd_hms()", correct = F),
+    answer("mdy_hm()", correct = F))
+)
 ```
 
 We want to estimate the time from infection to onset. In order to do this, can you convert the columns `date_infection` and `date_onset` to Date objects, and then subtract `date_infection` from `date_onset` to create a new column, `time_to_symptoms`, and display only this column?

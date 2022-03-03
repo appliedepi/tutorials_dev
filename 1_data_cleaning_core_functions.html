@@ -295,12 +295,11 @@ ID:
 ## [21] &quot;chills&quot;          &quot;cough&quot;           &quot;aches&quot;           &quot;vomit&quot;          
 ## [25] &quot;temp&quot;            &quot;time_admission&quot;  &quot;merged_header&quot;   &quot;...28&quot;</code></pre>
 <p>We can see that there are numerous violations of this clean syntax. We have names with spaces (infection date), different naming patterns for dates (date onset vs infection date) and there must have been a merged header across the last two columns (as the second last column i called “merged_header” and the last “…28” indicating it was assigned a placeholder name (it is the 28th column)).</p>
-<p><strong>Can you think of a reason why it is useful to have a clean syntax for data organization and analysis?</strong></p>
 <div class="panel panel-default">
-<div data-label="dummyQ1" class="tutorial-question panel-body">
-<div id="dummyQ1-answer_container" class="shiny-html-output"></div>
-<div id="dummyQ1-message_container" class="shiny-html-output"></div>
-<div id="dummyQ1-action_button_container" class="shiny-html-output"></div>
+<div data-label="rhetorical1" class="tutorial-question panel-body">
+<div id="rhetorical1-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical1-message_container" class="shiny-html-output"></div>
+<div id="rhetorical1-action_button_container" class="shiny-html-output"></div>
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
@@ -590,7 +589,14 @@ Remember, you do not need to specifiy each column name individually that you wan
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["case_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["hospital"],"name":[2],"type":["chr"],"align":["left"]},{"label":["date_hospitalisation"],"name":[3],"type":["date"],"align":["right"]},{"label":["new_var_dup"],"name":[4],"type":["chr"],"align":["left"]},{"label":["new_var_static"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"5fe599","2":"Other","3":"2014-05-15","4":"5fe599","5":"12","_rn_":"1"},{"1":"8689b7","2":"Missing","3":"2014-05-14","4":"8689b7","5":"12","_rn_":"2"},{"1":"11f8ea","2":"St. Mark's Maternity Hospital (SMMH)","3":"2014-05-18","4":"11f8ea","5":"12","_rn_":"3"},{"1":"b8812a","2":"Port Hospital","3":"2014-05-20","4":"b8812a","5":"12","_rn_":"4"},{"1":"893f25","2":"Military Hospital","3":"2014-05-22","4":"893f25","5":"12","_rn_":"5"},{"1":"be99c8","2":"Port Hospital","3":"2014-05-23","4":"be99c8","5":"12","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p><strong>Can you think of a reason why we would create a new column in R, rather than the csv we take the data from?</strong></p>
+<div class="panel panel-default">
+<div data-label="rhetorical2" class="tutorial-question panel-body">
+<div id="rhetorical2-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical2-message_container" class="shiny-html-output"></div>
+<div id="rhetorical2-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
 <div class="panel panel-default">
 <div data-label="quiz2-1" class="tutorial-question panel-body">
@@ -634,13 +640,20 @@ ifelse(age_unit == &quot;years&quot;,   #The condition, if the value in the colu
 <pre class="text"><code>linelist %&gt;%
     mutate(age = as.numeric(age))</code></pre>
 </div>
-<p>Using the same syntax you can convert columns to character with <code>as.character()</code> or to logical operators, <code>as.logical()</code> or to a factor with <code>as.factor()</code> with <strong>base R</strong>, or <code>as_factor()</code> from the package <strong>forcats</strong>.</p>
+<p>Using the same syntax you can convert columns to character with <code>as.character()</code> or to logical operators, <code>as.logical()</code> or to a factor with <code>as.factor()</code> with <strong>base</strong> R, or <code>as_factor()</code> from the package <strong>forcats</strong>.</p>
 <p>Converting dates is slightly trickier, and it requires careful attention to the format (e.g. “Month/Day/Year” or “Day/Month/Year”). After converting to the class Date, check your data to confirm each value was converted correctly.</p>
 </div>
 <div id="section-grouping-data" class="section level3">
 <h3>Grouping data</h3>
 <p>Often your data will be grouped, and so functions such as <code>mutate()</code> will behave differently than if the data is not grouped. Additionally, summarising functions such as <code>mean()</code>, <code>min()</code>, <code>max()</code> will calculate by group and not by all the rows.</p>
-<p><strong>Why might we want to group data?</strong></p>
+<div class="panel panel-default">
+<div data-label="rhetorical3" class="tutorial-question panel-body">
+<div id="rhetorical3-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical3-message_container" class="shiny-html-output"></div>
+<div id="rhetorical3-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 <pre class="r"><code># age normalized to mean of ALL rows
 linelist %&gt;% 
     summarize(mean_age = mean(age, na.rm = T))</code></pre>
@@ -724,7 +737,14 @@ village    # print</code></pre>
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["first_date"],"name":[1],"type":["date"],"align":["right"]},{"label":["date_infection"],"name":[2],"type":["date"],"align":["right"]},{"label":["date_onset"],"name":[3],"type":["date"],"align":["right"]}],"data":[{"1":"2014-05-08","2":"2014-05-08","3":"2014-05-13","_rn_":"1"},{"1":"2014-05-13","2":"<NA>","3":"2014-05-13","_rn_":"2"},{"1":"2014-05-16","2":"<NA>","3":"2014-05-16","_rn_":"3"},{"1":"2014-05-04","2":"2014-05-04","3":"2014-05-18","_rn_":"4"},{"1":"2014-05-18","2":"2014-05-18","3":"2014-05-21","_rn_":"5"},{"1":"2014-05-03","2":"2014-05-03","3":"2014-05-22","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p><strong>Can you think of any analysis or programmatic issues that might arise when two distinct columns, and how we might mitigate them?</strong></p>
+<div class="panel panel-default">
+<div data-label="rhetorical5" class="tutorial-question panel-body">
+<div id="rhetorical5-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical5-message_container" class="shiny-html-output"></div>
+<div id="rhetorical5-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 </div>
 <div id="section-cumulative-math" class="section level3">
 <h3>Cumulative math</h3>
@@ -843,7 +863,14 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
 ##                                  907                                 1804 
 ## St. Mark&#39;s Maternity Hospital (SMMH)                                 &lt;NA&gt; 
 ##                                  428                                 1512</code></pre>
-<p><strong>Why would you recode in R rather than manually in the dataset?</strong></p>
+<div class="panel panel-default">
+<div data-label="rhetorical6" class="tutorial-question panel-body">
+<div id="rhetorical6-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical6-message_container" class="shiny-html-output"></div>
+<div id="rhetorical6-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 <p>Can you quickly recode the values in the column <code>gender</code> from “f” to “Female” and “m” to “Male”? Once this is done, can you also <code>select()</code> the column <code>gender</code> only and show the first 6 rows with <code>head()</code>?</p>
 <div class="tutorial-exercise" data-label="gender_recode" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>linelist_raw %&gt;%</code></pre>
@@ -916,7 +943,14 @@ table(linelist_updated$hospital, useNA = &quot;always&quot;)</code></pre>
 <div id="section-missing-values" class="section level3">
 <h3>Missing values</h3>
 <p>Missing values are an ever present facet of dealing with real world data, and it is important to correctly identify and handle them in order to highlight data gaps and adjust our analysis accordingly. There are several inbuilt functions for dealing with missing data, depending on the scenario and the class of data.</p>
-<p><strong>Why is it important to correctly account for missing data? Can you think about how this may impact our understanding of the data and any analyses that are performed?</strong></p>
+<div class="panel panel-default">
+<div data-label="rhetorical7" class="tutorial-question panel-body">
+<div id="rhetorical7-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical7-message_container" class="shiny-html-output"></div>
+<div id="rhetorical7-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 <p>To change missing values (<code>NA</code>) to a specific value, such as “Missing”, we can use the <strong>dplyr</strong> function <code>replace_na()</code> with <code>mutate()</code></p>
 <p>Factors are R’s way to handle ordered values such as c(“First”, “Second”, “Third”) or to set the order that values (e.g. hospitals) appear in tables and plots. If your data are of the class Factor and you try to convert NA to “Missing” by using <code>replace_na()</code>, you will get this error: invalid factor level, NA generated. You have tried to add “Missing” as a value, when it was not defined as a possible level of the factor, and it was rejected.</p>
 <p>The easiest way to solve this is to use the <strong>forcats</strong> function <code>fct_explicit_na()</code> which converts a column to class factor, and converts NA values to the character “(Missing)”.</p>
@@ -1152,7 +1186,14 @@ left_join(ntile_table, ntile_ranges, by = &quot;even_groups&quot;)</code></pre>
 {"columns":[{"label":["even_groups"],"name":[1],"type":["int"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["percent"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["valid_percent"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["min"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["max"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"581","3":"0.09867527","4":"0.10013788","5":"0","6":"2"},{"1":"2","2":"581","3":"0.09867527","4":"0.10013788","5":"2","6":"5"},{"1":"3","2":"580","3":"0.09850543","4":"0.09996553","5":"5","6":"7"},{"1":"4","2":"580","3":"0.09850543","4":"0.09996553","5":"7","6":"10"},{"1":"5","2":"580","3":"0.09850543","4":"0.09996553","5":"10","6":"13"},{"1":"6","2":"580","3":"0.09850543","4":"0.09996553","5":"13","6":"17"},{"1":"7","2":"580","3":"0.09850543","4":"0.09996553","5":"17","6":"21"},{"1":"8","2":"580","3":"0.09850543","4":"0.09996553","5":"21","6":"26"},{"1":"9","2":"580","3":"0.09850543","4":"0.09996553","5":"26","6":"34"},{"1":"10","2":"580","3":"0.09850543","4":"0.09996553","5":"34","6":"84"},{"1":"NA","2":"86","3":"0.01460598","4":"NA","5":"Inf","6":"-Inf"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p><strong>Can you think of a situation, other than age, where we might want to split the data into evenly sized groups?</strong></p>
+<div class="panel panel-default">
+<div data-label="rhetorical8" class="tutorial-question panel-body">
+<div id="rhetorical8-answer_container" class="shiny-html-output"></div>
+<div id="rhetorical8-message_container" class="shiny-html-output"></div>
+<div id="rhetorical8-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 </div>
 </div>
 <div id="section-filter-rows" class="section level2">
@@ -1683,7 +1724,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "dummyQ1", question = structure("", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical1", question = structure("Can you think of a reason why it is useful to have a clean syntax for data organization and analysis?", html = TRUE, class = c("html", 
 "character")), answers = list(structure(list(id = "lnr_ans_35b289", 
     option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
     value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
@@ -1694,8 +1735,9 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
-    answer = "dummyQ1-answer", question = "dummyQ1"), loading = structure("<strong>Loading:<\u002fstrong> <\u002fp>\n\n<p><br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    answer = "rhetorical1-answer", question = "rhetorical1"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nCan you think of a reason why it is useful to have a clean syntax for data organization and analysis?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
     seed = 721008237.664254, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
@@ -2302,17 +2344,37 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz2-1", question = structure("Which function can be used to create new columns?", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical2", question = structure("Can you think of a reason why we would create a new column in R, rather than the csv we take the data from?", html = TRUE, class = c("html", 
 "character")), answers = list(structure(list(id = "lnr_ans_53444e5", 
+    option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    label = NULL, correct = NULL, message = NULL, type = "function"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "rhetorical2-answer", question = "rhetorical2"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nCan you think of a reason why we would create a new column in R, rather than the csv we take the data from?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 2084952287.52912, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz2-1", question = structure("Which function can be used to create new columns?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_fc1d2e5", 
     option = "select()", value = "select()", label = structure("select()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f88bb1c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a08028", 
     option = "mutate()", value = "mutate()", label = structure("mutate()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fc1d2e5", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e4c1168", 
     option = "rename()", value = "rename()", label = structure("rename()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a08028", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d288c03", 
     option = "clean_names()", value = "clean_names()", label = structure("clean_names()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2323,7 +2385,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz2-1-answer", question = "quiz2-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich function can be used to create new columns?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1918929728.60643, options = list()), class = c("learnr_radio", 
+    seed = 1555303634.27576, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2623,6 +2685,26 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical3", question = structure("Why might we want to group data?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_49f6ab9", 
+    option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    label = NULL, correct = NULL, message = NULL, type = "function"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "rhetorical3-answer", question = "rhetorical3"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nWhy might we want to group data?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 1077926419.99805, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-age_sex_group-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-age_sex_group-code-editor`)), session)
 output$`tutorial-exercise-age_sex_group-output` <- renderUI({
   `tutorial-exercise-age_sex_group-result`()
@@ -2772,22 +2854,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz3-1", question = structure("What will this pipe chain do?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_d288c03", 
+"character")), answers = list(structure(list(id = "lnr_ans_6da8263", 
     option = "Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE", 
     value = "Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE", 
     label = structure("Check the columns temp, ht_cm and wt_kg to see if they are the character class and return a TRUE/FALSE", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b96819a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9c2a027", 
     option = "Check the columns temp, ht_cm and wt_kg to see if they are the character class", 
     value = "Check the columns temp, ht_cm and wt_kg to see if they are the character class", 
     label = structure("Check the columns temp, ht_cm and wt_kg to see if they are the character class", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_49f6ab9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ed15c0c", 
     option = "Convert the columns temp, ht_cm and wt_kg to character class and make new columns", 
     value = "Convert the columns temp, ht_cm and wt_kg to character class and make new columns", 
     label = structure("Convert the columns temp, ht_cm and wt_kg to character class and make new columns", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_807fb43", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d78b7c", 
     option = "Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", 
     value = "Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", 
     label = structure("Convert the columns temp, ht_cm and wt_kg to character class and update existing columns", html = TRUE, class = c("html", 
@@ -2800,7 +2882,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz3-1-answer", question = "quiz3-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat will this pipe chain do?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 919868180.571653, options = list()), class = c("learnr_radio", 
+    seed = 583861792.228118, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2951,6 +3033,26 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
         exercise = TRUE, code = "linelist_raw %>%", out.width.px = 624, 
         out.height.px = 384, params.src = "tidyselect_date_character, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical5", question = structure("Can you think of any analysis or programmatic issues that might arise when two distinct columns, and how we might mitigate them?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_bc2932f", 
+    option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    label = NULL, correct = NULL, message = NULL, type = "function"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "rhetorical5-answer", question = "rhetorical5"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nCan you think of any analysis or programmatic issues that might arise when two distinct columns, and how we might mitigate them?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 1613932472.24845, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -3256,6 +3358,26 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical6", question = structure("Why would you recode in R rather than manually in the dataset?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_ee3b45a", 
+    option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    label = NULL, correct = NULL, message = NULL, type = "function"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "rhetorical6-answer", question = "rhetorical6"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nWhy would you recode in R rather than manually in the dataset?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 993705698.03727, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-gender_recode-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-gender_recode-code-editor`)), session)
 output$`tutorial-exercise-gender_recode-output` <- renderUI({
   `tutorial-exercise-gender_recode-result`()
@@ -3405,22 +3527,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz4-1", question = structure("Which of these simple logical statements would replace &#39;Other&#39; with &#39;Unidentified&#39; in the column &#39;hospital&#39;?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9c2a027", 
+"character")), answers = list(structure(list(id = "lnr_ans_dc5641c", 
     option = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', hospital))", 
     value = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', hospital))", 
     label = structure("mutate(hospital = ifelse(hospital == &#39;Other&#39;, &#39;Unidentified&#39;, hospital))", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ed15c0c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4fe19e7", 
     option = "mutate(hospital = ifelse(hospital == 'Unidentified', 'Other', hospital))", 
     value = "mutate(hospital = ifelse(hospital == 'Unidentified', 'Other', hospital))", 
     label = structure("mutate(hospital = ifelse(hospital == &#39;Unidentified&#39;, &#39;Other&#39;, hospital))", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d78b7c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_35420b8", 
     option = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', 'Identified'))", 
     value = "mutate(hospital = ifelse(hospital == 'Other', 'Unidentified', 'Identified'))", 
     label = structure("mutate(hospital = ifelse(hospital == &#39;Other&#39;, &#39;Unidentified&#39;, &#39;Identified&#39;))", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_459a0c4", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ebbb595", 
     option = "mutate(hospital = ifelse(Other == 'hospital', 'Unidentified', hospital))", 
     value = "mutate(hospital = ifelse(Other == 'hospital', 'Unidentified', hospital))", 
     label = structure("mutate(hospital = ifelse(Other == &#39;hospital&#39;, &#39;Unidentified&#39;, hospital))", html = TRUE, class = c("html", 
@@ -3433,7 +3555,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz4-1-answer", question = "quiz4-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of these simple logical statements would replace &#39;Other&#39; with &#39;Unidentified&#39; in the column &#39;hospital&#39;?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1578408311.265, options = list()), class = c("learnr_radio", 
+    seed = 113251596.447263, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -3587,6 +3709,26 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical7", question = structure("Why is it important to correctly account for missing data? Can you think about how this may impact our understanding of the data and any analyses that are performed?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_69417b8", 
+    option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    label = NULL, correct = NULL, message = NULL, type = "function"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "rhetorical7-answer", question = "rhetorical7"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nWhy is it important to correctly account for missing data? Can you think about how this may impact our understanding of the data and any analyses that are performed?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 979985297.043659, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-NA_practice-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-NA_practice-code-editor`)), session)
 output$`tutorial-exercise-NA_practice-output` <- renderUI({
   `tutorial-exercise-NA_practice-result`()
@@ -3735,22 +3877,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz5-1", question = structure("Which of these age_categories() specifications would create breaks at 0, 25, 50 and 75?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_c0654f7", 
+"character")), answers = list(structure(list(id = "lnr_ans_6a75d13", 
     option = "age_categories(age_years, breakers = c(0, 25, 50, 75))", 
     value = "age_categories(age_years, breakers = c(0, 25, 50, 75))", 
     label = structure("age_categories(age_years, breakers = c(0, 25, 50, 75))", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ee3b45a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ab9c48a", 
     option = "age_categories(age_years, lower = 0, upper = 75, by = 5)", 
     value = "age_categories(age_years, lower = 0, upper = 75, by = 5)", 
     label = structure("age_categories(age_years, lower = 0, upper = 75, by = 5)", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_76757dc", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c1c4774", 
     option = "age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", 
     value = "age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", 
     label = structure("age_categories(age_years, breakers = c(0, 25, 50, 75), ceiling = FALSE", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc5641c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e961fb0", 
     option = "age_categories(age_years, breakers = 25, lower = 0, upper  = 75)", 
     value = "age_categories(age_years, breakers = 25, lower = 0, upper  = 75)", 
     label = structure("age_categories(age_years, breakers = 25, lower = 0, upper  = 75)", html = TRUE, class = c("html", 
@@ -3763,7 +3905,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz5-1-answer", question = "quiz5-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of these age_categories() specifications would create breaks at 0, 25, 50 and 75?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 670093108.187964, options = list()), class = c("learnr_checkbox", 
+    seed = 1760833695.68005, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -4062,20 +4204,40 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("knitr::
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "rhetorical8", question = structure("Can you think of a situation, other than age, where we might want to split the data into evenly sized groups?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_17f96fd", 
+    option = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    value = "function (value) \n{\n    if (grepl(paste(letters, collapse = \"|\"), value)) {\n        correct(\"\")\n    }\n}", 
+    label = NULL, correct = NULL, message = NULL, type = "function"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "rhetorical8-answer", question = "rhetorical8"), 
+    loading = structure("<strong>Loading:<\u002fstrong> \nCan you think of a situation, other than age, where we might want to split the data into evenly sized groups?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    "character")), random_answer_order = FALSE, allow_retry = FALSE, 
+    seed = 382050400.322094, options = list(placeholder = "Enter answer here...", 
+        trim = TRUE)), class = c("learnr_text", "tutorial_question"
+)), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quizage-1", question = structure("Which of these uses of simple logic would enable the filter to remove any ages greater than 90?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_35420b8", 
+"character")), answers = list(structure(list(id = "lnr_ans_a4682cc", 
     option = "filter(age_years != 90)", value = "filter(age_years != 90)", 
     label = structure("filter(age_years != 90)", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ebbb595", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dfd102a", 
     option = "filter(age_years > 90)", value = "filter(age_years > 90)", 
     label = structure("filter(age_years &gt; 90)", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d802a2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_97a1d90", 
     option = "filter(age_years < 90)", value = "filter(age_years < 90)", 
     label = structure("filter(age_years &lt; 90)", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_69417b8", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_432ec19", 
     option = "filter(age_years == 90)", value = "filter(age_years == 90)", 
     label = structure("filter(age_years == 90)", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -4087,7 +4249,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quizage-1-answer", question = "quizage-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of these uses of simple logic would enable the filter to remove any ages greater than 90?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 979985297.043659, options = list()), class = c("learnr_radio", 
+    seed = 1897843535.11625, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
