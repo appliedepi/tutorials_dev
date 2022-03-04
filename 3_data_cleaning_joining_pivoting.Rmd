@@ -208,6 +208,18 @@ cases_dup <- rbind(cases,
 linelist$source[is.na(linelist$source)] <- "missing"
 linelist$source <- factor(linelist$source)
 
+hosp_info_clean <- hosp_info %>% 
+  mutate(
+    hosp_name = case_when(
+      # criteria                         # new value
+      hosp_name == "military"          ~ "Military Hospital",
+      hosp_name == "port"              ~ "Port Hospital",
+      hosp_name == "St. Mark's"        ~ "St. Mark's Maternity Hospital (SMMH)",
+      hosp_name == "central hospital"  ~ "Central Hospital",
+      TRUE                             ~ hosp_name
+      )
+    )
+
 ```
 
 
@@ -349,8 +361,6 @@ LINK
 VIDEO TEASER
 
 
-
-
 ## Install and Load R packages {#packages}
 
 To use basic functions with public health data, the tidyverse metapackage is very useful. Tidyverse loads the dplyr, ggplot2, and other packages that are useful in epi data analysis. 
@@ -409,10 +419,22 @@ Data are often entered and stored in a “wide” format - where a subject’s c
 Let us take the `count_data` dataset imported in the Preparation section above as an example. You can see that each row represents a “facility-day”. The actual case counts (the right-most columns) are stored in a “wide” format such that the information for every age group on a given facility-day is stored in a single row.
 
 ```{r, echo = F, eval = T}
-head(malaria_counts)
+malaria_counts %>%
+  select(-data_date, submitted_date)
 ```
 
 “Wide” data like this are not adhering to “tidy data” standards, because the column headers do not actually represent “variables” - they represent values of a hypothetical “age group” variable.
+
+```{r rhetorical1, echo = FALSE}
+question_text(
+  "What column in linelist, from your previous exercises, represents age categories in the long format?",
+  answer_fn(function(value) {
+    if (value == "age_cat") {
+      correct("")
+    }
+  }, )
+)
+```
 
 This format can be useful for presenting the information in a table, or for entering data (e.g. in Excel) from case report forms. However, in the analysis stage, these data typically should be transformed to a “longer” format more aligned with “tidy data” standards. The plotting R package ggplot2 in particular works best when data are in a “long” format.
 
@@ -618,6 +640,8 @@ table_wide <-
 table_wide
 ```
 
+**There is a whole section for creating tables for display in the [handbook](https://www.epirhandbook.com/en/tables-for-presentation.html#tables-for-presentation)**
+
 ## Fill
 
 In some situations after a `pivot()`, and more commonly after a `bind()`, we are left with gaps in some cells that we would like to fill.
@@ -646,6 +670,28 @@ In this case, `Year` is a useful variable to include, particularly if we want to
 ```{r, echo = T, eval = T}
 df_combined %>% 
   fill(Year, .direction = "up")
+```
+
+```{r rhetorical2, echo = FALSE}
+question_text(
+  "Why would this be useful?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
+```{r rhetorical3, echo = FALSE}
+question_text(
+  "and why might this be problematic?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
 ```
 
 ## Joining data
@@ -702,7 +748,7 @@ You can use such functions as replace() and case_when() to rename values within 
     # Automatically pass if .result equal to .solution
     pass_if_equal()
     # Default to failing grade with feedback
-    fail)
+    fail()
   })
 ```
 
@@ -719,8 +765,6 @@ hosp_info <- hosp_info %>%
       )
     )
 ```
-
-###
 
 Prior to a join, it is often easiest to convert a column to all lowercase or all uppercase. If you need to convert all values in a column to UPPER or lower case, use mutate() and wrap the column with one of these functions from stringr such as `str_to_upper()`, `str_to_lower()`, `str_to_title()`.
 
@@ -791,7 +835,7 @@ Because we want linelist_mini as the baseline, it should be listed first. Additi
 
 ```{r left_join_first-solution}
 linelist_mini %>% 
-  left_join(hosp_info, by = c("hospital" = "hosp_name"))
+  left_join(hosp_info_clean, by = c("hospital" = "hosp_name"))
 ```
 
 ### `full_join()`
@@ -802,36 +846,58 @@ If there are any rows present in one but not identified in the other then it wil
 
 ```{r, echo = T, eval = T}
 linelist_mini %>% 
-  full_join(hosp_info, by = c("hospital" = "hosp_name"))
+  full_join(hosp_info_clean, by = c("hospital" = "hosp_name"))
 ```
 
 You can see that hospitals found in `hosp_info` but not in `linelist_mini` have NA values filled in for `case_id` and `date_onset` from `linelist_mini` as it can not match them.
 
+```{r rhetorical4, echo = FALSE}
+question_text(
+  "Why would you NOT want to use full_join?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
 ### `inner_join()`
 
-*`inner_join()` is the least inclusive of all joins* it returns *only* rows with matches across both dataframes. This means you may lose rows from your baseline dataset if it cannot match them. For example:
+`inner_join()` is the **least inclusive** of all joins it returns *only* rows with matches across both dataframes. This means you may lose rows from your baseline dataset if it cannot match them. For example:
 
 ```{r, echo = T, eval = T}
 linelist_mini %>% 
-  inner_join(hosp_info, by = c("hospital" = "hosp_name"))
+  inner_join(hosp_info_clean, by = c("hospital" = "hosp_name"))
+```
+
+```{r rhetorical5, echo = FALSE}
+question_text(
+  "When would inner_join be useful?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
 ```
 
 ### `semi_join()`
 
-*`semi_join()` keeps all observations in the baseline dataframe that have a match in the secondary dataframe* but *does not* include any new columns nor duplicate any rows for multiple matches.
+`semi_join()` keeps all observations in the baseline dataframe that have a match in the secondary dataframe* but *does not* include any new columns nor duplicate any rows for multiple matches.
 
 ```{r, echo = T, eval = T}
 linelist_mini %>% 
-  semi_join(hosp_info, by = c("hospital" = "hosp_name"))
+  semi_join(hosp_info_clean, by = c("hospital" = "hosp_name"))
 ```
 
 ### `anti_join`
 
-*`anti_join i`s another “filtering join” that returns rows in the baseline dataframe that do not have a match in the secondary dataframe.*
+`anti_join i`s another “filtering join” that returns rows in the baseline dataframe **that do not have a match** in the secondary dataframe.
 
 ```{r, echo = T, eval = T}
 linelist_mini %>% 
-  anti_join(hosp_info, by = c("hospital" = "hosp_name"))
+  anti_join(hosp_info_clean, by = c("hospital" = "hosp_name"))
 ```
 
 ```{r quiz10}
@@ -955,6 +1021,18 @@ complete <- left_join(complete, results_clean, by = c("inds.b" = "rowname"))
 complete
 
 ```
+
+```{r rhetorical1, echo = FALSE}
+question_text(
+  "While probablistic matching is a fantastic way of joining messy datasets, can you think of a few issues that could come from using them without checking the results?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
 
 ### Probabilistic deduplication
 
