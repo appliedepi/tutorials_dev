@@ -149,12 +149,12 @@ patient_ID <- apply(sapply(1:10, function(x) sample(c(LETTERS, 0:9), 10, replace
 
 
 patient_symptoms <- data.frame(patient_id = sample(patient_ID, 10),
-                  linelist %>%
+                linelist %>%
     select(fever:vomit) %>%
     filter(row_number() %in% 1:10))
 
 patient_dates <- data.frame(id = patient_ID,
-                  linelist %>%
+                linelist %>%
     select(contains("date")) %>%
     filter(row_number() %in% c(sample(which(is.na(linelist$date_onset)), 5),
   sample(which(!is.na(linelist$date_onset)), 5))))
@@ -546,7 +546,7 @@ linelist %>%
   flextable::autofit()          # format to one line per row 
 ```
 
-*Use on other tables*
+### Use on other tables
 
 You can use janitor’s adorn_*() functions on other tables, such as those created by summarise() and count() from dplyr, or table() from base R. Simply pipe the table to the desired janitor function. For example:
 
@@ -578,7 +578,7 @@ linelist %>%
 
 ### Statistics
 
-You can apply statistical tests on tabyls, like `chisq.test()` or `fisher.test()` from the **stats** package as shown below. Note missing values are not allowed so they are excluded from the tabyl with show_na = FALSE.
+You can apply statistical tests on tabyls, like `chisq.test()` or `fisher.test()` from the **stats** package as shown below. Note missing values are not allowed so they are excluded from the tabyl with `show_na = FALSE`.
 
 ```{r, echo = T, eval = T}
 age_by_outcome <- linelist %>% 
@@ -586,6 +586,8 @@ age_by_outcome <- linelist %>%
 
 chisq.test(age_by_outcome)
 ```
+
+We will look further into statistical tests later on in this exericse.
 
 ## **dplyr** package
 
@@ -633,6 +635,29 @@ linelist %>%
 
 If you are tabling a column of class _factor_ then you can ensure _all_ levels are shown by adding `.drop = FALSE` into `summarise()` or `count()`. 
 
+Can you create a cross table of `gender` and `source`?
+
+```{r gender_count, exercise = TRUE}
+  
+```
+
+```{r crosstab_age_gender-hint}
+```
+
+```{r gender_count-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r gender_count-solution}
+linelist %>% 
+  count(gender, source)
+```
+
 ### Proportions
 
 Proportions can be added by piping the table to `mutate()` to create a new column. Define the new column as the counts column (n by default) divided by the `sum()` of the counts column (this will return a proportion).
@@ -663,7 +688,7 @@ age_by_outcome <- linelist %>%                  # begin with linelist
 Can you now drop the `NA` values from `gender` and `outcome` in `linelist`, then produce a cross-table of `gender` and `outcome` to count the number of rows in each cross-tabulation?
 
 ```{r dplyr_crosstab, exercise = TRUE}
-  linelist %>%
+linelist %>%
   
 ```
 
@@ -734,7 +759,7 @@ summary_table  # print
 Can you now summarise the median, min and max ages in `age` by `gender` in `linelist`? Remember to remove `NA` values!
 
 ```{r dplyr_summarise, exercise = TRUE}
-  linelist %>%
+linelist %>%
   
 ```
 
@@ -778,7 +803,7 @@ linelist %>%
 Can you now work out the proportion of people (in a column `prop_outcome_death`) who have the outcome of death by age category and gender?
 
 ```{r dplyr_conditional_death, exercise = TRUE}
-  linelist %>%
+linelist %>%
   
 ```
 
@@ -860,7 +885,7 @@ Can you use what you have learned above to do the following:
 3) Use `str_glue()` to combine the columns as "p50 (p02.5 - p97.5)" and call this new column `wt_kg_quantile". This will display the median and 95% quantile values in a single column.
 
 ```{r glue_quantile, exercise = TRUE}
-  linelist %>%
+linelist %>%
   
 ```
 
@@ -915,6 +940,17 @@ linelist_agg %>%
     female_cases = sum(n[gender == "f"], na.rm=T))
 ```
 
+```{r rhetorical1, echo = FALSE}
+question_text(
+  "Why would you want to display summarised data by groups?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
 ### `across()`
 
 You can use `summarise()` across multiple columns using `across()`. This makes life easier when you want to calculate the same statistics for many columns. Place `across()` within `summarise()` and specify the following:
@@ -963,23 +999,22 @@ quiz(
   question("Which of these would select all numeric columns and take the mean?",
            answer("across(.cols = where(is.numeric), .fns = list('mean' = mean), na.rm = T)", correct = T),
            answer("across(.cols = contains(numeric), .fns = list('mean' = mean), na.rm = T)", correct = F),
-           answer("across(.cols = matches('numeric'), .fns = list('mean' = mean))"), correct = F),
+           answer("across(.cols = matches('numeric'), .fns = list('mean' = mean))", correct = F)),
    question("Which of these would select all column names that contain 'date' and get the standard deviation and max value?",
            answer("across(.cols = where(is.Date), .fns = list('mean' = mean), na.rm = T)", correct = F),
            answer("across(.cols = contains('date'), .fns = list('mean' = mean, 'sd' = sd), na.rm = T)", correct = T),
-           answer("across(.cols = matches('date'), .fns = c('mean' = mean, 'sd' = sd))"), correct = F),
+           answer("across(.cols = matches('date'), .fns = c('mean' = mean, 'sd' = sd))", correct = F)),
   question("Which of these would select all column names that contain 'years' and get the min value?",
            answer("across(.cols = contains('years'), .fns = list('min' = min), na.rm = T)", correct = T),
            answer("across(.cols = matches('years'), .fns = list('min' = min), na.rm = T)", correct = T),
-           answer("across(.cols = any_of('years'), .fns = list('min' = min), na.rm = T)", correct = F),
-           )
+           answer("across(.cols = any_of('years'), .fns = list('min' = min), na.rm = T)", correct = F))
   )
 ```
 
 Can you summarise `linelist` by `gender` in order to calculate the numer of deaths and recovered and then add on totals, proportions in each category (by column) and convert these to percentages?
 
 ```{r linelist_adorn, exercise = TRUE}
-  linelist %>%
+linelist %>%
   
 ```
 
@@ -1026,6 +1061,17 @@ linelist %>%
 
 This summary table gives you a good overview of the columns of interest, however you are likely to want to make some adjustments
 
+```{r rhetorical1, echo = FALSE}
+question_text(
+  "How often do produce summary tables, and how long does it usually take? Could R help automate and reduce your workload?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
 ### Adjustments
 
 Now we will explain how the function works and how to make adjustments. The key arguments are detailed below:
@@ -1063,6 +1109,41 @@ linelist %>%
   )
 ```
 
+Can you now, using adjustments, produce a table which shows the summary of `age_years` and `outcome` by `gender` from `linelist`? Additionally we want to:
+
+* Produce summary statistics that show "median (min - max)"
+* Rename `age_years`, `outcome` and `gender` to `Age`, `Outcome`, `Gender`
+* Rename any missing text as "Not found"
+
+```{r adjust_age_gender_outcome, exercise = TRUE}
+  
+```
+
+```{r adjust_age_gender_outcome-hint}
+```
+
+```{r gender_count-check}
+  grade_this({
+    # Automatically pass if .result equal to .solution
+    pass_if_equal()
+    # Default to failing grade with feedback
+    fail()
+  })
+```
+
+```{r adjust_age_gender_outcome-solution}
+linelist %>% 
+    select(age_years, gender, outcome) %>%
+    tbl_summary(by = gender,
+                statistic = list(all_continuous() ~ "{median} ({min} - {max})"),
+                label = list(
+                  outcome ~ "Outcome",
+                  age_years ~ "Age",
+                  gender ~ "Gender"
+                ),
+                missing_text = "Not found")
+```
+
 ### Multi-line stats for continuous variables
 
 If you want to print multiple lines of statistics for continuous variables, you can indicate this by setting the `type =` to "continuous2". You can combine all of the previously shown elements in one table by choosing which statistics you want to show. To do this you need to tell the function that you want to get a table back by entering the type as "continuous2". The number of missing values is shown as "Unknown".
@@ -1082,7 +1163,7 @@ linelist %>%
 Can you now produce a summary table of `outcome`, `age_cat`, `temp`, `wt_kg` where they are analysed by `gender`? For continuous values the output should be "median (min - max)" and for categorical values the percent in each category.
 
 ```{r gtsummary_first, exercise = TRUE}
-  linelist %>%
+linelist %>%
   
 ```
 
@@ -1183,7 +1264,6 @@ t.test(linelist$age_years,
 The Shapiro-Wilk test can be used to determine whether a sample came from a normally-distributed population (an assumption of many other tests and analysis, such as the t-test). However, this can only be used on a sample between 3 and 5000 observations. For larger samples a quantile-quantile plot may be helpful.
 
 ```{r, echo = T, eval = T}
-shapiro.test(linelist$age_years)
 shapiro.test(subset(linelist, gender == "m")$age_years) #We are subsetting to only males in order to show the output of the test when there are between 3 and 5000 observations
 ```
 
@@ -1214,7 +1294,7 @@ Pearson’s Chi-squared test is used in testing for significant differences betw
 chisq.test(linelist$gender, linelist$outcome)
 ```
 
-```{r quiz11}
+```{r quiz13}
 quiz(
   question("Which of these would you use to test if the data is normally distributed?",
            answer("T-test", correct = F),
@@ -1383,11 +1463,10 @@ linelist %>%
              age_years ~ "t.test"))
 ```
 
-
-Now we're going to use what you've learned in order to analyse the `linelist`.
+Now we're going to use what you've learned in order to analyse the `linelist`. Can you select `hospital` and `outcome` then produce a table summary including a Chi-squared test?
 
 ```{r gtsummary_test_chisq, exercise = TRUE}
-  linelist %>%
+linelist %>%
   
 ```
 
@@ -1411,9 +1490,6 @@ linelist %>%
   add_p()
   
 ```
-
-
-
 
 ## Correlations
 
