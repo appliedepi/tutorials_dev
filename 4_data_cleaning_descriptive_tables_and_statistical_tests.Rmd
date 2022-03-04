@@ -641,9 +641,6 @@ Can you create a cross table of `gender` and `source`?
   
 ```
 
-```{r crosstab_age_gender-hint}
-```
-
 ```{r gender_count-check}
   grade_this({
     # Automatically pass if .result equal to .solution
@@ -1061,7 +1058,7 @@ linelist %>%
 
 This summary table gives you a good overview of the columns of interest, however you are likely to want to make some adjustments
 
-```{r rhetorical1, echo = FALSE}
+```{r rhetorical2, echo = FALSE}
 question_text(
   "How often do produce summary tables, and how long does it usually take? Could R help automate and reduce your workload?",
   answer_fn(function(value) {
@@ -1120,9 +1117,10 @@ Can you now, using adjustments, produce a table which shows the summary of `age_
 ```
 
 ```{r adjust_age_gender_outcome-hint}
+Remember to correctly specify your functions and format with {median} ({?} - {?}). Look at the previous examples for help.
 ```
 
-```{r gender_count-check}
+```{r adjust_age_gender_outcome-check}
   grade_this({
     # Automatically pass if .result equal to .solution
     pass_if_equal()
@@ -1231,6 +1229,17 @@ Each of the above packages bring certain advantages and disadvantages:
 * **base** R easily prints statistical outputs to the R console
 * **rstatix** return results in a dataframe, or for running tests by group
 * **gtsummary** if you want to quickly prepare print publication-ready tables
+
+```{r rhetorical3, echo = FALSE}
+question_text(
+  "How often do you use statistical tests in your work?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
 
 ## **base** R
 
@@ -1369,6 +1378,17 @@ linelist %>%
   t_test(age_years ~ 1, mu = 18)
 ```
 
+```{r rhetorical4, echo = FALSE}
+question_text(
+  "How does the rstatix package compare to base R, is there a situation you would use one over the other?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
+```
+
 ### Shapiro-Wilk test
 
 As stated above, sample size must be between 3 and 5000.
@@ -1489,6 +1509,17 @@ linelist %>%
   tbl_summary(by = outcome) %>%  # produce summary table and specify grouping variable
   add_p()
   
+```
+
+```{r rhetorical5, echo = FALSE}
+question_text(
+  "The gtsummary package allows us to make publication ready tables with (relatively) little effort. Can you think of a situation where you would NOT use these functions, and instead use either base R or rstatix functions?",
+  answer_fn(function(value) {
+    if (grepl(paste(letters, collapse = "|"), value)) {
+      correct("")
+    }
+  }, )
+)
 ```
 
 ## Correlations
