@@ -367,7 +367,7 @@ For a standard plot your order will follow this process:
 4. **Modify "scales"** such as colour choices, axis breaks
 5. **Add "theme" design elements** to your plot such as axis labels, title, captions, fonts, text sizes, background themes and the orientation of different elemnets
 
-"Adding" layers to your plot is done literally, by ending a ggplot line with the `+` symbol you can indicate that you wish to add further details on the following line. This can be repeated until your complete plot is built. Using this line-by-line syntax allows your code to be more readable, both to you to make changes in the future and to others trying to understand your work.
+"Adding" layers to your plot is done literally, by ending a ggplot line with the `+` symbol you can indicate that you wish to add further details on the following line. This can be repeated until your complete plot is built. Using this line-by-line syntax allows your code to be more readable, both for you to make changes in the future and to others trying to understand your work. Additionally we can add line breaks within lines of ggplot code, this is useful to highlight when you are specifying a different argument of the plot and leads to more readable plots, you will see examples of this throughout the tutorial. These line breaks are not necessary for the code to run but are useful to help yourself and others disect the code.
 
 ```{r quiz1}
 quiz(
@@ -388,6 +388,29 @@ quiz(
 
 In the following sections we will put this into practice step-by-step.
 
+## **ggplot2** in **RStudio**
+In this tutorial we code within chunks inside of this tutorial module. In reality you will likely be running your R code with the popular **R** coding environment **RStudio**.
+
+When we run a plotting command in RStudio the code will run in the console (as with any other R code) but you will not see the output here. The output will be passed to the "Plots" tab. By default this is in the bottom right quadrant of RStudio alongside the "Files", "Packages", "Help" and "Viewer" tabs:
+
+If we save our plot in or R environment by assigning it to a name it will not plot when we run the code, only when we run the name of the plot:
+
+
+To see your plot in a larger window you can click on "Zoom":
+
+We can also remove plots from the plot tab using the red X button to remove the current plot or the little brush to remove all previous plots. 
+
+The "Export" button allows us to save plots to a file or copy to our clipboard to paste elsewhere. To save a `ggplot()` with a function we can use `ggsave()`. This gives more options than exporting via the RStudio window and is also useful to save multiple plots from the same code.
+
+`ggsave()` can work in two ways:
+* Specify the name of the plot object, then the file path and name with extension
+    * For example: ggsave(my_plot, here("plots", "my_plot.png"))
+* Run the command with only a file path, to save the last plot that was printed
+    * For example: ggsave(here("plots", "my_plot.png"))
+
+You can export as png, pdf, jpeg, tiff, bmp, svg, or several other file types, by specifying the file extension in the file path.
+
+You can also specify the arguments `width =`, `height =`, and `units =` (either “in”, “cm”, or “mm”). You can also specify `dpi =` with a number for plot resolution (e.g. 300). See the function details by entering `?ggsave` or reading the [documentation online](https://ggplot2.tidyverse.org/reference/ggsave.html)
 
 ## "Open" the plot
 The **ggplot2** package is built around the **R** function `ggplot()` which is the first command for any ggplot. 
@@ -407,13 +430,13 @@ ggplot()
 
 
 
-We assign the dataframe we wish to use with the data parameter of this function: 
+We assign the dataframe we wish to use with the `data = ` argument of this function. In our example this dataframe is called `linelist`:
 ```{r ggplot data, echo=T, eval=F}
 ggplot(data = linelist)
 ```
 
 
-If you are familiar with the pipe operator (`%>%`) from our tidy data tutorial, data can also be passed into a ggplot command using a pipe:
+If you are familiar with the pipe operator (`%>%`) from our data cleaning tutorial, data can also be passed into a ggplot command using a pipe:
 ```{r pipe, eval=F, echo=T}
 linelist %>%
   ggplot()
@@ -422,7 +445,10 @@ linelist %>%
 
 ## Mapping columns
 ```{r aes, echo=T, eval=T}
-ggplot(data = linelist, mapping = aes(x = age, y = bmi))
+ggplot(
+  data = linelist,
+  mapping = aes(x = age,
+                y = bmi))
 
 
 ```
@@ -430,18 +456,23 @@ ggplot(data = linelist, mapping = aes(x = age, y = bmi))
 
 "Aesthetics" are features whose display could vary or each data point. An obvious example are the X and Y co-ordinates but these can also include the color, shape and other properties of the plot which depend on columns in your data. We will get into other aesthetics further into the tutorial.
 
-`mapping=aes()` assigns plot aesthetics to columns from your data. Any parameters to be input must be placed *within* the `aes()` command to be interpreted as dependent on the data.
+`mapping = aes()` assigns plot aesthetics to columns from your data. Any arguments to be input must be placed *within* the `aes()` command to be interpreted as dependent on the data.
 
 Here we have set the axes X and Y to the age and bmi columns from the linelist data. You can see this represented on the axes above.
 
-The first 25 rows of the linelist data are reproduced below. Try changing the Y axis to weight rather than BMI in the **R** window below. You can use the arrows to scroll left and right through the table and find the correct column.
+The first 25 rows of the linelist data are reproduced below. Try changing the Y axis to weight rather than BMI in the **R** window below. You can use the arrows to scroll left and right through the table and find the correct column. 
 
 ```{r linelist-data}
 head(linelist,25)
 ```
 
+Below is an R exercise where you can edit and write your own code. Using "Run code" will run what you have entered and produce an output, to check your answer against the solution click "Submit Answer". If you get stuck be sure to click the "Hints" button above the code chunk to get a hint to the solution.
+
 ```{r axes-plot, exercise = TRUE}
-ggplot(data = linelist, mapping = aes(x = age, y = bmi))
+ggplot(
+  data = linelist,
+  mapping = aes(x = age,
+                y = bmi))
 ```
 
 ```{r axes-plot-check}
@@ -449,14 +480,17 @@ grade_this_code("correct, you should now see weight on the y axis")
 ```
 
 ```{r axes-plot-hint}
-`The weight column is labeled wt_kg`
+The weight column is labeled wt_kg
 ```
 
 ```{r axes-plot-solution, eval= FALSE}
-ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))
+ggplot(
+  data = linelist,
+  mapping = aes(x = age,
+                y = wt_kg))
 ```
 
-
+*Note: You may see `aes()` called in ggplot code without the `mapping = ` argument being specified, as with any R function the arguments do not need to be specifically named as long as they are passed in the order expected by the function. For clarity here we include `mapping = ` but if you see code elsewhere without this it achieves the same result.*
 
 ## Add geoms
 As we have seen above, running our `ggplot()` command with the data attached and X and Y coordinates determined does not give us a completed plot. 
@@ -472,7 +506,11 @@ Some common "geoms" for epidemiology are listed below:
 
 Adding (`+`) `geom_point()` to our previous `ggplot()` call will plot points using the X and Y variables we defined:
 ```{r simple plot, echo=T, message = T, warning = T}
-ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg))+
   geom_point()
 ```
 
@@ -482,7 +520,9 @@ You will see a warning when running this code reproduced above. This is due to m
 We can also plot other simple plots with the same data by switching out the `geom_point()` for another geom. Below we plot a histogram  of ages included in the linelist. This type of plot only requires a single variable. Can you spot what is missing from the code below?
 
 ```{r axis-plot, exercise = TRUE, warning=F, message=F}
-ggplot(data = linelist, mapping = aes(x = age))
+ggplot(
+  data = linelist,
+  mapping = aes(x = age))
 geom_histogram()
 ```
 
@@ -491,11 +531,13 @@ grade_this_code("correct, we need to link the commands together with a '+'")
 ```
 
 ```{r axis-plot-hint}
-`remember we need to add layers to our ggplot `
+remember we need to add layers to our ggplot
 ```
 
 ```{r axis-plot-solution, eval= FALSE}
-ggplot(data = linelist, mapping = aes(x = age)) +
+ggplot(
+  data = linelist, 
+  mapping = aes(x = age)) +
 geom_histogram()
 ```
 
@@ -519,8 +561,11 @@ These plot object aesthetics can be assigned values in two ways:
     * same display for all data
 
 ```{r plot-color, echo=T, warning=F, message=F}
-ggplot(data = linelist, mapping = aes(x = age)) +
-geom_histogram(fill = "orange")
+ggplot(
+  data = linelist,
+  mapping = aes(x = age)) +
+geom_histogram(
+  fill = "orange")
 ```
 
 2. A data column (e.g. color = gender) such that display of each observation depends on its value in that column
@@ -528,14 +573,21 @@ geom_histogram(fill = "orange")
     * Dispalys data grouped by selected column
   
 ```{r dynamic-aes, warning=F, message=F, echo=T}
-ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
-  geom_point(mapping = aes(color = gender))
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg)) +
+geom_point(
+    mapping = aes(color = gender))
 ```
 
 Try changing the histogram plot code below to have the bar fill determined by gender.
 
 ```{r gender-plot, exercise = TRUE, warning=F, message=F}
-ggplot(data = linelist, mapping = aes(x = age)) +
+ggplot(
+  data = linelist,
+  mapping = aes(x = age)) +
 geom_histogram(fill = "orange")
 ```
 
@@ -548,15 +600,25 @@ aes(fill = gender)
 ```
 
 ```{r gender-plot-solution, eval= FALSE}
-ggplot(data = linelist, mapping = aes(x = age)) +
-geom_histogram(mapping = aes(fill = gender))
+ggplot(
+  data = linelist,
+  mapping = aes(x = age)) +
+geom_histogram(
+  mapping = aes(fill = gender))
 ```
 
 ### More examples
 For dot and line plots we assign the color using *color* rather than *fill* as they are outlines rather than filled objects. Here we also adjust the size (`size = `) of the points and the opacity (`alpha = `)(make them more see through; useful for overlaid plots)
 ```{r static-col, warning=F, message=F, echo=T}
-ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
-  geom_point(mapping = aes(color = outcome), size = 2, alpha = 0.5)
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg)) +
+geom_point(
+  mapping = aes(color = outcome),
+  size = 2,
+  alpha = 0.5)
 ```
 
 We will cover different color options later and how to change the colors assigned to your data. Basic colors for static mapping are built-in with **ggplot2**:
@@ -572,7 +634,7 @@ geom_rect(data=d, mapping=aes(xmin=x+0.05, xmax=x+0.95, ymin=y+0.5, ymax=y+1, fi
 geom_text(data=d, mapping=aes(x=x+0.5, y=y+0.5, label=c), colour="black", hjust=0.5, vjust=1, size=3)
 ```
 
-A range of point shapes are also available in R, these can be used to set point shapes. The ones with blue centers below have a fill and so can be filled with a different parameter to their colour (outline)
+A range of point shapes are also available in R, these can be used to set point shapes. The ones with blue centers below have a fill and so can be filled with a different argument to their colour (outline)
 
 ```{r shapes}
 ggpubr::show_point_shapes()
@@ -582,15 +644,33 @@ ggpubr::show_point_shapes()
 As with the other aesthetics we have seen shape can be dynamic:
 
 ```{r dynamic-shape, warning=F, message=F, echo=T}
-ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
-  geom_point(mapping = aes(shape = gender, color = age_cat), size = 3, alpha = 0.3)
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg)) +
+geom_point(
+  mapping = aes(
+    shape = gender,
+    color = age_cat), 
+  size = 3, 
+  alpha = 0.3)
 ```
 
 or static:
 
 ```{r static-shape, warning=F, message=F, echo=T}
-ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
-  geom_point(mapping = aes(fill = age_cat), color = "black", shape = 21, size = 3, alpha = 0.3)
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg)) +
+geom_point(
+  mapping = aes(fill = age_cat),
+  color = "black",
+  shape = 21,
+  size = 3,
+  alpha = 0.3)
 ```
 
 Here we use a shape with fill to allow each point to have a black outline with categorical fill.
@@ -603,8 +683,14 @@ egs.
 `alpha = 0.5`
 
 ```{r plot-with-those-aes, warning=F, message=F}
-ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
-  geom_point(color = "seagreen", size = 3, alpha = 0.5)
+ggplot(
+  data = linelist,
+  mapping = aes(
+    x = age,
+    y = wt_kg)) +
+geom_point(color = "seagreen",
+           size = 3,
+           alpha = 0.5)
 ```
 
 ### Assigned (dynamic) aesthetics
@@ -665,7 +751,9 @@ ggplot(
   data = linelist,
   mapping = aes(x = date_onset)) +
 geom_histogram() +
-facet_wrap(~source, scales = "free_y")
+facet_wrap(
+  ~source,
+  scales = "free_y")
 ```
 
 **Free axes are generally not recommended as they can mislead an audience not carefully checking your plots**
@@ -683,7 +771,10 @@ ggplot(
   data = linelist,
   mapping = aes(x = date_onset)) +
 geom_histogram() +
-facet_wrap(~hospital, scales = "free_y", ncol = 4)
+facet_wrap(
+  ~hospital,
+  scales = "free_y",
+  ncol = 4)
 ```
 
 ```{r facet-test-check}
@@ -691,9 +782,9 @@ grade_this_code("correct, we remove the scales argument, change ncol to 2 and ad
 ```
 
 ```{r facet-test-hint}
-`1. We can remove the scales argument completely as we want to use the default.`
-`2. adust ncol = `
-`3. we want to specify fill = source inside the aes mapping for the histogram`
+1. We can remove the scales argument completely as we want to use the default.
+2. adust ncol = 
+3. we want to specify fill = source inside the aes mapping for the histogram
 ```
 
 ```{r facet-test-solution, eval= FALSE}
@@ -701,7 +792,9 @@ ggplot(
   data = linelist,
   mapping = aes(x = date_onset)) +
 geom_histogram(mapping = aes(fill = source)) +
-facet_wrap(~hospital, ncol = 2)
+facet_wrap(
+  ~hospital,
+  ncol = 2)
 ```
 
  We will fix the date (x) axis label overlap later in the tutorial.
@@ -738,6 +831,7 @@ For ease we can also pipe this amended data straight into `ggplot()` rather than
 linelist %>% 
    drop_na(gender, hospital) %>% 
    filter(hospital != "Missing") %>% 
+  
 ggplot(
   mapping = aes(x = date_onset)) +
 geom_histogram(mapping = aes(fill = source)) +
@@ -752,7 +846,7 @@ It can be useful to show facets in context of other data for comparison. `gghigh
 ggplot(
   data = linelist,
   mapping = aes(x = date_onset)) +
-geom_histogram(aes(fill = hospital)) +
+geom_histogram(mapping = aes(fill = hospital)) +
 facet_wrap(~hospital) +
 gghighlight()
 
@@ -841,8 +935,8 @@ ggplot(
 geom_bar() +
 scale_fill_manual(        
   values = c(
-   "m"     = "violetred", 
-   "f"      = "aquamarine"),
+   "m" = "violetred", 
+   "f" = "aquamarine"),
    na.value = "green")
 ```
 
@@ -857,8 +951,8 @@ ggplot(
 geom_bar() +
 scale_fill_manual(        
   values = c(
-   "m"     = "violetred", 
-   "f"      = "aquamarine"),
+   "m" = "violetred", 
+   "f" = "aquamarine"),
    na.value = "green")
 ```
 
@@ -875,9 +969,9 @@ ggplot(
 geom_bar() +
 scale_fill_manual(        
   values = c(
-   "m"     = "dodgerblue", 
-   "f"      = "tomato"),
-   na.value = "grey")
+    "m" = "dodgerblue",
+    "f" = "tomato"),
+  na.value = "grey")
 ```
 
 #### Built-in palettes
@@ -898,7 +992,8 @@ ggplot(
     x = outcome,
     fill = gender)) +
 geom_bar() +
-scale_fill_brewer(palette = "Pastel2", na.value = "grey")
+scale_fill_brewer(palette = "Pastel2",
+                  na.value = "grey")
 ```
 
 A color-blind friendly palette is also available known as `viridis`. This comes in discrete and continuous forms `scale_fill_viridis_d()` and `scale_fill_viridis_c()`:
@@ -1091,10 +1186,14 @@ Here we plot some case fatality data adapted from the linelist:
 
 ```{r CFR, echo = F, eval = T}
 CFR_data <- linelist %>% 
-  group_by(month = floor_date(date_outcome, "month")) %>% 
+  group_by(month = floor_date(
+    date_outcome,
+    "month")) %>% 
   summarise(
     cases = n(),
-    deaths = sum(outcome == "Death", na.rm=T),
+    deaths = sum(
+      outcome == "Death",
+      na.rm=T),
     CFR = deaths / cases)
 ```
 
@@ -1110,8 +1209,10 @@ ggplot(
   mapping = aes(
     x = month,
    y = CFR)) +
-geom_line(size = 2, color = "brown") +
-scale_y_continuous( labels = percent )
+geom_line(
+  size = 2,
+  color = "brown") +
+scale_y_continuous(labels = percent)
 ```
 
 ## Plot labels
@@ -1126,7 +1227,9 @@ geom_point(
     y = hosp_time,
     color = outcome),    
   alpha = 0.7) +
-scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+scale_color_brewer(
+  palette = "Pastel2",
+  na.value = "grey") +
 ylim(c(0, 70)) +
 labs(
   title = "Duration of admission",
@@ -1191,7 +1294,9 @@ geom_point(
     y = hosp_time,
     color = outcome),    
   alpha = 0.7) +
-scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+scale_color_brewer(
+  palette = "Pastel2",
+  na.value = "grey") +
 ylim(c(0, 70)) +
 labs(
   title = "Duration of admission",
@@ -1215,7 +1320,9 @@ geom_point(
     y = hosp_time,
     color = outcome),    
   alpha = 0.7) +
-scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+scale_color_brewer(
+  palette = "Pastel2",
+  na.value = "grey") +
 ylim(c(0, 70))
 
 bw <- plt_base + theme_bw() + ggtitle("theme_bw()")
@@ -1247,7 +1354,9 @@ geom_point(
     y = hosp_time,
     color = outcome),    
   alpha = 0.7) +
-scale_color_brewer(palette = "Pastel2", na.value = "grey") +
+scale_color_brewer(
+  palette = "Pastel2",
+  na.value = "grey") +
 ylim(c(0, 70)) +
 labs(
   title = "Duration of admission",
@@ -1339,8 +1448,10 @@ Use `geom_col()` if there is a numeric column containing the desired **bar heigh
 
 ```{r, eval=F, echo=T}
 ggplot(
-  data = linelist_agg,                  # begin with aggregated count data   
-  mapping = aes(x = eth_race, y = n)) + # bar height is value in column "n"                                     
+  data = linelist_agg,  # begin with aggregated count data   
+  mapping = aes(
+    x = eth_race,
+    y = n)) +           # bar height is value in column "n"                                     
 geom_col()   
 ```
 
@@ -1354,7 +1465,9 @@ ggplot(
   mapping = aes(x = hospital)) +    # No y= argument
 geom_bar() +
 theme_classic() + 
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 *note: here we use theme adjustments introduced in the previous section. As 45 degree rotated labels rotate around the center of the text we then need to adjust the vertical and horizontal positioning hence `vjust` and `hjust`*
@@ -1365,7 +1478,10 @@ To achieve "stacked" bars with `geom_bar()`, assign the grouping column to `fill
 
 ```{r, eval=T, echo=F}
 linelist %>% 
-  select(date_onset, hospital, outcome) %>% 
+  select(
+    date_onset,
+    hospital,
+    outcome) %>% 
   head(6) %>% 
   knitr::kable()
 ```
@@ -1377,7 +1493,9 @@ ggplot(
       x = hospital,   
      fill = outcome)) +             
 geom_bar() + 
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 To have adjacent rather than stacked bars we use `position = "dodge"` inside the `geom_bar()` call. Try adding this to the code for the plot above:
@@ -1389,7 +1507,9 @@ ggplot(
       x = hospital,   
      fill = outcome)) +             
 geom_bar() + 
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 ```{r dodge-check}
@@ -1403,7 +1523,9 @@ ggplot(
       x = hospital,   
      fill = outcome)) +             
 geom_bar(position = "dodge") + 
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45, 
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 
@@ -1426,8 +1548,10 @@ ggplot(linelist_hospital) +
   geom_col(           
     mapping = aes(   
       x = hospital,    
-     y = n)) +
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+      y = n)) +
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 
 ```
 
@@ -1452,7 +1576,9 @@ geom_col(
     x = hospital,          
     y = n,                
    fill = outcome)) +
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 *For more information on pivoting data to "long" and "short" formats see our tidy data tutorial*
@@ -1471,7 +1597,9 @@ linelist_hospital %>%
 ```{r eval=T, echo=T}
 ggplot(linelist_hospital) +             
 geom_bar(mapping = aes(x = hospital)) +
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 This plot shows that there is one row per hospital!  
@@ -1549,7 +1677,9 @@ ggplot(linelist_hospital_outcome) +
       x = hospital,    
      y = n), width = 0.5) +
   theme_classic() +
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 Be wary of adjusting width for date bars (e.g. month) - use `geom_histogram()` instead and change the bin breaks to the breaks you want between bars.
@@ -1567,7 +1697,9 @@ ggplot(linelist_hospital_outcome) +
       x = hospital,    
      y = n), width = 0.5) +
   theme_classic() +
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 ```{r bartest-check}
@@ -1579,9 +1711,14 @@ ggplot(linelist_hospital_outcome) +
   geom_col(           
     mapping = aes(   
       x = hospital,    
-     y = n, fill = outcome), width = 0.5, position = "dodge") +
+     y = n,
+     fill = outcome),
+    width = 0.5,
+    position = "dodge") +
   theme_classic() +
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 ### Display counts
@@ -1602,7 +1739,9 @@ geom_col() +
 geom_text(
  size = 3,
  position = position_stack(vjust = 0.5)) +
-theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+theme(axis.text.x = element_text(angle = 45,
+                                 vjust = 1,
+                                 hjust = 1))
 ```
 
 For a `geom_bar()` plot we need to specify the x aesthetic in the `ggplot()` rather than `geom_bar()` function call so it can be picked up by `geom_text()`. Here as the counts are calculated within the plotting function rather than in the input table we need to use unfamiliar syntax to say that we want to take the count (`stat = 'count'`) and label with this count data (`aes(label = ..count..)`).
@@ -1612,7 +1751,9 @@ ggplot(linelist, mapping = aes(
     x = fct_rev(fct_infreq(hospital)),            
     fill = fct_rev(fct_infreq(outcome)))) +             
 geom_bar() + 
-  geom_text(stat = 'count', aes(label = ..count..), position = position_stack(vjust = 0.5)) +
+  geom_text(stat = 'count',
+            aes(label = ..count..),
+            position = position_stack(vjust = 0.5)) +
 theme(legend.position = "top") +
 coord_flip()
 ```
@@ -1791,7 +1932,7 @@ scale_fill_viridis_d(
 ```
 
 ```{r epicurve-colors-hint}
-'An example solution:'
+An example solution:
 
 plot(weekly, fill = hospital) +
 theme(legend.position = "top") +
