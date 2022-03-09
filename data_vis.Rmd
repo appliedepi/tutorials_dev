@@ -897,7 +897,7 @@ linelist %>%
 Check the handbook for [more information on grouping data](https://epirhandbook.com/en/grouping-data.html)
 
 Editing the facet title strips is touched on in the themes section of this tutorial, see [This short tutorial](https://www.datanovia.com/en/blog/how-to-change-ggplot-facet-labels/) for more information on this. 
-The order of the facets can be adjusted by faceting by a factor and [reordering the levels](https://forcats.tidyverse.org/reference/fct_reorder.html) 
+The order of the facets can be adjusted by faceting by a factor and [reordering the levels](https://forcats.tidyverse.org/reference/fct_relevel.html). This is covered for barplots in the barplot section of the tutorial.
 
 facet quiz - ways to group data - aesthetic and facet
 can you think of situations where facets are preferred?
@@ -1252,7 +1252,7 @@ scale_y_continuous(labels = percent)
 
 ## Plot labels
 
-```{r, echo = TRUE, eval = FALSE, warning = F, message = F}
+```{r, echo = TRUE, eval = T, warning = F, message = F}
 linelist$hosp_time <- linelist$date_outcome - linelist$date_hospitalisation
 
 ggplot(data = linelist) +
@@ -1291,6 +1291,8 @@ We can embed code in `str_glue()` that updates with the data
 ```{r, eval=T, echo=T}
 str_glue("Data as of {Sys.Date()}")
 ```
+
+Here we extract the current date (`Sys.Date()`) in the time zone of our computer to add to the plot.
 
 ```{r, eval=T, echo=T}
 str_glue("{fmt_count(linelist, is.na(date_onset))} cases missing onset and not shown")
@@ -1655,10 +1657,19 @@ coord_flip()
 
 ### Adjust bar order
 
-If we convert any column in our data to class factor we can adjust the order of the "levels" using the names present. Here we create a new hospital column, hosp_fac with the order of the hospitals changed. 
+If we convert any column in our data to class factor we can adjust the order of the "levels" using the names present. Here we use `fct_relevel()` from the **forcats** package to convert the hospital names to factor and manually adjust the level order.
 
 ```{r, echo=T, eval=T}
-linelist$hosp_fac <- factor(linelist$hospital, levels = c("Missing", "Other", "Central Hospital", "Military Hospital", "Port Hospital", "St. Mark's Maternity Hospital (SMMH)"), exclude = NULL)          
+linelist$hosp_fac <- fct_relevel(linelist$hospital,
+                                 "Missing",
+                                 "Other",
+                                 "Central Hospital",
+                                 "Military Hospital",
+                                 "Port Hospital",
+                                 "St. Mark's Maternity Hospital (SMMH)")
+ 
+linelist$hosp_fac 
+
 
 ggplot(linelist) +        
 geom_bar(              
@@ -1670,15 +1681,16 @@ coord_flip()
 
 ```
 
-[See the Epi R Handbook page on [factors](https://epirhandbook.com/factors.html#within-a-plot).]  
-For more simple layouts we can use the **forcats** package to convert to class *factor* and adjust "level" order.  
-`fct_infreq()` orders x-axis position and stacks (fill) by frequency:
+[See the Epi R Handbook page on [factors](https://epirhandbook.com/factors.html#within-a-plot).] 
+
+ 
+**Forcats** also has functions to automatically adjust factor levels. `fct_infreq()` orders x-axis position and stacks (fill) by frequency:
 
 ```{r, eval=T, echo=T}
 ggplot(linelist) +             
 geom_bar(              
   mapping = aes(
-    x = fct_infreq(hospital),   
+    x = fct_infreq(hosp_fac),   
     fill = fct_infreq(outcome))) +  
 theme(legend.position = "top") +
 coord_flip() 
@@ -1686,6 +1698,9 @@ coord_flip()
 ```
 
 The Y-axis and legend titles will now be renamed to the command used to assign them. See the section on plot labels for how to change this.
+
+*NOTE: here the Missing bar is stacked in order along with the others by frequency, if missing values were assigned to NA they would appear at the end of the barplot*
+
 
 #### Reverse order
 
@@ -1709,8 +1724,9 @@ The width of bars can be adjusted with the `width =` argument in both `geom_col(
 ggplot(linelist_hospital_outcome) +             
   geom_col(           
     mapping = aes(   
-      x = hospital,    
-     y = n), width = 0.5) +
+      x = hospital,
+      y = n),
+    width = 0.5) +
   theme_classic() +
 theme(axis.text.x = element_text(angle = 45,
                                  vjust = 1,
@@ -1723,14 +1739,14 @@ Be wary of adjusting width for date bars (e.g. month) - use `geom_histogram()` i
 Try going back through the previous sections and adjust the code for the `geom_col()` plot above to show:
 1. Bars with fill color determined by outcome
 2. Bars dodged so different outcomes are next to each-other, not stacked
-3. 
 
 ```{r bartest, exercise = TRUE, warning=F, message=F}
 ggplot(linelist_hospital_outcome) +             
   geom_col(           
     mapping = aes(   
       x = hospital,    
-     y = n), width = 0.5) +
+      y = n)
+    , width = 0.5) +
   theme_classic() +
 theme(axis.text.x = element_text(angle = 45,
                                  vjust = 1,
@@ -2067,7 +2083,7 @@ We can edit some of the key elements of this plot within the function. Some key 
 
 We can also add **ggplot2** themes and other elements to these plots, in a similar way to the **incidence2** package.
 
-```{r, eval=T, echo=F}
+```{r, eval=T, echo=T}
 age_pyramid(
   data = linelist,
   age_group = "age_cat",
@@ -2089,7 +2105,7 @@ labs(
 
 We can show stacked bars on the age pyramid to represent other columns in the data with `stack_by = `. The color palette will now be used for this data rather than the sides of the pyramid so adjust the colors as desired / required for columns with larger numbers of categories.
 
-```{r, eval=T, echo=F}
+```{r, eval=T, echo=T}
 age_pyramid(
   data = linelist,
   age_group = "age_cat",
@@ -2206,14 +2222,25 @@ ggplot(
   mapping = aes(
     x = med_age,
     y = CFR,
-    size = cases,
     label = hospital)) +
   geom_point() +
   geom_text()
 ```
 
-Labels look much improved by using `geom_label_repel()` from the **ggrepel** package. These scale with the size of the point which we have assigned to number of cases in this plot so we should set size = 3 within `geom_label_repel()` to fix this. 
-Try changing the following code to use `geom_label_repel()` and `size = 5`:
+Labels usually look much improved by using `geom_label_repel()` from the **ggrepel** package.
+
+```{r, echo=T, eval=T}
+ggplot(
+  data = hosp_CFR_age,
+  mapping = aes(
+    x = med_age,
+    y = CFR,
+    label = hospital)) +
+  geom_point() +
+  geom_label_repel()
+```
+
+In the example below we are trying to scale the size of our points to show the number of cases but if you run this code you will see that the labels are also scaled by size. There are two ways we can fix this code to have equally sized labels, we can move `size = cases` to the `mappping = aes()` argument of `geom_point()` rather than in `ggplot()`. Can you think of a way to change the size of the labels to a fixed value of 5 inside `geom_label_repel()`?
 
 ```{r labtest, exercise = TRUE, warning=F, message=F}
 ggplot(
@@ -2224,7 +2251,11 @@ ggplot(
     size = cases,
     label = hospital)) +
   geom_point() +
-  geom_text()
+  geom_label_repel()
+```
+
+```{r labtest-hint}
+We learnt how to assign an aesthetic to a fixed value in the aesthetics section. 
 ```
 
 ```{r labtest-check}
@@ -2370,18 +2401,33 @@ A full list of available options for this function is available in the [cowplot 
 Have a go applying some of these options to the plot:
 
 ```{r plot-grid-ex,exercise = TRUE, echo = TRUE, fig.height=6, fig.width=9, warning=F, message=F}
-plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = "hv", labels = "auto")
+plot_grid(plot1,
+          plot2,
+          rel_heights = c(1, 1),
+          ncol = 1,
+          align = "hv",
+          labels = "auto")
 ```
 
 `plot_grid()` calls can also be recursively placed inside each-other to generate more complex plot layouts:
 
 ```{r, echo = TRUE, fig.height=6, fig.width=10, warning=F, message=F}
-plot_grid(plot1, plot_grid(plot1, plot2, rel_heights = c(1, 1), ncol = 1, align = "hv", labels = c("B", "C")), rel_heights = c(1, 1), ncol = 2, align = "hv", labels = c("A", NA))
+plot_grid(plot1,
+          plot_grid(plot1,
+                    plot2,
+                    rel_heights = c(1, 1),
+                    ncol = 1,
+                    align = "hv",
+                    labels = c("B", "C")),
+          rel_heights = c(1, 1),
+          ncol = 2,
+          align = "hv",
+          labels = c("A", NA))
 ```
 
 ### Dual axes
 
-You can also use **cowplot** to overlap two plots and create a "dual-axis" plot.  Here we want to use the cowplot default theme which helps us to produce plots with transparent backgrounds.
+You can also use **cowplot** to overlap two plots and create a "dual-axis" plot.  Here we want to use the cowplot default theme (`theme_cowplot()`) which helps us to produce plots with transparent backgrounds.
 
 First let us clean up the onset date plot with nicer axis labels and the **cowplot** theme:
 
