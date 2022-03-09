@@ -393,20 +393,33 @@ In this tutorial we code within chunks inside of this tutorial module. In realit
 
 When we run a plotting command in RStudio the code will run in the console (as with any other R code) but you will not see the output here. The output will be passed to the "Plots" tab. By default this is in the bottom right quadrant of RStudio alongside the "Files", "Packages", "Help" and "Viewer" tabs:
 
+```{r, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "70%", fig.cap = ""}
+knitr::include_graphics("images/data_viz/RStudioplottab.PNG")
+```
+
 If we save our plot in or R environment by assigning it to a name it will not plot when we run the code, only when we run the name of the plot:
+```{r, eval = TRUE, echo = FALSE,out.width = "90%"}
+knitr::include_graphics("./images/data_viz/plotvis.gif")
+```
 
 
-To see your plot in a larger window you can click on "Zoom":
 
-We can also remove plots from the plot tab using the red X button to remove the current plot or the little brush to remove all previous plots. 
+```{r, fig.margin = TRUE, echo = FALSE, fig.width = 3, out.width = "70%", fig.cap = ""}
+knitr::include_graphics("images/data_viz/plotopts.png")
+```
 
-The "Export" button allows us to save plots to a file or copy to our clipboard to paste elsewhere. To save a `ggplot()` with a function we can use `ggsave()`. This gives more options than exporting via the RStudio window and is also useful to save multiple plots from the same code.
+To see your plot in a larger window you can click on "Zoom" **(1)**
+
+We can also remove plots from the plot tab using the red X button to remove the current plot **(2)** or the little brush to remove all previous plots **(3)**. 
+
+The "Export" button **(4)** allows us to save plots to a file or copy to our clipboard to paste elsewhere. To save a `ggplot()` with a function we can use `ggsave()`. This gives more options than exporting via the RStudio window and is also useful to save multiple plots from the same code.
+
 
 `ggsave()` can work in two ways:
 * Specify the name of the plot object, then the file path and name with extension
-    * For example: ggsave(my_plot, here("plots", "my_plot.png"))
+    * For example: ggsave(plot_name, here("plots", "plot_name.png"))
 * Run the command with only a file path, to save the last plot that was printed
-    * For example: ggsave(here("plots", "my_plot.png"))
+    * For example: ggsave(here("plots", "plot_name.png"))
 
 You can export as png, pdf, jpeg, tiff, bmp, svg, or several other file types, by specifying the file extension in the file path.
 
@@ -543,7 +556,7 @@ geom_histogram()
 
 ## Other aesthetics
 
-In the previous section we saw examples of plots with X and Y and only X plot aesthetics. As well as the simple aesthetics we have already encountered we can also adjust elements specific to the type of plot we are using (the `geom_*()`):
+In the previous section we saw examples of plots that assigned columns in the data to both the x-axis and y-axis (e.g. scatterplots) and plots that used only an x-axis (e.g. histograms). As well as these simple aesthetics, we can also adjust elements specific to the type of plot we are using (the `geom_*()`):
 
 * shape = Display a point with geom_point() as a dot, star, triangle etc.
 * fill = The interior color (e.g. of a bar or boxplot)
@@ -567,6 +580,8 @@ ggplot(
 geom_histogram(
   fill = "orange")
 ```
+*NOTE: when we assign a character value such as the fixed color orange, we need to use quotation marks (`"orange"`) whereas when we are mapping an aesthetic to a column name we do not use quotation marks*
+
 
 2. A data column (e.g. color = gender) such that display of each observation depends on its value in that column
     * Assigned _inside_ `aes()`
@@ -620,6 +635,8 @@ geom_point(
   size = 2,
   alpha = 0.5)
 ```
+
+*NOTE: here we assign size and alpha to fixed values outside of the `mapping = aes()` argument, these can also be mapped to columns in our data by placing them inside the argument and specifying a column name to map them to.*
 
 We will cover different color options later and how to change the colors assigned to your data. Basic colors for static mapping are built-in with **ggplot2**:
 
@@ -739,8 +756,11 @@ geom_histogram() +
 facet_wrap(~source)
 ```
 
-Here we split out the linelist data by source of infection. By default `facet_wrap()` automatically matches scales between plots. 
-This can be turned off with "free" options passed to `scales =` 
+Here we split out the linelist data by source of infection. A key thing to see here is that we must put a "~" before the column name we want to facet by otherwise we will get an error message. 
+
+You will also notice that the date axes in these facet plots look terrible by default! We will address this in the scales section of the tutorial.
+
+By default `facet_wrap()` automatically matches scales between plots. This can be turned off with "free" options passed to `scales =` 
 
 1. "free_y"
 2. "free_x"
@@ -837,6 +857,7 @@ ggplot(
 geom_histogram(mapping = aes(fill = source)) +
 facet_grid(hospital ~ gender)
 ```
+*NOTE: here we are piping (`%>%`) into our plotting function after filtering with `dplyr`. *
 
 ### `gghighlight()`
 
@@ -875,11 +896,25 @@ linelist %>%
 
 Check the handbook for [more information on grouping data](https://epirhandbook.com/en/grouping-data.html)
 
+Editing the facet title strips is touched on in the themes section of this tutorial, see [This short tutorial](https://www.datanovia.com/en/blog/how-to-change-ggplot-facet-labels/) for more information on this. 
+The order of the facets can be adjusted by faceting by a factor and [reordering the levels](https://forcats.tidyverse.org/reference/fct_reorder.html) 
 
 facet quiz - ways to group data - aesthetic and facet
 can you think of situations where facets are preferred?
 facet_wrap vs facet_grid
 
+Below is a short quiz on facets, these are free text questions so there are no wrong answers, let us know what you think! 
+```{r facet-quiz}
+quiz(
+  question_text("When would you use a facet rather than an aesthetic?",
+    answer("Facets are useful to contrast and compare subsets of the data, sometimes this cannot be done efficiently with aesthetics alone as there is a large amount of overlap between different datasets. Sometimes we are already using multiple aesthetics to show different properties of the data and a facet gives us an additional diffentiation without further cluttering the plot.", correct = T), incorrect  = "Facets are useful to contrast and compare subsets of the data, sometimes this cannot be done efficiently with aesthetics alone as there is a large amount of overlap between different datasets. Sometimes we are already using multiple aesthetics to show different properties of the data and a facet gives us an additional diffentiation without further cluttering the plot."
+    ),
+    question_text("When would we use facet_wrap rather than facet_grid?",
+    answer("Facet grid is most useful for 2 discrete variables, where you are seeall or most combinations of these two variables in your data. To split by one variable with a lot of levels or just to provide an additional aesthetic without cluttering the plot facet_wrap may be more useful.", correct = T), incorrect  = "Facet grid is most useful for 2 discrete variables, where you are seeall or most combinations of these two variables in your data. To split by one variable with a lot of levels or just to provide an additional aesthetic without cluttering the plot facet_wrap may be more useful. "
+    )
+  
+)
+```
 
 ## Scales
 Scale commands replace defaults of how the aesthetic mappings manifest, such as:
