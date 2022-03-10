@@ -209,6 +209,7 @@ Photo or GIF of directory structure
 ### Accessing example data
 The example data used in this exercise is available from the link below. This data is in the rds format, an R-specific format which preserves data formatting.
 Click to [download the **clean** dataset as an **.rds file**](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds) for your own practice. A *.rds file* is an R-specific file type that preserves column classes. This ensures you will have only minimal cleaning to do after importing the data into R.
+
 ### Tidy Data
 
 We highly recommend doing our tutorial on Tidy Data in Applied Epidemiology. Collecting, formatting, and preparing your dataset *before* importing it into R is a critical step!
@@ -254,7 +255,7 @@ See this Epi R Handbook LINK for our recommended packages.
 
 
 ## Import data {#import} 
-In this example code we will work with the *cleaned* fictional Ebola data linked above. Import that data into R. If you are interested in the process of cleaning data have a look at the data cleaning tutorial.
+In this example code we will work with the *cleaned* fictional Ebola data linked in the "Data used and directory structure" section. Import that data into R. If you are interested in the process of cleaning data have a look at the data cleaning tutorial.
 
 To import data from a sub-folder, the `import()` command should be modified so that it correctly tells R where to search for this file. This is done using the here() function. In the example below we expect your data to be stored in a sub-directory (folder) named *data* within your R project. In your own use you will need to modify this code for your own directory structure.
 
@@ -916,6 +917,7 @@ quiz(
 )
 ```
 
+
 ## Scales
 Scale commands replace defaults of how the aesthetic mappings manifest, such as:
 
@@ -1462,6 +1464,106 @@ quiz(
     answer("theme(legend.position = 'middle')"),
     answer("theme(legend.position =  c(0.5,0.5))", correct = TRUE)
   )
+)
+```
+
+## Challenge 1
+
+Now that you have seen all of the basic building blocks of a `ggplot()` we would like you to attempt to build your own visualisation from scratch using the information in the previous sections. Feel free to use any of the aesthetics, geoms, facets and scales in the previous sections and go back to these sections to refresh as you work on this, your code should remain in the window.
+
+We would like you to produce a plot with the same fictional Ebola linelist data as in the previous sections, a section of this data is reproduced again below:
+
+```{r linelist-data-2}
+head(linelist,25)
+```
+
+Can you think of a good way to represent the date of onset for infections by the source of infection and gender, be sure to try customizing your axis labels, title etc. to get a plot you are happy with. An example plot is provided as the answer with some comments but have a go at producing one for yourself. Once you have something you are happy with consider the questions below the exercise. If you want to know more about a certain `geom_*()` and how to use it, try using a question mark before the name of the geom to pull up the documentation for the function, e.g. `?geom_point`
+
+```{r your_plot, exercise = TRUE, warning=F, message=F, fig.height=8}
+
+```
+
+
+```{r your_plot-solution, eval= F}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset,            # X-axis is date 
+                fill = gender)) +          # fill is gender
+geom_histogram(binwidth = 7) +             # plot a histogram with binwidth of 7 (= 1 week)
+scale_fill_brewer(palette = "Set2",        # pick a preset color palette
+                  na.value = "grey",
+                  labels = c("Female", "Male")) +   # Adjust labels to make them clearer  
+scale_x_date(date_breaks = "3 months",     # fix overlapping date labels
+             expand = c(0,0)) +            # no whit space around the plotted area
+scale_y_continuous(expand = c(0,0),           
+                   limits = c(0,200)) +    # set limits for the y-axis scale
+facet_wrap(~source,                        # wrap by source as we have already used color for gender
+           ncol = 1) +                     # one column as we are dealing with wide rather than tall plots
+labs(
+  title = "Cases by source of infection",
+  subtitle = str_glue(
+  "Weekly cases from {min(linelist$date_onset, na.rm = TRUE)}
+  to {max(linelist$date_onset, na.rm = TRUE)}"),  # use str_glue to extract information ot add to the plot
+  x = "Date of onset",
+  y = "Number of cases",
+  fill = "Gender"
+) +
+theme_light() +                            # pick a theme which allows the data to be clearly seen
+theme(legend.position = "bottom",          # move legend to bottom so there is more width for plotting
+      strip.background = element_rect(fill = "lightgrey",  # change colors of the facet strip elements
+                                      color = "darkgrey"), # to make this clearer to read
+      strip.text = element_text(color = "black")
+)
+```
+
+
+```{r your_plot_quiz}
+quiz(
+  question_text("Do you think your plot would be easily understandable at a quick glance?",
+    answer("Good graphics are usually interpretable within a few seconds for those familiar with standard plotting methods. This interpretation can be aided by including descriptive titles, axis labels, legends and captions as well as by not over-cluttering your plot. Do not be afraid to use facets if you feel that a plot is becoming too complex.", correct = T), incorrect  = "Good graphics are usually interpretable within a few seconds for those familiar with standard plotting methods. This interpretation can be aided by including descriptive titles, axis labels, legends and captions as well as by not over-cluttering your plot. Do not be afraid to use facets if you feel that a plot is becoming too complex."
+    ),
+    question_text("Do you think your visualization is showing something too complex to explain with words?",
+    answer("This is a good way to consider data visualization, if something can easily be explained with words it likely doesn't need to be plotted unless to support other information. If a plot is explaining something which you would struggle to explain succinctly with words this means that it is an effective and valuable visualization.", correct = T), incorrect  = "This is a good way to consider data visualization, if something can easily be explained with words it likely doesn't need to be plotted unless to support other information. If a plot is explaining something which you would struggle to explain succinctly with words this means that it is an effective and valuable visualization."
+    ),
+    question_text("What do you think about the contrast in your plot? is it highlighting what you want to show?",
+    answer("Don't be afraid to play with colors and the different background themes in ggplot to create an effective and visually appealing visualization. It is important that associations you are trying to highlight are easily visible and noticed without further prompting.", correct = T), incorrect  = "Don't be afraid to play with colors and the different background themes in ggplot to create an effective and visually appealing visualization. It is important that associations you are trying to highlight are easily visible and noticed without further prompting."
+    ),
+    question_text("How would you improve on the example plot in the answer (reproduced below)?",
+    answer("This is up to you to decide! One thing which jumps out is that it doesn't mention that we are using Ebola data anywhere on the plot. This would be ok if it was to form part of a report on a certain dataset or a presentation on the progress of an Ebola outbreak but may be an issue if it is a plot to be viewed by the public or wider level stakeholders and collaborators.", correct = T), incorrect  = "This is up to you to decide! One thing which jumps out is that it doesn't mention that we are using Ebola data anywhere on the plot. This would be ok if it was to form part of a report on a certain dataset or a presentation on the progress of an Ebola outbreak but may be an issue if it is a plot to be viewed by the public or wider level stakeholders and collaborators."
+    )
+
+)
+
+```
+```{r your_plot-plot, eval= T, echo = F, fig.height = 8}
+ggplot(
+  data = linelist,
+  mapping = aes(x = date_onset,            # X-axis is date 
+                fill = gender)) +          # fill is gender
+geom_histogram(binwidth = 7) +             # plot a histogram with binwidth of 7 (= 1 week)
+scale_fill_brewer(palette = "Set2",        # pick a preset color palette
+                  na.value = "grey",
+                  labels = c("Female", "Male")) +   # Adjust labels to make them clearer  
+scale_x_date(date_breaks = "3 months",     # fix overlapping date labels
+             expand = c(0,0)) +            # no whit space around the plotted area
+scale_y_continuous(expand = c(0,0),           
+                   limits = c(0,200)) +    # set limits for the y-axis scale
+facet_wrap(~source,                        # wrap by source as we have already used color for gender
+           ncol = 1) +                     # one column as we are dealing with wide rather than tall plots
+labs(
+  title = "Cases by source of infection",
+  subtitle = str_glue(
+  "Weekly cases from {min(linelist$date_onset, na.rm = TRUE)}
+  to {max(linelist$date_onset, na.rm = TRUE)}"),  # use str_glue to extract information ot add to the plot
+  x = "Date of onset",
+  y = "Number of cases",
+  fill = "Gender"
+) +
+theme_light() +                            # pick a theme which allows the data to be clearly seen
+theme(legend.position = "bottom",          # move legend to bottom so there is more width for plotting
+      strip.background = element_rect(fill = "lightgrey",  # change colors of the facet strip elements
+                                      color = "darkgrey"), # to make this clearer to read
+      strip.text = element_text(color = "black")
 )
 ```
 
