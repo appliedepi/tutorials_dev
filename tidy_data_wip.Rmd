@@ -63,6 +63,8 @@ knitr::opts_chunk$set(echo = FALSE,warning = F, message = F)
 linelist_raw <- rio::import(here::here("data", "linelist_raw.xlsx"))
 linelist <- rio::import(here::here("data", "linelist_cleaned.rds"))
 malaria_counts <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
+linelist_tidy <- linelist %>% 
+  filter(!is.na(fever))
 ```
 
 
@@ -201,7 +203,22 @@ Click to download .... TO DO
 
 
 ## Principles of tidy data
-Use *machine*-readable “tidy” data instead of messy “*human*-readable” data. These are the three main requirements for “tidy” data, as explained in this tutorial on “tidy” data in R:
+
+Tidying data refers to the process of structuring your datasets for analysis. Most datasets will require some level of cleaning, a process which can make up the majority of the time you spend on your analysis depending on how "messy" your dataset is.
+
+```{r open_text_qu}
+question_text(
+  "How long does it typically take you to clean your dataset for analysis?",
+  answer("lemons", correct = TRUE),
+  incorrect="Thank you for your feedback!",
+  correct="Thank you for your feedback!",
+  allow_retry = TRUE
+)
+```
+
+Whilst the process of tidying your dataset will vary depending on the data and analysis type, in this tutorial we will go through different principles of tidy data and their value in getting your dataset analysis-ready, i.e. *machine*-readable “tidy” data instead of messy “*human*-readable” data. 
+
+These are the three main requirements for “tidy” data:
 
 *    Each variable must have its own column
 *    Each observation must have its own row
@@ -212,7 +229,7 @@ Why is it important to make sure your data is tidy?
 *   In making sure the data you collect or analyse is tidy, you follow a **consistent** data structure. This consistency will make it easier to learn and apply tools to different datasets. It will also make your analyses more efficient.
 *   When working with R, placing variables in columns allows for easy manipulation of data that feels natural. Most of the packages from the **tidyverse** are designed to work with tidy data.
 
-### Exercise 1
+### What a "tidy" dataset looks like
 Here is a subset of the [malaria routine surveillance dataset](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_facility_count_data.rds), presented in 3 ways.
 ```{r table-format,echo=FALSE}
 table1 <- malaria_counts[c(1:5),] %>% 
@@ -232,64 +249,125 @@ table3
 ```{r quiz-table-format}
 quiz(
   question("Out of the 3 datasets presented above, which one is considered tidy as specified in the requirements specified previously?",
-    answer("table1"),
-    answer("table2", correct = TRUE),
-    answer("table3"),
+    answer("table1", correct = TRUE,
+           message="Correct! Each variable (`cases` and `population`) have their own column, each value has its own cell and each observation has its own row."),
+    answer("table2", 
+           message="Variables `cases` and `population` are both in one column and each observation is spread over two rows."),
+    answer("table3", 
+           message="The cells in column 'rate' contain multiple values."),
   allow_retry = TRUE
   )
 )
 ```
 
 ### *Answer*
-Only `table2` is tidy as it is the only one where each column is a variable and each cell has its own value.
+Only `table1` is tidy as it is the only one where each column is a variable and each cell has its own value and each observation has its own row.
 
-### **Tidy data**
-An example of “tidy” data would be the case linelist used throughout this handbook - each variable is contained within one column, each observation (one case) has it’s own row, and every value is in just one cell. Below you can view the first 50 rows of the linelist:
+```{r open_text_qu}
+question_text(
+  "Reflecting on tidy data practices, what proportion of the datasets you use are tidy?",
+  answer("lemons", correct = TRUE),
+  incorrect="Thank you for your feedback!",
+  correct="Thank you for your feedback!",
+  allow_retry = TRUE
+)
+```
+
+### **Tidy data for analysis**
+An example of “tidy” data would be the case linelist used throughout this handbook - each variable has its own column, each observation (one case) has its own row, and every value is in just one cell. Below you can view the first 50 rows of the linelist:
 
 ```{r}
 head(linelist,50)
 ```
 
-### Exercise 2
-Here is a subset of the linelist presented in 3 ways.
+Here is a subset of the linelist presented in 3 ways. Take your time to go through each dataset to see in what ways the data is presented differently.
 
-(TO DO: One table as is, one table with fever melted in a column with other symptoms, one where fever is input as a binary (0,1) variable)
+```{r linelist_edit}
+linelist1 <- linelist %>% 
+  mutate(fever=ifelse(fever=="yes",
+                      paste0("yes: ",temp), fever)) %>% 
+  dplyr::select(case_id,generation,fever)
+linelist2 <- linelist %>% 
+  dplyr::select(c(1,2,c(22:26))) %>% 
+  reshape2::melt(id.vars=c(1,2),
+                 variable.name="symptom")
+linelist3 <- linelist %>% 
+  dplyr::select(case_id,generation,fever)
+
+# figure out which rows to show as e.g. below
+rowsub0 <- linelist1[match(unique(linelist1$generation),linelist1$generation),] %>% 
+  pull(case_id)
+rowsub <- rowsub0[c(1:3,35:38)]
+
+```
+
+`linelist1`
+```{r}
+linelist1 %>% filter(case_id%in%rowsub)
+```
+`linelist2`
+```{r}
+linelist2 %>% filter(case_id%in%rowsub)
+```
+`linelist3`
+```{r}
+linelist3 %>% filter(case_id%in%rowsub)
+```
+
 
 For each case generation, compute the number of patients with fever. To do so, you will need to:
 
 *   Make sure the values recorded are clean.
-*   Make sure that the data is in a "machine-readable" format.
-*   Extract the cases for each generation.
-*   Compute the sum of cases with fever in each of these group.
+*   Extract the cases for each generation (using `group_by()`).
+*   Compute the sum of cases with fever in each of these group (using `summarize()` and `sum`).
 *   Store back in the appropriate place.
 
-```{r exercise2, exercise=TRUE, exercise.eval=TRUE}
-linelist
+```{r exercise2, exercise=TRUE, exercise.eval=TRUE,exercise.lines=5}
+
 ```
 
 ```{r exercise2-hint}
-unique(linelist$fever)
-linelist$fever <- ifelse(is.na(linelist$fever),"no",linelist$fever)
-unique(linelist$fever)
-linelist$fever <- ifelse(linelist$fever=="yes",1,0)
+# Checking that recorded values are 'clean'
 unique(linelist$fever)
 
-linelist %>% 
-  group_by(generation) %>% 
-  summarise(n_fever=sum(fever))
+#remove rows where there is no input value
+linelist_tidy <- linelist %>% 
+  filter(!is.na(fever))
 
 ```
 
-Which of these data representations is the easiest to work with? Why?
+```{r exercise2-solution}
+# Compute the number of fever cases by generation
+linelist_nfever <- linelist_tidy %>% 
+  group_by(generation) %>% 
+  summarise(n_fever=sum(fever=="yes"))
+linelist_nfever  
+```
+
+
+```{r letter-a, echo=FALSE}
+question("Which of these data representations is the easiest to work with? Why?",
+  answer("`linelist1`",message = "Are you sure? Multiple values are contained in one cell!"),
+  answer("`linelist2`",message = "Are you sure? Different variables are grouped in one column!"),
+  answer("`linelist3`", correct = TRUE),
+  allow_retry = T
+)
+```
 
 ### *Answer*
-Dataset x (TO DO) is easiest to work with in R because:
+
+Dataset `linelist3` is easiest to work with in R because:
 
 *   Each variable has its own column
-*   Variable values are recorded as numerical binary values (i.e. 0 and 1), which can be understood by computers. 
-    *Note*: whilst we can also easily compute summaries with "yes" and "no" values, this requires one extra step when coding as the computer does not understand what these words represent.
+*   Each observation has its own row
+*   Each value has its own cell
+
+In a dataset where one cell contains more than one value, such as `linelist1`, extracting the relevant value may be overly complicated: you might have to resort to using pattern recognition functions (such as `grep()` or `separate()`) or, in this case, filter away the "no" (using the `!` operator, so that the summarise function becomes: `summarise(n_fever=sum(!fever=="no"))`), but this might not always be applicable.
+
+In a dataset where different variables are contained in the same column, such as shown in `linelist2`, you will have to filter for your variable of interest, which requires one extra line of code. Whilst this dataset does not follow tidy data principles, we will see later how such formats may be easier for data analysis.
 
 ## Excel-to-R resources
+
 Here are some links to tutorials to help you transition to R from Excel:
 
 *   [R vs. Excel](https://www.northeastern.edu/graduate/blog/r-vs-excel/)
@@ -303,6 +381,7 @@ R has robust ways to import Excel workbooks, work with the data, export/save Exc
 It is true that some of the more aesthetic Excel formatting can get lost in translation (e.g. italics, sideways text, etc.). If your work flow requires passing documents back-and-forth between R and Excel while retaining the original Excel formatting, try packages such as **openxlsx**.
 
 ### **Non-tidy data**
+
 *The main reason one encounters non-tidy data is because many Excel spreadsheets are designed to prioritize easy reading by humans, not easy reading by machines/software.*
 
 To help you see the difference, below are some fictional examples of **non-tidy data** that prioritize *human*-readability over *machine*-readability:
@@ -318,7 +397,25 @@ Ways and tips for collecting data
 #### Storing data
 Ways and tips for storing data
 
+### **Merged cells**
+*Problems*: In the spreadsheet above, there are *merged* cells which are not easily digested by R. Which row should be considered the “header” is not clear. TO DO
+
+Photo or GIF of directory structure. TO DO
+
+### **Empty rows**
+*Problems*: In the spreadsheet above, there are numerous extra empty rows and columns within the dataset - this will cause cleaning headaches in R. TO DO
+
+### **Colour dictionaries**
+A color-based dictionary is to the right side and cell values are represented by colors - which is also not easily interpreted by R (nor by humans with color-blindness!). Furthermore, different pieces of information are combined into one cell (multiple partner organizations working in one area, or the status “TBC” in the same cell as “Partner D”). TO DO
+
+```{r}
+# add a new column with information on what the colour represents
+```
+
+
 ## Data dictionaries
+
+#### ** Variable definition**
 
 A data dictionary describes what each column header represents. For example, when we look at the `linelist` dataset, what each of the column names represent may not be clear to someone not familiar with the data.
 
@@ -334,7 +431,6 @@ quiz(
     answer("The age of the five cats"),
     answer("The age category, as categorised by 5 years age ranges", correct = TRUE),
     answer("The age category, as categorised in 5 groups"),
-    random_answer_order = TRUE,
   allow_retry = TRUE
   )
 )
@@ -344,6 +440,22 @@ quiz(
 
 Even if you are familiar with the dataset, the meaning of the column names may not be obvious! That's when data dictionaries become useful, as they will provide information on the column name meaning. 
 
+#### **Listing possible values and levels**
+
+Data dictionaries can also be helpful to specify which of the different values one variable can have. This is similar to what a cell with a drop-down list of values would provide in Excel.
+
+```{r quiz}
+quiz(
+  question("Which of these would be helpful to add in a data dictionary to specify the value levels or format?",
+    answer("Date, YYYY-MM-DD", correct = TRUE, message = "Adding the date format is helpful as a date can be written in many different ways (e.g. years in 2 or 4 digits, putting the day/month first, etc.) and specifying what input format the date should have will help save time when it comes to cleaning your dataset"),
+    answer("Gender, 'M' or 'F' or 'other' or 'unknown'", correct= TRUE, message = "Specifying the input format is helpful as you can input gender as words or initials, which may differ depending on the language or your input data. This can also be helpful to decide where you are only recording 'males' and 'females' or if you are recording other genders too."),
+    answer("Age, years", correct = TRUE, message = "Specifying the unit of one value is important especially if that unit is not evident. In this case, age could be recorded in days, months or years for example."),
+    answer("Name of hospital, 'A' or 'B' or 'C'", message = "Adding a level to the definition of this value in your data dictionary is probably not helpful. In the case that your data originates from 3 hospitals (in this case, A, B or C), it is evident that the name of the hospital will have to be listed if your dataset contains a hospital asking for 'Hospital Name'. In the case that you have many values (for example, more than 10), listing all of the possible values in the data dictionary will just make the definition overly long and unhelpful. In the case that you do not know all of the locations where the data is generated (for example, you are creating a template collection sheet), listing only some specific hospitals may lead to some locations not recording their data or incorrect input data."),
+    answer("Age category, '0-4' or '5-14' or '15-44' or '45+'", correct=TRUE, message="When asking for data to be categorised, it is very important to specify the categories that you are expecting as these may not be obvious and can differ depending on the research question and data type."),
+    answer("Presence of fever on admission, 'yes' or 'no'", correct = TRUE, message = "If you are expecting a binary data input, it is important to specify that you are as well as the format you are expecting. In this example, rather than 'yes' and 'no', the data collector could have asked for '1' and '0', where 1 = 'yes' and 0 = 'no'. If asking for numerical inputs to binary data, it is important to specify what these numbers represent.")
+  )
+)
+```
 
 Below is the data dictionary for this dataset:
 
@@ -365,243 +477,69 @@ It is good practice to create data dictionaries when you collect data and create
 *   Bold or italics will not be read by R
 *   Stay consistent in how you name columns (for example, avoid mixing upper- and lower-case and if possible, keep column names all in lower-case)
 
-Add something about package **labelled** TO DO
-Add something about package **matchmaker** TO DO
-
-## Pivoting data for analysis
-### **"Wide" and "long" data**
-![Here is a representation of what a "wide" dataset converted to a "long" format would look like.](images/tidy_data/pivot_longer_new.png){width=70%}
-
-### **“Wide” format**
-Data are often entered and stored in a “wide” format - where a subject’s characteristics or responses are stored in a single row. While this may be useful for presentation, it is not ideal for some types of analysis.
-
-Let us take the `malaria_counts` dataset as an example. You can see that each row represents a “facility-day”. The actual case counts (the right-most columns) are stored in a “wide” format such that the information for every age group on a given facility-day is stored in a single row.
-
-```{r}
-head(malaria_counts,5)
-```
-
-Each observation in this dataset refers to the malaria counts at one of 65 facilities on a given date, ranging from `r malaria_counts$data_date %>% min()` to `r malaria_counts$data_date %>% max()`. These facilities are located in one `Province` (North) and four `Districts` (Spring, Bolo, Dingo, and Barnard). The dataset provides the overall counts of malaria, as well as age-specific counts in each of three age groups - <4 years, 5-14 years, and 15 years and older.
-
-“Wide” data like this are not adhering to “tidy data” standards, because the column headers do not actually represent “variables” - they represent values of a hypothetical “age group” variable.
-
-This format can be useful for presenting the information in a table, or for entering data (e.g. in Excel) from case report forms. However, in the analysis stage, these data typically should be transformed to a “longer” format more aligned with “tidy data” standards. The plotting R package **ggplot2** in particular works best when data are in a “long” format.
-
-```{r quiz-pivot-plot}
+### **Data dictionary variable descriptions**
+```{r quiz}
 quiz(
-  question("With the original dataset format as shown above, which of the following could we easily plot?",
-    answer("The *total* malaria case counts over time", correct = TRUE),
-    answer("The *total* malaria case counts over time with relative contributions of each age group"),
-    answer("Malaria case counts in children aged 5-14 years over time in each district", correct = TRUE),
-  random_answer_order = TRUE,
-  allow_retry = TRUE
+  question("What would be the best description for a column named `Date`?",
+    answer("Date, YY-MM-JJ", message = "This description may not be explicit (what occurence is this date recording?) and the format is inconsistent: YY refers to 'years' (i.e. in English) whereas JJ refers to 'jour' (i.e. in French)."),
+    answer("Date, YY-MM-DD", message = "This description may not be explicit (what occurence is this date recording?)."),
+    answer("Date of diagnosis, YYYY/DD/MM", correct = TRUE, message = "This description explicitly specifies what event the date is recording and the format clear and consistent."),
+    answer("Date of collection, AA-MM-JJ", correct = TRUE, message = "This description explicitly specifies what event the date is recording and the format clear and consistent."),
+    answer("Date, YYYY.MM.DD", message = "This description may not be explicit (what occurence is this date recording?)."),
+    allow_retry = TRUE
+  ),
+  question("What would be the best description for a column named `x`?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE),
+    allow_retry = TRUE
   )
 )
 ```
 
-### *Answer*
-Visualising the *total* malaria counts over time poses no difficulty with the data in it’s current format, as we are plotting one column against another:
-```{r, echo=T}
-ggplot(malaria_counts) +
-  geom_col(aes(x = data_date, y = malaria_tot), width = 1)
-```
+### **Answer**
+xx
 
-The same principle applies to malaria case counts in children aged 5-14 years, as we are still plotting one column against another. To see which district cases originated from, we can add a colour element by adding the `fill` argument to the “mapping aesthetics” `aes()` argument:
+Add something about package **labelled** TO DO
+Add something about package **matchmaker** TO DO
 
-```{r, echo=T, message=F}
-ggplot(malaria_counts) +
-  geom_col(aes(x = data_date, y = `malaria_rdt_5-14`,
-               fill=District), width = 1)
-```
+## Recording data
 
-As the different district names are recorded in the same column, it is easy to add this element to the plot.
-But what if we wanted to display the relative contributions of each age group to this total count? In this case, we need to ensure that the variable of interest (age group), appears in the dataset in a single column (as is the case for the `Districts`) that can be passed to ggplot2’s “mapping aesthetics” `aes()` argument.
+When recording data, the most important aspect is to stay **consistent**. This will help minimise the time it takes to clean the data as well as re-use the same code on new data.
 
-### `pivot_longer()`
-The **tidyr** function `pivot_longer()` makes data “longer”. **tidyr** is part of the **tidyverse** of R packages.
-
-It accepts a range of columns to transform (specified to `cols =`). Therefore, it can operate on only a part of a dataset. This is useful for the malaria data, as we only want to pivot the case count columns.
-
-In this process, you will end up with two “new” columns - one with the categories (the former column names), and one with the corresponding values (e.g. case counts). You can accept the default names for these new columns, or you can specify your own to `names_to =` and `values_to =` respectively.
-
-Try to use `pivot_longer()` to malaria cases across the different age categories and the total count to make the data longer.
-
-```{r standard-pivoting, exercise=TRUE, exercise.eval=TRUE, exercise.lines = 10}
-df_long <- malaria_counts
-```
-
-```{r standard-pivoting-hint}
-df_long <- malaria_counts %>% 
-  pivot_longer(
-    cols = c(`malaria_rdt_0-4`, `malaria_rdt_5-14`, `malaria_rdt_15`, `malaria_tot`)
-  )
-
-df_long
-```
-
-Notice that the newly created data frame (`df_long`) has more rows (12,152 vs 3,038); it has become *longer.* In fact, it is precisely four times as long, because each row in the original dataset now represents four rows in df_long, one for each of the malaria count observations (<4y, 5-14y, 15y+, and total).
-
-In addition to becoming longer, the new dataset has fewer columns (8 vs 10), as the data previously stored in four columns (those beginning with the prefix `malaria_`) is now stored in two.
-
-### **Other ways to use `pivot_longer()`**
-Since the names of these four columns all begin with the prefix `malaria_`, we could have made use of the handy “tidyselect” function `starts_with()` to achieve the same result (see the page (Cleaning data and core functions)[https://www.epirhandbook.com/en/cleaning-data-and-core-functions.html] for more of these helper functions).
-
-```{r,echo=T}
-# provide column with a tidyselect helper function
-malaria_counts %>% 
-  pivot_longer(
-    cols = starts_with("malaria_")
-  )
-```
+### **Recording dates**
 
 
-
-We could have also selected the columns by their position:
-
-```{r,echo=T, results='hide'}
-# provide columns by position
-malaria_counts %>% 
-  pivot_longer(
-    cols = 6:9
-  )
-```
-
-
-
-As the columns follow one another, we could have also specified the first and last columns, letting R know that it should include all the columns between these with a colon `:` (as we did with the column positions above):
-
-```{r,echo=T, results='hide'}
-# provide range of consecutive columns
-malaria_counts %>% 
-  pivot_longer(
-    cols = `malaria_rdt_0-4`:malaria_tot
-  )
-```
-
-
-
-These two new columns are given the default names of `name` and `value`, but we can override these defaults to provide more meaningful names, which can help remember what is stored within, using the `names_to` and `values_to` arguments. Try to do so yourself. What would be appropriate names for these?
-
-```{r df-long-colnames, exercise=TRUE, exercise.eval=TRUE,exercise.lines=10}
-df_long <- 
-  malaria_counts %>% 
-  pivot_longer(
-    cols = starts_with("malaria_")
-  )
-```
-
-```{r df-long-colnames-hint}
-df_long <- 
-  malaria_counts %>% 
-  pivot_longer(
-    cols = starts_with("malaria_"),
-    names_to = "age_group",
-    values_to = "counts"
-  )
-
-df_long
-```
-
-
-### **Plotting age groups with the long dataset**
-We can now pass this new dataset to ggplot2, and map the new column `count` to the y-axis and new column `age_group` to the `fill =` argument (the column internal color). This will display the malaria counts in a stacked bar chart, by age group:
-
-```{r,echo=F}
-df_long <- 
-  malaria_counts %>% 
-  pivot_longer(
-    cols = starts_with("malaria_"),
-    names_to = "age_group",
-    values_to = "counts"
-  )
-```
-
-```{r,echo=T}
-ggplot(data = df_long) +
-  geom_col(
-    mapping = aes(x = data_date, y = counts, fill = age_group),
-    width = 1
-  )
-```
-
-Examine this new plot, and compare it with the plot we created earlier - *what has gone wrong*?
-
-We have encountered a common problem when wrangling surveillance data - we have also included the total counts from the `malaria_tot` column, so the magnitude of each bar in the plot is twice as high as it should be.
-
-We can handle this in a number of ways. We could simply filter these totals from the dataset before we pass it to `ggplot()`:
-
-```{r, echo=T}
-df_long %>% 
-  filter(age_group != "malaria_tot") %>% 
-  ggplot() +
-  geom_col(
-    aes(x = data_date, y = counts, fill = age_group),
-    width = 1
-  )
-```
-
-Alternatively, we could have excluded this variable when we ran pivot_longer(), thereby maintaining it in the dataset as a separate variable. See how its values “expand” to fill the new rows.
-
-```{r,echo=T}
-malaria_counts %>% 
-  pivot_longer(
-    cols = `malaria_rdt_0-4`:malaria_rdt_15,   # does not include the totals column
-    names_to = "age_group",
-    values_to = "counts"
-  )
-```
-
-```{r quiz-pivot_longer}
-quiz(
-  question("Which of the ways shown in selecting columns would not have worked when only trying to select cases by age ranges and not total cases?",
-    answer("Listing column names"),
-    answer("Provide column with tidyselect helper function `starts_with()`", correct = TRUE),
-    answer("Column position"),
-    answer("Range of consecutive columns")
-  ))
-```
-
-### *Answer*
-The **tidyselect** helper function `starts_with()` would not have worked here as the columns with the age range specified and the total cases column start with the same string. This is something to think about when inputting data and naming columns!
-
-### **Pivoting data of multiple classes**
-The above example works well in situations in which all the columns you want to “pivot longer” are of the same class (`character`, `numeric`, `logical`…).
-
-However, there will be many cases when, as a field epidemiologist, you will be working with data that was prepared by non-specialists and which follow their own non-standard logic - as Hadley Wickham noted (referencing Tolstoy) in his [seminal article](https://vita.had.co.nz/papers/tidy-data.pdf) on **Tidy Data** principles: “Like families, tidy datasets are all alike but every messy dataset is messy in its own way.”
-
-One particularly common problem you will encounter will be the need to pivot columns that contain different classes of data. This pivot will result in storing these different data types in a single column, which is not a good situation. There are various approaches one can take to separate out the mess this creates, but there is an important step you can take using `pivot_longer()` to avoid creating such a situation yourself.
-
-Take a situation in which there have been a series of observations at different time steps for each of three items A, B and C. Examples of such items could be individuals (e.g. contacts of an Ebola case being traced each day for 21 days) or remote village health posts being monitored once per year to ensure they are still functional. Let’s use the contact tracing example. Imagine that the data are stored as follows:
-
-TO DO
-
-As can be seen, the data are a bit complicated. Each row stores information about one item, but with the time series running further and further away to the right as time progresses. Moreover, the column classes alternate between date and character values.
-
-One particularly bad example of this encountered by this author involved cholera surveillance data, in which 8 new columns of observations were added *each day* over the course of **4 years**. Simply opening the Excel file in which these data were stored took >10 minutes on my laptop!
-
-In order to work with these data, we need to transform the data frame to long format, but keeping the separation between a `date` column and a `character` (status) column, for each observation for each item. If we don’t, we might end up with a mixture of variable types in a single column (a very big “no-no” when it comes to data management and tidy data):
-
-## Exercise: merged cells
-*Problems*: In the spreadsheet above, there are *merged* cells which are not easily digested by R. Which row should be considered the “header” is not clear. TO DO
-
-Photo or GIF of directory structure. TO DO
-
-
-## Exercise: Colour dictionary
-A color-based dictionary is to the right side and cell values are represented by colors - which is also not easily interpreted by R (nor by humans with color-blindness!). Furthermore, different pieces of information are combined into one cell (multiple partner organizations working in one area, or the status “TBC” in the same cell as “Partner D”). TO DO
-
-```{r}
-# add a new column with information on what the colour represents
-```
-
-## Exercise: Empty rows
-
-*Problems*: In the spreadsheet above, there are numerous extra empty rows and columns within the dataset - this will cause cleaning headaches in R. TO DO
-
-## Exercise: standardising formats/GIS
+### **Recording gender**
+### **Recording location**
 Furthermore, the GPS coordinates are spread across two rows for a given treatment center. As a side note - the GPS coordinates are in two different formats! TO DO
 
 “Tidy” datasets may not be as readable to a human eye, but they make data cleaning and analysis much easier!
+
+## Pivoting data for analysis
+### **"Wide" and "long" data**
+![Here is a representation of what a pivoting a dataset looks like.](images/tidy_data/pivot.gif){width=70%}
+
+#### *"Wide" data*
+
+A "wide" dataset is a dataset in which each variable is a column and its respective value is listed in that column. Each row of data will therefore contain many values, each of which represents a different variable. In wide datasets, filtering the data might not be necessary as all the reader would need to do is take the information from specific columns.
+
+While this may be useful for presentation, it is not ideal for some types of analysis. Wide datasets are quite voluminous and take longer to read in R. It is also harder to manipulate a wide dataset for analysis.
+
+The R functions `pivot_wider()` (from package **tidyr**) or `cast()` (from package **reshape2**) transforms data to wide formats. 
+
+#### *"Long" data*
+
+In "long" datasets, the different variables are listed in one column and their respective values listed in another column. A long dataset would therefore have at minimum 2 columns, but could also have more columns than that (for example, if we are listing malaria cases by country and year, we could have 3 columns as shown in the Figure above).
+
+Long datasets are much easier to read in R (even if they contain many rows) and are required for many types of analyses, including plotting with `ggplot2` or most modelling functions. However, these types of datasets may not be the most intuitive for the human eye.
+
+The R functions `pivot_longer()`(from package **tidyr**) or `melt()` (from package **reshape2**) transforms data to long formats. 
+
+### Impact of pivoting for plotting
+
+### Impact of pivoting for data analysis
 
 ## Exercise: functions
 The R word “function” might be new, but the concept exists in Excel too as formulas. Formulas in Excel also require precise syntax (e.g. placement of semicolons and parentheses). All you need to do is learn a few new functions and how they work together in R. TO DO
@@ -615,8 +553,3 @@ Here is an example of an R script:
 
 Photo or GIF of directory structure. TO DO
 
-## Exercise: recording dates
-TO DO
-
-## Exercise: recording gender
-TO DO
