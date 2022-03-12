@@ -2459,6 +2459,7 @@ Our second plot shows the mean age of cases with onset in each week over the sam
 Data is summarized from the larger linelist by first grouping by date of onset and then calculating a confidence interval and mean age using the **Hmisc** function `mean_cl_normal()` which assumes a normal distribution of the underlying data.
 
 ```{r, echo = T, eval=T}
+
 plot2 <- linelist %>% 
 group_by(week = floor_date(date_onset, "week")) %>% 
 summarise(ci = list(mean_cl_normal(age) %>% rename(mean=y, lwr=ymin, upr=ymax))) %>% 
@@ -2510,10 +2511,54 @@ plot_grid(plot1,
           align = "hv",
           labels = "auto")
 ```
+```{r plot-grid-ex-setup}
+plot1 <- linelist %>% 
+  ggplot(
+    mapping = aes(
+      x = date_onset),
+    binwidth = 7)+
+  geom_histogram()+
+  theme_minimal()+
+  scale_y_continuous(expand = c(0,0))+
+ scale_x_date(
+   limits = c(
+     as.Date("2014-05-01"),
+     max(linelist$date_onset, na.rm=T)),
+    date_breaks = "months",
+    labels = scales::label_date_short(),
+    expand = c(0,0))
+
+plot2 <- linelist %>% 
+group_by(week = floor_date(date_onset, "week")) %>% 
+summarise(ci = list(mean_cl_normal(age) %>% rename(mean=y, lwr=ymin, upr=ymax))) %>% 
+unnest(c(ci)) %>%  
+  
+ggplot(
+  mapping = aes(
+    x = week,
+    y = mean,
+    ymin = lwr,
+    ymax = upr))+
+geom_ribbon(alpha = 0.5, fill = "green", color = "green")+
+geom_line(size = 2, color = "darkgreen")+
+scale_x_date(
+  limits = c(
+     as.Date("2014-05-01"),
+     max(linelist$date_onset, na.rm=T)),
+  date_breaks = "months",
+  labels = scales::label_date_short(),
+  expand = c(0,0))+
+coord_cartesian(ylim = c(0, 60))+
+theme_minimal()+
+labs(
+  y = "Weekly mean age (95%CI)",
+  x = "Month")
+```
+
 
 `plot_grid()` calls can also be recursively placed inside each-other to generate more complex plot layouts:
 
-```{r, echo = TRUE, fig.height=6, fig.width=10, warning=F, message=F}
+```{r, echo = TRUE, fig.height=7 fig.width=10, warning=F, message=F}
 plot_grid(plot1,
           plot_grid(plot1,
                     plot2,

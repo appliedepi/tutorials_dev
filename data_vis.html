@@ -1045,7 +1045,7 @@ labs(
 <h3>Dynamic labels</h3>
 <p>We can embed code in <code>str_glue()</code> that updates with the data</p>
 <pre class="r"><code>str_glue(&quot;Data as of {Sys.Date()}&quot;)</code></pre>
-<pre><code>## Data as of 2022-03-10</code></pre>
+<pre><code>## Data as of 2022-03-12</code></pre>
 <p>Here we extract the current date (<code>Sys.Date()</code>) in the time zone of our computer to add to the plot.</p>
 <pre class="r"><code>str_glue(&quot;{fmt_count(linelist, is.na(date_onset))} cases missing onset and not shown&quot;)</code></pre>
 <pre><code>## 256 (4.3%) cases missing onset and not shown</code></pre>
@@ -5278,8 +5278,8 @@ combined</code></pre>
 <p>Use <code>ggplotly()</code> from the <strong>plotly</strong> package to easily make most ggplots interactive. The best way to do this is to first save your ggplot to an <strong>R</strong> object and then call this within <code>ggplotly()</code></p>
 <pre class="r"><code># Provide the name of a defined plot into ggplotly()  
 plotly::ggplotly(bar_plot)</code></pre>
-<div id="htmlwidget-387c41488ba57b974702" style="width:864px;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-387c41488ba57b974702">{"x":{"data":[{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[261,497,858,490,977,223],"x":[1,2,3,4,5,6],"y":[193,399,611,395,785,199],"text":["count: 193<br />hospital: Central Hospital<br />outcome: Death","count: 399<br />hospital: Military Hospital<br />outcome: Death","count: 611<br />hospital: Missing<br />outcome: Death","count: 395<br />hospital: Other<br />outcome: Death","count: 785<br />hospital: Port Hospital<br />outcome: Death","count: 199<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Death"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Death","legendgroup":"Death","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[96,188,344,200,398,97],"x":[1,2,3,4,5,6],"y":[165,309,514,290,579,126],"text":["count: 165<br />hospital: Central Hospital<br />outcome: Recover","count: 309<br />hospital: Military Hospital<br />outcome: Recover","count: 514<br />hospital: Missing<br />outcome: Recover","count: 290<br />hospital: Other<br />outcome: Recover","count: 579<br />hospital: Port Hospital<br />outcome: Recover","count: 126<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Recover"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Recover","legendgroup":"Recover","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[0,0,0,0,0,0],"x":[1,2,3,4,5,6],"y":[96,188,344,200,398,97],"text":["count:  96<br />hospital: Central Hospital<br />outcome: NA","count: 188<br />hospital: Military Hospital<br />outcome: NA","count: 344<br />hospital: Missing<br />outcome: NA","count: 200<br />hospital: Other<br />outcome: NA","count: 398<br />hospital: Port Hospital<br />outcome: NA","count:  97<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: NA"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"NA","legendgroup":"NA","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.958904109589,"r":7.30593607305936,"b":139.927692672061,"l":48.9497716894977},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,6.6],"tickmode":"array","ticktext":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"tickvals":[1,2,3,4,5,6],"categoryorder":"array","categoryarray":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-45,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"hospital","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-88.1,1850.1],"tickmode":"array","ticktext":["0","500","1000","1500"],"tickvals":[0,500,1000,1500],"categoryorder":"array","categoryarray":["0","500","1000","1500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"outcome","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"4dcc703c5c98":{"x":{},"fill":{},"type":"bar"}},"cur_data":"4dcc703c5c98","visdat":{"4dcc703c5c98":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3dd21296711f53c00c1a" style="width:864px;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3dd21296711f53c00c1a">{"x":{"data":[{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[261,497,858,490,977,223],"x":[1,2,3,4,5,6],"y":[193,399,611,395,785,199],"text":["count: 193<br />hospital: Central Hospital<br />outcome: Death","count: 399<br />hospital: Military Hospital<br />outcome: Death","count: 611<br />hospital: Missing<br />outcome: Death","count: 395<br />hospital: Other<br />outcome: Death","count: 785<br />hospital: Port Hospital<br />outcome: Death","count: 199<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Death"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Death","legendgroup":"Death","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[96,188,344,200,398,97],"x":[1,2,3,4,5,6],"y":[165,309,514,290,579,126],"text":["count: 165<br />hospital: Central Hospital<br />outcome: Recover","count: 309<br />hospital: Military Hospital<br />outcome: Recover","count: 514<br />hospital: Missing<br />outcome: Recover","count: 290<br />hospital: Other<br />outcome: Recover","count: 579<br />hospital: Port Hospital<br />outcome: Recover","count: 126<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: Recover"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Recover","legendgroup":"Recover","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9],"base":[0,0,0,0,0,0],"x":[1,2,3,4,5,6],"y":[96,188,344,200,398,97],"text":["count:  96<br />hospital: Central Hospital<br />outcome: NA","count: 188<br />hospital: Military Hospital<br />outcome: NA","count: 344<br />hospital: Missing<br />outcome: NA","count: 200<br />hospital: Other<br />outcome: NA","count: 398<br />hospital: Port Hospital<br />outcome: NA","count:  97<br />hospital: St. Mark's Maternity Hospital (SMMH)<br />outcome: NA"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"NA","legendgroup":"NA","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.958904109589,"r":7.30593607305936,"b":139.927692672061,"l":48.9497716894977},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,6.6],"tickmode":"array","ticktext":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"tickvals":[1,2,3,4,5,6],"categoryorder":"array","categoryarray":["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-45,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"hospital","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-88.1,1850.1],"tickmode":"array","ticktext":["0","500","1000","1500"],"tickvals":[0,500,1000,1500],"categoryorder":"array","categoryarray":["0","500","1000","1500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"outcome","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1798bd3727":{"x":{},"fill":{},"type":"bar"}},"cur_data":"1798bd3727","visdat":{"1798bd3727":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>This allows you to view tooltips with the data used to create the plot, zoom, screenshot and other basic interactive functions by default but can be built up to produce robust interactive plots for use in reports, dashboards etc. See the handboo <a href="https://epirhandbook.com/en/interactive-plots.html">pages on interactive plotting</a> for more information.</p>
 </div>
 <div id="section-point-and-click-ggplot2" class="section level2">
@@ -5408,16 +5408,16 @@ submitr::shiny_logic(input, output, session, vfun,
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-1", question = structure("What is the most basic building block of data vizualisation?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_4d39c66", 
+"character")), answers = list(structure(list(id = "lnr_ans_c24fd16", 
     option = "Statistics", value = "Statistics", label = structure("Statistics", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e2ac85a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d6dd7c1", 
     option = "Scale", value = "Scale", label = structure("Scale", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e82ce7a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d0771dd", 
     option = "Data", value = "Data", label = structure("Data", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_944df51", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1aeb422", 
     option = "Visualisation type", value = "Visualisation type", 
     label = structure("Visualisation type", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -5429,22 +5429,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-1-answer", question = "quiz1-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat is the most basic building block of data vizualisation?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1831100295.14733, options = list()), class = c("learnr_radio", 
+    seed = 1547418271.27943, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz1-2", question = structure("Which of the R packages listed below are used to create plots?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9739b4", 
+"character")), answers = list(structure(list(id = "lnr_ans_9b8767", 
     option = "ggplot2", value = "ggplot2", label = structure("ggplot2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4902448", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_180bc99", 
     option = "here", value = "here", label = structure("here", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_14e3524", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dba6a58", 
     option = "dplyr", value = "dplyr", label = structure("dplyr", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_11784fd", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_75fc725", 
     option = "incidence2", value = "incidence2", label = structure("incidence2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -5455,7 +5455,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-2-answer", question = "quiz1-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below are used to create plots?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 482471850.775332, options = list()), class = c("learnr_checkbox", 
+    seed = 713295370.667846, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -5761,10 +5761,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-1", question = structure("Where are dynamic aesthetics placed in ggplot code?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f0cab51", 
+"character")), answers = list(structure(list(id = "lnr_ans_98cc2d1", 
     option = "inside aes()", value = "inside aes()", label = structure("inside aes()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_28b4116", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8e11aa5", 
     option = "outside aes()", value = "outside aes()", label = structure("outside aes()", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -5775,16 +5775,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-1-answer", question = "quiz_aes-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhere are dynamic aesthetics placed in ggplot code?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1261324303.41265, options = list()), class = c("learnr_radio", 
+    seed = 1495371125.30366, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-2", question = structure("Are static aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a4c9b73", 
+"character")), answers = list(structure(list(id = "lnr_ans_53dc0cd", 
     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_16ec44a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2b927f2", 
     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -5795,16 +5795,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-2-answer", question = "quiz_aes-2"), loading = structure("<strong>Loading:<\u002fstrong> \nAre static aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1586734419.76112, options = list()), class = c("learnr_radio", 
+    seed = 2055294439.54293, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_aes-3", question = structure("Are dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_ef98f35", 
+"character")), answers = list(structure(list(id = "lnr_ans_349ec28", 
     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_47f405c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_44c6963", 
     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -5815,7 +5815,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_aes-3-answer", question = "quiz_aes-3"), loading = structure("<strong>Loading:<\u002fstrong> \nAre dynamic aesthetics in the initial ggplot() call inherited by subsequent geoms?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 440669447.794797, options = list()), class = c("learnr_radio", 
+    seed = 1714608403.20157, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -5900,7 +5900,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "facet-quiz-1", 
     question = structure("When would you use a facet rather than an aesthetic?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4142096", 
+    "character")), answers = list(structure(list(id = "lnr_ans_45e052", 
         option = "Facets are useful to contrast and compare subsets of the data, sometimes this cannot be done efficiently with aesthetics alone as there is a large amount of overlap between different datasets. Sometimes we are already using multiple aesthetics to show different properties of the data and a facet gives us an additional diffentiation without further cluttering the plot.", 
         value = "Facets are useful to contrast and compare subsets of the data, sometimes this cannot be done efficiently with aesthetics alone as there is a large amount of overlap between different datasets. Sometimes we are already using multiple aesthetics to show different properties of the data and a facet gives us an additional diffentiation without further cluttering the plot.", 
         label = structure("Facets are useful to contrast and compare subsets of the data, sometimes this cannot be done efficiently with aesthetics alone as there is a large amount of overlap between different datasets. Sometimes we are already using multiple aesthetics to show different properties of the data and a facet gives us an additional diffentiation without further cluttering the plot.", html = TRUE, class = c("html", 
@@ -5914,7 +5914,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "facet-quiz-1-answer", question = "facet-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhen would you use a facet rather than an aesthetic?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 51504420.4760164, options = list(placeholder = "Enter answer here...", 
+    seed = 445905561.292359, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -5922,7 +5922,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "facet-quiz-2", 
     question = structure("When would we use facet_wrap rather than facet_grid?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_b285a0a", 
+    "character")), answers = list(structure(list(id = "lnr_ans_af72f1d", 
         option = "Facet grid is most useful for 2 discrete variables, where you are seeall or most combinations of these two variables in your data. To split by one variable with a lot of levels or just to provide an additional aesthetic without cluttering the plot facet_wrap may be more useful.", 
         value = "Facet grid is most useful for 2 discrete variables, where you are seeall or most combinations of these two variables in your data. To split by one variable with a lot of levels or just to provide an additional aesthetic without cluttering the plot facet_wrap may be more useful.", 
         label = structure("Facet grid is most useful for 2 discrete variables, where you are seeall or most combinations of these two variables in your data. To split by one variable with a lot of levels or just to provide an additional aesthetic without cluttering the plot facet_wrap may be more useful.", html = TRUE, class = c("html", 
@@ -5936,7 +5936,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "facet-quiz-2-answer", question = "facet-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhen would we use facet_wrap rather than facet_grid?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1197322662.94245, options = list(placeholder = "Enter answer here...", 
+    seed = 1546193059.28, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -6339,10 +6339,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "themes-quiz-1", 
     question = structure("Should adjustments to the theme be made before or after setting one of the default themes?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_98a7cc7", 
+    "character")), answers = list(structure(list(id = "lnr_ans_468c4e", 
         option = "before", value = "before", label = structure("before", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d21f5f8", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8060a9", 
         option = "after", value = "after", label = structure("after", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6354,24 +6354,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "themes-quiz-1-answer", question = "themes-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nShould adjustments to the theme be made before or after setting one of the default themes?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 516215403.759618, options = list()), class = c("learnr_radio", 
+    seed = 590400971.225073, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "themes-quiz-2", 
     question = structure("Which of the following are prebuilt themes in ggplot", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_d3997a3", 
+    "character")), answers = list(structure(list(id = "lnr_ans_d81a33a", 
         option = "theme_bw()", value = "theme_bw()", label = structure("theme_bw()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e8619ea", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9d3513d", 
         option = "theme_classic()", value = "theme_classic()", 
         label = structure("theme_classic()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_51c59d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d792691", 
         option = "theme_red()", value = "theme_red()", label = structure("theme_red()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_92dd228", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_18371da", 
         option = "scale_color_brewer()", value = "scale_color_brewer()", 
         label = structure("scale_color_brewer()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -6384,26 +6384,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "themes-quiz-2-answer", question = "themes-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following are prebuilt themes in ggplot\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 289842370.365032, options = list()), class = c("learnr_checkbox", 
+    seed = 444196183.793155, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "themes-quiz-3", 
     question = structure("How would you hide a legend in ggplot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4eb789a", 
+    "character")), answers = list(structure(list(id = "lnr_ans_3f432f6", 
         option = "theme(legend.title = 'element.blank()')", value = "theme(legend.title = 'element.blank()')", 
         label = structure("theme(legend.title = &#39;element.blank()&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b0bf7fe", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_cbd1707", 
         option = "theme(legend.position = 'right')", value = "theme(legend.position = 'right')", 
         label = structure("theme(legend.position = &#39;right&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8dd0780", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a727f1d", 
         option = "theme(legend.position(`none`))", value = "theme(legend.position(`none`))", 
         label = structure("theme(legend.position(<code>none<\u002fcode>))", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b96ae10", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e612591", 
         option = "theme(legend.position = 'none')", value = "theme(legend.position = 'none')", 
         label = structure("theme(legend.position = &#39;none&#39;)", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -6416,18 +6416,18 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "themes-quiz-3-answer", question = "themes-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow would you hide a legend in ggplot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1919317034.60625, options = list()), class = c("learnr_radio", 
+    seed = 1993383900.57176, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "themes-quiz-4", 
     question = structure("How would you set your legend to appear in the centre of your graph?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_423eedc", 
+    "character")), answers = list(structure(list(id = "lnr_ans_c5d453", 
         option = "theme(legend.position = 'middle')", value = "theme(legend.position = 'middle')", 
         label = structure("theme(legend.position = &#39;middle&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8f633e2", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1b532bc", 
         option = "theme(legend.position =  c(0.5,0.5))", value = "theme(legend.position =  c(0.5,0.5))", 
         label = structure("theme(legend.position =  c(0.5,0.5))", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -6440,7 +6440,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "themes-quiz-4-answer", question = "themes-quiz-4"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow would you set your legend to appear in the centre of your graph?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 2161280.49899358, options = list()), class = c("learnr_radio", 
+    seed = 1850399357.13834, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -6538,7 +6538,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "your_plot_quiz-1", 
     question = structure("Do you think your plot would be easily understandable at a quick glance?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_71e36c4", 
+    "character")), answers = list(structure(list(id = "lnr_ans_642d2a9", 
         option = "Good graphics are usually interpretable within a few seconds for those familiar with standard plotting methods. This interpretation can be aided by including descriptive titles, axis labels, legends and captions as well as by not over-cluttering your plot. Do not be afraid to use facets if you feel that a plot is becoming too complex.", 
         value = "Good graphics are usually interpretable within a few seconds for those familiar with standard plotting methods. This interpretation can be aided by including descriptive titles, axis labels, legends and captions as well as by not over-cluttering your plot. Do not be afraid to use facets if you feel that a plot is becoming too complex.", 
         label = structure("Good graphics are usually interpretable within a few seconds for those familiar with standard plotting methods. This interpretation can be aided by including descriptive titles, axis labels, legends and captions as well as by not over-cluttering your plot. Do not be afraid to use facets if you feel that a plot is becoming too complex.", html = TRUE, class = c("html", 
@@ -6552,7 +6552,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "your_plot_quiz-1-answer", question = "your_plot_quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nDo you think your plot would be easily understandable at a quick glance?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 619408033.211566, options = list(placeholder = "Enter answer here...", 
+    seed = 95512239.9555236, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -6560,7 +6560,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "your_plot_quiz-2", 
     question = structure("Do you think your visualization is showing something too complex to explain with words?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_214ba8b", 
+    "character")), answers = list(structure(list(id = "lnr_ans_e7949ed", 
         option = "This is a good way to consider data visualization, if something can easily be explained with words it likely doesn't need to be plotted unless to support other information. If a plot is explaining something which you would struggle to explain succinctly with words this means that it is an effective and valuable visualization.", 
         value = "This is a good way to consider data visualization, if something can easily be explained with words it likely doesn't need to be plotted unless to support other information. If a plot is explaining something which you would struggle to explain succinctly with words this means that it is an effective and valuable visualization.", 
         label = structure("This is a good way to consider data visualization, if something can easily be explained with words it likely doesn&#39;t need to be plotted unless to support other information. If a plot is explaining something which you would struggle to explain succinctly with words this means that it is an effective and valuable visualization.", html = TRUE, class = c("html", 
@@ -6574,7 +6574,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "your_plot_quiz-2-answer", question = "your_plot_quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nDo you think your visualization is showing something too complex to explain with words?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 534344843.251176, options = list(placeholder = "Enter answer here...", 
+    seed = 693986538.176837, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -6582,7 +6582,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "your_plot_quiz-3", 
     question = structure("What do you think about the contrast in your plot? is it highlighting what you want to show?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_980f0d3", 
+    "character")), answers = list(structure(list(id = "lnr_ans_8b560dd", 
         option = "Don't be afraid to play with colors and the different background themes in ggplot to create an effective and visually appealing visualization. It is important that associations you are trying to highlight are easily visible and noticed without further prompting.", 
         value = "Don't be afraid to play with colors and the different background themes in ggplot to create an effective and visually appealing visualization. It is important that associations you are trying to highlight are easily visible and noticed without further prompting.", 
         label = structure("Don&#39;t be afraid to play with colors and the different background themes in ggplot to create an effective and visually appealing visualization. It is important that associations you are trying to highlight are easily visible and noticed without further prompting.", html = TRUE, class = c("html", 
@@ -6596,7 +6596,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "your_plot_quiz-3-answer", question = "your_plot_quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat do you think about the contrast in your plot? is it highlighting what you want to show?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 2047458555.04658, options = list(placeholder = "Enter answer here...", 
+    seed = 323826399.849207, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -6604,7 +6604,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "your_plot_quiz-4", 
     question = structure("How would you improve on the example plot in the answer (reproduced below)?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_a561dfa", 
+    "character")), answers = list(structure(list(id = "lnr_ans_76c9950", 
         option = "This is up to you to decide! One thing which jumps out is that it doesn't mention that we are using Ebola data anywhere on the plot. This would be ok if it was to form part of a report on a certain dataset or a presentation on the progress of an Ebola outbreak but may be an issue if it is a plot to be viewed by the public or wider level stakeholders and collaborators.", 
         value = "This is up to you to decide! One thing which jumps out is that it doesn't mention that we are using Ebola data anywhere on the plot. This would be ok if it was to form part of a report on a certain dataset or a presentation on the progress of an Ebola outbreak but may be an issue if it is a plot to be viewed by the public or wider level stakeholders and collaborators.", 
         label = structure("This is up to you to decide! One thing which jumps out is that it doesn&#39;t mention that we are using Ebola data anywhere on the plot. This would be ok if it was to form part of a report on a certain dataset or a presentation on the progress of an Ebola outbreak but may be an issue if it is a plot to be viewed by the public or wider level stakeholders and collaborators.", html = TRUE, class = c("html", 
@@ -6618,7 +6618,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "your_plot_quiz-4-answer", question = "your_plot_quiz-4"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow would you improve on the example plot in the answer (reproduced below)?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 526138415.254998, options = list(placeholder = "Enter answer here...", 
+    seed = 1613000017.74889, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -6788,10 +6788,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "bars-quiz-1", 
     question = structure("Which bar plotting function would we use if data already has aggregated counts in our dataset?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_22c3ce7", 
+    "character")), answers = list(structure(list(id = "lnr_ans_9b4e4f9", 
         option = "geom_bar()", value = "geom_bar()", label = structure("geom_bar()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c9ba597", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1be4400", 
         option = "geom_col()", value = "geom_col()", label = structure("geom_col()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6803,26 +6803,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "bars-quiz-1-answer", question = "bars-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich bar plotting function would we use if data already has aggregated counts in our dataset?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 168290150.421634, options = list()), class = c("learnr_radio", 
+    seed = 2034643970.55255, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "bars-quiz-2", 
     question = structure("What argument to geom_bar or geom_col lets us convert stacked bars to adjavcent bars?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_8cdc653", 
+    "character")), answers = list(structure(list(id = "lnr_ans_af60aca", 
         option = "aes(position = 'dodge')", value = "aes(position = 'dodge')", 
         label = structure("aes(position = &#39;dodge&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_14c46ab", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ec738", 
         option = "aes(position = 'adjacent')", value = "aes(position = 'adjacent')", 
         label = structure("aes(position = &#39;adjacent&#39;)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_17ae8ca", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f205c43", 
         option = "position = 'adjacent'", value = "position = 'adjacent'", 
         label = structure("position = &#39;adjacent&#39;", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bbbdc7d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8723ffc", 
         option = "position = 'dodge'", value = "position = 'dodge'", 
         label = structure("position = &#39;dodge&#39;", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -6835,13 +6835,13 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "bars-quiz-2-answer", question = "bars-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat argument to geom_bar or geom_col lets us convert stacked bars to adjavcent bars?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1333314524.87913, options = list()), class = c("learnr_radio", 
+    seed = 917028606.572975, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "bars-quiz-3", question = structure("In geom_col() how does the data need to be formatted to create colored groups?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_fbff39a", 
+"character")), answers = list(structure(list(id = "lnr_ans_7b9378a", 
     option = "Each plotting group must have its own rows in the data", 
     value = "Each plotting group must have its own rows in the data", 
     label = structure("Each plotting group must have its own rows in the data", html = TRUE, class = c("html", 
@@ -6855,14 +6855,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     answer = "bars-quiz-3-answer", question = "bars-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nIn geom_col() how does the data need to be formatted to create colored groups?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 310297953.855506, options = list(placeholder = "Enter answer here...", 
+    seed = 896529464.582521, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "bars-quiz-4", question = structure("What command is used to flip the axes in ggplot?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_4321ab0", 
+"character")), answers = list(structure(list(id = "lnr_ans_788f467", 
     option = "coord_flip()", value = "coord_flip()", label = structure("coord_flip()", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6874,14 +6874,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     answer = "bars-quiz-4-answer", question = "bars-quiz-4"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat command is used to flip the axes in ggplot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 323286414.349458, options = list(placeholder = "Enter answer here...", 
+    seed = 2113963469.51561, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "bars-quiz-5", question = structure("Why might we want to display counts on a stacked bar plot?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_339aa54", 
+"character")), answers = list(structure(list(id = "lnr_ans_7b4a424", 
     option = "It is hard to estimate the height of the individual sections of a stacked barplot", 
     value = "It is hard to estimate the height of the individual sections of a stacked barplot", 
     label = structure("It is hard to estimate the height of the individual sections of a stacked barplot", html = TRUE, class = c("html", 
@@ -6895,7 +6895,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     answer = "bars-quiz-5-answer", question = "bars-quiz-5"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhy might we want to display counts on a stacked bar plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 32077868.4850626, options = list(placeholder = "Enter answer here...", 
+    seed = 1219105610.43231, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -7049,17 +7049,17 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "epicurves-quiz-1", 
     question = structure("Where do we need to specify groups when making an epicurve with incidence2?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_2afb695", 
+    "character")), answers = list(structure(list(id = "lnr_ans_312add3", 
         option = "in incidence()", value = "in incidence()", 
         label = structure("in incidence()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_616d71", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1052bc3", 
         option = "in plot()", value = "in plot()", label = structure("in plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_84eed9c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f5f60db", 
         option = "in theme()", value = "in theme()", label = structure("in theme()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1ee59e6", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8770b2f", 
         option = "in scale()", value = "in scale()", label = structure("in scale()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -7071,25 +7071,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "epicurves-quiz-1-answer", question = "epicurves-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhere do we need to specify groups when making an epicurve with incidence2?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 2010734762.06368, options = list()), class = c("learnr_checkbox", 
+    seed = 287544464.866102, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "epicurves-quiz-2", 
     question = structure("How do we add ggplot elements to our epicurve plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_1bc64c5", 
+    "character")), answers = list(structure(list(id = "lnr_ans_54a73dc", 
         option = "replace plot() with ggplot()", value = "replace plot() with ggplot()", 
         label = structure("replace plot() with ggplot()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_250b3eb", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5afac2c", 
         option = "just add (+) them to the plot()", value = "just add (+) them to the plot()", 
         label = structure("just add (+) them to the plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_29ffbc4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_74714e9", 
         option = "we can't", value = "we can't", label = structure("we can&#39;t", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_acacdc5", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_230b1a5", 
         option = "ggplot(plot())", value = "ggplot(plot())", 
         label = structure("ggplot(plot())", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -7102,23 +7102,23 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "epicurves-quiz-2-answer", question = "epicurves-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow do we add ggplot elements to our epicurve plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 819914466.618198, options = list()), class = c("learnr_radio", 
+    seed = 395478012.815841, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "epicurves-quiz-3", 
     question = structure("How do we edit the date axis of our epicurve plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_b7dfddd", 
+    "character")), answers = list(structure(list(id = "lnr_ans_873115", 
         option = "with the custom incidence2 commands in plot()", 
         value = "with the custom incidence2 commands in plot()", 
         label = structure("with the custom incidence2 commands in plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_207ca48", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8ee6221", 
         option = "with scale_x_date()", value = "with scale_x_date()", 
         label = structure("with scale_x_date()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_92a4856", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bbe7b", 
         option = "only by specifying different date bins in incidence()", 
         value = "only by specifying different date bins in incidence()", 
         label = structure("only by specifying different date bins in incidence()", html = TRUE, class = c("html", 
@@ -7132,14 +7132,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "epicurves-quiz-3-answer", question = "epicurves-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow do we edit the date axis of our epicurve plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 268863524.874801, options = list()), class = c("learnr_radio", 
+    seed = 345211544.839248, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "epicurves-quiz-4", 
     question = structure("When can it be useful to use show_cases = TRUE?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_61a2fd4", 
+    "character")), answers = list(structure(list(id = "lnr_ans_4cd538b", 
         option = "small outbreaks", value = "small outbreaks", 
         label = structure("small outbreaks", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -7152,7 +7152,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "epicurves-quiz-4-answer", question = "epicurves-quiz-4"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhen can it be useful to use show_cases = TRUE?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1355322014.36888, options = list(placeholder = "Enter answer here...", 
+    seed = 1359535317.86692, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -7160,16 +7160,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "apyramid-quiz-1", 
     question = structure("Which function do we use to create and plot our age pyramid?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_bd6e2c5", 
+    "character")), answers = list(structure(list(id = "lnr_ans_c4fb19d", 
         option = "apyramid()", value = "apyramid()", label = structure("apyramid()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7da5d0", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8a6af95", 
         option = "ggplot()", value = "ggplot()", label = structure("ggplot()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e0ffb26", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_531c854", 
         option = "incidence()", value = "incidence()", label = structure("incidence()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_804f767", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9bfa408", 
         option = "age_pyramid()", value = "age_pyramid()", label = structure("age_pyramid()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -7181,25 +7181,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "apyramid-quiz-1-answer", question = "apyramid-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich function do we use to create and plot our age pyramid?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1157938529.96079, options = list()), class = c("learnr_radio", 
+    seed = 1581539310.26354, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "apyramid-quiz-2", 
     question = structure("How do we add ggplot elements to our age pyramid plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_9301a01", 
+    "character")), answers = list(structure(list(id = "lnr_ans_865525b", 
         option = "replace age_pyramid() with ggplot()", value = "replace age_pyramid() with ggplot()", 
         label = structure("replace age_pyramid() with ggplot()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a17a42f", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5093763", 
         option = "just add (+) them to the plot()", value = "just add (+) them to the plot()", 
         label = structure("just add (+) them to the plot()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc0b5f4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5ec3fd7", 
         option = "we can't", value = "we can't", label = structure("we can&#39;t", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d847a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_117c8cf", 
         option = "ggplot() + age_pyramid()", value = "ggplot() + age_pyramid()", 
         label = structure("ggplot() + age_pyramid()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -7212,20 +7212,20 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "apyramid-quiz-2-answer", question = "apyramid-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow do we add ggplot elements to our age pyramid plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 670625754.687716, options = list()), class = c("learnr_radio", 
+    seed = 1991932327.57243, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "apyramid-quiz-3", 
     question = structure("Which argument allows us to specify an extra variable to show on the bars?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4bc80e5", 
+    "character")), answers = list(structure(list(id = "lnr_ans_e466049", 
         option = "split_by = ", value = "split_by = ", label = structure("split_by = ", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2e4b74", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c25059b", 
         option = "group_by = ", value = "group_by = ", label = structure("group_by = ", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_663ac0d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_cca62ae", 
         option = "stack_by = ", value = "stack_by = ", label = structure("stack_by = ", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -7237,7 +7237,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "apyramid-quiz-3-answer", question = "apyramid-quiz-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich argument allows us to specify an extra variable to show on the bars?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1569936712.76894, options = list()), class = c("learnr_radio", 
+    seed = 818769994.618731, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -7322,17 +7322,17 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "labels-quiz-1", 
     question = structure("Which functions can we use to label points in ggplot2?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_44620ab", 
+    "character")), answers = list(structure(list(id = "lnr_ans_61d24f2", 
         option = "geom_text()", value = "geom_text()", label = structure("geom_text()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8133433", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b9e2655", 
         option = "labs()", value = "labs()", label = structure("labs()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_937f5bb", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_61c4c09", 
         option = "geom_label_repel()", value = "geom_label_repel()", 
         label = structure("geom_label_repel()", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8ca0f56", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7190d3", 
         option = "glabels()", value = "glabels()", label = structure("glabels()", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -7344,14 +7344,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "labels-quiz-1-answer", question = "labels-quiz-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich functions can we use to label points in ggplot2?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1574800340.26668, options = list()), class = c("learnr_checkbox", 
+    seed = 1697110726.20972, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "labels-quiz-2", 
     question = structure("What else do we need to specify to see labels on our plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_ecc63bf", 
+    "character")), answers = list(structure(list(id = "lnr_ans_b5bbb30", 
         option = "We need to specify what data to use for the label using label = within the aes() of the ggplot() function", 
         value = "We need to specify what data to use for the label using label = within the aes() of the ggplot() function", 
         label = structure("We need to specify what data to use for the label using label = within the aes() of the ggplot() function", html = TRUE, class = c("html", 
@@ -7365,7 +7365,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "labels-quiz-2-answer", question = "labels-quiz-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat else do we need to specify to see labels on our plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1904814612.113, options = list(placeholder = "Enter answer here...", 
+    seed = 2011245375.56344, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -7413,19 +7413,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("# load 
 "  tidyverse,   # ggplot2 & data management", "  ggpubr,", "  gghighlight,", 
 "  RColorBrewer, # now built in to ggplot but need to load to see the palettes", 
 "  Hmisc,", "  datasets", "  )", "", "", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "plot-grid-ex", code = "plot_grid(plot1,\n          plot2,\n          rel_heights = c(1, 1),\n          ncol = 1,\n          align = \"hv\",\n          labels = \"auto\")", 
-        opts = list(label = "\"plot-grid-ex\"", exercise = "TRUE", 
-            echo = "TRUE", fig.height = "6", fig.width = "9", 
-            warning = "F", message = "F"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "data_vis_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "center", fig.path = "data_vis_files/figure-html/", 
+    label = "setup", include = FALSE)), setup = "plot1 <- linelist %>% \n  ggplot(\n    mapping = aes(\n      x = date_onset),\n    binwidth = 7)+\n  geom_histogram()+\n  theme_minimal()+\n  scale_y_continuous(expand = c(0,0))+\n scale_x_date(\n   limits = c(\n     as.Date(\"2014-05-01\"),\n     max(linelist$date_onset, na.rm=T)),\n    date_breaks = \"months\",\n    labels = scales::label_date_short(),\n    expand = c(0,0))\n\nplot2 <- linelist %>% \ngroup_by(week = floor_date(date_onset, \"week\")) %>% \nsummarise(ci = list(mean_cl_normal(age) %>% rename(mean=y, lwr=ymin, upr=ymax))) %>% \nunnest(c(ci)) %>%  \n  \nggplot(\n  mapping = aes(\n    x = week,\n    y = mean,\n    ymin = lwr,\n    ymax = upr))+\ngeom_ribbon(alpha = 0.5, fill = \"green\", color = \"green\")+\ngeom_line(size = 2, color = \"darkgreen\")+\nscale_x_date(\n  limits = c(\n     as.Date(\"2014-05-01\"),\n     max(linelist$date_onset, na.rm=T)),\n  date_breaks = \"months\",\n  labels = scales::label_date_short(),\n  expand = c(0,0))+\ncoord_cartesian(ylim = c(0, 60))+\ntheme_minimal()+\nlabs(\n  y = \"Weekly mean age (95%CI)\",\n  x = \"Month\")", 
+    chunks = list(list(label = "plot-grid-ex-setup", code = "plot1 <- linelist %>% \n  ggplot(\n    mapping = aes(\n      x = date_onset),\n    binwidth = 7)+\n  geom_histogram()+\n  theme_minimal()+\n  scale_y_continuous(expand = c(0,0))+\n scale_x_date(\n   limits = c(\n     as.Date(\"2014-05-01\"),\n     max(linelist$date_onset, na.rm=T)),\n    date_breaks = \"months\",\n    labels = scales::label_date_short(),\n    expand = c(0,0))\n\nplot2 <- linelist %>% \ngroup_by(week = floor_date(date_onset, \"week\")) %>% \nsummarise(ci = list(mean_cl_normal(age) %>% rename(mean=y, lwr=ymin, upr=ymax))) %>% \nunnest(c(ci)) %>%  \n  \nggplot(\n  mapping = aes(\n    x = week,\n    y = mean,\n    ymin = lwr,\n    ymax = upr))+\ngeom_ribbon(alpha = 0.5, fill = \"green\", color = \"green\")+\ngeom_line(size = 2, color = \"darkgreen\")+\nscale_x_date(\n  limits = c(\n     as.Date(\"2014-05-01\"),\n     max(linelist$date_onset, na.rm=T)),\n  date_breaks = \"months\",\n  labels = scales::label_date_short(),\n  expand = c(0,0))+\ncoord_cartesian(ylim = c(0, 60))+\ntheme_minimal()+\nlabs(\n  y = \"Weekly mean age (95%CI)\",\n  x = \"Month\")", 
+        opts = list(label = "\"plot-grid-ex-setup\""), engine = "r"), 
+        list(label = "plot-grid-ex", code = "plot_grid(plot1,\n          plot2,\n          rel_heights = c(1, 1),\n          ncol = 1,\n          align = \"hv\",\n          labels = \"auto\")", 
+            opts = list(label = "\"plot-grid-ex\"", exercise = "TRUE", 
+                echo = "TRUE", fig.height = "6", fig.width = "9", 
+                warning = "F", message = "F"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "data_vis_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "center", fig.path = "data_vis_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 9, fig.height = 6, fig.env = "figure", fig.cap = NULL, 
         fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
