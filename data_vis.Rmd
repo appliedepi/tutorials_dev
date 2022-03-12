@@ -2512,6 +2512,8 @@ plot_grid(plot1,
           labels = "auto")
 ```
 ```{r plot-grid-ex-setup}
+## need to remake these plots in a setup chunk for the exercise
+
 plot1 <- linelist %>% 
   ggplot(
     mapping = aes(
@@ -2558,7 +2560,7 @@ labs(
 
 `plot_grid()` calls can also be recursively placed inside each-other to generate more complex plot layouts:
 
-```{r, echo = TRUE, fig.height=7 fig.width=10, warning=F, message=F}
+```{r, echo = TRUE, fig.height=7, fig.width=10, warning=F, message=F}
 plot_grid(plot1,
           plot_grid(plot1,
                     plot2,
@@ -2644,6 +2646,179 @@ combined <- ggdraw(aligned[[1]]) + draw_plot(aligned[[2]])
 combined
 ```
 
+## Challenge 2
+Now that you have been introduced to a number of different plot types and methods in **ggplot2** we have a second challenge for you. In this challenge we want you to create a heatmap with `geom_tile()`, a fucntion which we haven't introduced in this tutorial.
+
+You can use `?geom_tile` to load the [function documentation](https://www.rdocumentation.org/packages/ggplot2/versions/0.9.1/topics/geom_tile) by running it in the code chunk below to get an idea of how the function works and the aesthetics that can be mapped to it. You can also check the [heat plots section of the epiRhandbook](https://epirhandbook.com/en/heat-plots.html). 
+We will first make a who-infected-whom matrix from our linelist data for patients at the Port Hospital, this is covered in detail in the handbook.
+
+First we want to extract cases, their age category and their infector from the linelist data:
+
+```{r echo = T, eval = T}
+case_ages <- linelist %>% 
+  filter(hospital == "Port Hospital") %>%
+  select(case_id, infector, age_cat) %>% 
+  rename("case_age_cat" = "age_cat")
+
+```
+```{r echo = F, eval = T}
+head(case_ages, 25)
+```
+
+Next, we create a data frame of infectors, these are the infector ids from the linelist, dropping any NA values where the infector of a case is not known.
+
+```{r echo = T, eval = T}
+infectors <- linelist %>% 
+  select(infector) %>% 
+  drop_na(infector)
+
+```
+```{r echo = F, eval = T}
+head(infectors, 25)
+```
+
+Then, we want to get information on the age of the infector. This is more complex than it seems as the age of the infector is not listed in the dataset. We need to match these infector id labels with the row in the table representing the infector as a case. We do this with "joins", covered in more detail in the data cleaning tutorial. As the infectors can be anyone in the population, not necessarily from the sam e hospital as the cases we use the full linelist to do this matching, not our newly created `case_ages` object.
+
+```{r echo = T, eval = T}
+infector_ages <- infectors %>%             # begin with infectors
+  left_join(                               # add the linelist data to each infector  
+    linelist,
+    by = c("infector" = "case_id")) %>%    # match infector to their information as a case
+  select(infector, age_cat) %>%            # keep only columns of interest
+  rename("infector_age_cat" = "age_cat")   # rename for clarity
+```
+```{r echo = F, eval = T}
+head(infector_ages, 25)
+```
+
+Now finally, we can combine the cases and their ages with the infectors and their ages. The column `infector` is used to join as this is present in both data frames.
+
+```{r echo = T, eval = T}
+ages_complete <- case_ages %>%  
+  left_join(
+    infector_ages,
+    by = "infector") %>%        # each has the column infector
+  drop_na()                     # drop rows with any missing data
+```
+```{r echo = F, eval = T}
+head(ages_complete, 25)
+```
+
+We can cross-tabulate this data to get an idea of what we want to show in our heatmap.
+
+```{r echo=T, eval=T}
+table(cases = ages_complete$case_age_cat,
+      infectors = ages_complete$infector_age_cat)
+```
+
+We then convert this to a `data_frame()` in long format for plotting with `ggplot()`.
+
+```{r echo=T, eval=T}
+long_counts <- data.frame(table(
+    cases     = ages_complete$case_age_cat,
+    infectors = ages_complete$infector_age_cat))
+```
+```{r echo = F, eval = T}
+head(long_counts, 25)
+```
+
+*NOTE: Here we leave the data as count data but you can easily transform the table to show frequency as it is common to show the proportion of all events in this type of heat plot. We can achieve this by wrapping `prop_table()` around the `table()` command in the above code.*
+
+Try making a heat plot with this new data using the `geom_tile()` function. Some hints are provided in the hints section but try looking at the documentation to learn how the function works. `?geom_tile` is pre-loaded in the exercise chunk below, running this code will bring up the function documentation. Customize your plot colors, background, themes etc. as before to practice producing a finished product. an example solution is given as the solution to the exercise. 
+
+```{r challenge2, exercise = TRUE, warning=F, message=F}
+?geom_tile
+```
+
+
+```{r challenge2-hint-1}
+1. In the aesthetics aes() of geom_tile() set the x and y as the case age and infector age
+
+```
+```{r challenge2-hint-2}
+2. Also in aes() set the argument fill = to the Freq column - this is the value that will be converted to a tile color
+```
+```{r challenge2-hint-3}
+3. Set a scale color with scale_fill_gradient() - you can specify the high/low colors. See the documnetation for this function for more details.
+```
+```{r challenge2-hint-4}
+4. Because the color is made via “fill”, you can use the fill = argument in labs() to change the legend title
+```
+
+```{r challenge2-setup}
+case_ages <- linelist %>% 
+  filter(hospital == "Port Hospital") %>%
+  select(case_id, infector, age_cat) %>% 
+  rename("case_age_cat" = "age_cat")
+
+infectors <- linelist %>% 
+  select(infector) %>% 
+  drop_na(infector)
+
+infector_ages <- infectors %>%             # begin with infectors
+  left_join(                               # add the linelist data to each infector  
+    linelist,
+    by = c("infector" = "case_id")) %>%    # match infector to their information as a case
+  select(infector, age_cat) %>%            # keep only columns of interest
+  rename("infector_age_cat" = "age_cat")   # rename for clarity
+
+ages_complete <- case_ages %>%  
+  left_join(
+    infector_ages,
+    by = "infector") %>%        # each has the column infector
+  drop_na()                     # drop rows with any missing data
+
+long_counts <- data.frame(table(
+    cases     = ages_complete$case_age_cat,
+    infectors = ages_complete$infector_age_cat))
+
+```
+
+```{r challenge2-solution, eval= FALSE}
+ggplot(data = long_counts)+     # use long data, with proportions as Freq
+  geom_tile(                    # visualize it in tiles
+    aes(
+      x = cases,                # x-axis is case age
+      y = infectors,            # y-axis is infector age
+      fill = Freq))+            # color of the tile is the Freq column in the data
+  scale_fill_gradient(          # adjust the fill color of the tiles
+    low = "tan2",
+    high = "firebrick")+
+  geom_text(                    # label with the count data
+    aes(
+      x = cases,
+      y = infectors,
+      label = Freq))+ 
+  theme_minimal() +             # minimal theme
+  theme(legend.position = "bottom",
+        panel.grid.major = element_blank()) +  # remove remaining grid lines
+  labs(                         # labels
+    x = "Case age",
+    y = "Infector age",
+    title = "Who infected whom, Port Hospital",
+    subtitle = "Count matrix of transmission events",
+    fill = "Number of\ntranmsission events"     # legend title
+  )
+```
+
+
+
+```{r challenge2-quiz}
+quiz(
+  question("Did you manage to produce a heat plot by checking the function documentation",
+    answer("Yes", correct = TRUE),
+    answer("No")
+  ),
+    question_text("How do you think this plot could be improved?",
+    answer("Heat plots are effective visualisations for cross-tabulated data such as this. Some things to be careful of are the color scales you choose as these can influence the way the plot is interpreted, usually high values are represented with 'hotter' colors and lower values with cooler ones. In some cases it can also be useful to overlay the numbers used to produce the plot so that people viewing the plot do not have to try to interpret the colours from the continuous scale which can be difficult to do accurately. This is shown in the example solution.", correct = T), incorrect  = "Heat plots are effective visualisations for cross-tabulated data such as this. Some things to be careful of are the color scales you choose as these can influence the way the plot is interpreted, usually high values are represented with 'hotter' colors and lower values with cooler ones. In some cases it can also be useful to overlay the numbers used to produce the plot so that people viewing the plot do not have to try to interpret the colours from the continuous scale which can be difficult to do accurately. This is shown in the example solution."
+    ),
+    question_text("What do you learn from this heat plot?",
+    answer("In our example data there a few cases in older age groups, leading to very few transmission events to and from over 50s. The highest intensity transmission appears to be from 5-9 year-olds to 20-29 year olds. This is likely to be transmission from children to their parents, teachers or healthcare workers but we would need more metadata to correctly assign these transmission events to a certain setting.", correct = T), incorrect  = "In our example data there a few cases in older age groups, leading to very few transmission events to and from over 50s. The highest intensity transmission appears to be from 5-9 year-olds to 20-29 year olds. This is likely to be transmission from children to their parents, teachers or healthcare workers but we would need more metadata to correctly assign these transmission events to a certain setting."
+    )
+)
+```
+
+
 ## Simple interactive plots
 
 Use `ggplotly()` from the **plotly** package to easily make most ggplots interactive. The best way to do this is to first save your ggplot to an **R** object and then call this within `ggplotly()` 
@@ -2662,6 +2837,8 @@ plotly::ggplotly(bar_plot)
 ```
 
 This allows you to view tooltips with the data used to create the plot, zoom, screenshot and other basic interactive functions by default but can be built up to produce robust interactive plots for use in reports, dashboards etc. See the handboo [pages on interactive plotting](https://epirhandbook.com/en/interactive-plots.html) for more information.
+
+Try wrapping your heat plot from challenge 2 with `ggplotly()`, you should get a hover-over tooltip showing the number of transmission events between age groups and be able to zoom the plot by click and dragging over areas of the plot.
 
 
 ## Point-and-click ggplot2
