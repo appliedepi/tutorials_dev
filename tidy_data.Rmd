@@ -67,7 +67,7 @@ linelist_tidy <- linelist %>%
   filter(!is.na(fever))
 data_collection3 <- rio::import(here::here("data", "messy_data_2.xlsx"))
 data_collection2 <- rio::import(here::here("data", "messy_data_1.xlsx"))
-data_collection <- rio::import(here::here("data", "messy_data_1_nocolours.xlsx"))
+#data_collection <- rio::import(here::here("data", "messy_data_1_nocolours.xlsx"))
 ```
 
 
@@ -493,7 +493,7 @@ R cannot recognise the merged cell format, so all cells but the first one includ
 Let's load this dataset to R, to see what issues these merged cells would mean in terms of data values.
 
 ```{r mergedcells}
-head(data_collection)
+#head(data_collection)
 ```
 
 As you see, loading this dataset to R in the given Excel format leads to data loss in multiple ways:
