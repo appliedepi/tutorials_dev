@@ -21,13 +21,14 @@ library(tidyverse)
 library(here)
 library(janitor)
 library(rio)
-library(basket) # not sure if we need this
-library(etude) # helper functions for gradethis
+#library(basket) # not sure if we need this
+#library(etude) # helper functions for gradethis
 library(epikit)
-library(linelist)
+#library(linelist)
 library(lubridate)
 library(fastLink)
 library(sortable)
+library(zoo)
 
 # set options for exercises and checking ---------------------------------------
 gradethis_setup()
@@ -36,31 +37,31 @@ learnr::tutorial_options(exercise.timelimit = 60)
   #exercise.checker = gradethis::grade_learnr) 
     # alternatively, submitr::null_code_checker
 
-
-# event recorder ---------------------------------------------------------------
-# see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R
-tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises
-
-vfun <- submitr::make_basic_validator(NULL, "hello") #basket::check_valid
-
-new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
-    cat(
-      tutorial_id, 
-      " (v", tutorial_version, "); ",
-      format(Sys.time(), "%Y-%M%-%D %H:%M:%S %Z"), "; ",
-      user_id, "; ",
-      event, "; ",
-      data$label, "; ",
-      data$answers, "; ",
-      data$code, "; ",
-      data$correct, "\n", sep = "",
-      
-      file = here::here("event_records", "learnr_basics.txt"),
-      append = TRUE)
-}
-
-options(tutorial.event_recorder = new_recorder)
-
+# 
+# # event recorder ---------------------------------------------------------------
+# # see https://github.com/dtkaplan/submitr/blob/master/R/make_a_recorder.R
+# tutorial_options(exercise.eval = FALSE)  # pre-evaluate exercises
+# 
+# vfun <- submitr::make_basic_validator(NULL, "hello") #basket::check_valid
+# 
+# new_recorder <- function(tutorial_id, tutorial_version, user_id, event, data) {
+#     cat(
+#       tutorial_id, 
+#       " (v", tutorial_version, "); ",
+#       format(Sys.time(), "%Y-%M%-%D %H:%M:%S %Z"), "; ",
+#       user_id, "; ",
+#       event, "; ",
+#       data$label, "; ",
+#       data$answers, "; ",
+#       data$code, "; ",
+#       data$correct, "\n", sep = "",
+#       
+#       file = here::here("event_records", "learnr_basics.txt"),
+#       append = TRUE)
+# }
+# 
+# options(tutorial.event_recorder = new_recorder)
+# 
 
 # hide non-exercise code chunks ------------------------------------------------
 knitr::opts_chunk$set(echo = FALSE)
@@ -213,17 +214,17 @@ linelist$source <- factor(linelist$source)
 
 
 ```{r}
-submitr::login_controls() # show login and password with "Submit" button.
+#submitr::login_controls() # show login and password with "Submit" button.
 ```
 
 
 ```{r context = "server", echo = FALSE}
 # see https://rdrr.io/github/dtkaplan/submitr/f/vignettes/using.Rmd
-options(tutorial.storage = "none")
-vfun <- submitr::make_basic_validator(NULL, "hello")       #basket::check_valid
-storage_actions <- submitr::record_local("./minimal_submissions.csv")
-submitr::shiny_logic(input, output, session, vfun,
-                     storage_actions)
+# options(tutorial.storage = "none")
+# vfun <- submitr::make_basic_validator(NULL, "hello")       #basket::check_valid
+# storage_actions <- submitr::record_local("./minimal_submissions.csv")
+# submitr::shiny_logic(input, output, session, vfun,
+#                      storage_actions)
 ```
 
 
@@ -573,7 +574,7 @@ Often dates are in a variety of different formats, the function `guess_dates()` 
 
 For example `guess_dates()` would see a vector of the following character dates “03 Jan 2018”, “07/03/1982”, and “08/20/85” and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.
 
-```{r, echo = T, eval = T}
+```{r, echo = T, eval = F}
 linelist::guess_dates(c("03 Jan 2018",
                         "07/03/1982",
                         "08/20/85"))
