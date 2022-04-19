@@ -1,0 +1,31 @@
+Column,Description
+case_id,case identification number assigned by MOH
+generation,transmission chain generation number
+date_infection,"estimated date of infection, YYYY-MM-DD"
+date_onset,"date of symptom onset, YYYY-MM-DD"
+date_hospitalisation,"date of initial hospitalization, YYYY-MM-DD"
+date_outcome,date of outcome status determination
+outcome,either 'Death' or 'Recovered' or 'Unknown'
+gender,either 'm' or 'f' or 'unknown'
+age,age number
+age_unit,"age unit, either 'years' or 'months' or 'days'"
+age_years,age in years
+age_cat,"age category, either '0-4' or '5-9' or '10-14' or '15-19' or '20-29' or '30-49' or '50-69' or '70+'"
+age_cat5,"age category, subdivided by 5 years age ranges"
+hospital,Name of hospital of first admission
+lon,"longitude of residence, approx"
+lat,"latitude of residence, approx"
+infector,case_id of infector
+source,context of known transmission event
+wt_kg,"weight, in kilograms"
+ht_cm,"height, in centimeters"
+ct_blood,blood count
+fever,"presence of fever on admission, either 'yes' or 'no'"
+chills,"presence of chills on admission, either 'yes' or 'no'"
+cough,"presence of cough on admission, either 'yes' or 'no'"
+aches,"presence of aches on admission, either 'yes' or 'no'"
+vomit,"presence of vomiting on admission, either 'yes' or 'no'"
+temp,"patient temperature, in Celsius"
+time_admission,time of hospital admission HH:MM
+,
+,
